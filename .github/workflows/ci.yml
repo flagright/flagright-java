@@ -12,6 +12,8 @@ jobs:
         with:
           java-version: "11"
           architecture: x64
+      - name: Generate Gradle Wrapper
+        run: gradle wrapper
       - name: Compile
         run: ./gradlew compileJava
   test:
@@ -26,6 +28,8 @@ jobs:
         with:
           java-version: "11"
           architecture: x64
+      - name: Generate Gradle Wrapper
+        run: gradle wrapper
       - name: Test
         run: ./gradlew test
   publish:
@@ -41,6 +45,8 @@ jobs:
         with:
           java-version: "11"
           architecture: x64
+      - name: Generate Gradle Wrapper
+        run: gradle wrapper
       - name: Publish to maven
         run: |
           ./gradlew sonatypeCentralUpload
