@@ -4,14 +4,42 @@
 package com.flagright.api.core;
 
 /**
- * This class serves as the base exception for all errors in the SDK.
+ * This exception type will be thrown for any non-2XX API responses.
  */
-public class FlagrightApiException extends RuntimeException {
-    public FlagrightApiException(String message) {
+public class FlagrightApiException extends FlagrightException {
+    /**
+     * The error code of the response that triggered the exception.
+     */
+    private final int statusCode;
+
+    /**
+     * The body of the response that triggered the exception.
+     */
+    private final Object body;
+
+    public FlagrightApiException(String message, int statusCode, Object body) {
         super(message);
+        this.statusCode = statusCode;
+        this.body = body;
     }
 
-    public FlagrightApiException(String message, Exception e) {
-        super(message, e);
+    /**
+     * @return the statusCode
+     */
+    public int statusCode() {
+        return this.statusCode;
+    }
+
+    /**
+     * @return the body
+     */
+    public Object body() {
+        return this.body;
+    }
+
+    @java.lang.Override
+    public String toString() {
+        return "FlagrightApiException{" + "message: " + getMessage() + ", statusCode: " + statusCode + ", body: " + body
+                + "}";
     }
 }

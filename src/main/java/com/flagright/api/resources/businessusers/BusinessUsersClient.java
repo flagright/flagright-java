@@ -5,8 +5,8 @@ package com.flagright.api.resources.businessusers;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.flagright.api.core.ClientOptions;
-import com.flagright.api.core.FlagrightApiApiException;
 import com.flagright.api.core.FlagrightApiException;
+import com.flagright.api.core.FlagrightException;
 import com.flagright.api.core.MediaTypes;
 import com.flagright.api.core.ObjectMappers;
 import com.flagright.api.core.RequestOptions;
@@ -118,12 +118,12 @@ public class BusinessUsersClient {
             } catch (JsonProcessingException ignored) {
                 // unable to map error response, throwing generic error
             }
-            throw new FlagrightApiApiException(
+            throw new FlagrightApiException(
                     "Error with status code " + response.code(),
                     response.code(),
                     ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class));
         } catch (IOException e) {
-            throw new FlagrightApiException("Network error executing HTTP request", e);
+            throw new FlagrightException("Network error executing HTTP request", e);
         }
     }
 
@@ -178,12 +178,12 @@ public class BusinessUsersClient {
             } catch (JsonProcessingException ignored) {
                 // unable to map error response, throwing generic error
             }
-            throw new FlagrightApiApiException(
+            throw new FlagrightApiException(
                     "Error with status code " + response.code(),
                     response.code(),
                     ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class));
         } catch (IOException e) {
-            throw new FlagrightApiException("Network error executing HTTP request", e);
+            throw new FlagrightException("Network error executing HTTP request", e);
         }
     }
 }

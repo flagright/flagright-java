@@ -20,7 +20,9 @@ public enum SanctionsDetailsEntityType {
 
     PAYMENT_BENEFICIARY_NAME("PAYMENT_BENEFICIARY_NAME"),
 
-    BANK_NAME("BANK_NAME");
+    BANK_NAME("BANK_NAME"),
+
+    BANK_ACCOUNT_HOLDER_NAME("BANK_ACCOUNT_HOLDER_NAME");
 
     private final String value;
 

@@ -3,10 +3,10 @@
  */
 package com.flagright.api.errors;
 
-import com.flagright.api.core.FlagrightApiApiException;
+import com.flagright.api.core.FlagrightApiException;
 import com.flagright.api.types.ApiErrorResponse;
 
-public final class UnauthorizedError extends FlagrightApiApiException {
+public final class UnauthorizedError extends FlagrightApiException {
     /**
      * The body of the response that triggered the exception.
      */

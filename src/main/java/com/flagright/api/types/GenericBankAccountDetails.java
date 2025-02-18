@@ -45,6 +45,8 @@ public final class GenericBankAccountDetails {
 
     private final Optional<List<Tag>> tags;
 
+    private final Optional<String> transitNumber;
+
     private final Map<String, Object> additionalProperties;
 
     private GenericBankAccountDetails(
@@ -60,6 +62,7 @@ public final class GenericBankAccountDetails {
             Optional<String> specialInstructions,
             Optional<String> paymentChannel,
             Optional<List<Tag>> tags,
+            Optional<String> transitNumber,
             Map<String, Object> additionalProperties) {
         this.accountNumber = accountNumber;
         this.accountType = accountType;
@@ -73,6 +76,7 @@ public final class GenericBankAccountDetails {
         this.specialInstructions = specialInstructions;
         this.paymentChannel = paymentChannel;
         this.tags = tags;
+        this.transitNumber = transitNumber;
         this.additionalProperties = additionalProperties;
     }
 
@@ -157,6 +161,14 @@ public final class GenericBankAccountDetails {
         return tags;
     }
 
+    /**
+     * @return Transit number of the bank account
+     */
+    @JsonProperty("transitNumber")
+    public Optional<String> getTransitNumber() {
+        return transitNumber;
+    }
+
     @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
@@ -180,7 +192,8 @@ public final class GenericBankAccountDetails {
                 && emailId.equals(other.emailId)
                 && specialInstructions.equals(other.specialInstructions)
                 && paymentChannel.equals(other.paymentChannel)
-                && tags.equals(other.tags);
+                && tags.equals(other.tags)
+                && transitNumber.equals(other.transitNumber);
     }
 
     @java.lang.Override
@@ -197,7 +210,8 @@ public final class GenericBankAccountDetails {
                 this.emailId,
                 this.specialInstructions,
                 this.paymentChannel,
-                this.tags);
+                this.tags,
+                this.transitNumber);
     }
 
     @java.lang.Override
@@ -235,6 +249,8 @@ public final class GenericBankAccountDetails {
 
         private Optional<List<Tag>> tags = Optional.empty();
 
+        private Optional<String> transitNumber = Optional.empty();
+
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
 
@@ -253,6 +269,7 @@ public final class GenericBankAccountDetails {
             specialInstructions(other.getSpecialInstructions());
             paymentChannel(other.getPaymentChannel());
             tags(other.getTags());
+            transitNumber(other.getTransitNumber());
             return this;
         }
 
@@ -388,6 +405,17 @@ public final class GenericBankAccountDetails {
             return this;
         }
 
+        @JsonSetter(value = "transitNumber", nulls = Nulls.SKIP)
+        public Builder transitNumber(Optional<String> transitNumber) {
+            this.transitNumber = transitNumber;
+            return this;
+        }
+
+        public Builder transitNumber(String transitNumber) {
+            this.transitNumber = Optional.ofNullable(transitNumber);
+            return this;
+        }
+
         public GenericBankAccountDetails build() {
             return new GenericBankAccountDetails(
                     accountNumber,
@@ -402,6 +430,7 @@ public final class GenericBankAccountDetails {
                     specialInstructions,
                     paymentChannel,
                     tags,
+                    transitNumber,
                     additionalProperties);
         }
     }

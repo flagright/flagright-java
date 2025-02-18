@@ -5,8 +5,8 @@ package com.flagright.api.resources.batch;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.flagright.api.core.ClientOptions;
-import com.flagright.api.core.FlagrightApiApiException;
 import com.flagright.api.core.FlagrightApiException;
+import com.flagright.api.core.FlagrightException;
 import com.flagright.api.core.MediaTypes;
 import com.flagright.api.core.ObjectMappers;
 import com.flagright.api.core.RequestOptions;
@@ -101,12 +101,12 @@ public class BatchClient {
             } catch (JsonProcessingException ignored) {
                 // unable to map error response, throwing generic error
             }
-            throw new FlagrightApiApiException(
+            throw new FlagrightApiException(
                     "Error with status code " + response.code(),
                     response.code(),
                     ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class));
         } catch (IOException e) {
-            throw new FlagrightApiException("Network error executing HTTP request", e);
+            throw new FlagrightException("Network error executing HTTP request", e);
         }
     }
 
@@ -124,7 +124,7 @@ public class BatchClient {
             body = RequestBody.create(
                     ObjectMappers.JSON_MAPPER.writeValueAsBytes(request), MediaTypes.APPLICATION_JSON);
         } catch (JsonProcessingException e) {
-            throw new FlagrightApiException("Failed to serialize request", e);
+            throw new FlagrightException("Failed to serialize request", e);
         }
         Request okhttpRequest = new Request.Builder()
                 .url(httpUrl)
@@ -160,12 +160,12 @@ public class BatchClient {
             } catch (JsonProcessingException ignored) {
                 // unable to map error response, throwing generic error
             }
-            throw new FlagrightApiApiException(
+            throw new FlagrightApiException(
                     "Error with status code " + response.code(),
                     response.code(),
                     ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class));
         } catch (IOException e) {
-            throw new FlagrightApiException("Network error executing HTTP request", e);
+            throw new FlagrightException("Network error executing HTTP request", e);
         }
     }
 
@@ -183,7 +183,7 @@ public class BatchClient {
             body = RequestBody.create(
                     ObjectMappers.JSON_MAPPER.writeValueAsBytes(request), MediaTypes.APPLICATION_JSON);
         } catch (JsonProcessingException e) {
-            throw new FlagrightApiException("Failed to serialize request", e);
+            throw new FlagrightException("Failed to serialize request", e);
         }
         Request okhttpRequest = new Request.Builder()
                 .url(httpUrl)
@@ -216,12 +216,12 @@ public class BatchClient {
             } catch (JsonProcessingException ignored) {
                 // unable to map error response, throwing generic error
             }
-            throw new FlagrightApiApiException(
+            throw new FlagrightApiException(
                     "Error with status code " + response.code(),
                     response.code(),
                     ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class));
         } catch (IOException e) {
-            throw new FlagrightApiException("Network error executing HTTP request", e);
+            throw new FlagrightException("Network error executing HTTP request", e);
         }
     }
 
@@ -239,7 +239,7 @@ public class BatchClient {
             body = RequestBody.create(
                     ObjectMappers.JSON_MAPPER.writeValueAsBytes(request), MediaTypes.APPLICATION_JSON);
         } catch (JsonProcessingException e) {
-            throw new FlagrightApiException("Failed to serialize request", e);
+            throw new FlagrightException("Failed to serialize request", e);
         }
         Request okhttpRequest = new Request.Builder()
                 .url(httpUrl)
@@ -272,12 +272,12 @@ public class BatchClient {
             } catch (JsonProcessingException ignored) {
                 // unable to map error response, throwing generic error
             }
-            throw new FlagrightApiApiException(
+            throw new FlagrightApiException(
                     "Error with status code " + response.code(),
                     response.code(),
                     ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class));
         } catch (IOException e) {
-            throw new FlagrightApiException("Network error executing HTTP request", e);
+            throw new FlagrightException("Network error executing HTTP request", e);
         }
     }
 
@@ -296,7 +296,7 @@ public class BatchClient {
             body = RequestBody.create(
                     ObjectMappers.JSON_MAPPER.writeValueAsBytes(request), MediaTypes.APPLICATION_JSON);
         } catch (JsonProcessingException e) {
-            throw new FlagrightApiException("Failed to serialize request", e);
+            throw new FlagrightException("Failed to serialize request", e);
         }
         Request okhttpRequest = new Request.Builder()
                 .url(httpUrl)
@@ -329,12 +329,12 @@ public class BatchClient {
             } catch (JsonProcessingException ignored) {
                 // unable to map error response, throwing generic error
             }
-            throw new FlagrightApiApiException(
+            throw new FlagrightApiException(
                     "Error with status code " + response.code(),
                     response.code(),
                     ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class));
         } catch (IOException e) {
-            throw new FlagrightApiException("Network error executing HTTP request", e);
+            throw new FlagrightException("Network error executing HTTP request", e);
         }
     }
 
@@ -353,7 +353,7 @@ public class BatchClient {
             body = RequestBody.create(
                     ObjectMappers.JSON_MAPPER.writeValueAsBytes(request), MediaTypes.APPLICATION_JSON);
         } catch (JsonProcessingException e) {
-            throw new FlagrightApiException("Failed to serialize request", e);
+            throw new FlagrightException("Failed to serialize request", e);
         }
         Request okhttpRequest = new Request.Builder()
                 .url(httpUrl)
@@ -386,12 +386,12 @@ public class BatchClient {
             } catch (JsonProcessingException ignored) {
                 // unable to map error response, throwing generic error
             }
-            throw new FlagrightApiApiException(
+            throw new FlagrightApiException(
                     "Error with status code " + response.code(),
                     response.code(),
                     ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class));
         } catch (IOException e) {
-            throw new FlagrightApiException("Network error executing HTTP request", e);
+            throw new FlagrightException("Network error executing HTTP request", e);
         }
     }
 }

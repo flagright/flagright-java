@@ -14,7 +14,7 @@ import com.flagright.api.resources.transactionevents.TransactionEventsClient;
 import com.flagright.api.resources.transactions.TransactionsClient;
 import java.util.function.Supplier;
 
-public class FlagrightApiClient {
+public class Flagright {
     protected final ClientOptions clientOptions;
 
     protected final Supplier<TransactionsClient> transactionsClient;
@@ -31,7 +31,7 @@ public class FlagrightApiClient {
 
     protected final Supplier<BusinessUserEventsClient> businessUserEventsClient;
 
-    public FlagrightApiClient(ClientOptions clientOptions) {
+    public Flagright(ClientOptions clientOptions) {
         this.clientOptions = clientOptions;
         this.transactionsClient = Suppliers.memoize(() -> new TransactionsClient(clientOptions));
         this.batchClient = Suppliers.memoize(() -> new BatchClient(clientOptions));
@@ -70,7 +70,7 @@ public class FlagrightApiClient {
         return this.businessUserEventsClient.get();
     }
 
-    public static FlagrightApiClientBuilder builder() {
-        return new FlagrightApiClientBuilder();
+    public static FlagrightBuilder builder() {
+        return new FlagrightBuilder();
     }
 }

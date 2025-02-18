@@ -31,6 +31,8 @@ public final class CompanyGeneralDetails {
 
     private final Optional<UserRegistrationStatus> userRegistrationStatus;
 
+    private final Optional<List<CountryCode>> operatingCountries;
+
     private final Optional<List<String>> alias;
 
     private final Optional<List<Tag>> tags;
@@ -43,6 +45,7 @@ public final class CompanyGeneralDetails {
             Optional<List<String>> mainProductsServicesSold,
             Optional<BusinessUserSegment> userSegment,
             Optional<UserRegistrationStatus> userRegistrationStatus,
+            Optional<List<CountryCode>> operatingCountries,
             Optional<List<String>> alias,
             Optional<List<Tag>> tags,
             Map<String, Object> additionalProperties) {
@@ -51,6 +54,7 @@ public final class CompanyGeneralDetails {
         this.mainProductsServicesSold = mainProductsServicesSold;
         this.userSegment = userSegment;
         this.userRegistrationStatus = userRegistrationStatus;
+        this.operatingCountries = operatingCountries;
         this.alias = alias;
         this.tags = tags;
         this.additionalProperties = additionalProperties;
@@ -94,6 +98,14 @@ public final class CompanyGeneralDetails {
     }
 
     /**
+     * @return Countries where the business operates
+     */
+    @JsonProperty("operatingCountries")
+    public Optional<List<CountryCode>> getOperatingCountries() {
+        return operatingCountries;
+    }
+
+    /**
      * @return Alias names of the business entity
      */
     @JsonProperty("alias")
@@ -126,6 +138,7 @@ public final class CompanyGeneralDetails {
                 && mainProductsServicesSold.equals(other.mainProductsServicesSold)
                 && userSegment.equals(other.userSegment)
                 && userRegistrationStatus.equals(other.userRegistrationStatus)
+                && operatingCountries.equals(other.operatingCountries)
                 && alias.equals(other.alias)
                 && tags.equals(other.tags);
     }
@@ -138,6 +151,7 @@ public final class CompanyGeneralDetails {
                 this.mainProductsServicesSold,
                 this.userSegment,
                 this.userRegistrationStatus,
+                this.operatingCountries,
                 this.alias,
                 this.tags);
     }
@@ -163,6 +177,8 @@ public final class CompanyGeneralDetails {
 
         private Optional<UserRegistrationStatus> userRegistrationStatus = Optional.empty();
 
+        private Optional<List<CountryCode>> operatingCountries = Optional.empty();
+
         private Optional<List<String>> alias = Optional.empty();
 
         private Optional<List<Tag>> tags = Optional.empty();
@@ -178,6 +194,7 @@ public final class CompanyGeneralDetails {
             mainProductsServicesSold(other.getMainProductsServicesSold());
             userSegment(other.getUserSegment());
             userRegistrationStatus(other.getUserRegistrationStatus());
+            operatingCountries(other.getOperatingCountries());
             alias(other.getAlias());
             tags(other.getTags());
             return this;
@@ -238,6 +255,17 @@ public final class CompanyGeneralDetails {
             return this;
         }
 
+        @JsonSetter(value = "operatingCountries", nulls = Nulls.SKIP)
+        public Builder operatingCountries(Optional<List<CountryCode>> operatingCountries) {
+            this.operatingCountries = operatingCountries;
+            return this;
+        }
+
+        public Builder operatingCountries(List<CountryCode> operatingCountries) {
+            this.operatingCountries = Optional.ofNullable(operatingCountries);
+            return this;
+        }
+
         @JsonSetter(value = "alias", nulls = Nulls.SKIP)
         public Builder alias(Optional<List<String>> alias) {
             this.alias = alias;
@@ -267,6 +295,7 @@ public final class CompanyGeneralDetails {
                     mainProductsServicesSold,
                     userSegment,
                     userRegistrationStatus,
+                    operatingCountries,
                     alias,
                     tags,
                     additionalProperties);

@@ -31,7 +31,7 @@ public final class ListHeader {
 
     private final double createdTimestamp;
 
-    private final double size;
+    private final Optional<Double> size;
 
     private final Optional<Double> version;
 
@@ -43,7 +43,7 @@ public final class ListHeader {
             ListSubtype subtype,
             Optional<ListMetadata> metadata,
             double createdTimestamp,
-            double size,
+            Optional<Double> size,
             Optional<Double> version,
             Map<String, Object> additionalProperties) {
         this.listId = listId;
@@ -82,7 +82,7 @@ public final class ListHeader {
     }
 
     @JsonProperty("size")
-    public double getSize() {
+    public Optional<Double> getSize() {
         return size;
     }
 
@@ -108,7 +108,7 @@ public final class ListHeader {
                 && subtype.equals(other.subtype)
                 && metadata.equals(other.metadata)
                 && createdTimestamp == other.createdTimestamp
-                && size == other.size
+                && size.equals(other.size)
                 && version.equals(other.version);
     }
 
@@ -148,11 +148,7 @@ public final class ListHeader {
     }
 
     public interface CreatedTimestampStage {
-        SizeStage createdTimestamp(double createdTimestamp);
-    }
-
-    public interface SizeStage {
-        _FinalStage size(double size);
+        _FinalStage createdTimestamp(double createdTimestamp);
     }
 
     public interface _FinalStage {
@@ -162,6 +158,10 @@ public final class ListHeader {
 
         _FinalStage metadata(ListMetadata metadata);
 
+        _FinalStage size(Optional<Double> size);
+
+        _FinalStage size(Double size);
+
         _FinalStage version(Optional<Double> version);
 
         _FinalStage version(Double version);
@@ -169,7 +169,7 @@ public final class ListHeader {
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static final class Builder
-            implements ListIdStage, ListTypeStage, SubtypeStage, CreatedTimestampStage, SizeStage, _FinalStage {
+            implements ListIdStage, ListTypeStage, SubtypeStage, CreatedTimestampStage, _FinalStage {
         private String listId;
 
         private ListType listType;
@@ -178,9 +178,9 @@ public final class ListHeader {
 
         private double createdTimestamp;
 
-        private double size;
-
         private Optional<Double> version = Optional.empty();
+
+        private Optional<Double> size = Optional.empty();
 
         private Optional<ListMetadata> metadata = Optional.empty();
 
@@ -224,15 +224,8 @@ public final class ListHeader {
 
         @java.lang.Override
         @JsonSetter("createdTimestamp")
-        public SizeStage createdTimestamp(double createdTimestamp) {
+        public _FinalStage createdTimestamp(double createdTimestamp) {
             this.createdTimestamp = createdTimestamp;
-            return this;
-        }
-
-        @java.lang.Override
-        @JsonSetter("size")
-        public _FinalStage size(double size) {
-            this.size = size;
             return this;
         }
 
@@ -246,6 +239,19 @@ public final class ListHeader {
         @JsonSetter(value = "version", nulls = Nulls.SKIP)
         public _FinalStage version(Optional<Double> version) {
             this.version = version;
+            return this;
+        }
+
+        @java.lang.Override
+        public _FinalStage size(Double size) {
+            this.size = Optional.ofNullable(size);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "size", nulls = Nulls.SKIP)
+        public _FinalStage size(Optional<Double> size) {
+            this.size = size;
             return this;
         }
 

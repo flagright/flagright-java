@@ -6,7 +6,7 @@ package com.flagright.api;
 import com.flagright.api.core.ClientOptions;
 import com.flagright.api.core.Environment;
 
-public final class FlagrightApiClientBuilder {
+public final class FlagrightBuilder {
     private ClientOptions.Builder clientOptionsBuilder = ClientOptions.builder();
 
     private String apiKey = null;
@@ -16,17 +16,17 @@ public final class FlagrightApiClientBuilder {
     /**
      * Sets apiKey
      */
-    public FlagrightApiClientBuilder apiKey(String apiKey) {
+    public FlagrightBuilder apiKey(String apiKey) {
         this.apiKey = apiKey;
         return this;
     }
 
-    public FlagrightApiClientBuilder environment(Environment environment) {
+    public FlagrightBuilder environment(Environment environment) {
         this.environment = environment;
         return this;
     }
 
-    public FlagrightApiClientBuilder url(String url) {
+    public FlagrightBuilder url(String url) {
         this.environment = Environment.custom(url);
         return this;
     }
@@ -34,17 +34,17 @@ public final class FlagrightApiClientBuilder {
     /**
      * Sets the timeout (in seconds) for the client
      */
-    public FlagrightApiClientBuilder timeout(int timeout) {
+    public FlagrightBuilder timeout(int timeout) {
         this.clientOptionsBuilder.timeout(timeout);
         return this;
     }
 
-    public FlagrightApiClient build() {
+    public Flagright build() {
         if (apiKey == null) {
             throw new RuntimeException("Please provide apiKey");
         }
         this.clientOptionsBuilder.addHeader("x-api-key", this.apiKey);
         clientOptionsBuilder.environment(this.environment);
-        return new FlagrightApiClient(clientOptionsBuilder.build());
+        return new Flagright(clientOptionsBuilder.build());
     }
 }
