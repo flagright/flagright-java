@@ -7,7 +7,7 @@ The Merge Java SDK provides convenient access to the Merge API from Java or Kotl
 
 ## Documentation
 
-API documentation is available at [here](https://docs.merge.dev/basics/authentication/).
+API documentation is available at [here](https://central.sonatype.com/artifact/com.flagright.api/flagright-java).
 
 ## Installation
 
