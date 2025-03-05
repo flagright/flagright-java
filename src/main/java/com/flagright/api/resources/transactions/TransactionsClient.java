@@ -41,7 +41,7 @@ public class TransactionsClient {
      * <p>Here are some of the most used payload fields explained (you can find the full payload <a href="/api-reference/api-reference/transactions/verify#request">schema below</a> with 1 line descriptions):</p>
      * <ul>
      * <li><code>type</code>: Type of transaction (Ex: <code>WITHDRAWAL</code>, <code>DEPOSIT</code>, <code>TRANSFER</code> etc).</li>
-     * <li><code>transactionId</code> - Unique Identifier for the transaction. Flagright API will generate a <code>transactionId</code> if this field is left empty</li>
+     * <li><code>transactionId</code> - Unique Identifier for the transaction.</li>
      * <li><code>timestamp</code> - UNIX timestamp in <em>milliseconds</em> of when the transaction took place</li>
      * <li><code>transactionState</code> - The state of the transaction, set to <code>CREATED</code> by default. <a href="/guides/overview/entities#transaction-lifecycle-through-transaction-events">More details here</a></li>
      * <li><code>originUserId</code> - Unique identifier (if any) of the user who is sending the money. This user must be created within the Flagright system before using the <a href="/api-reference/api-reference/consumer-users/create">create a consumer user</a> or <a href="/api-reference/api-reference/business-users/create">create a business user</a> endpoint</li>
@@ -64,7 +64,7 @@ public class TransactionsClient {
      * <p>Here are some of the most used payload fields explained (you can find the full payload <a href="/api-reference/api-reference/transactions/verify#request">schema below</a> with 1 line descriptions):</p>
      * <ul>
      * <li><code>type</code>: Type of transaction (Ex: <code>WITHDRAWAL</code>, <code>DEPOSIT</code>, <code>TRANSFER</code> etc).</li>
-     * <li><code>transactionId</code> - Unique Identifier for the transaction. Flagright API will generate a <code>transactionId</code> if this field is left empty</li>
+     * <li><code>transactionId</code> - Unique Identifier for the transaction.</li>
      * <li><code>timestamp</code> - UNIX timestamp in <em>milliseconds</em> of when the transaction took place</li>
      * <li><code>transactionState</code> - The state of the transaction, set to <code>CREATED</code> by default. <a href="/guides/overview/entities#transaction-lifecycle-through-transaction-events">More details here</a></li>
      * <li><code>originUserId</code> - Unique identifier (if any) of the user who is sending the money. This user must be created within the Flagright system before using the <a href="/api-reference/api-reference/consumer-users/create">create a consumer user</a> or <a href="/api-reference/api-reference/business-users/create">create a business user</a> endpoint</li>
