@@ -12,6 +12,8 @@ public enum EmploymentStatus {
 
     SELF_EMPLOYED("SELF_EMPLOYED"),
 
+    FREELANCER("FREELANCER"),
+
     STUDENT("STUDENT"),
 
     FULL_TIME("FULL_TIME"),

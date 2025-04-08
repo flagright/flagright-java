@@ -42,7 +42,15 @@ public enum SourceOfFunds {
 
     BUSINESS("Business"),
 
-    EMPLOYMENT("Employment");
+    EMPLOYMENT("Employment"),
+
+    SALARY("Salary"),
+
+    REAL_ESTATE_SALE("Real Estate Sale"),
+
+    REAL_ESTATE_RENTAL("Real Estate Rental"),
+
+    COMPANY_EXIT("Company Exit");
 
     private final String value;
 
