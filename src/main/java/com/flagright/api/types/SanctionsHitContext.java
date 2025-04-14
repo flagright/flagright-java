@@ -31,15 +31,11 @@ public final class SanctionsHitContext {
 
     private final Optional<String> ruleInstanceId;
 
-    private final Optional<String> ruleId;
-
     private final Optional<String> iban;
 
     private final Optional<Double> yearOfBirth;
 
     private final Optional<String> searchTerm;
-
-    private final Optional<String> paymentMethodId;
 
     private final Map<String, Object> additionalProperties;
 
@@ -49,22 +45,18 @@ public final class SanctionsHitContext {
             Optional<String> userId,
             Optional<String> transactionId,
             Optional<String> ruleInstanceId,
-            Optional<String> ruleId,
             Optional<String> iban,
             Optional<Double> yearOfBirth,
             Optional<String> searchTerm,
-            Optional<String> paymentMethodId,
             Map<String, Object> additionalProperties) {
         this.entity = entity;
         this.entityType = entityType;
         this.userId = userId;
         this.transactionId = transactionId;
         this.ruleInstanceId = ruleInstanceId;
-        this.ruleId = ruleId;
         this.iban = iban;
         this.yearOfBirth = yearOfBirth;
         this.searchTerm = searchTerm;
-        this.paymentMethodId = paymentMethodId;
         this.additionalProperties = additionalProperties;
     }
 
@@ -93,11 +85,6 @@ public final class SanctionsHitContext {
         return ruleInstanceId;
     }
 
-    @JsonProperty("ruleId")
-    public Optional<String> getRuleId() {
-        return ruleId;
-    }
-
     @JsonProperty("iban")
     public Optional<String> getIban() {
         return iban;
@@ -111,11 +98,6 @@ public final class SanctionsHitContext {
     @JsonProperty("searchTerm")
     public Optional<String> getSearchTerm() {
         return searchTerm;
-    }
-
-    @JsonProperty("paymentMethodId")
-    public Optional<String> getPaymentMethodId() {
-        return paymentMethodId;
     }
 
     @java.lang.Override
@@ -135,11 +117,9 @@ public final class SanctionsHitContext {
                 && userId.equals(other.userId)
                 && transactionId.equals(other.transactionId)
                 && ruleInstanceId.equals(other.ruleInstanceId)
-                && ruleId.equals(other.ruleId)
                 && iban.equals(other.iban)
                 && yearOfBirth.equals(other.yearOfBirth)
-                && searchTerm.equals(other.searchTerm)
-                && paymentMethodId.equals(other.paymentMethodId);
+                && searchTerm.equals(other.searchTerm);
     }
 
     @java.lang.Override
@@ -150,11 +130,9 @@ public final class SanctionsHitContext {
                 this.userId,
                 this.transactionId,
                 this.ruleInstanceId,
-                this.ruleId,
                 this.iban,
                 this.yearOfBirth,
-                this.searchTerm,
-                this.paymentMethodId);
+                this.searchTerm);
     }
 
     @java.lang.Override
@@ -191,10 +169,6 @@ public final class SanctionsHitContext {
 
         _FinalStage ruleInstanceId(String ruleInstanceId);
 
-        _FinalStage ruleId(Optional<String> ruleId);
-
-        _FinalStage ruleId(String ruleId);
-
         _FinalStage iban(Optional<String> iban);
 
         _FinalStage iban(String iban);
@@ -206,25 +180,17 @@ public final class SanctionsHitContext {
         _FinalStage searchTerm(Optional<String> searchTerm);
 
         _FinalStage searchTerm(String searchTerm);
-
-        _FinalStage paymentMethodId(Optional<String> paymentMethodId);
-
-        _FinalStage paymentMethodId(String paymentMethodId);
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static final class Builder implements EntityStage, _FinalStage {
         private SanctionsScreeningEntity entity;
 
-        private Optional<String> paymentMethodId = Optional.empty();
-
         private Optional<String> searchTerm = Optional.empty();
 
         private Optional<Double> yearOfBirth = Optional.empty();
 
         private Optional<String> iban = Optional.empty();
-
-        private Optional<String> ruleId = Optional.empty();
 
         private Optional<String> ruleInstanceId = Optional.empty();
 
@@ -246,11 +212,9 @@ public final class SanctionsHitContext {
             userId(other.getUserId());
             transactionId(other.getTransactionId());
             ruleInstanceId(other.getRuleInstanceId());
-            ruleId(other.getRuleId());
             iban(other.getIban());
             yearOfBirth(other.getYearOfBirth());
             searchTerm(other.getSearchTerm());
-            paymentMethodId(other.getPaymentMethodId());
             return this;
         }
 
@@ -258,19 +222,6 @@ public final class SanctionsHitContext {
         @JsonSetter("entity")
         public _FinalStage entity(@NotNull SanctionsScreeningEntity entity) {
             this.entity = Objects.requireNonNull(entity, "entity must not be null");
-            return this;
-        }
-
-        @java.lang.Override
-        public _FinalStage paymentMethodId(String paymentMethodId) {
-            this.paymentMethodId = Optional.ofNullable(paymentMethodId);
-            return this;
-        }
-
-        @java.lang.Override
-        @JsonSetter(value = "paymentMethodId", nulls = Nulls.SKIP)
-        public _FinalStage paymentMethodId(Optional<String> paymentMethodId) {
-            this.paymentMethodId = paymentMethodId;
             return this;
         }
 
@@ -310,19 +261,6 @@ public final class SanctionsHitContext {
         @JsonSetter(value = "iban", nulls = Nulls.SKIP)
         public _FinalStage iban(Optional<String> iban) {
             this.iban = iban;
-            return this;
-        }
-
-        @java.lang.Override
-        public _FinalStage ruleId(String ruleId) {
-            this.ruleId = Optional.ofNullable(ruleId);
-            return this;
-        }
-
-        @java.lang.Override
-        @JsonSetter(value = "ruleId", nulls = Nulls.SKIP)
-        public _FinalStage ruleId(Optional<String> ruleId) {
-            this.ruleId = ruleId;
             return this;
         }
 
@@ -386,11 +324,9 @@ public final class SanctionsHitContext {
                     userId,
                     transactionId,
                     ruleInstanceId,
-                    ruleId,
                     iban,
                     yearOfBirth,
                     searchTerm,
-                    paymentMethodId,
                     additionalProperties);
         }
     }
