@@ -33,7 +33,7 @@ public final class ClientOptions {
             {
                 put("X-Fern-Language", "JAVA");
                 put("X-Fern-SDK-Name", "com.flagright.fern:api-sdk");
-                put("X-Fern-SDK-Version", "1.6.50");
+                put("X-Fern-SDK-Version", "1.6.51");
             }
         });
         this.headerSuppliers = headerSuppliers;

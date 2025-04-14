@@ -34,6 +34,8 @@ public final class User {
 
     private final Optional<KycStatusDetails> kycStatusDetails;
 
+    private final Optional<Double> eoddDate;
+
     private final Optional<EmploymentStatus> employmentStatus;
 
     private final Optional<String> occupation;
@@ -81,6 +83,7 @@ public final class User {
             Optional<UserDetails> userDetails,
             Optional<UserStateDetails> userStateDetails,
             Optional<KycStatusDetails> kycStatusDetails,
+            Optional<Double> eoddDate,
             Optional<EmploymentStatus> employmentStatus,
             Optional<String> occupation,
             Optional<List<LegalDocument>> legalDocuments,
@@ -107,6 +110,7 @@ public final class User {
         this.userDetails = userDetails;
         this.userStateDetails = userStateDetails;
         this.kycStatusDetails = kycStatusDetails;
+        this.eoddDate = eoddDate;
         this.employmentStatus = employmentStatus;
         this.occupation = occupation;
         this.legalDocuments = legalDocuments;
@@ -166,6 +170,11 @@ public final class User {
     @JsonProperty("kycStatusDetails")
     public Optional<KycStatusDetails> getKycStatusDetails() {
         return kycStatusDetails;
+    }
+
+    @JsonProperty("eoddDate")
+    public Optional<Double> getEoddDate() {
+        return eoddDate;
     }
 
     @JsonProperty("employmentStatus")
@@ -293,6 +302,7 @@ public final class User {
                 && userDetails.equals(other.userDetails)
                 && userStateDetails.equals(other.userStateDetails)
                 && kycStatusDetails.equals(other.kycStatusDetails)
+                && eoddDate.equals(other.eoddDate)
                 && employmentStatus.equals(other.employmentStatus)
                 && occupation.equals(other.occupation)
                 && legalDocuments.equals(other.legalDocuments)
@@ -323,6 +333,7 @@ public final class User {
                 this.userDetails,
                 this.userStateDetails,
                 this.kycStatusDetails,
+                this.eoddDate,
                 this.employmentStatus,
                 this.occupation,
                 this.legalDocuments,
@@ -381,6 +392,10 @@ public final class User {
         _FinalStage kycStatusDetails(Optional<KycStatusDetails> kycStatusDetails);
 
         _FinalStage kycStatusDetails(KycStatusDetails kycStatusDetails);
+
+        _FinalStage eoddDate(Optional<Double> eoddDate);
+
+        _FinalStage eoddDate(Double eoddDate);
 
         _FinalStage employmentStatus(Optional<EmploymentStatus> employmentStatus);
 
@@ -503,6 +518,8 @@ public final class User {
 
         private Optional<EmploymentStatus> employmentStatus = Optional.empty();
 
+        private Optional<Double> eoddDate = Optional.empty();
+
         private Optional<KycStatusDetails> kycStatusDetails = Optional.empty();
 
         private Optional<UserStateDetails> userStateDetails = Optional.empty();
@@ -524,6 +541,7 @@ public final class User {
             userDetails(other.getUserDetails());
             userStateDetails(other.getUserStateDetails());
             kycStatusDetails(other.getKycStatusDetails());
+            eoddDate(other.getEoddDate());
             employmentStatus(other.getEmploymentStatus());
             occupation(other.getOccupation());
             legalDocuments(other.getLegalDocuments());
@@ -832,6 +850,19 @@ public final class User {
         }
 
         @java.lang.Override
+        public _FinalStage eoddDate(Double eoddDate) {
+            this.eoddDate = Optional.ofNullable(eoddDate);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "eoddDate", nulls = Nulls.SKIP)
+        public _FinalStage eoddDate(Optional<Double> eoddDate) {
+            this.eoddDate = eoddDate;
+            return this;
+        }
+
+        @java.lang.Override
         public _FinalStage kycStatusDetails(KycStatusDetails kycStatusDetails) {
             this.kycStatusDetails = Optional.ofNullable(kycStatusDetails);
             return this;
@@ -896,6 +927,7 @@ public final class User {
                     userDetails,
                     userStateDetails,
                     kycStatusDetails,
+                    eoddDate,
                     employmentStatus,
                     occupation,
                     legalDocuments,

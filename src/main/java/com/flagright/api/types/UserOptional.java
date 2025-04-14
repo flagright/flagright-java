@@ -29,6 +29,8 @@ public final class UserOptional {
 
     private final Optional<KycStatusDetails> kycStatusDetails;
 
+    private final Optional<Double> eoddDate;
+
     private final Optional<EmploymentStatus> employmentStatus;
 
     private final Optional<String> occupation;
@@ -74,6 +76,7 @@ public final class UserOptional {
             Optional<UserDetails> userDetails,
             Optional<UserStateDetails> userStateDetails,
             Optional<KycStatusDetails> kycStatusDetails,
+            Optional<Double> eoddDate,
             Optional<EmploymentStatus> employmentStatus,
             Optional<String> occupation,
             Optional<List<LegalDocument>> legalDocuments,
@@ -98,6 +101,7 @@ public final class UserOptional {
         this.userDetails = userDetails;
         this.userStateDetails = userStateDetails;
         this.kycStatusDetails = kycStatusDetails;
+        this.eoddDate = eoddDate;
         this.employmentStatus = employmentStatus;
         this.occupation = occupation;
         this.legalDocuments = legalDocuments;
@@ -141,6 +145,11 @@ public final class UserOptional {
     @JsonProperty("kycStatusDetails")
     public Optional<KycStatusDetails> getKycStatusDetails() {
         return kycStatusDetails;
+    }
+
+    @JsonProperty("eoddDate")
+    public Optional<Double> getEoddDate() {
+        return eoddDate;
     }
 
     @JsonProperty("employmentStatus")
@@ -266,6 +275,7 @@ public final class UserOptional {
                 && userDetails.equals(other.userDetails)
                 && userStateDetails.equals(other.userStateDetails)
                 && kycStatusDetails.equals(other.kycStatusDetails)
+                && eoddDate.equals(other.eoddDate)
                 && employmentStatus.equals(other.employmentStatus)
                 && occupation.equals(other.occupation)
                 && legalDocuments.equals(other.legalDocuments)
@@ -294,6 +304,7 @@ public final class UserOptional {
                 this.userDetails,
                 this.userStateDetails,
                 this.kycStatusDetails,
+                this.eoddDate,
                 this.employmentStatus,
                 this.occupation,
                 this.legalDocuments,
@@ -333,6 +344,8 @@ public final class UserOptional {
         private Optional<UserStateDetails> userStateDetails = Optional.empty();
 
         private Optional<KycStatusDetails> kycStatusDetails = Optional.empty();
+
+        private Optional<Double> eoddDate = Optional.empty();
 
         private Optional<EmploymentStatus> employmentStatus = Optional.empty();
 
@@ -382,6 +395,7 @@ public final class UserOptional {
             userDetails(other.getUserDetails());
             userStateDetails(other.getUserStateDetails());
             kycStatusDetails(other.getKycStatusDetails());
+            eoddDate(other.getEoddDate());
             employmentStatus(other.getEmploymentStatus());
             occupation(other.getOccupation());
             legalDocuments(other.getLegalDocuments());
@@ -445,6 +459,17 @@ public final class UserOptional {
 
         public Builder kycStatusDetails(KycStatusDetails kycStatusDetails) {
             this.kycStatusDetails = Optional.ofNullable(kycStatusDetails);
+            return this;
+        }
+
+        @JsonSetter(value = "eoddDate", nulls = Nulls.SKIP)
+        public Builder eoddDate(Optional<Double> eoddDate) {
+            this.eoddDate = eoddDate;
+            return this;
+        }
+
+        public Builder eoddDate(Double eoddDate) {
+            this.eoddDate = Optional.ofNullable(eoddDate);
             return this;
         }
 
@@ -663,6 +688,7 @@ public final class UserOptional {
                     userDetails,
                     userStateDetails,
                     kycStatusDetails,
+                    eoddDate,
                     employmentStatus,
                     occupation,
                     legalDocuments,
