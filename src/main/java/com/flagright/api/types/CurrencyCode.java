@@ -952,7 +952,9 @@ public enum CurrencyCode {
 
     VIC("VIC"),
 
-    XAI("XAI");
+    XAI("XAI"),
+
+    SLE("SLE");
 
     private final String value;
 
