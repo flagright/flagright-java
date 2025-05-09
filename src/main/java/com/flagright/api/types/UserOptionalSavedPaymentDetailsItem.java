@@ -235,6 +235,7 @@ public final class UserOptionalSavedPaymentDetailsItem {
     }
 
     @JsonTypeName("CARD")
+    @JsonIgnoreProperties("method")
     private static final class CardValue implements Value {
         @JsonUnwrapped
         private CardDetails value;
@@ -273,6 +274,7 @@ public final class UserOptionalSavedPaymentDetailsItem {
     }
 
     @JsonTypeName("GENERIC_BANK_ACCOUNT")
+    @JsonIgnoreProperties("method")
     private static final class GenericBankAccountValue implements Value {
         @JsonUnwrapped
         private GenericBankAccountDetails value;
@@ -311,6 +313,7 @@ public final class UserOptionalSavedPaymentDetailsItem {
     }
 
     @JsonTypeName("IBAN")
+    @JsonIgnoreProperties("method")
     private static final class IbanValue implements Value {
         @JsonUnwrapped
         private IbanDetails value;
@@ -349,6 +352,7 @@ public final class UserOptionalSavedPaymentDetailsItem {
     }
 
     @JsonTypeName("ACH")
+    @JsonIgnoreProperties("method")
     private static final class AchValue implements Value {
         @JsonUnwrapped
         private AchDetails value;
@@ -387,6 +391,7 @@ public final class UserOptionalSavedPaymentDetailsItem {
     }
 
     @JsonTypeName("SWIFT")
+    @JsonIgnoreProperties("method")
     private static final class SwiftValue implements Value {
         @JsonUnwrapped
         private SwiftDetails value;
@@ -425,6 +430,7 @@ public final class UserOptionalSavedPaymentDetailsItem {
     }
 
     @JsonTypeName("MPESA")
+    @JsonIgnoreProperties("method")
     private static final class MpesaValue implements Value {
         @JsonUnwrapped
         private MpesaDetails value;
@@ -463,6 +469,7 @@ public final class UserOptionalSavedPaymentDetailsItem {
     }
 
     @JsonTypeName("UPI")
+    @JsonIgnoreProperties("method")
     private static final class UpiValue implements Value {
         @JsonUnwrapped
         private UpiDetails value;
@@ -501,6 +508,7 @@ public final class UserOptionalSavedPaymentDetailsItem {
     }
 
     @JsonTypeName("WALLET")
+    @JsonIgnoreProperties("method")
     private static final class WalletValue implements Value {
         @JsonUnwrapped
         private WalletDetails value;
@@ -539,6 +547,7 @@ public final class UserOptionalSavedPaymentDetailsItem {
     }
 
     @JsonTypeName("CHECK")
+    @JsonIgnoreProperties("method")
     private static final class CheckValue implements Value {
         @JsonUnwrapped
         private CheckDetails value;
@@ -577,6 +586,7 @@ public final class UserOptionalSavedPaymentDetailsItem {
     }
 
     @JsonTypeName("CASH")
+    @JsonIgnoreProperties("method")
     private static final class CashValue implements Value {
         @JsonUnwrapped
         private CashDetails value;
@@ -614,6 +624,7 @@ public final class UserOptionalSavedPaymentDetailsItem {
         }
     }
 
+    @JsonIgnoreProperties("method")
     private static final class _UnknownValue implements Value {
         private String type;
 

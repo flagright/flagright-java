@@ -21,7 +21,7 @@ import org.jetbrains.annotations.NotNull;
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
 @JsonDeserialize(builder = TransactionBase.Builder.class)
 public final class TransactionBase {
-    private final TransactionType type;
+    private final String type;
 
     private final String transactionId;
 
@@ -34,7 +34,7 @@ public final class TransactionBase {
     private final Map<String, Object> additionalProperties;
 
     private TransactionBase(
-            TransactionType type,
+            String type,
             String transactionId,
             double timestamp,
             Optional<String> originUserId,
@@ -48,8 +48,11 @@ public final class TransactionBase {
         this.additionalProperties = additionalProperties;
     }
 
+    /**
+     * @return Type of transaction (ex: DEPOSIT, WITHDRAWAL, TRANSFER, EXTERNAL_PAYMENT, REFUND, OTHER)
+     */
     @JsonProperty("type")
-    public TransactionType getType() {
+    public String getType() {
         return type;
     }
 
@@ -119,7 +122,7 @@ public final class TransactionBase {
     }
 
     public interface TypeStage {
-        TransactionIdStage type(@NotNull TransactionType type);
+        TransactionIdStage type(@NotNull String type);
 
         Builder from(TransactionBase other);
     }
@@ -146,7 +149,7 @@ public final class TransactionBase {
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static final class Builder implements TypeStage, TransactionIdStage, TimestampStage, _FinalStage {
-        private TransactionType type;
+        private String type;
 
         private String transactionId;
 
@@ -171,9 +174,13 @@ public final class TransactionBase {
             return this;
         }
 
+        /**
+         * <p>Type of transaction (ex: DEPOSIT, WITHDRAWAL, TRANSFER, EXTERNAL_PAYMENT, REFUND, OTHER)</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
         @java.lang.Override
         @JsonSetter("type")
-        public TransactionIdStage type(@NotNull TransactionType type) {
+        public TransactionIdStage type(@NotNull String type) {
             this.type = Objects.requireNonNull(type, "type must not be null");
             return this;
         }

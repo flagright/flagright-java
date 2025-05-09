@@ -3,35 +3,27 @@
  */
 package com.flagright.api.resources.businessuserevents;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.flagright.api.core.ClientOptions;
-import com.flagright.api.core.FlagrightApiException;
-import com.flagright.api.core.FlagrightException;
-import com.flagright.api.core.MediaTypes;
-import com.flagright.api.core.ObjectMappers;
 import com.flagright.api.core.RequestOptions;
-import com.flagright.api.errors.BadRequestError;
-import com.flagright.api.errors.ConflictError;
-import com.flagright.api.errors.TooManyRequestsError;
-import com.flagright.api.errors.UnauthorizedError;
 import com.flagright.api.resources.businessuserevents.requests.BusinessUserEventsCreateRequest;
-import com.flagright.api.types.ApiErrorResponse;
 import com.flagright.api.types.BusinessUserEventWithRulesResult;
 import com.flagright.api.types.BusinessWithRulesResult;
-import java.io.IOException;
-import okhttp3.Headers;
-import okhttp3.HttpUrl;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.RequestBody;
-import okhttp3.Response;
-import okhttp3.ResponseBody;
 
 public class BusinessUserEventsClient {
     protected final ClientOptions clientOptions;
 
+    private final RawBusinessUserEventsClient rawClient;
+
     public BusinessUserEventsClient(ClientOptions clientOptions) {
         this.clientOptions = clientOptions;
+        this.rawClient = new RawBusinessUserEventsClient(clientOptions);
+    }
+
+    /**
+     * Get responses with HTTP metadata like headers
+     */
+    public RawBusinessUserEventsClient withRawResponse() {
+        return this.rawClient;
     }
 
     /**
@@ -54,7 +46,7 @@ public class BusinessUserEventsClient {
      * <p>In order to make individual events retrievable, you also need to pass in a unique <code>eventId</code> to the request body.</p>
      */
     public BusinessWithRulesResult create(BusinessUserEventsCreateRequest request) {
-        return create(request, null);
+        return this.rawClient.create(request).body();
     }
 
     /**
@@ -77,70 +69,7 @@ public class BusinessUserEventsClient {
      * <p>In order to make individual events retrievable, you also need to pass in a unique <code>eventId</code> to the request body.</p>
      */
     public BusinessWithRulesResult create(BusinessUserEventsCreateRequest request, RequestOptions requestOptions) {
-        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
-                .newBuilder()
-                .addPathSegments("events/business/user");
-        if (request.getAllowUserTypeConversion().isPresent()) {
-            httpUrl.addQueryParameter(
-                    "allowUserTypeConversion",
-                    request.getAllowUserTypeConversion().get().toString());
-        }
-        if (request.getLockKycRiskLevel().isPresent()) {
-            httpUrl.addQueryParameter(
-                    "lockKycRiskLevel", request.getLockKycRiskLevel().get().toString());
-        }
-        if (request.getLockCraRiskLevel().isPresent()) {
-            httpUrl.addQueryParameter(
-                    "lockCraRiskLevel", request.getLockCraRiskLevel().get().toString());
-        }
-        RequestBody body;
-        try {
-            body = RequestBody.create(
-                    ObjectMappers.JSON_MAPPER.writeValueAsBytes(request.getBody()), MediaTypes.APPLICATION_JSON);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-        Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl.build())
-                .method("POST", body)
-                .headers(Headers.of(clientOptions.headers(requestOptions)))
-                .addHeader("Content-Type", "application/json");
-        Request okhttpRequest = _requestBuilder.build();
-        OkHttpClient client = clientOptions.httpClient();
-        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
-            client = clientOptions.httpClientWithTimeout(requestOptions);
-        }
-        try (Response response = client.newCall(okhttpRequest).execute()) {
-            ResponseBody responseBody = response.body();
-            if (response.isSuccessful()) {
-                return ObjectMappers.JSON_MAPPER.readValue(responseBody.string(), BusinessWithRulesResult.class);
-            }
-            String responseBodyString = responseBody != null ? responseBody.string() : "{}";
-            try {
-                switch (response.code()) {
-                    case 400:
-                        throw new BadRequestError(
-                                ObjectMappers.JSON_MAPPER.readValue(responseBodyString, ApiErrorResponse.class));
-                    case 401:
-                        throw new UnauthorizedError(
-                                ObjectMappers.JSON_MAPPER.readValue(responseBodyString, ApiErrorResponse.class));
-                    case 409:
-                        throw new ConflictError(
-                                ObjectMappers.JSON_MAPPER.readValue(responseBodyString, ApiErrorResponse.class));
-                    case 429:
-                        throw new TooManyRequestsError(
-                                ObjectMappers.JSON_MAPPER.readValue(responseBodyString, ApiErrorResponse.class));
-                }
-            } catch (JsonProcessingException ignored) {
-                // unable to map error response, throwing generic error
-            }
-            throw new FlagrightApiException(
-                    "Error with status code " + response.code(),
-                    response.code(),
-                    ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class));
-        } catch (IOException e) {
-            throw new FlagrightException("Network error executing HTTP request", e);
-        }
+        return this.rawClient.create(request, requestOptions).body();
     }
 
     /**
@@ -148,7 +77,7 @@ public class BusinessUserEventsClient {
      * You can retrieve any business user event you created using the <a href="/api-reference/api-reference/business-user-events/create">POST Business User Events</a> call.
      */
     public BusinessUserEventWithRulesResult get(String eventId) {
-        return get(eventId, null);
+        return this.rawClient.get(eventId).body();
     }
 
     /**
@@ -156,49 +85,6 @@ public class BusinessUserEventsClient {
      * You can retrieve any business user event you created using the <a href="/api-reference/api-reference/business-user-events/create">POST Business User Events</a> call.
      */
     public BusinessUserEventWithRulesResult get(String eventId, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
-                .newBuilder()
-                .addPathSegments("events/business/user")
-                .addPathSegment(eventId)
-                .build();
-        Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
-                .method("GET", null)
-                .headers(Headers.of(clientOptions.headers(requestOptions)))
-                .addHeader("Content-Type", "application/json")
-                .build();
-        OkHttpClient client = clientOptions.httpClient();
-        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
-            client = clientOptions.httpClientWithTimeout(requestOptions);
-        }
-        try (Response response = client.newCall(okhttpRequest).execute()) {
-            ResponseBody responseBody = response.body();
-            if (response.isSuccessful()) {
-                return ObjectMappers.JSON_MAPPER.readValue(
-                        responseBody.string(), BusinessUserEventWithRulesResult.class);
-            }
-            String responseBodyString = responseBody != null ? responseBody.string() : "{}";
-            try {
-                switch (response.code()) {
-                    case 400:
-                        throw new BadRequestError(
-                                ObjectMappers.JSON_MAPPER.readValue(responseBodyString, ApiErrorResponse.class));
-                    case 401:
-                        throw new UnauthorizedError(
-                                ObjectMappers.JSON_MAPPER.readValue(responseBodyString, ApiErrorResponse.class));
-                    case 429:
-                        throw new TooManyRequestsError(
-                                ObjectMappers.JSON_MAPPER.readValue(responseBodyString, ApiErrorResponse.class));
-                }
-            } catch (JsonProcessingException ignored) {
-                // unable to map error response, throwing generic error
-            }
-            throw new FlagrightApiException(
-                    "Error with status code " + response.code(),
-                    response.code(),
-                    ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class));
-        } catch (IOException e) {
-            throw new FlagrightException("Network error executing HTTP request", e);
-        }
+        return this.rawClient.get(eventId, requestOptions).body();
     }
 }

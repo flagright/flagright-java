@@ -5,6 +5,7 @@ package com.flagright.api.errors;
 
 import com.flagright.api.core.FlagrightApiException;
 import com.flagright.api.types.ApiErrorResponse;
+import okhttp3.Response;
 
 public final class ConflictError extends FlagrightApiException {
     /**
@@ -14,6 +15,11 @@ public final class ConflictError extends FlagrightApiException {
 
     public ConflictError(ApiErrorResponse body) {
         super("ConflictError", 409, body);
+        this.body = body;
+    }
+
+    public ConflictError(ApiErrorResponse body, Response rawResponse) {
+        super("ConflictError", 409, body, rawResponse);
         this.body = body;
     }
 

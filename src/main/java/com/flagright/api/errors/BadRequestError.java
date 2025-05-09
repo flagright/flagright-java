@@ -5,6 +5,7 @@ package com.flagright.api.errors;
 
 import com.flagright.api.core.FlagrightApiException;
 import com.flagright.api.types.ApiErrorResponse;
+import okhttp3.Response;
 
 public final class BadRequestError extends FlagrightApiException {
     /**
@@ -14,6 +15,11 @@ public final class BadRequestError extends FlagrightApiException {
 
     public BadRequestError(ApiErrorResponse body) {
         super("BadRequestError", 400, body);
+        this.body = body;
+    }
+
+    public BadRequestError(ApiErrorResponse body, Response rawResponse) {
+        super("BadRequestError", 400, body, rawResponse);
         this.body = body;
     }
 

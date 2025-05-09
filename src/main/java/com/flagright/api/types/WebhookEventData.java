@@ -134,7 +134,7 @@ public final class WebhookEventData {
         }
 
         @java.lang.Override
-        public WebhookEventData deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+        public WebhookEventData deserialize(JsonParser p, DeserializationContext context) throws IOException {
             Object value = p.readValueAs(Object.class);
             try {
                 return of(ObjectMappers.JSON_MAPPER.convertValue(value, UserStateDetails.class));

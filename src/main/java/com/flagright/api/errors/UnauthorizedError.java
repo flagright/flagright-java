@@ -5,6 +5,7 @@ package com.flagright.api.errors;
 
 import com.flagright.api.core.FlagrightApiException;
 import com.flagright.api.types.ApiErrorResponse;
+import okhttp3.Response;
 
 public final class UnauthorizedError extends FlagrightApiException {
     /**
@@ -14,6 +15,11 @@ public final class UnauthorizedError extends FlagrightApiException {
 
     public UnauthorizedError(ApiErrorResponse body) {
         super("UnauthorizedError", 401, body);
+        this.body = body;
+    }
+
+    public UnauthorizedError(ApiErrorResponse body, Response rawResponse) {
+        super("UnauthorizedError", 401, body, rawResponse);
         this.body = body;
     }
 

@@ -23,7 +23,7 @@ import org.jetbrains.annotations.NotNull;
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
 @JsonDeserialize(builder = TransactionWithRulesResult.Builder.class)
 public final class TransactionWithRulesResult {
-    private final TransactionType type;
+    private final String type;
 
     private final String transactionId;
 
@@ -70,7 +70,7 @@ public final class TransactionWithRulesResult {
     private final Map<String, Object> additionalProperties;
 
     private TransactionWithRulesResult(
-            TransactionType type,
+            String type,
             String transactionId,
             double timestamp,
             Optional<String> originUserId,
@@ -118,8 +118,11 @@ public final class TransactionWithRulesResult {
         this.additionalProperties = additionalProperties;
     }
 
+    /**
+     * @return Type of transaction (ex: DEPOSIT, WITHDRAWAL, TRANSFER, EXTERNAL_PAYMENT, REFUND, OTHER)
+     */
     @JsonProperty("type")
-    public TransactionType getType() {
+    public String getType() {
         return type;
     }
 
@@ -331,7 +334,7 @@ public final class TransactionWithRulesResult {
     }
 
     public interface TypeStage {
-        TransactionIdStage type(@NotNull TransactionType type);
+        TransactionIdStage type(@NotNull String type);
 
         Builder from(TransactionWithRulesResult other);
     }
@@ -433,7 +436,7 @@ public final class TransactionWithRulesResult {
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static final class Builder
             implements TypeStage, TransactionIdStage, TimestampStage, StatusStage, _FinalStage {
-        private TransactionType type;
+        private String type;
 
         private String transactionId;
 
@@ -510,9 +513,13 @@ public final class TransactionWithRulesResult {
             return this;
         }
 
+        /**
+         * <p>Type of transaction (ex: DEPOSIT, WITHDRAWAL, TRANSFER, EXTERNAL_PAYMENT, REFUND, OTHER)</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
         @java.lang.Override
         @JsonSetter("type")
-        public TransactionIdStage type(@NotNull TransactionType type) {
+        public TransactionIdStage type(@NotNull String type) {
             this.type = Objects.requireNonNull(type, "type must not be null");
             return this;
         }

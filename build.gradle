@@ -46,7 +46,7 @@ java {
 
 group = 'com.flagright.api'
 
-version = 'v1.7.1'
+version = 'v1.7.2'
 
 jar {
     dependsOn(":generatePomFileForMavenPublication")
@@ -77,7 +77,7 @@ publishing {
         maven(MavenPublication) {
             groupId = 'com.flagright.api'
             artifactId = 'flagright-java'
-            version = 'v1.7.1'
+            version = 'v1.7.2'
             from components.java
             pom {
                 name = 'flagright'

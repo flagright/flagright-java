@@ -5,6 +5,7 @@ package com.flagright.api.errors;
 
 import com.flagright.api.core.FlagrightApiException;
 import com.flagright.api.types.ApiErrorResponse;
+import okhttp3.Response;
 
 public final class TooManyRequestsError extends FlagrightApiException {
     /**
@@ -14,6 +15,11 @@ public final class TooManyRequestsError extends FlagrightApiException {
 
     public TooManyRequestsError(ApiErrorResponse body) {
         super("TooManyRequestsError", 429, body);
+        this.body = body;
+    }
+
+    public TooManyRequestsError(ApiErrorResponse body, Response rawResponse) {
+        super("TooManyRequestsError", 429, body, rawResponse);
         this.body = body;
     }
 

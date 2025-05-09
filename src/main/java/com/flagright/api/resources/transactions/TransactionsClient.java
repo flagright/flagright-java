@@ -3,34 +3,27 @@
  */
 package com.flagright.api.resources.transactions;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.flagright.api.core.ClientOptions;
-import com.flagright.api.core.FlagrightApiException;
-import com.flagright.api.core.FlagrightException;
-import com.flagright.api.core.MediaTypes;
-import com.flagright.api.core.ObjectMappers;
 import com.flagright.api.core.RequestOptions;
-import com.flagright.api.errors.BadRequestError;
-import com.flagright.api.errors.TooManyRequestsError;
-import com.flagright.api.errors.UnauthorizedError;
 import com.flagright.api.resources.transactions.requests.TransactionsVerifyRequest;
 import com.flagright.api.resources.transactions.types.TransactionsVerifyResponse;
-import com.flagright.api.types.ApiErrorResponse;
 import com.flagright.api.types.TransactionWithRulesResult;
-import java.io.IOException;
-import okhttp3.Headers;
-import okhttp3.HttpUrl;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.RequestBody;
-import okhttp3.Response;
-import okhttp3.ResponseBody;
 
 public class TransactionsClient {
     protected final ClientOptions clientOptions;
 
+    private final RawTransactionsClient rawClient;
+
     public TransactionsClient(ClientOptions clientOptions) {
         this.clientOptions = clientOptions;
+        this.rawClient = new RawTransactionsClient(clientOptions);
+    }
+
+    /**
+     * Get responses with HTTP metadata like headers
+     */
+    public RawTransactionsClient withRawResponse() {
+        return this.rawClient;
     }
 
     /**
@@ -53,7 +46,7 @@ public class TransactionsClient {
      * </ul>
      */
     public TransactionsVerifyResponse verify(TransactionsVerifyRequest request) {
-        return verify(request, null);
+        return this.rawClient.verify(request).body();
     }
 
     /**
@@ -76,72 +69,7 @@ public class TransactionsClient {
      * </ul>
      */
     public TransactionsVerifyResponse verify(TransactionsVerifyRequest request, RequestOptions requestOptions) {
-        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
-                .newBuilder()
-                .addPathSegments("transactions");
-        if (request.getValidateOriginUserId().isPresent()) {
-            httpUrl.addQueryParameter(
-                    "validateOriginUserId",
-                    request.getValidateOriginUserId().get().toString());
-        }
-        if (request.getValidateDestinationUserId().isPresent()) {
-            httpUrl.addQueryParameter(
-                    "validateDestinationUserId",
-                    request.getValidateDestinationUserId().get().toString());
-        }
-        if (request.getValidateTransactionId().isPresent()) {
-            httpUrl.addQueryParameter(
-                    "validateTransactionId",
-                    request.getValidateTransactionId().get().toString());
-        }
-        if (request.getTrsOnly().isPresent()) {
-            httpUrl.addQueryParameter("_trsOnly", request.getTrsOnly().get().toString());
-        }
-        RequestBody body;
-        try {
-            body = RequestBody.create(
-                    ObjectMappers.JSON_MAPPER.writeValueAsBytes(request.getBody()), MediaTypes.APPLICATION_JSON);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-        Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl.build())
-                .method("POST", body)
-                .headers(Headers.of(clientOptions.headers(requestOptions)))
-                .addHeader("Content-Type", "application/json");
-        Request okhttpRequest = _requestBuilder.build();
-        OkHttpClient client = clientOptions.httpClient();
-        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
-            client = clientOptions.httpClientWithTimeout(requestOptions);
-        }
-        try (Response response = client.newCall(okhttpRequest).execute()) {
-            ResponseBody responseBody = response.body();
-            if (response.isSuccessful()) {
-                return ObjectMappers.JSON_MAPPER.readValue(responseBody.string(), TransactionsVerifyResponse.class);
-            }
-            String responseBodyString = responseBody != null ? responseBody.string() : "{}";
-            try {
-                switch (response.code()) {
-                    case 400:
-                        throw new BadRequestError(
-                                ObjectMappers.JSON_MAPPER.readValue(responseBodyString, ApiErrorResponse.class));
-                    case 401:
-                        throw new UnauthorizedError(
-                                ObjectMappers.JSON_MAPPER.readValue(responseBodyString, ApiErrorResponse.class));
-                    case 429:
-                        throw new TooManyRequestsError(
-                                ObjectMappers.JSON_MAPPER.readValue(responseBodyString, ApiErrorResponse.class));
-                }
-            } catch (JsonProcessingException ignored) {
-                // unable to map error response, throwing generic error
-            }
-            throw new FlagrightApiException(
-                    "Error with status code " + response.code(),
-                    response.code(),
-                    ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class));
-        } catch (IOException e) {
-            throw new FlagrightException("Network error executing HTTP request", e);
-        }
+        return this.rawClient.verify(request, requestOptions).body();
     }
 
     /**
@@ -150,7 +78,7 @@ public class TransactionsClient {
      * <p>Calling <code>GET /transactions/{transactionId}</code> will return the entire transaction payload and rule execution results for the transaction with the corresponding <code>transactionId</code></p>
      */
     public TransactionWithRulesResult get(String transactionId) {
-        return get(transactionId, null);
+        return this.rawClient.get(transactionId).body();
     }
 
     /**
@@ -159,48 +87,6 @@ public class TransactionsClient {
      * <p>Calling <code>GET /transactions/{transactionId}</code> will return the entire transaction payload and rule execution results for the transaction with the corresponding <code>transactionId</code></p>
      */
     public TransactionWithRulesResult get(String transactionId, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
-                .newBuilder()
-                .addPathSegments("transactions")
-                .addPathSegment(transactionId)
-                .build();
-        Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
-                .method("GET", null)
-                .headers(Headers.of(clientOptions.headers(requestOptions)))
-                .addHeader("Content-Type", "application/json")
-                .build();
-        OkHttpClient client = clientOptions.httpClient();
-        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
-            client = clientOptions.httpClientWithTimeout(requestOptions);
-        }
-        try (Response response = client.newCall(okhttpRequest).execute()) {
-            ResponseBody responseBody = response.body();
-            if (response.isSuccessful()) {
-                return ObjectMappers.JSON_MAPPER.readValue(responseBody.string(), TransactionWithRulesResult.class);
-            }
-            String responseBodyString = responseBody != null ? responseBody.string() : "{}";
-            try {
-                switch (response.code()) {
-                    case 400:
-                        throw new BadRequestError(
-                                ObjectMappers.JSON_MAPPER.readValue(responseBodyString, ApiErrorResponse.class));
-                    case 401:
-                        throw new UnauthorizedError(
-                                ObjectMappers.JSON_MAPPER.readValue(responseBodyString, ApiErrorResponse.class));
-                    case 429:
-                        throw new TooManyRequestsError(
-                                ObjectMappers.JSON_MAPPER.readValue(responseBodyString, ApiErrorResponse.class));
-                }
-            } catch (JsonProcessingException ignored) {
-                // unable to map error response, throwing generic error
-            }
-            throw new FlagrightApiException(
-                    "Error with status code " + response.code(),
-                    response.code(),
-                    ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class));
-        } catch (IOException e) {
-            throw new FlagrightException("Network error executing HTTP request", e);
-        }
+        return this.rawClient.get(transactionId, requestOptions).body();
     }
 }
