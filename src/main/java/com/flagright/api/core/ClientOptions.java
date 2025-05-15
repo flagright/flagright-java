@@ -32,10 +32,10 @@ public final class ClientOptions {
         this.headers.putAll(headers);
         this.headers.putAll(new HashMap<String, String>() {
             {
-                put("User-Agent", "com.flagright.api:flagright-java/v1.7.2");
+                put("User-Agent", "com.flagright.api:flagright-java/v1.7.3");
                 put("X-Fern-Language", "JAVA");
                 put("X-Fern-SDK-Name", "com.flagright.fern:api-sdk");
-                put("X-Fern-SDK-Version", "v1.7.2");
+                put("X-Fern-SDK-Version", "v1.7.3");
             }
         });
         this.headerSuppliers = headerSuppliers;

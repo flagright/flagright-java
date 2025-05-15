@@ -64,6 +64,10 @@ public final class UserWithRulesResult {
 
     private final Optional<List<PepStatus>> pepStatus;
 
+    private final Optional<Boolean> sanctionsStatus;
+
+    private final Optional<Boolean> adverseMediaStatus;
+
     private final Optional<Double> lastTransactionTimestamp;
 
     private final Optional<UserEntityLink> linkedEntities;
@@ -104,6 +108,8 @@ public final class UserWithRulesResult {
             Optional<List<SourceOfFunds>> sourceOfFunds,
             Optional<ConsumerUserSegment> userSegment,
             Optional<List<PepStatus>> pepStatus,
+            Optional<Boolean> sanctionsStatus,
+            Optional<Boolean> adverseMediaStatus,
             Optional<Double> lastTransactionTimestamp,
             Optional<UserEntityLink> linkedEntities,
             Optional<List<UserWithRulesResultSavedPaymentDetailsItem>> savedPaymentDetails,
@@ -134,6 +140,8 @@ public final class UserWithRulesResult {
         this.sourceOfFunds = sourceOfFunds;
         this.userSegment = userSegment;
         this.pepStatus = pepStatus;
+        this.sanctionsStatus = sanctionsStatus;
+        this.adverseMediaStatus = adverseMediaStatus;
         this.lastTransactionTimestamp = lastTransactionTimestamp;
         this.linkedEntities = linkedEntities;
         this.savedPaymentDetails = savedPaymentDetails;
@@ -262,6 +270,16 @@ public final class UserWithRulesResult {
         return pepStatus;
     }
 
+    @JsonProperty("sanctionsStatus")
+    public Optional<Boolean> getSanctionsStatus() {
+        return sanctionsStatus;
+    }
+
+    @JsonProperty("adverseMediaStatus")
+    public Optional<Boolean> getAdverseMediaStatus() {
+        return adverseMediaStatus;
+    }
+
     /**
      * @return Timestamp of the last successful transaction of the user
      */
@@ -344,6 +362,8 @@ public final class UserWithRulesResult {
                 && sourceOfFunds.equals(other.sourceOfFunds)
                 && userSegment.equals(other.userSegment)
                 && pepStatus.equals(other.pepStatus)
+                && sanctionsStatus.equals(other.sanctionsStatus)
+                && adverseMediaStatus.equals(other.adverseMediaStatus)
                 && lastTransactionTimestamp.equals(other.lastTransactionTimestamp)
                 && linkedEntities.equals(other.linkedEntities)
                 && savedPaymentDetails.equals(other.savedPaymentDetails)
@@ -378,6 +398,8 @@ public final class UserWithRulesResult {
                 this.sourceOfFunds,
                 this.userSegment,
                 this.pepStatus,
+                this.sanctionsStatus,
+                this.adverseMediaStatus,
                 this.lastTransactionTimestamp,
                 this.linkedEntities,
                 this.savedPaymentDetails,
@@ -486,6 +508,14 @@ public final class UserWithRulesResult {
 
         _FinalStage pepStatus(List<PepStatus> pepStatus);
 
+        _FinalStage sanctionsStatus(Optional<Boolean> sanctionsStatus);
+
+        _FinalStage sanctionsStatus(Boolean sanctionsStatus);
+
+        _FinalStage adverseMediaStatus(Optional<Boolean> adverseMediaStatus);
+
+        _FinalStage adverseMediaStatus(Boolean adverseMediaStatus);
+
         _FinalStage lastTransactionTimestamp(Optional<Double> lastTransactionTimestamp);
 
         _FinalStage lastTransactionTimestamp(Double lastTransactionTimestamp);
@@ -540,6 +570,10 @@ public final class UserWithRulesResult {
         private Optional<UserEntityLink> linkedEntities = Optional.empty();
 
         private Optional<Double> lastTransactionTimestamp = Optional.empty();
+
+        private Optional<Boolean> adverseMediaStatus = Optional.empty();
+
+        private Optional<Boolean> sanctionsStatus = Optional.empty();
 
         private Optional<List<PepStatus>> pepStatus = Optional.empty();
 
@@ -607,6 +641,8 @@ public final class UserWithRulesResult {
             sourceOfFunds(other.getSourceOfFunds());
             userSegment(other.getUserSegment());
             pepStatus(other.getPepStatus());
+            sanctionsStatus(other.getSanctionsStatus());
+            adverseMediaStatus(other.getAdverseMediaStatus());
             lastTransactionTimestamp(other.getLastTransactionTimestamp());
             linkedEntities(other.getLinkedEntities());
             savedPaymentDetails(other.getSavedPaymentDetails());
@@ -754,6 +790,32 @@ public final class UserWithRulesResult {
         @JsonSetter(value = "lastTransactionTimestamp", nulls = Nulls.SKIP)
         public _FinalStage lastTransactionTimestamp(Optional<Double> lastTransactionTimestamp) {
             this.lastTransactionTimestamp = lastTransactionTimestamp;
+            return this;
+        }
+
+        @java.lang.Override
+        public _FinalStage adverseMediaStatus(Boolean adverseMediaStatus) {
+            this.adverseMediaStatus = Optional.ofNullable(adverseMediaStatus);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "adverseMediaStatus", nulls = Nulls.SKIP)
+        public _FinalStage adverseMediaStatus(Optional<Boolean> adverseMediaStatus) {
+            this.adverseMediaStatus = adverseMediaStatus;
+            return this;
+        }
+
+        @java.lang.Override
+        public _FinalStage sanctionsStatus(Boolean sanctionsStatus) {
+            this.sanctionsStatus = Optional.ofNullable(sanctionsStatus);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "sanctionsStatus", nulls = Nulls.SKIP)
+        public _FinalStage sanctionsStatus(Optional<Boolean> sanctionsStatus) {
+            this.sanctionsStatus = sanctionsStatus;
             return this;
         }
 
@@ -1036,6 +1098,8 @@ public final class UserWithRulesResult {
                     sourceOfFunds,
                     userSegment,
                     pepStatus,
+                    sanctionsStatus,
+                    adverseMediaStatus,
                     lastTransactionTimestamp,
                     linkedEntities,
                     savedPaymentDetails,

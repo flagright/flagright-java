@@ -24,7 +24,9 @@ public enum PaymentMethod {
 
     CHECK("CHECK"),
 
-    CASH("CASH");
+    CASH("CASH"),
+
+    NPP("NPP");
 
     private final String value;
 

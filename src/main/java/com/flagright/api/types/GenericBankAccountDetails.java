@@ -35,6 +35,10 @@ public final class GenericBankAccountDetails {
 
     private final Optional<String> name;
 
+    private final Optional<CountryCode> countryOfNationality;
+
+    private final Optional<String> dateOfBirth;
+
     private final Optional<Address> bankAddress;
 
     private final Optional<String> emailId;
@@ -57,6 +61,8 @@ public final class GenericBankAccountDetails {
             Optional<String> bankCode,
             Optional<CountryCode> country,
             Optional<String> name,
+            Optional<CountryCode> countryOfNationality,
+            Optional<String> dateOfBirth,
             Optional<Address> bankAddress,
             Optional<String> emailId,
             Optional<String> specialInstructions,
@@ -71,6 +77,8 @@ public final class GenericBankAccountDetails {
         this.bankCode = bankCode;
         this.country = country;
         this.name = name;
+        this.countryOfNationality = countryOfNationality;
+        this.dateOfBirth = dateOfBirth;
         this.bankAddress = bankAddress;
         this.emailId = emailId;
         this.specialInstructions = specialInstructions;
@@ -128,6 +136,22 @@ public final class GenericBankAccountDetails {
     @JsonProperty("name")
     public Optional<String> getName() {
         return name;
+    }
+
+    /**
+     * @return Country of nationality of the account holder
+     */
+    @JsonProperty("countryOfNationality")
+    public Optional<CountryCode> getCountryOfNationality() {
+        return countryOfNationality;
+    }
+
+    /**
+     * @return Date of birth of the account holder (YYYY-MM-DD)
+     */
+    @JsonProperty("dateOfBirth")
+    public Optional<String> getDateOfBirth() {
+        return dateOfBirth;
     }
 
     @JsonProperty("bankAddress")
@@ -188,6 +212,8 @@ public final class GenericBankAccountDetails {
                 && bankCode.equals(other.bankCode)
                 && country.equals(other.country)
                 && name.equals(other.name)
+                && countryOfNationality.equals(other.countryOfNationality)
+                && dateOfBirth.equals(other.dateOfBirth)
                 && bankAddress.equals(other.bankAddress)
                 && emailId.equals(other.emailId)
                 && specialInstructions.equals(other.specialInstructions)
@@ -206,6 +232,8 @@ public final class GenericBankAccountDetails {
                 this.bankCode,
                 this.country,
                 this.name,
+                this.countryOfNationality,
+                this.dateOfBirth,
                 this.bankAddress,
                 this.emailId,
                 this.specialInstructions,
@@ -239,6 +267,10 @@ public final class GenericBankAccountDetails {
 
         private Optional<String> name = Optional.empty();
 
+        private Optional<CountryCode> countryOfNationality = Optional.empty();
+
+        private Optional<String> dateOfBirth = Optional.empty();
+
         private Optional<Address> bankAddress = Optional.empty();
 
         private Optional<String> emailId = Optional.empty();
@@ -264,6 +296,8 @@ public final class GenericBankAccountDetails {
             bankCode(other.getBankCode());
             country(other.getCountry());
             name(other.getName());
+            countryOfNationality(other.getCountryOfNationality());
+            dateOfBirth(other.getDateOfBirth());
             bankAddress(other.getBankAddress());
             emailId(other.getEmailId());
             specialInstructions(other.getSpecialInstructions());
@@ -350,6 +384,28 @@ public final class GenericBankAccountDetails {
             return this;
         }
 
+        @JsonSetter(value = "countryOfNationality", nulls = Nulls.SKIP)
+        public Builder countryOfNationality(Optional<CountryCode> countryOfNationality) {
+            this.countryOfNationality = countryOfNationality;
+            return this;
+        }
+
+        public Builder countryOfNationality(CountryCode countryOfNationality) {
+            this.countryOfNationality = Optional.ofNullable(countryOfNationality);
+            return this;
+        }
+
+        @JsonSetter(value = "dateOfBirth", nulls = Nulls.SKIP)
+        public Builder dateOfBirth(Optional<String> dateOfBirth) {
+            this.dateOfBirth = dateOfBirth;
+            return this;
+        }
+
+        public Builder dateOfBirth(String dateOfBirth) {
+            this.dateOfBirth = Optional.ofNullable(dateOfBirth);
+            return this;
+        }
+
         @JsonSetter(value = "bankAddress", nulls = Nulls.SKIP)
         public Builder bankAddress(Optional<Address> bankAddress) {
             this.bankAddress = bankAddress;
@@ -425,6 +481,8 @@ public final class GenericBankAccountDetails {
                     bankCode,
                     country,
                     name,
+                    countryOfNationality,
+                    dateOfBirth,
                     bankAddress,
                     emailId,
                     specialInstructions,

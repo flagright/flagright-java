@@ -67,6 +67,10 @@ public final class TransactionWithRulesResultDestinationPaymentDetails {
         return new TransactionWithRulesResultDestinationPaymentDetails(new CashValue(value));
     }
 
+    public static TransactionWithRulesResultDestinationPaymentDetails npp(NppDetails value) {
+        return new TransactionWithRulesResultDestinationPaymentDetails(new NppValue(value));
+    }
+
     public boolean isCard() {
         return value instanceof CardValue;
     }
@@ -105,6 +109,10 @@ public final class TransactionWithRulesResultDestinationPaymentDetails {
 
     public boolean isCash() {
         return value instanceof CashValue;
+    }
+
+    public boolean isNpp() {
+        return value instanceof NppValue;
     }
 
     public boolean _isUnknown() {
@@ -181,6 +189,13 @@ public final class TransactionWithRulesResultDestinationPaymentDetails {
         return Optional.empty();
     }
 
+    public Optional<NppDetails> getNpp() {
+        if (isNpp()) {
+            return Optional.of(((NppValue) value).value);
+        }
+        return Optional.empty();
+    }
+
     public Optional<Object> _getUnknown() {
         if (_isUnknown()) {
             return Optional.of(((_UnknownValue) value).value);
@@ -214,6 +229,8 @@ public final class TransactionWithRulesResultDestinationPaymentDetails {
 
         T visitCash(CashDetails cash);
 
+        T visitNpp(NppDetails npp);
+
         T _visitUnknown(Object unknownType);
     }
 
@@ -228,7 +245,8 @@ public final class TransactionWithRulesResultDestinationPaymentDetails {
         @JsonSubTypes.Type(SwiftValue.class),
         @JsonSubTypes.Type(MpesaValue.class),
         @JsonSubTypes.Type(CheckValue.class),
-        @JsonSubTypes.Type(CashValue.class)
+        @JsonSubTypes.Type(CashValue.class),
+        @JsonSubTypes.Type(NppValue.class)
     })
     @JsonIgnoreProperties(ignoreUnknown = true)
     private interface Value {
@@ -611,6 +629,45 @@ public final class TransactionWithRulesResultDestinationPaymentDetails {
         }
 
         private boolean equalTo(CashValue other) {
+            return value.equals(other.value);
+        }
+
+        @java.lang.Override
+        public int hashCode() {
+            return Objects.hash(this.value);
+        }
+
+        @java.lang.Override
+        public String toString() {
+            return "TransactionWithRulesResultDestinationPaymentDetails{" + "value: " + value + "}";
+        }
+    }
+
+    @JsonTypeName("NPP")
+    @JsonIgnoreProperties("method")
+    private static final class NppValue implements Value {
+        @JsonUnwrapped
+        private NppDetails value;
+
+        @JsonCreator(mode = JsonCreator.Mode.PROPERTIES)
+        private NppValue() {}
+
+        private NppValue(NppDetails value) {
+            this.value = value;
+        }
+
+        @java.lang.Override
+        public <T> T visit(Visitor<T> visitor) {
+            return visitor.visitNpp(value);
+        }
+
+        @java.lang.Override
+        public boolean equals(Object other) {
+            if (this == other) return true;
+            return other instanceof NppValue && equalTo((NppValue) other);
+        }
+
+        private boolean equalTo(NppValue other) {
             return value.equals(other.value);
         }
 

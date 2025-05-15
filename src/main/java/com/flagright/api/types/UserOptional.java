@@ -59,6 +59,10 @@ public final class UserOptional {
 
     private final Optional<List<PepStatus>> pepStatus;
 
+    private final Optional<Boolean> sanctionsStatus;
+
+    private final Optional<Boolean> adverseMediaStatus;
+
     private final Optional<Double> lastTransactionTimestamp;
 
     private final Optional<UserEntityLink> linkedEntities;
@@ -91,6 +95,8 @@ public final class UserOptional {
             Optional<List<SourceOfFunds>> sourceOfFunds,
             Optional<ConsumerUserSegment> userSegment,
             Optional<List<PepStatus>> pepStatus,
+            Optional<Boolean> sanctionsStatus,
+            Optional<Boolean> adverseMediaStatus,
             Optional<Double> lastTransactionTimestamp,
             Optional<UserEntityLink> linkedEntities,
             Optional<List<UserOptionalSavedPaymentDetailsItem>> savedPaymentDetails,
@@ -116,6 +122,8 @@ public final class UserOptional {
         this.sourceOfFunds = sourceOfFunds;
         this.userSegment = userSegment;
         this.pepStatus = pepStatus;
+        this.sanctionsStatus = sanctionsStatus;
+        this.adverseMediaStatus = adverseMediaStatus;
         this.lastTransactionTimestamp = lastTransactionTimestamp;
         this.linkedEntities = linkedEntities;
         this.savedPaymentDetails = savedPaymentDetails;
@@ -225,6 +233,16 @@ public final class UserOptional {
         return pepStatus;
     }
 
+    @JsonProperty("sanctionsStatus")
+    public Optional<Boolean> getSanctionsStatus() {
+        return sanctionsStatus;
+    }
+
+    @JsonProperty("adverseMediaStatus")
+    public Optional<Boolean> getAdverseMediaStatus() {
+        return adverseMediaStatus;
+    }
+
     /**
      * @return Timestamp of the last successful transaction of the user
      */
@@ -290,6 +308,8 @@ public final class UserOptional {
                 && sourceOfFunds.equals(other.sourceOfFunds)
                 && userSegment.equals(other.userSegment)
                 && pepStatus.equals(other.pepStatus)
+                && sanctionsStatus.equals(other.sanctionsStatus)
+                && adverseMediaStatus.equals(other.adverseMediaStatus)
                 && lastTransactionTimestamp.equals(other.lastTransactionTimestamp)
                 && linkedEntities.equals(other.linkedEntities)
                 && savedPaymentDetails.equals(other.savedPaymentDetails)
@@ -319,6 +339,8 @@ public final class UserOptional {
                 this.sourceOfFunds,
                 this.userSegment,
                 this.pepStatus,
+                this.sanctionsStatus,
+                this.adverseMediaStatus,
                 this.lastTransactionTimestamp,
                 this.linkedEntities,
                 this.savedPaymentDetails,
@@ -375,6 +397,10 @@ public final class UserOptional {
 
         private Optional<List<PepStatus>> pepStatus = Optional.empty();
 
+        private Optional<Boolean> sanctionsStatus = Optional.empty();
+
+        private Optional<Boolean> adverseMediaStatus = Optional.empty();
+
         private Optional<Double> lastTransactionTimestamp = Optional.empty();
 
         private Optional<UserEntityLink> linkedEntities = Optional.empty();
@@ -410,6 +436,8 @@ public final class UserOptional {
             sourceOfFunds(other.getSourceOfFunds());
             userSegment(other.getUserSegment());
             pepStatus(other.getPepStatus());
+            sanctionsStatus(other.getSanctionsStatus());
+            adverseMediaStatus(other.getAdverseMediaStatus());
             lastTransactionTimestamp(other.getLastTransactionTimestamp());
             linkedEntities(other.getLinkedEntities());
             savedPaymentDetails(other.getSavedPaymentDetails());
@@ -627,6 +655,28 @@ public final class UserOptional {
             return this;
         }
 
+        @JsonSetter(value = "sanctionsStatus", nulls = Nulls.SKIP)
+        public Builder sanctionsStatus(Optional<Boolean> sanctionsStatus) {
+            this.sanctionsStatus = sanctionsStatus;
+            return this;
+        }
+
+        public Builder sanctionsStatus(Boolean sanctionsStatus) {
+            this.sanctionsStatus = Optional.ofNullable(sanctionsStatus);
+            return this;
+        }
+
+        @JsonSetter(value = "adverseMediaStatus", nulls = Nulls.SKIP)
+        public Builder adverseMediaStatus(Optional<Boolean> adverseMediaStatus) {
+            this.adverseMediaStatus = adverseMediaStatus;
+            return this;
+        }
+
+        public Builder adverseMediaStatus(Boolean adverseMediaStatus) {
+            this.adverseMediaStatus = Optional.ofNullable(adverseMediaStatus);
+            return this;
+        }
+
         @JsonSetter(value = "lastTransactionTimestamp", nulls = Nulls.SKIP)
         public Builder lastTransactionTimestamp(Optional<Double> lastTransactionTimestamp) {
             this.lastTransactionTimestamp = lastTransactionTimestamp;
@@ -703,6 +753,8 @@ public final class UserOptional {
                     sourceOfFunds,
                     userSegment,
                     pepStatus,
+                    sanctionsStatus,
+                    adverseMediaStatus,
                     lastTransactionTimestamp,
                     linkedEntities,
                     savedPaymentDetails,
