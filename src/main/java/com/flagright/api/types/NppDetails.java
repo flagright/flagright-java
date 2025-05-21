@@ -32,7 +32,7 @@ public final class NppDetails {
 
     private final Optional<String> bsb;
 
-    private final Optional<String> payId;
+    private final String payId;
 
     private final String endToEndId;
 
@@ -70,7 +70,7 @@ public final class NppDetails {
             Optional<String> emailId,
             Optional<String> contactNumber,
             Optional<String> bsb,
-            Optional<String> payId,
+            String payId,
             String endToEndId,
             Optional<String> oskoReference,
             Optional<String> payIdReference,
@@ -147,7 +147,7 @@ public final class NppDetails {
      * @return PayID
      */
     @JsonProperty("payId")
-    public Optional<String> getPayId() {
+    public String getPayId() {
         return payId;
     }
 
@@ -324,14 +324,18 @@ public final class NppDetails {
         return ObjectMappers.stringify(this);
     }
 
-    public static EndToEndIdStage builder() {
+    public static PayIdStage builder() {
         return new Builder();
+    }
+
+    public interface PayIdStage {
+        EndToEndIdStage payId(@NotNull String payId);
+
+        Builder from(NppDetails other);
     }
 
     public interface EndToEndIdStage {
         _FinalStage endToEndId(@NotNull String endToEndId);
-
-        Builder from(NppDetails other);
     }
 
     public interface _FinalStage {
@@ -356,10 +360,6 @@ public final class NppDetails {
         _FinalStage bsb(Optional<String> bsb);
 
         _FinalStage bsb(String bsb);
-
-        _FinalStage payId(Optional<String> payId);
-
-        _FinalStage payId(String payId);
 
         _FinalStage oskoReference(Optional<String> oskoReference);
 
@@ -415,7 +415,9 @@ public final class NppDetails {
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
-    public static final class Builder implements EndToEndIdStage, _FinalStage {
+    public static final class Builder implements PayIdStage, EndToEndIdStage, _FinalStage {
+        private String payId;
+
         private String endToEndId;
 
         private Optional<Address> address = Optional.empty();
@@ -443,8 +445,6 @@ public final class NppDetails {
         private Optional<String> payIdReference = Optional.empty();
 
         private Optional<String> oskoReference = Optional.empty();
-
-        private Optional<String> payId = Optional.empty();
 
         private Optional<String> bsb = Optional.empty();
 
@@ -483,6 +483,17 @@ public final class NppDetails {
             messageFormat(other.getMessageFormat());
             bankName(other.getBankName());
             address(other.getAddress());
+            return this;
+        }
+
+        /**
+         * <p>PayID</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
+        @java.lang.Override
+        @JsonSetter("payId")
+        public EndToEndIdStage payId(@NotNull String payId) {
+            this.payId = Objects.requireNonNull(payId, "payId must not be null");
             return this;
         }
 
@@ -711,23 +722,6 @@ public final class NppDetails {
         @JsonSetter(value = "oskoReference", nulls = Nulls.SKIP)
         public _FinalStage oskoReference(Optional<String> oskoReference) {
             this.oskoReference = oskoReference;
-            return this;
-        }
-
-        /**
-         * <p>PayID</p>
-         * @return Reference to {@code this} so that method calls can be chained together.
-         */
-        @java.lang.Override
-        public _FinalStage payId(String payId) {
-            this.payId = Optional.ofNullable(payId);
-            return this;
-        }
-
-        @java.lang.Override
-        @JsonSetter(value = "payId", nulls = Nulls.SKIP)
-        public _FinalStage payId(Optional<String> payId) {
-            this.payId = payId;
             return this;
         }
 
