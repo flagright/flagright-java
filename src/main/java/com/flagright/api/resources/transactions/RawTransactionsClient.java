@@ -96,17 +96,6 @@ public class RawTransactionsClient {
                     request.getValidateDestinationUserId().get().toString(),
                     false);
         }
-        if (request.getValidateTransactionId().isPresent()) {
-            QueryStringMapper.addQueryParameter(
-                    httpUrl,
-                    "validateTransactionId",
-                    request.getValidateTransactionId().get().toString(),
-                    false);
-        }
-        if (request.getTrsOnly().isPresent()) {
-            QueryStringMapper.addQueryParameter(
-                    httpUrl, "_trsOnly", request.getTrsOnly().get().toString(), false);
-        }
         RequestBody body;
         try {
             body = RequestBody.create(

@@ -5,12 +5,14 @@ package com.flagright.api.resources.batch;
 
 import com.flagright.api.core.ClientOptions;
 import com.flagright.api.core.RequestOptions;
+import com.flagright.api.resources.batch.requests.BatchGetRequest;
 import com.flagright.api.resources.batch.requests.BusinessBatchRequest;
 import com.flagright.api.resources.batch.requests.BusinessUserEventBatchRequest;
 import com.flagright.api.resources.batch.requests.ConsumerUserEventBatchRequest;
 import com.flagright.api.resources.batch.requests.TransactionBatchRequest;
 import com.flagright.api.resources.batch.requests.TransactionEventBatchRequest;
 import com.flagright.api.resources.batch.requests.UserBatchRequest;
+import com.flagright.api.types.BatchBusinessUserEventsWithRulesResult;
 import com.flagright.api.types.BatchResponse;
 import java.util.concurrent.CompletableFuture;
 
@@ -38,6 +40,19 @@ public class AsyncBatchClient {
     public CompletableFuture<BatchResponse> verifyTransaction(
             TransactionBatchRequest request, RequestOptions requestOptions) {
         return this.rawClient.verifyTransaction(request, requestOptions).thenApply(response -> response.body());
+    }
+
+    public CompletableFuture<BatchBusinessUserEventsWithRulesResult> get(String batchId) {
+        return this.rawClient.get(batchId).thenApply(response -> response.body());
+    }
+
+    public CompletableFuture<BatchBusinessUserEventsWithRulesResult> get(String batchId, BatchGetRequest request) {
+        return this.rawClient.get(batchId, request).thenApply(response -> response.body());
+    }
+
+    public CompletableFuture<BatchBusinessUserEventsWithRulesResult> get(
+            String batchId, BatchGetRequest request, RequestOptions requestOptions) {
+        return this.rawClient.get(batchId, request, requestOptions).thenApply(response -> response.body());
     }
 
     public CompletableFuture<BatchResponse> createTransactionEvents(TransactionEventBatchRequest request) {

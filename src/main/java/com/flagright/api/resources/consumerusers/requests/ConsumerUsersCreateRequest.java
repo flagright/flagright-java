@@ -29,8 +29,6 @@ public final class ConsumerUsersCreateRequest {
 
     private final Optional<BooleanString> validateUserId;
 
-    private final Optional<BooleanString> krsOnly;
-
     private final User body;
 
     private final Map<String, Object> additionalProperties;
@@ -39,13 +37,11 @@ public final class ConsumerUsersCreateRequest {
             Optional<BooleanString> lockCraRiskLevel,
             Optional<BooleanString> lockKycRiskLevel,
             Optional<BooleanString> validateUserId,
-            Optional<BooleanString> krsOnly,
             User body,
             Map<String, Object> additionalProperties) {
         this.lockCraRiskLevel = lockCraRiskLevel;
         this.lockKycRiskLevel = lockKycRiskLevel;
         this.validateUserId = validateUserId;
-        this.krsOnly = krsOnly;
         this.body = body;
         this.additionalProperties = additionalProperties;
     }
@@ -74,11 +70,6 @@ public final class ConsumerUsersCreateRequest {
         return validateUserId;
     }
 
-    @JsonProperty("_krsOnly")
-    public Optional<BooleanString> getKrsOnly() {
-        return krsOnly;
-    }
-
     @JsonProperty("body")
     public User getBody() {
         return body;
@@ -99,13 +90,12 @@ public final class ConsumerUsersCreateRequest {
         return lockCraRiskLevel.equals(other.lockCraRiskLevel)
                 && lockKycRiskLevel.equals(other.lockKycRiskLevel)
                 && validateUserId.equals(other.validateUserId)
-                && krsOnly.equals(other.krsOnly)
                 && body.equals(other.body);
     }
 
     @java.lang.Override
     public int hashCode() {
-        return Objects.hash(this.lockCraRiskLevel, this.lockKycRiskLevel, this.validateUserId, this.krsOnly, this.body);
+        return Objects.hash(this.lockCraRiskLevel, this.lockKycRiskLevel, this.validateUserId, this.body);
     }
 
     @java.lang.Override
@@ -137,17 +127,11 @@ public final class ConsumerUsersCreateRequest {
         _FinalStage validateUserId(Optional<BooleanString> validateUserId);
 
         _FinalStage validateUserId(BooleanString validateUserId);
-
-        _FinalStage krsOnly(Optional<BooleanString> krsOnly);
-
-        _FinalStage krsOnly(BooleanString krsOnly);
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static final class Builder implements BodyStage, _FinalStage {
         private User body;
-
-        private Optional<BooleanString> krsOnly = Optional.empty();
 
         private Optional<BooleanString> validateUserId = Optional.empty();
 
@@ -165,7 +149,6 @@ public final class ConsumerUsersCreateRequest {
             lockCraRiskLevel(other.getLockCraRiskLevel());
             lockKycRiskLevel(other.getLockKycRiskLevel());
             validateUserId(other.getValidateUserId());
-            krsOnly(other.getKrsOnly());
             body(other.getBody());
             return this;
         }
@@ -174,19 +157,6 @@ public final class ConsumerUsersCreateRequest {
         @JsonSetter("body")
         public _FinalStage body(@NotNull User body) {
             this.body = Objects.requireNonNull(body, "body must not be null");
-            return this;
-        }
-
-        @java.lang.Override
-        public _FinalStage krsOnly(BooleanString krsOnly) {
-            this.krsOnly = Optional.ofNullable(krsOnly);
-            return this;
-        }
-
-        @java.lang.Override
-        @JsonSetter(value = "_krsOnly", nulls = Nulls.SKIP)
-        public _FinalStage krsOnly(Optional<BooleanString> krsOnly) {
-            this.krsOnly = krsOnly;
             return this;
         }
 
@@ -244,7 +214,7 @@ public final class ConsumerUsersCreateRequest {
         @java.lang.Override
         public ConsumerUsersCreateRequest build() {
             return new ConsumerUsersCreateRequest(
-                    lockCraRiskLevel, lockKycRiskLevel, validateUserId, krsOnly, body, additionalProperties);
+                    lockCraRiskLevel, lockKycRiskLevel, validateUserId, body, additionalProperties);
         }
     }
 }

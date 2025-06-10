@@ -27,10 +27,6 @@ public final class TransactionsVerifyRequest {
 
     private final Optional<BooleanString> validateDestinationUserId;
 
-    private final Optional<BooleanString> validateTransactionId;
-
-    private final Optional<BooleanString> trsOnly;
-
     private final Transaction body;
 
     private final Map<String, Object> additionalProperties;
@@ -38,14 +34,10 @@ public final class TransactionsVerifyRequest {
     private TransactionsVerifyRequest(
             Optional<BooleanString> validateOriginUserId,
             Optional<BooleanString> validateDestinationUserId,
-            Optional<BooleanString> validateTransactionId,
-            Optional<BooleanString> trsOnly,
             Transaction body,
             Map<String, Object> additionalProperties) {
         this.validateOriginUserId = validateOriginUserId;
         this.validateDestinationUserId = validateDestinationUserId;
-        this.validateTransactionId = validateTransactionId;
-        this.trsOnly = trsOnly;
         this.body = body;
         this.additionalProperties = additionalProperties;
     }
@@ -64,19 +56,6 @@ public final class TransactionsVerifyRequest {
     @JsonProperty("validateDestinationUserId")
     public Optional<BooleanString> getValidateDestinationUserId() {
         return validateDestinationUserId;
-    }
-
-    /**
-     * @return Boolean string whether Flagright should validate if provided transactionId exist. True by default
-     */
-    @JsonProperty("validateTransactionId")
-    public Optional<BooleanString> getValidateTransactionId() {
-        return validateTransactionId;
-    }
-
-    @JsonProperty("_trsOnly")
-    public Optional<BooleanString> getTrsOnly() {
-        return trsOnly;
     }
 
     @JsonProperty("body")
@@ -98,19 +77,12 @@ public final class TransactionsVerifyRequest {
     private boolean equalTo(TransactionsVerifyRequest other) {
         return validateOriginUserId.equals(other.validateOriginUserId)
                 && validateDestinationUserId.equals(other.validateDestinationUserId)
-                && validateTransactionId.equals(other.validateTransactionId)
-                && trsOnly.equals(other.trsOnly)
                 && body.equals(other.body);
     }
 
     @java.lang.Override
     public int hashCode() {
-        return Objects.hash(
-                this.validateOriginUserId,
-                this.validateDestinationUserId,
-                this.validateTransactionId,
-                this.trsOnly,
-                this.body);
+        return Objects.hash(this.validateOriginUserId, this.validateDestinationUserId, this.body);
     }
 
     @java.lang.Override
@@ -138,23 +110,11 @@ public final class TransactionsVerifyRequest {
         _FinalStage validateDestinationUserId(Optional<BooleanString> validateDestinationUserId);
 
         _FinalStage validateDestinationUserId(BooleanString validateDestinationUserId);
-
-        _FinalStage validateTransactionId(Optional<BooleanString> validateTransactionId);
-
-        _FinalStage validateTransactionId(BooleanString validateTransactionId);
-
-        _FinalStage trsOnly(Optional<BooleanString> trsOnly);
-
-        _FinalStage trsOnly(BooleanString trsOnly);
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static final class Builder implements BodyStage, _FinalStage {
         private Transaction body;
-
-        private Optional<BooleanString> trsOnly = Optional.empty();
-
-        private Optional<BooleanString> validateTransactionId = Optional.empty();
 
         private Optional<BooleanString> validateDestinationUserId = Optional.empty();
 
@@ -169,8 +129,6 @@ public final class TransactionsVerifyRequest {
         public Builder from(TransactionsVerifyRequest other) {
             validateOriginUserId(other.getValidateOriginUserId());
             validateDestinationUserId(other.getValidateDestinationUserId());
-            validateTransactionId(other.getValidateTransactionId());
-            trsOnly(other.getTrsOnly());
             body(other.getBody());
             return this;
         }
@@ -179,36 +137,6 @@ public final class TransactionsVerifyRequest {
         @JsonSetter("body")
         public _FinalStage body(@NotNull Transaction body) {
             this.body = Objects.requireNonNull(body, "body must not be null");
-            return this;
-        }
-
-        @java.lang.Override
-        public _FinalStage trsOnly(BooleanString trsOnly) {
-            this.trsOnly = Optional.ofNullable(trsOnly);
-            return this;
-        }
-
-        @java.lang.Override
-        @JsonSetter(value = "_trsOnly", nulls = Nulls.SKIP)
-        public _FinalStage trsOnly(Optional<BooleanString> trsOnly) {
-            this.trsOnly = trsOnly;
-            return this;
-        }
-
-        /**
-         * <p>Boolean string whether Flagright should validate if provided transactionId exist. True by default</p>
-         * @return Reference to {@code this} so that method calls can be chained together.
-         */
-        @java.lang.Override
-        public _FinalStage validateTransactionId(BooleanString validateTransactionId) {
-            this.validateTransactionId = Optional.ofNullable(validateTransactionId);
-            return this;
-        }
-
-        @java.lang.Override
-        @JsonSetter(value = "validateTransactionId", nulls = Nulls.SKIP)
-        public _FinalStage validateTransactionId(Optional<BooleanString> validateTransactionId) {
-            this.validateTransactionId = validateTransactionId;
             return this;
         }
 
@@ -249,12 +177,7 @@ public final class TransactionsVerifyRequest {
         @java.lang.Override
         public TransactionsVerifyRequest build() {
             return new TransactionsVerifyRequest(
-                    validateOriginUserId,
-                    validateDestinationUserId,
-                    validateTransactionId,
-                    trsOnly,
-                    body,
-                    additionalProperties);
+                    validateOriginUserId, validateDestinationUserId, body, additionalProperties);
         }
     }
 }

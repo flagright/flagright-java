@@ -5,12 +5,14 @@ package com.flagright.api.resources.batch;
 
 import com.flagright.api.core.ClientOptions;
 import com.flagright.api.core.RequestOptions;
+import com.flagright.api.resources.batch.requests.BatchGetRequest;
 import com.flagright.api.resources.batch.requests.BusinessBatchRequest;
 import com.flagright.api.resources.batch.requests.BusinessUserEventBatchRequest;
 import com.flagright.api.resources.batch.requests.ConsumerUserEventBatchRequest;
 import com.flagright.api.resources.batch.requests.TransactionBatchRequest;
 import com.flagright.api.resources.batch.requests.TransactionEventBatchRequest;
 import com.flagright.api.resources.batch.requests.UserBatchRequest;
+import com.flagright.api.types.BatchBusinessUserEventsWithRulesResult;
 import com.flagright.api.types.BatchResponse;
 
 public class BatchClient {
@@ -36,6 +38,19 @@ public class BatchClient {
 
     public BatchResponse verifyTransaction(TransactionBatchRequest request, RequestOptions requestOptions) {
         return this.rawClient.verifyTransaction(request, requestOptions).body();
+    }
+
+    public BatchBusinessUserEventsWithRulesResult get(String batchId) {
+        return this.rawClient.get(batchId).body();
+    }
+
+    public BatchBusinessUserEventsWithRulesResult get(String batchId, BatchGetRequest request) {
+        return this.rawClient.get(batchId, request).body();
+    }
+
+    public BatchBusinessUserEventsWithRulesResult get(
+            String batchId, BatchGetRequest request, RequestOptions requestOptions) {
+        return this.rawClient.get(batchId, request, requestOptions).body();
     }
 
     public BatchResponse createTransactionEvents(TransactionEventBatchRequest request) {

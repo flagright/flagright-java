@@ -86,10 +86,6 @@ public class RawBusinessUsersClient {
             QueryStringMapper.addQueryParameter(
                     httpUrl, "validateUserId", request.getValidateUserId().get().toString(), false);
         }
-        if (request.getKrsOnly().isPresent()) {
-            QueryStringMapper.addQueryParameter(
-                    httpUrl, "_krsOnly", request.getKrsOnly().get().toString(), false);
-        }
         RequestBody body;
         try {
             body = RequestBody.create(
