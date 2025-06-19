@@ -31,6 +31,8 @@ public final class ContactDetails {
 
     private final Optional<List<Address>> addresses;
 
+    private final Optional<ConsumerName> name;
+
     private final Map<String, Object> additionalProperties;
 
     private ContactDetails(
@@ -39,12 +41,14 @@ public final class ContactDetails {
             Optional<List<String>> faxNumbers,
             Optional<List<String>> websites,
             Optional<List<Address>> addresses,
+            Optional<ConsumerName> name,
             Map<String, Object> additionalProperties) {
         this.emailIds = emailIds;
         this.contactNumbers = contactNumbers;
         this.faxNumbers = faxNumbers;
         this.websites = websites;
         this.addresses = addresses;
+        this.name = name;
         this.additionalProperties = additionalProperties;
     }
 
@@ -88,6 +92,11 @@ public final class ContactDetails {
         return addresses;
     }
 
+    @JsonProperty("name")
+    public Optional<ConsumerName> getName() {
+        return name;
+    }
+
     @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
@@ -104,12 +113,14 @@ public final class ContactDetails {
                 && contactNumbers.equals(other.contactNumbers)
                 && faxNumbers.equals(other.faxNumbers)
                 && websites.equals(other.websites)
-                && addresses.equals(other.addresses);
+                && addresses.equals(other.addresses)
+                && name.equals(other.name);
     }
 
     @java.lang.Override
     public int hashCode() {
-        return Objects.hash(this.emailIds, this.contactNumbers, this.faxNumbers, this.websites, this.addresses);
+        return Objects.hash(
+                this.emailIds, this.contactNumbers, this.faxNumbers, this.websites, this.addresses, this.name);
     }
 
     @java.lang.Override
@@ -133,6 +144,8 @@ public final class ContactDetails {
 
         private Optional<List<Address>> addresses = Optional.empty();
 
+        private Optional<ConsumerName> name = Optional.empty();
+
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
 
@@ -144,6 +157,7 @@ public final class ContactDetails {
             faxNumbers(other.getFaxNumbers());
             websites(other.getWebsites());
             addresses(other.getAddresses());
+            name(other.getName());
             return this;
         }
 
@@ -202,8 +216,20 @@ public final class ContactDetails {
             return this;
         }
 
+        @JsonSetter(value = "name", nulls = Nulls.SKIP)
+        public Builder name(Optional<ConsumerName> name) {
+            this.name = name;
+            return this;
+        }
+
+        public Builder name(ConsumerName name) {
+            this.name = Optional.ofNullable(name);
+            return this;
+        }
+
         public ContactDetails build() {
-            return new ContactDetails(emailIds, contactNumbers, faxNumbers, websites, addresses, additionalProperties);
+            return new ContactDetails(
+                    emailIds, contactNumbers, faxNumbers, websites, addresses, name, additionalProperties);
         }
     }
 }
