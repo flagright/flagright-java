@@ -30,7 +30,9 @@ public enum ListSubtype {
 
     STRING("STRING"),
 
-    COUNTRY("COUNTRY");
+    COUNTRY("COUNTRY"),
+
+    CUSTOM("CUSTOM");
 
     private final String value;
 

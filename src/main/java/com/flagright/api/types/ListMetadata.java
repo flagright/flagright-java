@@ -13,6 +13,7 @@ import com.fasterxml.jackson.annotation.Nulls;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.flagright.api.core.ObjectMappers;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
@@ -28,6 +29,8 @@ public final class ListMetadata {
 
     private final Optional<String> checksum;
 
+    private final Optional<List<CustomColumn>> columns;
+
     private final Optional<ListMetadataTtl> ttl;
 
     private final Map<String, Object> additionalProperties;
@@ -37,12 +40,14 @@ public final class ListMetadata {
             Optional<String> description,
             Optional<Boolean> status,
             Optional<String> checksum,
+            Optional<List<CustomColumn>> columns,
             Optional<ListMetadataTtl> ttl,
             Map<String, Object> additionalProperties) {
         this.name = name;
         this.description = description;
         this.status = status;
         this.checksum = checksum;
+        this.columns = columns;
         this.ttl = ttl;
         this.additionalProperties = additionalProperties;
     }
@@ -73,6 +78,11 @@ public final class ListMetadata {
         return checksum;
     }
 
+    @JsonProperty("columns")
+    public Optional<List<CustomColumn>> getColumns() {
+        return columns;
+    }
+
     @JsonProperty("ttl")
     public Optional<ListMetadataTtl> getTtl() {
         return ttl;
@@ -94,12 +104,13 @@ public final class ListMetadata {
                 && description.equals(other.description)
                 && status.equals(other.status)
                 && checksum.equals(other.checksum)
+                && columns.equals(other.columns)
                 && ttl.equals(other.ttl);
     }
 
     @java.lang.Override
     public int hashCode() {
-        return Objects.hash(this.name, this.description, this.status, this.checksum, this.ttl);
+        return Objects.hash(this.name, this.description, this.status, this.checksum, this.columns, this.ttl);
     }
 
     @java.lang.Override
@@ -121,6 +132,8 @@ public final class ListMetadata {
 
         private Optional<String> checksum = Optional.empty();
 
+        private Optional<List<CustomColumn>> columns = Optional.empty();
+
         private Optional<ListMetadataTtl> ttl = Optional.empty();
 
         @JsonAnySetter
@@ -133,6 +146,7 @@ public final class ListMetadata {
             description(other.getDescription());
             status(other.getStatus());
             checksum(other.getChecksum());
+            columns(other.getColumns());
             ttl(other.getTtl());
             return this;
         }
@@ -181,6 +195,17 @@ public final class ListMetadata {
             return this;
         }
 
+        @JsonSetter(value = "columns", nulls = Nulls.SKIP)
+        public Builder columns(Optional<List<CustomColumn>> columns) {
+            this.columns = columns;
+            return this;
+        }
+
+        public Builder columns(List<CustomColumn> columns) {
+            this.columns = Optional.ofNullable(columns);
+            return this;
+        }
+
         @JsonSetter(value = "ttl", nulls = Nulls.SKIP)
         public Builder ttl(Optional<ListMetadataTtl> ttl) {
             this.ttl = ttl;
@@ -193,7 +218,7 @@ public final class ListMetadata {
         }
 
         public ListMetadata build() {
-            return new ListMetadata(name, description, status, checksum, ttl, additionalProperties);
+            return new ListMetadata(name, description, status, checksum, columns, ttl, additionalProperties);
         }
     }
 }
