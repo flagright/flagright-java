@@ -33,6 +33,8 @@ public final class ContactDetails {
 
     private final Optional<ConsumerName> name;
 
+    private final Optional<List<Tag>> tags;
+
     private final Map<String, Object> additionalProperties;
 
     private ContactDetails(
@@ -42,6 +44,7 @@ public final class ContactDetails {
             Optional<List<String>> websites,
             Optional<List<Address>> addresses,
             Optional<ConsumerName> name,
+            Optional<List<Tag>> tags,
             Map<String, Object> additionalProperties) {
         this.emailIds = emailIds;
         this.contactNumbers = contactNumbers;
@@ -49,6 +52,7 @@ public final class ContactDetails {
         this.websites = websites;
         this.addresses = addresses;
         this.name = name;
+        this.tags = tags;
         this.additionalProperties = additionalProperties;
     }
 
@@ -97,6 +101,14 @@ public final class ContactDetails {
         return name;
     }
 
+    /**
+     * @return Additional information that can be added via tags
+     */
+    @JsonProperty("tags")
+    public Optional<List<Tag>> getTags() {
+        return tags;
+    }
+
     @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
@@ -114,13 +126,20 @@ public final class ContactDetails {
                 && faxNumbers.equals(other.faxNumbers)
                 && websites.equals(other.websites)
                 && addresses.equals(other.addresses)
-                && name.equals(other.name);
+                && name.equals(other.name)
+                && tags.equals(other.tags);
     }
 
     @java.lang.Override
     public int hashCode() {
         return Objects.hash(
-                this.emailIds, this.contactNumbers, this.faxNumbers, this.websites, this.addresses, this.name);
+                this.emailIds,
+                this.contactNumbers,
+                this.faxNumbers,
+                this.websites,
+                this.addresses,
+                this.name,
+                this.tags);
     }
 
     @java.lang.Override
@@ -146,6 +165,8 @@ public final class ContactDetails {
 
         private Optional<ConsumerName> name = Optional.empty();
 
+        private Optional<List<Tag>> tags = Optional.empty();
+
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
 
@@ -158,6 +179,7 @@ public final class ContactDetails {
             websites(other.getWebsites());
             addresses(other.getAddresses());
             name(other.getName());
+            tags(other.getTags());
             return this;
         }
 
@@ -227,9 +249,20 @@ public final class ContactDetails {
             return this;
         }
 
+        @JsonSetter(value = "tags", nulls = Nulls.SKIP)
+        public Builder tags(Optional<List<Tag>> tags) {
+            this.tags = tags;
+            return this;
+        }
+
+        public Builder tags(List<Tag> tags) {
+            this.tags = Optional.ofNullable(tags);
+            return this;
+        }
+
         public ContactDetails build() {
             return new ContactDetails(
-                    emailIds, contactNumbers, faxNumbers, websites, addresses, name, additionalProperties);
+                    emailIds, contactNumbers, faxNumbers, websites, addresses, name, tags, additionalProperties);
         }
     }
 }
