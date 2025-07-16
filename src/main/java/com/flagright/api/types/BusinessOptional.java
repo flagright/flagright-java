@@ -55,6 +55,8 @@ public final class BusinessOptional {
 
     private final Optional<List<PersonAttachment>> attachments;
 
+    private final Optional<Double> updateCount;
+
     private final Map<String, Object> additionalProperties;
 
     private BusinessOptional(
@@ -75,6 +77,7 @@ public final class BusinessOptional {
             Optional<MccDetails> mccDetails,
             Optional<List<UserTag>> tags,
             Optional<List<PersonAttachment>> attachments,
+            Optional<Double> updateCount,
             Map<String, Object> additionalProperties) {
         this.activatedTimestamp = activatedTimestamp;
         this.userStateDetails = userStateDetails;
@@ -93,6 +96,7 @@ public final class BusinessOptional {
         this.mccDetails = mccDetails;
         this.tags = tags;
         this.attachments = attachments;
+        this.updateCount = updateCount;
         this.additionalProperties = additionalProperties;
     }
 
@@ -199,6 +203,11 @@ public final class BusinessOptional {
         return attachments;
     }
 
+    @JsonProperty("updateCount")
+    public Optional<Double> getUpdateCount() {
+        return updateCount;
+    }
+
     @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
@@ -227,7 +236,8 @@ public final class BusinessOptional {
                 && savedPaymentDetails.equals(other.savedPaymentDetails)
                 && mccDetails.equals(other.mccDetails)
                 && tags.equals(other.tags)
-                && attachments.equals(other.attachments);
+                && attachments.equals(other.attachments)
+                && updateCount.equals(other.updateCount);
     }
 
     @java.lang.Override
@@ -249,7 +259,8 @@ public final class BusinessOptional {
                 this.savedPaymentDetails,
                 this.mccDetails,
                 this.tags,
-                this.attachments);
+                this.attachments,
+                this.updateCount);
     }
 
     @java.lang.Override
@@ -297,6 +308,8 @@ public final class BusinessOptional {
 
         private Optional<List<PersonAttachment>> attachments = Optional.empty();
 
+        private Optional<Double> updateCount = Optional.empty();
+
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
 
@@ -320,6 +333,7 @@ public final class BusinessOptional {
             mccDetails(other.getMccDetails());
             tags(other.getTags());
             attachments(other.getAttachments());
+            updateCount(other.getUpdateCount());
             return this;
         }
 
@@ -511,6 +525,17 @@ public final class BusinessOptional {
             return this;
         }
 
+        @JsonSetter(value = "updateCount", nulls = Nulls.SKIP)
+        public Builder updateCount(Optional<Double> updateCount) {
+            this.updateCount = updateCount;
+            return this;
+        }
+
+        public Builder updateCount(Double updateCount) {
+            this.updateCount = Optional.ofNullable(updateCount);
+            return this;
+        }
+
         public BusinessOptional build() {
             return new BusinessOptional(
                     activatedTimestamp,
@@ -530,6 +555,7 @@ public final class BusinessOptional {
                     mccDetails,
                     tags,
                     attachments,
+                    updateCount,
                     additionalProperties);
         }
     }

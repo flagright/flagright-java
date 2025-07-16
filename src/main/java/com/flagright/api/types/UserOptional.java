@@ -73,6 +73,8 @@ public final class UserOptional {
 
     private final Optional<List<PersonAttachment>> attachments;
 
+    private final Optional<Double> updateCount;
+
     private final Map<String, Object> additionalProperties;
 
     private UserOptional(
@@ -102,6 +104,7 @@ public final class UserOptional {
             Optional<List<UserOptionalSavedPaymentDetailsItem>> savedPaymentDetails,
             Optional<List<UserTag>> tags,
             Optional<List<PersonAttachment>> attachments,
+            Optional<Double> updateCount,
             Map<String, Object> additionalProperties) {
         this.activatedTimestamp = activatedTimestamp;
         this.userDetails = userDetails;
@@ -129,6 +132,7 @@ public final class UserOptional {
         this.savedPaymentDetails = savedPaymentDetails;
         this.tags = tags;
         this.attachments = attachments;
+        this.updateCount = updateCount;
         this.additionalProperties = additionalProperties;
     }
 
@@ -277,6 +281,11 @@ public final class UserOptional {
         return attachments;
     }
 
+    @JsonProperty("updateCount")
+    public Optional<Double> getUpdateCount() {
+        return updateCount;
+    }
+
     @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
@@ -314,7 +323,8 @@ public final class UserOptional {
                 && linkedEntities.equals(other.linkedEntities)
                 && savedPaymentDetails.equals(other.savedPaymentDetails)
                 && tags.equals(other.tags)
-                && attachments.equals(other.attachments);
+                && attachments.equals(other.attachments)
+                && updateCount.equals(other.updateCount);
     }
 
     @java.lang.Override
@@ -345,7 +355,8 @@ public final class UserOptional {
                 this.linkedEntities,
                 this.savedPaymentDetails,
                 this.tags,
-                this.attachments);
+                this.attachments,
+                this.updateCount);
     }
 
     @java.lang.Override
@@ -411,6 +422,8 @@ public final class UserOptional {
 
         private Optional<List<PersonAttachment>> attachments = Optional.empty();
 
+        private Optional<Double> updateCount = Optional.empty();
+
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
 
@@ -443,6 +456,7 @@ public final class UserOptional {
             savedPaymentDetails(other.getSavedPaymentDetails());
             tags(other.getTags());
             attachments(other.getAttachments());
+            updateCount(other.getUpdateCount());
             return this;
         }
 
@@ -732,6 +746,17 @@ public final class UserOptional {
             return this;
         }
 
+        @JsonSetter(value = "updateCount", nulls = Nulls.SKIP)
+        public Builder updateCount(Optional<Double> updateCount) {
+            this.updateCount = updateCount;
+            return this;
+        }
+
+        public Builder updateCount(Double updateCount) {
+            this.updateCount = Optional.ofNullable(updateCount);
+            return this;
+        }
+
         public UserOptional build() {
             return new UserOptional(
                     activatedTimestamp,
@@ -760,6 +785,7 @@ public final class UserOptional {
                     savedPaymentDetails,
                     tags,
                     attachments,
+                    updateCount,
                     additionalProperties);
         }
     }

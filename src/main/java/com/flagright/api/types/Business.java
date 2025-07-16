@@ -60,6 +60,8 @@ public final class Business {
 
     private final Optional<List<PersonAttachment>> attachments;
 
+    private final Optional<Double> updateCount;
+
     private final Map<String, Object> additionalProperties;
 
     private Business(
@@ -82,6 +84,7 @@ public final class Business {
             Optional<MccDetails> mccDetails,
             Optional<List<UserTag>> tags,
             Optional<List<PersonAttachment>> attachments,
+            Optional<Double> updateCount,
             Map<String, Object> additionalProperties) {
         this.userId = userId;
         this.createdTimestamp = createdTimestamp;
@@ -102,6 +105,7 @@ public final class Business {
         this.mccDetails = mccDetails;
         this.tags = tags;
         this.attachments = attachments;
+        this.updateCount = updateCount;
         this.additionalProperties = additionalProperties;
     }
 
@@ -224,6 +228,11 @@ public final class Business {
         return attachments;
     }
 
+    @JsonProperty("updateCount")
+    public Optional<Double> getUpdateCount() {
+        return updateCount;
+    }
+
     @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
@@ -254,7 +263,8 @@ public final class Business {
                 && savedPaymentDetails.equals(other.savedPaymentDetails)
                 && mccDetails.equals(other.mccDetails)
                 && tags.equals(other.tags)
-                && attachments.equals(other.attachments);
+                && attachments.equals(other.attachments)
+                && updateCount.equals(other.updateCount);
     }
 
     @java.lang.Override
@@ -278,7 +288,8 @@ public final class Business {
                 this.savedPaymentDetails,
                 this.mccDetails,
                 this.tags,
-                this.attachments);
+                this.attachments,
+                this.updateCount);
     }
 
     @java.lang.Override
@@ -370,6 +381,10 @@ public final class Business {
         _FinalStage attachments(Optional<List<PersonAttachment>> attachments);
 
         _FinalStage attachments(List<PersonAttachment> attachments);
+
+        _FinalStage updateCount(Optional<Double> updateCount);
+
+        _FinalStage updateCount(Double updateCount);
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
@@ -379,6 +394,8 @@ public final class Business {
         private double createdTimestamp;
 
         private LegalEntity legalEntity;
+
+        private Optional<Double> updateCount = Optional.empty();
 
         private Optional<List<PersonAttachment>> attachments = Optional.empty();
 
@@ -438,6 +455,7 @@ public final class Business {
             mccDetails(other.getMccDetails());
             tags(other.getTags());
             attachments(other.getAttachments());
+            updateCount(other.getUpdateCount());
             return this;
         }
 
@@ -467,6 +485,19 @@ public final class Business {
         @JsonSetter("legalEntity")
         public _FinalStage legalEntity(@NotNull LegalEntity legalEntity) {
             this.legalEntity = Objects.requireNonNull(legalEntity, "legalEntity must not be null");
+            return this;
+        }
+
+        @java.lang.Override
+        public _FinalStage updateCount(Double updateCount) {
+            this.updateCount = Optional.ofNullable(updateCount);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "updateCount", nulls = Nulls.SKIP)
+        public _FinalStage updateCount(Optional<Double> updateCount) {
+            this.updateCount = updateCount;
             return this;
         }
 
@@ -724,6 +755,7 @@ public final class Business {
                     mccDetails,
                     tags,
                     attachments,
+                    updateCount,
                     additionalProperties);
         }
     }

@@ -280,6 +280,8 @@ public enum CurrencyCode {
 
     EUROC("EUROC"),
 
+    ETHFI("ETHFI"),
+
     FARM("FARM"),
 
     FET("FET"),
@@ -305,6 +307,8 @@ public enum CurrencyCode {
     FOX("FOX"),
 
     FX("FX"),
+
+    FTM("FTM"),
 
     GAL("GAL"),
 
@@ -610,6 +614,8 @@ public enum CurrencyCode {
 
     PEN("PEN"),
 
+    PENGU("PENGU"),
+
     PERP("PERP"),
 
     PGK("PGK"),
@@ -625,6 +631,8 @@ public enum CurrencyCode {
     PLU("PLU"),
 
     PNG("PNG"),
+
+    POL("POL"),
 
     POLS("POLS"),
 
@@ -695,6 +703,8 @@ public enum CurrencyCode {
     RSD("RSD"),
 
     RUB("RUB"),
+
+    RUNE("RUNE"),
 
     RWF("RWF"),
 
@@ -777,6 +787,8 @@ public enum CurrencyCode {
     T("T"),
 
     THB("THB"),
+
+    THETA("THETA"),
 
     TIA("TIA"),
 

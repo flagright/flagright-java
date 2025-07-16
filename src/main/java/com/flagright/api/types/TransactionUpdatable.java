@@ -47,6 +47,8 @@ public final class TransactionUpdatable {
 
     private final Optional<List<Tag>> tags;
 
+    private final Optional<Double> updateCount;
+
     private final Map<String, Object> additionalProperties;
 
     private TransactionUpdatable(
@@ -63,6 +65,7 @@ public final class TransactionUpdatable {
             Optional<DeviceData> originDeviceData,
             Optional<DeviceData> destinationDeviceData,
             Optional<List<Tag>> tags,
+            Optional<Double> updateCount,
             Map<String, Object> additionalProperties) {
         this.transactionState = transactionState;
         this.originAmountDetails = originAmountDetails;
@@ -77,6 +80,7 @@ public final class TransactionUpdatable {
         this.originDeviceData = originDeviceData;
         this.destinationDeviceData = destinationDeviceData;
         this.tags = tags;
+        this.updateCount = updateCount;
         this.additionalProperties = additionalProperties;
     }
 
@@ -163,6 +167,11 @@ public final class TransactionUpdatable {
         return tags;
     }
 
+    @JsonProperty("updateCount")
+    public Optional<Double> getUpdateCount() {
+        return updateCount;
+    }
+
     @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
@@ -187,7 +196,8 @@ public final class TransactionUpdatable {
                 && reference.equals(other.reference)
                 && originDeviceData.equals(other.originDeviceData)
                 && destinationDeviceData.equals(other.destinationDeviceData)
-                && tags.equals(other.tags);
+                && tags.equals(other.tags)
+                && updateCount.equals(other.updateCount);
     }
 
     @java.lang.Override
@@ -205,7 +215,8 @@ public final class TransactionUpdatable {
                 this.reference,
                 this.originDeviceData,
                 this.destinationDeviceData,
-                this.tags);
+                this.tags,
+                this.updateCount);
     }
 
     @java.lang.Override
@@ -245,6 +256,8 @@ public final class TransactionUpdatable {
 
         private Optional<List<Tag>> tags = Optional.empty();
 
+        private Optional<Double> updateCount = Optional.empty();
+
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
 
@@ -264,6 +277,7 @@ public final class TransactionUpdatable {
             originDeviceData(other.getOriginDeviceData());
             destinationDeviceData(other.getDestinationDeviceData());
             tags(other.getTags());
+            updateCount(other.getUpdateCount());
             return this;
         }
 
@@ -412,6 +426,17 @@ public final class TransactionUpdatable {
             return this;
         }
 
+        @JsonSetter(value = "updateCount", nulls = Nulls.SKIP)
+        public Builder updateCount(Optional<Double> updateCount) {
+            this.updateCount = updateCount;
+            return this;
+        }
+
+        public Builder updateCount(Double updateCount) {
+            this.updateCount = Optional.ofNullable(updateCount);
+            return this;
+        }
+
         public TransactionUpdatable build() {
             return new TransactionUpdatable(
                     transactionState,
@@ -427,6 +452,7 @@ public final class TransactionUpdatable {
                     originDeviceData,
                     destinationDeviceData,
                     tags,
+                    updateCount,
                     additionalProperties);
         }
     }

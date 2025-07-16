@@ -59,6 +59,8 @@ public final class TransactionWithRulesResult {
 
     private final Optional<List<Tag>> tags;
 
+    private final Optional<Double> updateCount;
+
     private final List<ExecutedRulesResult> executedRules;
 
     private final List<HitRulesDetails> hitRules;
@@ -88,6 +90,7 @@ public final class TransactionWithRulesResult {
             Optional<DeviceData> originDeviceData,
             Optional<DeviceData> destinationDeviceData,
             Optional<List<Tag>> tags,
+            Optional<Double> updateCount,
             List<ExecutedRulesResult> executedRules,
             List<HitRulesDetails> hitRules,
             RuleAction status,
@@ -111,6 +114,7 @@ public final class TransactionWithRulesResult {
         this.originDeviceData = originDeviceData;
         this.destinationDeviceData = destinationDeviceData;
         this.tags = tags;
+        this.updateCount = updateCount;
         this.executedRules = executedRules;
         this.hitRules = hitRules;
         this.status = status;
@@ -241,6 +245,11 @@ public final class TransactionWithRulesResult {
         return tags;
     }
 
+    @JsonProperty("updateCount")
+    public Optional<Double> getUpdateCount() {
+        return updateCount;
+    }
+
     @JsonProperty("executedRules")
     public List<ExecutedRulesResult> getExecutedRules() {
         return executedRules;
@@ -291,6 +300,7 @@ public final class TransactionWithRulesResult {
                 && originDeviceData.equals(other.originDeviceData)
                 && destinationDeviceData.equals(other.destinationDeviceData)
                 && tags.equals(other.tags)
+                && updateCount.equals(other.updateCount)
                 && executedRules.equals(other.executedRules)
                 && hitRules.equals(other.hitRules)
                 && status.equals(other.status)
@@ -318,6 +328,7 @@ public final class TransactionWithRulesResult {
                 this.originDeviceData,
                 this.destinationDeviceData,
                 this.tags,
+                this.updateCount,
                 this.executedRules,
                 this.hitRules,
                 this.status,
@@ -416,6 +427,10 @@ public final class TransactionWithRulesResult {
 
         _FinalStage tags(List<Tag> tags);
 
+        _FinalStage updateCount(Optional<Double> updateCount);
+
+        _FinalStage updateCount(Double updateCount);
+
         _FinalStage executedRules(List<ExecutedRulesResult> executedRules);
 
         _FinalStage addExecutedRules(ExecutedRulesResult executedRules);
@@ -449,6 +464,8 @@ public final class TransactionWithRulesResult {
         private List<HitRulesDetails> hitRules = new ArrayList<>();
 
         private List<ExecutedRulesResult> executedRules = new ArrayList<>();
+
+        private Optional<Double> updateCount = Optional.empty();
 
         private Optional<List<Tag>> tags = Optional.empty();
 
@@ -506,6 +523,7 @@ public final class TransactionWithRulesResult {
             originDeviceData(other.getOriginDeviceData());
             destinationDeviceData(other.getDestinationDeviceData());
             tags(other.getTags());
+            updateCount(other.getUpdateCount());
             executedRules(other.getExecutedRules());
             hitRules(other.getHitRules());
             status(other.getStatus());
@@ -603,6 +621,19 @@ public final class TransactionWithRulesResult {
         public _FinalStage executedRules(List<ExecutedRulesResult> executedRules) {
             this.executedRules.clear();
             this.executedRules.addAll(executedRules);
+            return this;
+        }
+
+        @java.lang.Override
+        public _FinalStage updateCount(Double updateCount) {
+            this.updateCount = Optional.ofNullable(updateCount);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "updateCount", nulls = Nulls.SKIP)
+        public _FinalStage updateCount(Optional<Double> updateCount) {
+            this.updateCount = updateCount;
             return this;
         }
 
@@ -857,6 +888,7 @@ public final class TransactionWithRulesResult {
                     originDeviceData,
                     destinationDeviceData,
                     tags,
+                    updateCount,
                     executedRules,
                     hitRules,
                     status,

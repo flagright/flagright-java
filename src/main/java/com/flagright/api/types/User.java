@@ -78,6 +78,8 @@ public final class User {
 
     private final Optional<List<PersonAttachment>> attachments;
 
+    private final Optional<Double> updateCount;
+
     private final Map<String, Object> additionalProperties;
 
     private User(
@@ -109,6 +111,7 @@ public final class User {
             Optional<List<UserSavedPaymentDetailsItem>> savedPaymentDetails,
             Optional<List<UserTag>> tags,
             Optional<List<PersonAttachment>> attachments,
+            Optional<Double> updateCount,
             Map<String, Object> additionalProperties) {
         this.userId = userId;
         this.createdTimestamp = createdTimestamp;
@@ -138,6 +141,7 @@ public final class User {
         this.savedPaymentDetails = savedPaymentDetails;
         this.tags = tags;
         this.attachments = attachments;
+        this.updateCount = updateCount;
         this.additionalProperties = additionalProperties;
     }
 
@@ -302,6 +306,11 @@ public final class User {
         return attachments;
     }
 
+    @JsonProperty("updateCount")
+    public Optional<Double> getUpdateCount() {
+        return updateCount;
+    }
+
     @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
@@ -341,7 +350,8 @@ public final class User {
                 && linkedEntities.equals(other.linkedEntities)
                 && savedPaymentDetails.equals(other.savedPaymentDetails)
                 && tags.equals(other.tags)
-                && attachments.equals(other.attachments);
+                && attachments.equals(other.attachments)
+                && updateCount.equals(other.updateCount);
     }
 
     @java.lang.Override
@@ -374,7 +384,8 @@ public final class User {
                 this.linkedEntities,
                 this.savedPaymentDetails,
                 this.tags,
-                this.attachments);
+                this.attachments,
+                this.updateCount);
     }
 
     @java.lang.Override
@@ -502,6 +513,10 @@ public final class User {
         _FinalStage attachments(Optional<List<PersonAttachment>> attachments);
 
         _FinalStage attachments(List<PersonAttachment> attachments);
+
+        _FinalStage updateCount(Optional<Double> updateCount);
+
+        _FinalStage updateCount(Double updateCount);
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
@@ -509,6 +524,8 @@ public final class User {
         private String userId;
 
         private double createdTimestamp;
+
+        private Optional<Double> updateCount = Optional.empty();
 
         private Optional<List<PersonAttachment>> attachments = Optional.empty();
 
@@ -597,6 +614,7 @@ public final class User {
             savedPaymentDetails(other.getSavedPaymentDetails());
             tags(other.getTags());
             attachments(other.getAttachments());
+            updateCount(other.getUpdateCount());
             return this;
         }
 
@@ -619,6 +637,19 @@ public final class User {
         @JsonSetter("createdTimestamp")
         public _FinalStage createdTimestamp(double createdTimestamp) {
             this.createdTimestamp = createdTimestamp;
+            return this;
+        }
+
+        @java.lang.Override
+        public _FinalStage updateCount(Double updateCount) {
+            this.updateCount = Optional.ofNullable(updateCount);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "updateCount", nulls = Nulls.SKIP)
+        public _FinalStage updateCount(Optional<Double> updateCount) {
+            this.updateCount = updateCount;
             return this;
         }
 
@@ -1011,6 +1042,7 @@ public final class User {
                     savedPaymentDetails,
                     tags,
                     attachments,
+                    updateCount,
                     additionalProperties);
         }
     }

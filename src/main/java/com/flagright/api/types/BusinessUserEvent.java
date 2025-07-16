@@ -33,6 +33,8 @@ public final class BusinessUserEvent {
 
     private final Optional<BusinessOptional> updatedBusinessUserAttributes;
 
+    private final Optional<Double> updateCount;
+
     private final Map<String, Object> additionalProperties;
 
     private BusinessUserEvent(
@@ -42,6 +44,7 @@ public final class BusinessUserEvent {
             Optional<String> reason,
             Optional<String> eventDescription,
             Optional<BusinessOptional> updatedBusinessUserAttributes,
+            Optional<Double> updateCount,
             Map<String, Object> additionalProperties) {
         this.timestamp = timestamp;
         this.userId = userId;
@@ -49,6 +52,7 @@ public final class BusinessUserEvent {
         this.reason = reason;
         this.eventDescription = eventDescription;
         this.updatedBusinessUserAttributes = updatedBusinessUserAttributes;
+        this.updateCount = updateCount;
         this.additionalProperties = additionalProperties;
     }
 
@@ -97,6 +101,11 @@ public final class BusinessUserEvent {
         return updatedBusinessUserAttributes;
     }
 
+    @JsonProperty("updateCount")
+    public Optional<Double> getUpdateCount() {
+        return updateCount;
+    }
+
     @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
@@ -114,7 +123,8 @@ public final class BusinessUserEvent {
                 && eventId.equals(other.eventId)
                 && reason.equals(other.reason)
                 && eventDescription.equals(other.eventDescription)
-                && updatedBusinessUserAttributes.equals(other.updatedBusinessUserAttributes);
+                && updatedBusinessUserAttributes.equals(other.updatedBusinessUserAttributes)
+                && updateCount.equals(other.updateCount);
     }
 
     @java.lang.Override
@@ -125,7 +135,8 @@ public final class BusinessUserEvent {
                 this.eventId,
                 this.reason,
                 this.eventDescription,
-                this.updatedBusinessUserAttributes);
+                this.updatedBusinessUserAttributes,
+                this.updateCount);
     }
 
     @java.lang.Override
@@ -165,6 +176,10 @@ public final class BusinessUserEvent {
         _FinalStage updatedBusinessUserAttributes(Optional<BusinessOptional> updatedBusinessUserAttributes);
 
         _FinalStage updatedBusinessUserAttributes(BusinessOptional updatedBusinessUserAttributes);
+
+        _FinalStage updateCount(Optional<Double> updateCount);
+
+        _FinalStage updateCount(Double updateCount);
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
@@ -172,6 +187,8 @@ public final class BusinessUserEvent {
         private double timestamp;
 
         private String userId;
+
+        private Optional<Double> updateCount = Optional.empty();
 
         private Optional<BusinessOptional> updatedBusinessUserAttributes = Optional.empty();
 
@@ -194,6 +211,7 @@ public final class BusinessUserEvent {
             reason(other.getReason());
             eventDescription(other.getEventDescription());
             updatedBusinessUserAttributes(other.getUpdatedBusinessUserAttributes());
+            updateCount(other.getUpdateCount());
             return this;
         }
 
@@ -216,6 +234,19 @@ public final class BusinessUserEvent {
         @JsonSetter("userId")
         public _FinalStage userId(@NotNull String userId) {
             this.userId = Objects.requireNonNull(userId, "userId must not be null");
+            return this;
+        }
+
+        @java.lang.Override
+        public _FinalStage updateCount(Double updateCount) {
+            this.updateCount = Optional.ofNullable(updateCount);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "updateCount", nulls = Nulls.SKIP)
+        public _FinalStage updateCount(Optional<Double> updateCount) {
+            this.updateCount = updateCount;
             return this;
         }
 
@@ -292,6 +323,7 @@ public final class BusinessUserEvent {
                     reason,
                     eventDescription,
                     updatedBusinessUserAttributes,
+                    updateCount,
                     additionalProperties);
         }
     }

@@ -60,6 +60,8 @@ public final class BatchBusinessUserWithRulesResult {
 
     private final Optional<List<PersonAttachment>> attachments;
 
+    private final Optional<Double> updateCount;
+
     private final Optional<List<ExecutedRulesResult>> executedRules;
 
     private final Optional<UserRiskScoreDetails> riskScoreDetails;
@@ -86,6 +88,7 @@ public final class BatchBusinessUserWithRulesResult {
             Optional<MccDetails> mccDetails,
             Optional<List<UserTag>> tags,
             Optional<List<PersonAttachment>> attachments,
+            Optional<Double> updateCount,
             Optional<List<ExecutedRulesResult>> executedRules,
             Optional<UserRiskScoreDetails> riskScoreDetails,
             Map<String, Object> additionalProperties) {
@@ -108,6 +111,7 @@ public final class BatchBusinessUserWithRulesResult {
         this.mccDetails = mccDetails;
         this.tags = tags;
         this.attachments = attachments;
+        this.updateCount = updateCount;
         this.executedRules = executedRules;
         this.riskScoreDetails = riskScoreDetails;
         this.additionalProperties = additionalProperties;
@@ -232,6 +236,11 @@ public final class BatchBusinessUserWithRulesResult {
         return attachments;
     }
 
+    @JsonProperty("updateCount")
+    public Optional<Double> getUpdateCount() {
+        return updateCount;
+    }
+
     @JsonProperty("executedRules")
     public Optional<List<ExecutedRulesResult>> getExecutedRules() {
         return executedRules;
@@ -273,6 +282,7 @@ public final class BatchBusinessUserWithRulesResult {
                 && mccDetails.equals(other.mccDetails)
                 && tags.equals(other.tags)
                 && attachments.equals(other.attachments)
+                && updateCount.equals(other.updateCount)
                 && executedRules.equals(other.executedRules)
                 && riskScoreDetails.equals(other.riskScoreDetails);
     }
@@ -299,6 +309,7 @@ public final class BatchBusinessUserWithRulesResult {
                 this.mccDetails,
                 this.tags,
                 this.attachments,
+                this.updateCount,
                 this.executedRules,
                 this.riskScoreDetails);
     }
@@ -395,6 +406,10 @@ public final class BatchBusinessUserWithRulesResult {
 
         _FinalStage attachments(List<PersonAttachment> attachments);
 
+        _FinalStage updateCount(Optional<Double> updateCount);
+
+        _FinalStage updateCount(Double updateCount);
+
         _FinalStage executedRules(Optional<List<ExecutedRulesResult>> executedRules);
 
         _FinalStage executedRules(List<ExecutedRulesResult> executedRules);
@@ -415,6 +430,8 @@ public final class BatchBusinessUserWithRulesResult {
         private Optional<UserRiskScoreDetails> riskScoreDetails = Optional.empty();
 
         private Optional<List<ExecutedRulesResult>> executedRules = Optional.empty();
+
+        private Optional<Double> updateCount = Optional.empty();
 
         private Optional<List<PersonAttachment>> attachments = Optional.empty();
 
@@ -475,6 +492,7 @@ public final class BatchBusinessUserWithRulesResult {
             mccDetails(other.getMccDetails());
             tags(other.getTags());
             attachments(other.getAttachments());
+            updateCount(other.getUpdateCount());
             executedRules(other.getExecutedRules());
             riskScoreDetails(other.getRiskScoreDetails());
             return this;
@@ -532,6 +550,19 @@ public final class BatchBusinessUserWithRulesResult {
         @JsonSetter(value = "executedRules", nulls = Nulls.SKIP)
         public _FinalStage executedRules(Optional<List<ExecutedRulesResult>> executedRules) {
             this.executedRules = executedRules;
+            return this;
+        }
+
+        @java.lang.Override
+        public _FinalStage updateCount(Double updateCount) {
+            this.updateCount = Optional.ofNullable(updateCount);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "updateCount", nulls = Nulls.SKIP)
+        public _FinalStage updateCount(Optional<Double> updateCount) {
+            this.updateCount = updateCount;
             return this;
         }
 
@@ -791,6 +822,7 @@ public final class BatchBusinessUserWithRulesResult {
                     mccDetails,
                     tags,
                     attachments,
+                    updateCount,
                     executedRules,
                     riskScoreDetails,
                     additionalProperties);

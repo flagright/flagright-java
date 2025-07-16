@@ -58,6 +58,8 @@ public final class Transaction {
 
     private final Optional<List<Tag>> tags;
 
+    private final Optional<Double> updateCount;
+
     private final Map<String, Object> additionalProperties;
 
     private Transaction(
@@ -79,6 +81,7 @@ public final class Transaction {
             Optional<DeviceData> originDeviceData,
             Optional<DeviceData> destinationDeviceData,
             Optional<List<Tag>> tags,
+            Optional<Double> updateCount,
             Map<String, Object> additionalProperties) {
         this.type = type;
         this.transactionId = transactionId;
@@ -98,6 +101,7 @@ public final class Transaction {
         this.originDeviceData = originDeviceData;
         this.destinationDeviceData = destinationDeviceData;
         this.tags = tags;
+        this.updateCount = updateCount;
         this.additionalProperties = additionalProperties;
     }
 
@@ -224,6 +228,11 @@ public final class Transaction {
         return tags;
     }
 
+    @JsonProperty("updateCount")
+    public Optional<Double> getUpdateCount() {
+        return updateCount;
+    }
+
     @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
@@ -253,7 +262,8 @@ public final class Transaction {
                 && reference.equals(other.reference)
                 && originDeviceData.equals(other.originDeviceData)
                 && destinationDeviceData.equals(other.destinationDeviceData)
-                && tags.equals(other.tags);
+                && tags.equals(other.tags)
+                && updateCount.equals(other.updateCount);
     }
 
     @java.lang.Override
@@ -276,7 +286,8 @@ public final class Transaction {
                 this.reference,
                 this.originDeviceData,
                 this.destinationDeviceData,
-                this.tags);
+                this.tags,
+                this.updateCount);
     }
 
     @java.lang.Override
@@ -364,6 +375,10 @@ public final class Transaction {
         _FinalStage tags(Optional<List<Tag>> tags);
 
         _FinalStage tags(List<Tag> tags);
+
+        _FinalStage updateCount(Optional<Double> updateCount);
+
+        _FinalStage updateCount(Double updateCount);
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
@@ -373,6 +388,8 @@ public final class Transaction {
         private String transactionId;
 
         private double timestamp;
+
+        private Optional<Double> updateCount = Optional.empty();
 
         private Optional<List<Tag>> tags = Optional.empty();
 
@@ -429,6 +446,7 @@ public final class Transaction {
             originDeviceData(other.getOriginDeviceData());
             destinationDeviceData(other.getDestinationDeviceData());
             tags(other.getTags());
+            updateCount(other.getUpdateCount());
             return this;
         }
 
@@ -462,6 +480,19 @@ public final class Transaction {
         @JsonSetter("timestamp")
         public _FinalStage timestamp(double timestamp) {
             this.timestamp = timestamp;
+            return this;
+        }
+
+        @java.lang.Override
+        public _FinalStage updateCount(Double updateCount) {
+            this.updateCount = Optional.ofNullable(updateCount);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "updateCount", nulls = Nulls.SKIP)
+        public _FinalStage updateCount(Optional<Double> updateCount) {
+            this.updateCount = updateCount;
             return this;
         }
 
@@ -714,6 +745,7 @@ public final class Transaction {
                     originDeviceData,
                     destinationDeviceData,
                     tags,
+                    updateCount,
                     additionalProperties);
         }
     }

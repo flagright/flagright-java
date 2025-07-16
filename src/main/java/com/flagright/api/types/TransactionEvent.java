@@ -37,6 +37,8 @@ public final class TransactionEvent {
 
     private final Optional<DeviceData> metaData;
 
+    private final Optional<Double> updateCount;
+
     private final Map<String, Object> additionalProperties;
 
     private TransactionEvent(
@@ -48,6 +50,7 @@ public final class TransactionEvent {
             Optional<String> eventDescription,
             Optional<TransactionUpdatable> updatedTransactionAttributes,
             Optional<DeviceData> metaData,
+            Optional<Double> updateCount,
             Map<String, Object> additionalProperties) {
         this.transactionState = transactionState;
         this.timestamp = timestamp;
@@ -57,6 +60,7 @@ public final class TransactionEvent {
         this.eventDescription = eventDescription;
         this.updatedTransactionAttributes = updatedTransactionAttributes;
         this.metaData = metaData;
+        this.updateCount = updateCount;
         this.additionalProperties = additionalProperties;
     }
 
@@ -115,6 +119,11 @@ public final class TransactionEvent {
         return metaData;
     }
 
+    @JsonProperty("updateCount")
+    public Optional<Double> getUpdateCount() {
+        return updateCount;
+    }
+
     @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
@@ -134,7 +143,8 @@ public final class TransactionEvent {
                 && reason.equals(other.reason)
                 && eventDescription.equals(other.eventDescription)
                 && updatedTransactionAttributes.equals(other.updatedTransactionAttributes)
-                && metaData.equals(other.metaData);
+                && metaData.equals(other.metaData)
+                && updateCount.equals(other.updateCount);
     }
 
     @java.lang.Override
@@ -147,7 +157,8 @@ public final class TransactionEvent {
                 this.reason,
                 this.eventDescription,
                 this.updatedTransactionAttributes,
-                this.metaData);
+                this.metaData,
+                this.updateCount);
     }
 
     @java.lang.Override
@@ -195,6 +206,10 @@ public final class TransactionEvent {
         _FinalStage metaData(Optional<DeviceData> metaData);
 
         _FinalStage metaData(DeviceData metaData);
+
+        _FinalStage updateCount(Optional<Double> updateCount);
+
+        _FinalStage updateCount(Double updateCount);
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
@@ -205,6 +220,8 @@ public final class TransactionEvent {
         private double timestamp;
 
         private String transactionId;
+
+        private Optional<Double> updateCount = Optional.empty();
 
         private Optional<DeviceData> metaData = Optional.empty();
 
@@ -231,6 +248,7 @@ public final class TransactionEvent {
             eventDescription(other.getEventDescription());
             updatedTransactionAttributes(other.getUpdatedTransactionAttributes());
             metaData(other.getMetaData());
+            updateCount(other.getUpdateCount());
             return this;
         }
 
@@ -260,6 +278,19 @@ public final class TransactionEvent {
         @JsonSetter("transactionId")
         public _FinalStage transactionId(@NotNull String transactionId) {
             this.transactionId = Objects.requireNonNull(transactionId, "transactionId must not be null");
+            return this;
+        }
+
+        @java.lang.Override
+        public _FinalStage updateCount(Double updateCount) {
+            this.updateCount = Optional.ofNullable(updateCount);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "updateCount", nulls = Nulls.SKIP)
+        public _FinalStage updateCount(Optional<Double> updateCount) {
+            this.updateCount = updateCount;
             return this;
         }
 
@@ -351,6 +382,7 @@ public final class TransactionEvent {
                     eventDescription,
                     updatedTransactionAttributes,
                     metaData,
+                    updateCount,
                     additionalProperties);
         }
     }

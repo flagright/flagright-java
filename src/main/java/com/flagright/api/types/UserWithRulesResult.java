@@ -78,6 +78,8 @@ public final class UserWithRulesResult {
 
     private final Optional<List<PersonAttachment>> attachments;
 
+    private final Optional<Double> updateCount;
+
     private final Optional<List<ExecutedRulesResult>> executedRules;
 
     private final Optional<List<HitRulesDetails>> hitRules;
@@ -115,6 +117,7 @@ public final class UserWithRulesResult {
             Optional<List<UserWithRulesResultSavedPaymentDetailsItem>> savedPaymentDetails,
             Optional<List<UserTag>> tags,
             Optional<List<PersonAttachment>> attachments,
+            Optional<Double> updateCount,
             Optional<List<ExecutedRulesResult>> executedRules,
             Optional<List<HitRulesDetails>> hitRules,
             Optional<UserRiskScoreDetails> riskScoreDetails,
@@ -147,6 +150,7 @@ public final class UserWithRulesResult {
         this.savedPaymentDetails = savedPaymentDetails;
         this.tags = tags;
         this.attachments = attachments;
+        this.updateCount = updateCount;
         this.executedRules = executedRules;
         this.hitRules = hitRules;
         this.riskScoreDetails = riskScoreDetails;
@@ -314,6 +318,11 @@ public final class UserWithRulesResult {
         return attachments;
     }
 
+    @JsonProperty("updateCount")
+    public Optional<Double> getUpdateCount() {
+        return updateCount;
+    }
+
     @JsonProperty("executedRules")
     public Optional<List<ExecutedRulesResult>> getExecutedRules() {
         return executedRules;
@@ -369,6 +378,7 @@ public final class UserWithRulesResult {
                 && savedPaymentDetails.equals(other.savedPaymentDetails)
                 && tags.equals(other.tags)
                 && attachments.equals(other.attachments)
+                && updateCount.equals(other.updateCount)
                 && executedRules.equals(other.executedRules)
                 && hitRules.equals(other.hitRules)
                 && riskScoreDetails.equals(other.riskScoreDetails);
@@ -405,6 +415,7 @@ public final class UserWithRulesResult {
                 this.savedPaymentDetails,
                 this.tags,
                 this.attachments,
+                this.updateCount,
                 this.executedRules,
                 this.hitRules,
                 this.riskScoreDetails);
@@ -536,6 +547,10 @@ public final class UserWithRulesResult {
 
         _FinalStage attachments(List<PersonAttachment> attachments);
 
+        _FinalStage updateCount(Optional<Double> updateCount);
+
+        _FinalStage updateCount(Double updateCount);
+
         _FinalStage executedRules(Optional<List<ExecutedRulesResult>> executedRules);
 
         _FinalStage executedRules(List<ExecutedRulesResult> executedRules);
@@ -560,6 +575,8 @@ public final class UserWithRulesResult {
         private Optional<List<HitRulesDetails>> hitRules = Optional.empty();
 
         private Optional<List<ExecutedRulesResult>> executedRules = Optional.empty();
+
+        private Optional<Double> updateCount = Optional.empty();
 
         private Optional<List<PersonAttachment>> attachments = Optional.empty();
 
@@ -648,6 +665,7 @@ public final class UserWithRulesResult {
             savedPaymentDetails(other.getSavedPaymentDetails());
             tags(other.getTags());
             attachments(other.getAttachments());
+            updateCount(other.getUpdateCount());
             executedRules(other.getExecutedRules());
             hitRules(other.getHitRules());
             riskScoreDetails(other.getRiskScoreDetails());
@@ -712,6 +730,19 @@ public final class UserWithRulesResult {
         @JsonSetter(value = "executedRules", nulls = Nulls.SKIP)
         public _FinalStage executedRules(Optional<List<ExecutedRulesResult>> executedRules) {
             this.executedRules = executedRules;
+            return this;
+        }
+
+        @java.lang.Override
+        public _FinalStage updateCount(Double updateCount) {
+            this.updateCount = Optional.ofNullable(updateCount);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "updateCount", nulls = Nulls.SKIP)
+        public _FinalStage updateCount(Optional<Double> updateCount) {
+            this.updateCount = updateCount;
             return this;
         }
 
@@ -1105,6 +1136,7 @@ public final class UserWithRulesResult {
                     savedPaymentDetails,
                     tags,
                     attachments,
+                    updateCount,
                     executedRules,
                     hitRules,
                     riskScoreDetails,
