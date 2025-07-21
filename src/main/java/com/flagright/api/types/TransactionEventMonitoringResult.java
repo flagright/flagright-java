@@ -27,6 +27,8 @@ public final class TransactionEventMonitoringResult {
 
     private final Transaction transaction;
 
+    private final Optional<RuleAction> status;
+
     private final Optional<TransactionRiskScoringResult> riskScoreDetails;
 
     private final List<ExecutedRulesResult> executedRules;
@@ -38,12 +40,14 @@ public final class TransactionEventMonitoringResult {
     private TransactionEventMonitoringResult(
             String eventId,
             Transaction transaction,
+            Optional<RuleAction> status,
             Optional<TransactionRiskScoringResult> riskScoreDetails,
             List<ExecutedRulesResult> executedRules,
             List<HitRulesDetails> hitRules,
             Map<String, Object> additionalProperties) {
         this.eventId = eventId;
         this.transaction = transaction;
+        this.status = status;
         this.riskScoreDetails = riskScoreDetails;
         this.executedRules = executedRules;
         this.hitRules = hitRules;
@@ -58,6 +62,11 @@ public final class TransactionEventMonitoringResult {
     @JsonProperty("transaction")
     public Transaction getTransaction() {
         return transaction;
+    }
+
+    @JsonProperty("status")
+    public Optional<RuleAction> getStatus() {
+        return status;
     }
 
     @JsonProperty("riskScoreDetails")
@@ -95,6 +104,7 @@ public final class TransactionEventMonitoringResult {
     private boolean equalTo(TransactionEventMonitoringResult other) {
         return eventId.equals(other.eventId)
                 && transaction.equals(other.transaction)
+                && status.equals(other.status)
                 && riskScoreDetails.equals(other.riskScoreDetails)
                 && executedRules.equals(other.executedRules)
                 && hitRules.equals(other.hitRules);
@@ -102,7 +112,8 @@ public final class TransactionEventMonitoringResult {
 
     @java.lang.Override
     public int hashCode() {
-        return Objects.hash(this.eventId, this.transaction, this.riskScoreDetails, this.executedRules, this.hitRules);
+        return Objects.hash(
+                this.eventId, this.transaction, this.status, this.riskScoreDetails, this.executedRules, this.hitRules);
     }
 
     @java.lang.Override
@@ -126,6 +137,10 @@ public final class TransactionEventMonitoringResult {
 
     public interface _FinalStage {
         TransactionEventMonitoringResult build();
+
+        _FinalStage status(Optional<RuleAction> status);
+
+        _FinalStage status(RuleAction status);
 
         _FinalStage riskScoreDetails(Optional<TransactionRiskScoringResult> riskScoreDetails);
 
@@ -156,6 +171,8 @@ public final class TransactionEventMonitoringResult {
 
         private Optional<TransactionRiskScoringResult> riskScoreDetails = Optional.empty();
 
+        private Optional<RuleAction> status = Optional.empty();
+
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
 
@@ -165,6 +182,7 @@ public final class TransactionEventMonitoringResult {
         public Builder from(TransactionEventMonitoringResult other) {
             eventId(other.getEventId());
             transaction(other.getTransaction());
+            status(other.getStatus());
             riskScoreDetails(other.getRiskScoreDetails());
             executedRules(other.getExecutedRules());
             hitRules(other.getHitRules());
@@ -255,9 +273,22 @@ public final class TransactionEventMonitoringResult {
         }
 
         @java.lang.Override
+        public _FinalStage status(RuleAction status) {
+            this.status = Optional.ofNullable(status);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "status", nulls = Nulls.SKIP)
+        public _FinalStage status(Optional<RuleAction> status) {
+            this.status = status;
+            return this;
+        }
+
+        @java.lang.Override
         public TransactionEventMonitoringResult build() {
             return new TransactionEventMonitoringResult(
-                    eventId, transaction, riskScoreDetails, executedRules, hitRules, additionalProperties);
+                    eventId, transaction, status, riskScoreDetails, executedRules, hitRules, additionalProperties);
         }
     }
 }
