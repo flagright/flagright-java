@@ -9,11 +9,13 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import com.fasterxml.jackson.annotation.Nulls;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.flagright.api.core.ObjectMappers;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Optional;
 import org.jetbrains.annotations.NotNull;
 
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
@@ -23,11 +25,15 @@ public final class CustomColumn {
 
     private final ColumnType type;
 
+    private final Optional<Boolean> primaryKey;
+
     private final Map<String, Object> additionalProperties;
 
-    private CustomColumn(String key, ColumnType type, Map<String, Object> additionalProperties) {
+    private CustomColumn(
+            String key, ColumnType type, Optional<Boolean> primaryKey, Map<String, Object> additionalProperties) {
         this.key = key;
         this.type = type;
+        this.primaryKey = primaryKey;
         this.additionalProperties = additionalProperties;
     }
 
@@ -39,6 +45,11 @@ public final class CustomColumn {
     @JsonProperty("type")
     public ColumnType getType() {
         return type;
+    }
+
+    @JsonProperty("primaryKey")
+    public Optional<Boolean> getPrimaryKey() {
+        return primaryKey;
     }
 
     @java.lang.Override
@@ -53,12 +64,12 @@ public final class CustomColumn {
     }
 
     private boolean equalTo(CustomColumn other) {
-        return key.equals(other.key) && type.equals(other.type);
+        return key.equals(other.key) && type.equals(other.type) && primaryKey.equals(other.primaryKey);
     }
 
     @java.lang.Override
     public int hashCode() {
-        return Objects.hash(this.key, this.type);
+        return Objects.hash(this.key, this.type, this.primaryKey);
     }
 
     @java.lang.Override
@@ -82,6 +93,10 @@ public final class CustomColumn {
 
     public interface _FinalStage {
         CustomColumn build();
+
+        _FinalStage primaryKey(Optional<Boolean> primaryKey);
+
+        _FinalStage primaryKey(Boolean primaryKey);
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
@@ -89,6 +104,8 @@ public final class CustomColumn {
         private String key;
 
         private ColumnType type;
+
+        private Optional<Boolean> primaryKey = Optional.empty();
 
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
@@ -99,6 +116,7 @@ public final class CustomColumn {
         public Builder from(CustomColumn other) {
             key(other.getKey());
             type(other.getType());
+            primaryKey(other.getPrimaryKey());
             return this;
         }
 
@@ -117,8 +135,21 @@ public final class CustomColumn {
         }
 
         @java.lang.Override
+        public _FinalStage primaryKey(Boolean primaryKey) {
+            this.primaryKey = Optional.ofNullable(primaryKey);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "primaryKey", nulls = Nulls.SKIP)
+        public _FinalStage primaryKey(Optional<Boolean> primaryKey) {
+            this.primaryKey = primaryKey;
+            return this;
+        }
+
+        @java.lang.Override
         public CustomColumn build() {
-            return new CustomColumn(key, type, additionalProperties);
+            return new CustomColumn(key, type, primaryKey, additionalProperties);
         }
     }
 }
