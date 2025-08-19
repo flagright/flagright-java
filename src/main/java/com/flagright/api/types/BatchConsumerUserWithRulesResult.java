@@ -78,6 +78,8 @@ public final class BatchConsumerUserWithRulesResult {
 
     private final Optional<List<PersonAttachment>> attachments;
 
+    private final Optional<DeviceData> metaData;
+
     private final Optional<Double> updateCount;
 
     private final Optional<List<ExecutedRulesResult>> executedRules;
@@ -115,6 +117,7 @@ public final class BatchConsumerUserWithRulesResult {
             Optional<List<BatchConsumerUserWithRulesResultSavedPaymentDetailsItem>> savedPaymentDetails,
             Optional<List<UserTag>> tags,
             Optional<List<PersonAttachment>> attachments,
+            Optional<DeviceData> metaData,
             Optional<Double> updateCount,
             Optional<List<ExecutedRulesResult>> executedRules,
             Optional<UserRiskScoreDetails> riskScoreDetails,
@@ -147,6 +150,7 @@ public final class BatchConsumerUserWithRulesResult {
         this.savedPaymentDetails = savedPaymentDetails;
         this.tags = tags;
         this.attachments = attachments;
+        this.metaData = metaData;
         this.updateCount = updateCount;
         this.executedRules = executedRules;
         this.riskScoreDetails = riskScoreDetails;
@@ -314,6 +318,11 @@ public final class BatchConsumerUserWithRulesResult {
         return attachments;
     }
 
+    @JsonProperty("metaData")
+    public Optional<DeviceData> getMetaData() {
+        return metaData;
+    }
+
     @JsonProperty("updateCount")
     public Optional<Double> getUpdateCount() {
         return updateCount;
@@ -369,6 +378,7 @@ public final class BatchConsumerUserWithRulesResult {
                 && savedPaymentDetails.equals(other.savedPaymentDetails)
                 && tags.equals(other.tags)
                 && attachments.equals(other.attachments)
+                && metaData.equals(other.metaData)
                 && updateCount.equals(other.updateCount)
                 && executedRules.equals(other.executedRules)
                 && riskScoreDetails.equals(other.riskScoreDetails);
@@ -405,6 +415,7 @@ public final class BatchConsumerUserWithRulesResult {
                 this.savedPaymentDetails,
                 this.tags,
                 this.attachments,
+                this.metaData,
                 this.updateCount,
                 this.executedRules,
                 this.riskScoreDetails);
@@ -538,6 +549,10 @@ public final class BatchConsumerUserWithRulesResult {
 
         _FinalStage attachments(List<PersonAttachment> attachments);
 
+        _FinalStage metaData(Optional<DeviceData> metaData);
+
+        _FinalStage metaData(DeviceData metaData);
+
         _FinalStage updateCount(Optional<Double> updateCount);
 
         _FinalStage updateCount(Double updateCount);
@@ -562,6 +577,8 @@ public final class BatchConsumerUserWithRulesResult {
         private Optional<List<ExecutedRulesResult>> executedRules = Optional.empty();
 
         private Optional<Double> updateCount = Optional.empty();
+
+        private Optional<DeviceData> metaData = Optional.empty();
 
         private Optional<List<PersonAttachment>> attachments = Optional.empty();
 
@@ -651,6 +668,7 @@ public final class BatchConsumerUserWithRulesResult {
             savedPaymentDetails(other.getSavedPaymentDetails());
             tags(other.getTags());
             attachments(other.getAttachments());
+            metaData(other.getMetaData());
             updateCount(other.getUpdateCount());
             executedRules(other.getExecutedRules());
             riskScoreDetails(other.getRiskScoreDetails());
@@ -715,6 +733,19 @@ public final class BatchConsumerUserWithRulesResult {
         @JsonSetter(value = "updateCount", nulls = Nulls.SKIP)
         public _FinalStage updateCount(Optional<Double> updateCount) {
             this.updateCount = updateCount;
+            return this;
+        }
+
+        @java.lang.Override
+        public _FinalStage metaData(DeviceData metaData) {
+            this.metaData = Optional.ofNullable(metaData);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "metaData", nulls = Nulls.SKIP)
+        public _FinalStage metaData(Optional<DeviceData> metaData) {
+            this.metaData = metaData;
             return this;
         }
 
@@ -1109,6 +1140,7 @@ public final class BatchConsumerUserWithRulesResult {
                     savedPaymentDetails,
                     tags,
                     attachments,
+                    metaData,
                     updateCount,
                     executedRules,
                     riskScoreDetails,

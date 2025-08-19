@@ -55,6 +55,8 @@ public final class BusinessOptional {
 
     private final Optional<List<PersonAttachment>> attachments;
 
+    private final Optional<DeviceData> metaData;
+
     private final Optional<Double> updateCount;
 
     private final Map<String, Object> additionalProperties;
@@ -77,6 +79,7 @@ public final class BusinessOptional {
             Optional<MccDetails> mccDetails,
             Optional<List<UserTag>> tags,
             Optional<List<PersonAttachment>> attachments,
+            Optional<DeviceData> metaData,
             Optional<Double> updateCount,
             Map<String, Object> additionalProperties) {
         this.activatedTimestamp = activatedTimestamp;
@@ -96,6 +99,7 @@ public final class BusinessOptional {
         this.mccDetails = mccDetails;
         this.tags = tags;
         this.attachments = attachments;
+        this.metaData = metaData;
         this.updateCount = updateCount;
         this.additionalProperties = additionalProperties;
     }
@@ -203,6 +207,11 @@ public final class BusinessOptional {
         return attachments;
     }
 
+    @JsonProperty("metaData")
+    public Optional<DeviceData> getMetaData() {
+        return metaData;
+    }
+
     @JsonProperty("updateCount")
     public Optional<Double> getUpdateCount() {
         return updateCount;
@@ -237,6 +246,7 @@ public final class BusinessOptional {
                 && mccDetails.equals(other.mccDetails)
                 && tags.equals(other.tags)
                 && attachments.equals(other.attachments)
+                && metaData.equals(other.metaData)
                 && updateCount.equals(other.updateCount);
     }
 
@@ -260,6 +270,7 @@ public final class BusinessOptional {
                 this.mccDetails,
                 this.tags,
                 this.attachments,
+                this.metaData,
                 this.updateCount);
     }
 
@@ -308,6 +319,8 @@ public final class BusinessOptional {
 
         private Optional<List<PersonAttachment>> attachments = Optional.empty();
 
+        private Optional<DeviceData> metaData = Optional.empty();
+
         private Optional<Double> updateCount = Optional.empty();
 
         @JsonAnySetter
@@ -333,6 +346,7 @@ public final class BusinessOptional {
             mccDetails(other.getMccDetails());
             tags(other.getTags());
             attachments(other.getAttachments());
+            metaData(other.getMetaData());
             updateCount(other.getUpdateCount());
             return this;
         }
@@ -525,6 +539,17 @@ public final class BusinessOptional {
             return this;
         }
 
+        @JsonSetter(value = "metaData", nulls = Nulls.SKIP)
+        public Builder metaData(Optional<DeviceData> metaData) {
+            this.metaData = metaData;
+            return this;
+        }
+
+        public Builder metaData(DeviceData metaData) {
+            this.metaData = Optional.ofNullable(metaData);
+            return this;
+        }
+
         @JsonSetter(value = "updateCount", nulls = Nulls.SKIP)
         public Builder updateCount(Optional<Double> updateCount) {
             this.updateCount = updateCount;
@@ -555,6 +580,7 @@ public final class BusinessOptional {
                     mccDetails,
                     tags,
                     attachments,
+                    metaData,
                     updateCount,
                     additionalProperties);
         }

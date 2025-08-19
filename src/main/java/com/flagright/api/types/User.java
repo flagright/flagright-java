@@ -78,6 +78,8 @@ public final class User {
 
     private final Optional<List<PersonAttachment>> attachments;
 
+    private final Optional<DeviceData> metaData;
+
     private final Optional<Double> updateCount;
 
     private final Map<String, Object> additionalProperties;
@@ -111,6 +113,7 @@ public final class User {
             Optional<List<UserSavedPaymentDetailsItem>> savedPaymentDetails,
             Optional<List<UserTag>> tags,
             Optional<List<PersonAttachment>> attachments,
+            Optional<DeviceData> metaData,
             Optional<Double> updateCount,
             Map<String, Object> additionalProperties) {
         this.userId = userId;
@@ -141,6 +144,7 @@ public final class User {
         this.savedPaymentDetails = savedPaymentDetails;
         this.tags = tags;
         this.attachments = attachments;
+        this.metaData = metaData;
         this.updateCount = updateCount;
         this.additionalProperties = additionalProperties;
     }
@@ -306,6 +310,11 @@ public final class User {
         return attachments;
     }
 
+    @JsonProperty("metaData")
+    public Optional<DeviceData> getMetaData() {
+        return metaData;
+    }
+
     @JsonProperty("updateCount")
     public Optional<Double> getUpdateCount() {
         return updateCount;
@@ -351,6 +360,7 @@ public final class User {
                 && savedPaymentDetails.equals(other.savedPaymentDetails)
                 && tags.equals(other.tags)
                 && attachments.equals(other.attachments)
+                && metaData.equals(other.metaData)
                 && updateCount.equals(other.updateCount);
     }
 
@@ -385,6 +395,7 @@ public final class User {
                 this.savedPaymentDetails,
                 this.tags,
                 this.attachments,
+                this.metaData,
                 this.updateCount);
     }
 
@@ -514,6 +525,10 @@ public final class User {
 
         _FinalStage attachments(List<PersonAttachment> attachments);
 
+        _FinalStage metaData(Optional<DeviceData> metaData);
+
+        _FinalStage metaData(DeviceData metaData);
+
         _FinalStage updateCount(Optional<Double> updateCount);
 
         _FinalStage updateCount(Double updateCount);
@@ -526,6 +541,8 @@ public final class User {
         private double createdTimestamp;
 
         private Optional<Double> updateCount = Optional.empty();
+
+        private Optional<DeviceData> metaData = Optional.empty();
 
         private Optional<List<PersonAttachment>> attachments = Optional.empty();
 
@@ -614,6 +631,7 @@ public final class User {
             savedPaymentDetails(other.getSavedPaymentDetails());
             tags(other.getTags());
             attachments(other.getAttachments());
+            metaData(other.getMetaData());
             updateCount(other.getUpdateCount());
             return this;
         }
@@ -650,6 +668,19 @@ public final class User {
         @JsonSetter(value = "updateCount", nulls = Nulls.SKIP)
         public _FinalStage updateCount(Optional<Double> updateCount) {
             this.updateCount = updateCount;
+            return this;
+        }
+
+        @java.lang.Override
+        public _FinalStage metaData(DeviceData metaData) {
+            this.metaData = Optional.ofNullable(metaData);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "metaData", nulls = Nulls.SKIP)
+        public _FinalStage metaData(Optional<DeviceData> metaData) {
+            this.metaData = metaData;
             return this;
         }
 
@@ -1042,6 +1073,7 @@ public final class User {
                     savedPaymentDetails,
                     tags,
                     attachments,
+                    metaData,
                     updateCount,
                     additionalProperties);
         }

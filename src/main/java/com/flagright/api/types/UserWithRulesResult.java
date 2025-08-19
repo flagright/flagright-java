@@ -78,6 +78,8 @@ public final class UserWithRulesResult {
 
     private final Optional<List<PersonAttachment>> attachments;
 
+    private final Optional<DeviceData> metaData;
+
     private final Optional<Double> updateCount;
 
     private final Optional<List<ExecutedRulesResult>> executedRules;
@@ -117,6 +119,7 @@ public final class UserWithRulesResult {
             Optional<List<UserWithRulesResultSavedPaymentDetailsItem>> savedPaymentDetails,
             Optional<List<UserTag>> tags,
             Optional<List<PersonAttachment>> attachments,
+            Optional<DeviceData> metaData,
             Optional<Double> updateCount,
             Optional<List<ExecutedRulesResult>> executedRules,
             Optional<List<HitRulesDetails>> hitRules,
@@ -150,6 +153,7 @@ public final class UserWithRulesResult {
         this.savedPaymentDetails = savedPaymentDetails;
         this.tags = tags;
         this.attachments = attachments;
+        this.metaData = metaData;
         this.updateCount = updateCount;
         this.executedRules = executedRules;
         this.hitRules = hitRules;
@@ -318,6 +322,11 @@ public final class UserWithRulesResult {
         return attachments;
     }
 
+    @JsonProperty("metaData")
+    public Optional<DeviceData> getMetaData() {
+        return metaData;
+    }
+
     @JsonProperty("updateCount")
     public Optional<Double> getUpdateCount() {
         return updateCount;
@@ -378,6 +387,7 @@ public final class UserWithRulesResult {
                 && savedPaymentDetails.equals(other.savedPaymentDetails)
                 && tags.equals(other.tags)
                 && attachments.equals(other.attachments)
+                && metaData.equals(other.metaData)
                 && updateCount.equals(other.updateCount)
                 && executedRules.equals(other.executedRules)
                 && hitRules.equals(other.hitRules)
@@ -415,6 +425,7 @@ public final class UserWithRulesResult {
                 this.savedPaymentDetails,
                 this.tags,
                 this.attachments,
+                this.metaData,
                 this.updateCount,
                 this.executedRules,
                 this.hitRules,
@@ -547,6 +558,10 @@ public final class UserWithRulesResult {
 
         _FinalStage attachments(List<PersonAttachment> attachments);
 
+        _FinalStage metaData(Optional<DeviceData> metaData);
+
+        _FinalStage metaData(DeviceData metaData);
+
         _FinalStage updateCount(Optional<Double> updateCount);
 
         _FinalStage updateCount(Double updateCount);
@@ -577,6 +592,8 @@ public final class UserWithRulesResult {
         private Optional<List<ExecutedRulesResult>> executedRules = Optional.empty();
 
         private Optional<Double> updateCount = Optional.empty();
+
+        private Optional<DeviceData> metaData = Optional.empty();
 
         private Optional<List<PersonAttachment>> attachments = Optional.empty();
 
@@ -665,6 +682,7 @@ public final class UserWithRulesResult {
             savedPaymentDetails(other.getSavedPaymentDetails());
             tags(other.getTags());
             attachments(other.getAttachments());
+            metaData(other.getMetaData());
             updateCount(other.getUpdateCount());
             executedRules(other.getExecutedRules());
             hitRules(other.getHitRules());
@@ -743,6 +761,19 @@ public final class UserWithRulesResult {
         @JsonSetter(value = "updateCount", nulls = Nulls.SKIP)
         public _FinalStage updateCount(Optional<Double> updateCount) {
             this.updateCount = updateCount;
+            return this;
+        }
+
+        @java.lang.Override
+        public _FinalStage metaData(DeviceData metaData) {
+            this.metaData = Optional.ofNullable(metaData);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "metaData", nulls = Nulls.SKIP)
+        public _FinalStage metaData(Optional<DeviceData> metaData) {
+            this.metaData = metaData;
             return this;
         }
 
@@ -1136,6 +1167,7 @@ public final class UserWithRulesResult {
                     savedPaymentDetails,
                     tags,
                     attachments,
+                    metaData,
                     updateCount,
                     executedRules,
                     hitRules,
