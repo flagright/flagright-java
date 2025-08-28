@@ -38,6 +38,10 @@ public final class TransactionLimitsPaymentMethodLimits {
 
     private final Optional<TransactionLimit> check;
 
+    private final Optional<TransactionLimit> cash;
+
+    private final Optional<TransactionLimit> npp;
+
     private final Map<String, Object> additionalProperties;
 
     private TransactionLimitsPaymentMethodLimits(
@@ -50,6 +54,8 @@ public final class TransactionLimitsPaymentMethodLimits {
             Optional<TransactionLimit> swift,
             Optional<TransactionLimit> wallet,
             Optional<TransactionLimit> check,
+            Optional<TransactionLimit> cash,
+            Optional<TransactionLimit> npp,
             Map<String, Object> additionalProperties) {
         this.ach = ach;
         this.card = card;
@@ -60,6 +66,8 @@ public final class TransactionLimitsPaymentMethodLimits {
         this.swift = swift;
         this.wallet = wallet;
         this.check = check;
+        this.cash = cash;
+        this.npp = npp;
         this.additionalProperties = additionalProperties;
     }
 
@@ -108,6 +116,16 @@ public final class TransactionLimitsPaymentMethodLimits {
         return check;
     }
 
+    @JsonProperty("CASH")
+    public Optional<TransactionLimit> getCash() {
+        return cash;
+    }
+
+    @JsonProperty("NPP")
+    public Optional<TransactionLimit> getNpp() {
+        return npp;
+    }
+
     @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
@@ -129,7 +147,9 @@ public final class TransactionLimitsPaymentMethodLimits {
                 && mpesa.equals(other.mpesa)
                 && swift.equals(other.swift)
                 && wallet.equals(other.wallet)
-                && check.equals(other.check);
+                && check.equals(other.check)
+                && cash.equals(other.cash)
+                && npp.equals(other.npp);
     }
 
     @java.lang.Override
@@ -143,7 +163,9 @@ public final class TransactionLimitsPaymentMethodLimits {
                 this.mpesa,
                 this.swift,
                 this.wallet,
-                this.check);
+                this.check,
+                this.cash,
+                this.npp);
     }
 
     @java.lang.Override
@@ -175,6 +197,10 @@ public final class TransactionLimitsPaymentMethodLimits {
 
         private Optional<TransactionLimit> check = Optional.empty();
 
+        private Optional<TransactionLimit> cash = Optional.empty();
+
+        private Optional<TransactionLimit> npp = Optional.empty();
+
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
 
@@ -190,6 +216,8 @@ public final class TransactionLimitsPaymentMethodLimits {
             swift(other.getSwift());
             wallet(other.getWallet());
             check(other.getCheck());
+            cash(other.getCash());
+            npp(other.getNpp());
             return this;
         }
 
@@ -292,9 +320,42 @@ public final class TransactionLimitsPaymentMethodLimits {
             return this;
         }
 
+        @JsonSetter(value = "CASH", nulls = Nulls.SKIP)
+        public Builder cash(Optional<TransactionLimit> cash) {
+            this.cash = cash;
+            return this;
+        }
+
+        public Builder cash(TransactionLimit cash) {
+            this.cash = Optional.ofNullable(cash);
+            return this;
+        }
+
+        @JsonSetter(value = "NPP", nulls = Nulls.SKIP)
+        public Builder npp(Optional<TransactionLimit> npp) {
+            this.npp = npp;
+            return this;
+        }
+
+        public Builder npp(TransactionLimit npp) {
+            this.npp = Optional.ofNullable(npp);
+            return this;
+        }
+
         public TransactionLimitsPaymentMethodLimits build() {
             return new TransactionLimitsPaymentMethodLimits(
-                    ach, card, iban, upi, genericBankAccount, mpesa, swift, wallet, check, additionalProperties);
+                    ach,
+                    card,
+                    iban,
+                    upi,
+                    genericBankAccount,
+                    mpesa,
+                    swift,
+                    wallet,
+                    check,
+                    cash,
+                    npp,
+                    additionalProperties);
         }
     }
 }

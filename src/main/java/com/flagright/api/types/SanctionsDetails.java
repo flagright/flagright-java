@@ -34,6 +34,8 @@ public final class SanctionsDetails {
 
     private final Optional<SanctionsHitContext> hitContext;
 
+    private final Optional<RuleHitDirection> hitDirection;
+
     private final Map<String, Object> additionalProperties;
 
     private SanctionsDetails(
@@ -43,6 +45,7 @@ public final class SanctionsDetails {
             Optional<SanctionsDetailsEntityType> entityType,
             Optional<List<String>> sanctionHitIds,
             Optional<SanctionsHitContext> hitContext,
+            Optional<RuleHitDirection> hitDirection,
             Map<String, Object> additionalProperties) {
         this.name = name;
         this.searchId = searchId;
@@ -50,6 +53,7 @@ public final class SanctionsDetails {
         this.entityType = entityType;
         this.sanctionHitIds = sanctionHitIds;
         this.hitContext = hitContext;
+        this.hitDirection = hitDirection;
         this.additionalProperties = additionalProperties;
     }
 
@@ -83,6 +87,11 @@ public final class SanctionsDetails {
         return hitContext;
     }
 
+    @JsonProperty("hitDirection")
+    public Optional<RuleHitDirection> getHitDirection() {
+        return hitDirection;
+    }
+
     @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
@@ -100,12 +109,20 @@ public final class SanctionsDetails {
                 && iban.equals(other.iban)
                 && entityType.equals(other.entityType)
                 && sanctionHitIds.equals(other.sanctionHitIds)
-                && hitContext.equals(other.hitContext);
+                && hitContext.equals(other.hitContext)
+                && hitDirection.equals(other.hitDirection);
     }
 
     @java.lang.Override
     public int hashCode() {
-        return Objects.hash(this.name, this.searchId, this.iban, this.entityType, this.sanctionHitIds, this.hitContext);
+        return Objects.hash(
+                this.name,
+                this.searchId,
+                this.iban,
+                this.entityType,
+                this.sanctionHitIds,
+                this.hitContext,
+                this.hitDirection);
     }
 
     @java.lang.Override
@@ -145,6 +162,10 @@ public final class SanctionsDetails {
         _FinalStage hitContext(Optional<SanctionsHitContext> hitContext);
 
         _FinalStage hitContext(SanctionsHitContext hitContext);
+
+        _FinalStage hitDirection(Optional<RuleHitDirection> hitDirection);
+
+        _FinalStage hitDirection(RuleHitDirection hitDirection);
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
@@ -152,6 +173,8 @@ public final class SanctionsDetails {
         private String name;
 
         private String searchId;
+
+        private Optional<RuleHitDirection> hitDirection = Optional.empty();
 
         private Optional<SanctionsHitContext> hitContext = Optional.empty();
 
@@ -174,6 +197,7 @@ public final class SanctionsDetails {
             entityType(other.getEntityType());
             sanctionHitIds(other.getSanctionHitIds());
             hitContext(other.getHitContext());
+            hitDirection(other.getHitDirection());
             return this;
         }
 
@@ -188,6 +212,19 @@ public final class SanctionsDetails {
         @JsonSetter("searchId")
         public _FinalStage searchId(@NotNull String searchId) {
             this.searchId = Objects.requireNonNull(searchId, "searchId must not be null");
+            return this;
+        }
+
+        @java.lang.Override
+        public _FinalStage hitDirection(RuleHitDirection hitDirection) {
+            this.hitDirection = Optional.ofNullable(hitDirection);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "hitDirection", nulls = Nulls.SKIP)
+        public _FinalStage hitDirection(Optional<RuleHitDirection> hitDirection) {
+            this.hitDirection = hitDirection;
             return this;
         }
 
@@ -246,7 +283,7 @@ public final class SanctionsDetails {
         @java.lang.Override
         public SanctionsDetails build() {
             return new SanctionsDetails(
-                    name, searchId, iban, entityType, sanctionHitIds, hitContext, additionalProperties);
+                    name, searchId, iban, entityType, sanctionHitIds, hitContext, hitDirection, additionalProperties);
         }
     }
 }

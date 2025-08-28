@@ -35,6 +35,8 @@ public final class PersonAttachment {
 
     private final Optional<Double> deletedAt;
 
+    private final Optional<List<String>> tags;
+
     private final Map<String, Object> additionalProperties;
 
     private PersonAttachment(
@@ -44,6 +46,7 @@ public final class PersonAttachment {
             String userId,
             Optional<Double> createdAt,
             Optional<Double> deletedAt,
+            Optional<List<String>> tags,
             Map<String, Object> additionalProperties) {
         this.id = id;
         this.comment = comment;
@@ -51,6 +54,7 @@ public final class PersonAttachment {
         this.userId = userId;
         this.createdAt = createdAt;
         this.deletedAt = deletedAt;
+        this.tags = tags;
         this.additionalProperties = additionalProperties;
     }
 
@@ -87,6 +91,11 @@ public final class PersonAttachment {
         return deletedAt;
     }
 
+    @JsonProperty("tags")
+    public Optional<List<String>> getTags() {
+        return tags;
+    }
+
     @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
@@ -104,12 +113,13 @@ public final class PersonAttachment {
                 && files.equals(other.files)
                 && userId.equals(other.userId)
                 && createdAt.equals(other.createdAt)
-                && deletedAt.equals(other.deletedAt);
+                && deletedAt.equals(other.deletedAt)
+                && tags.equals(other.tags);
     }
 
     @java.lang.Override
     public int hashCode() {
-        return Objects.hash(this.id, this.comment, this.files, this.userId, this.createdAt, this.deletedAt);
+        return Objects.hash(this.id, this.comment, this.files, this.userId, this.createdAt, this.deletedAt, this.tags);
     }
 
     @java.lang.Override
@@ -151,11 +161,17 @@ public final class PersonAttachment {
         _FinalStage deletedAt(Optional<Double> deletedAt);
 
         _FinalStage deletedAt(Double deletedAt);
+
+        _FinalStage tags(Optional<List<String>> tags);
+
+        _FinalStage tags(List<String> tags);
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static final class Builder implements UserIdStage, _FinalStage {
         private String userId;
+
+        private Optional<List<String>> tags = Optional.empty();
 
         private Optional<Double> deletedAt = Optional.empty();
 
@@ -180,6 +196,7 @@ public final class PersonAttachment {
             userId(other.getUserId());
             createdAt(other.getCreatedAt());
             deletedAt(other.getDeletedAt());
+            tags(other.getTags());
             return this;
         }
 
@@ -187,6 +204,19 @@ public final class PersonAttachment {
         @JsonSetter("userId")
         public _FinalStage userId(@NotNull String userId) {
             this.userId = Objects.requireNonNull(userId, "userId must not be null");
+            return this;
+        }
+
+        @java.lang.Override
+        public _FinalStage tags(List<String> tags) {
+            this.tags = Optional.ofNullable(tags);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "tags", nulls = Nulls.SKIP)
+        public _FinalStage tags(Optional<List<String>> tags) {
+            this.tags = tags;
             return this;
         }
 
@@ -268,7 +298,7 @@ public final class PersonAttachment {
 
         @java.lang.Override
         public PersonAttachment build() {
-            return new PersonAttachment(id, comment, files, userId, createdAt, deletedAt, additionalProperties);
+            return new PersonAttachment(id, comment, files, userId, createdAt, deletedAt, tags, additionalProperties);
         }
     }
 }
