@@ -278,6 +278,8 @@ public enum CurrencyCode {
 
     EUR("EUR"),
 
+    EURC("EURC"),
+
     EUROC("EUROC"),
 
     ETHFI("ETHFI"),
@@ -616,6 +618,8 @@ public enum CurrencyCode {
 
     PENGU("PENGU"),
 
+    PEPE("PEPE"),
+
     PERP("PERP"),
 
     PGK("PGK"),
@@ -804,6 +808,8 @@ public enum CurrencyCode {
 
     TONE("TONE"),
 
+    TON("TON"),
+
     TOP("TOP"),
 
     TRAC("TRAC"),
@@ -813,6 +819,8 @@ public enum CurrencyCode {
     TRIBE("TRIBE"),
 
     TRU("TRU"),
+
+    TRUMP("TRUMP"),
 
     TRY("TRY"),
 
