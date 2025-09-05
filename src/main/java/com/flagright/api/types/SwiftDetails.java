@@ -39,6 +39,8 @@ public final class SwiftDetails {
 
     private final Optional<String> specialInstructions;
 
+    private final Optional<Address> address;
+
     private final Optional<List<Tag>> tags;
 
     private final Map<String, Object> additionalProperties;
@@ -53,6 +55,7 @@ public final class SwiftDetails {
             Optional<Address> bankAddress,
             Optional<String> emailId,
             Optional<String> specialInstructions,
+            Optional<Address> address,
             Optional<List<Tag>> tags,
             Map<String, Object> additionalProperties) {
         this.swiftCode = swiftCode;
@@ -64,6 +67,7 @@ public final class SwiftDetails {
         this.bankAddress = bankAddress;
         this.emailId = emailId;
         this.specialInstructions = specialInstructions;
+        this.address = address;
         this.tags = tags;
         this.additionalProperties = additionalProperties;
     }
@@ -131,6 +135,11 @@ public final class SwiftDetails {
         return specialInstructions;
     }
 
+    @JsonProperty("address")
+    public Optional<Address> getAddress() {
+        return address;
+    }
+
     /**
      * @return Additional information that can be added via tags
      */
@@ -160,6 +169,7 @@ public final class SwiftDetails {
                 && bankAddress.equals(other.bankAddress)
                 && emailId.equals(other.emailId)
                 && specialInstructions.equals(other.specialInstructions)
+                && address.equals(other.address)
                 && tags.equals(other.tags);
     }
 
@@ -175,6 +185,7 @@ public final class SwiftDetails {
                 this.bankAddress,
                 this.emailId,
                 this.specialInstructions,
+                this.address,
                 this.tags);
     }
 
@@ -207,6 +218,8 @@ public final class SwiftDetails {
 
         private Optional<String> specialInstructions = Optional.empty();
 
+        private Optional<Address> address = Optional.empty();
+
         private Optional<List<Tag>> tags = Optional.empty();
 
         @JsonAnySetter
@@ -224,6 +237,7 @@ public final class SwiftDetails {
             bankAddress(other.getBankAddress());
             emailId(other.getEmailId());
             specialInstructions(other.getSpecialInstructions());
+            address(other.getAddress());
             tags(other.getTags());
             return this;
         }
@@ -327,6 +341,17 @@ public final class SwiftDetails {
             return this;
         }
 
+        @JsonSetter(value = "address", nulls = Nulls.SKIP)
+        public Builder address(Optional<Address> address) {
+            this.address = address;
+            return this;
+        }
+
+        public Builder address(Address address) {
+            this.address = Optional.ofNullable(address);
+            return this;
+        }
+
         @JsonSetter(value = "tags", nulls = Nulls.SKIP)
         public Builder tags(Optional<List<Tag>> tags) {
             this.tags = tags;
@@ -349,6 +374,7 @@ public final class SwiftDetails {
                     bankAddress,
                     emailId,
                     specialInstructions,
+                    address,
                     tags,
                     additionalProperties);
         }

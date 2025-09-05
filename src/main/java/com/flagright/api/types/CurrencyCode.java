@@ -278,7 +278,11 @@ public enum CurrencyCode {
 
     EUR("EUR"),
 
+    EURA("EURA"),
+
     EURC("EURC"),
+
+    EURT("EURT"),
 
     EUROC("EUROC"),
 
@@ -403,6 +407,8 @@ public enum CurrencyCode {
     INV("INV"),
 
     IOTX("IOTX"),
+
+    ISLM("ISLM"),
 
     IQD("IQD"),
 
@@ -581,6 +587,8 @@ public enum CurrencyCode {
     NMR("NMR"),
 
     NOK("NOK"),
+
+    NPC("NPC"),
 
     NPR("NPR"),
 

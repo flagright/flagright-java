@@ -33,6 +33,8 @@ public final class CheckDetails {
 
     private final Optional<Address> shippingAddress;
 
+    private final Optional<String> accountNumber;
+
     private final Optional<List<Tag>> tags;
 
     private final Map<String, Object> additionalProperties;
@@ -44,6 +46,7 @@ public final class CheckDetails {
             Optional<CheckDeliveryStatus> deliveryStatus,
             Optional<Double> etaTimestamp,
             Optional<Address> shippingAddress,
+            Optional<String> accountNumber,
             Optional<List<Tag>> tags,
             Map<String, Object> additionalProperties) {
         this.checkNumber = checkNumber;
@@ -52,6 +55,7 @@ public final class CheckDetails {
         this.deliveryStatus = deliveryStatus;
         this.etaTimestamp = etaTimestamp;
         this.shippingAddress = shippingAddress;
+        this.accountNumber = accountNumber;
         this.tags = tags;
         this.additionalProperties = additionalProperties;
     }
@@ -86,6 +90,11 @@ public final class CheckDetails {
         return shippingAddress;
     }
 
+    @JsonProperty("accountNumber")
+    public Optional<String> getAccountNumber() {
+        return accountNumber;
+    }
+
     /**
      * @return Additional information that can be added via tags
      */
@@ -112,6 +121,7 @@ public final class CheckDetails {
                 && deliveryStatus.equals(other.deliveryStatus)
                 && etaTimestamp.equals(other.etaTimestamp)
                 && shippingAddress.equals(other.shippingAddress)
+                && accountNumber.equals(other.accountNumber)
                 && tags.equals(other.tags);
     }
 
@@ -124,6 +134,7 @@ public final class CheckDetails {
                 this.deliveryStatus,
                 this.etaTimestamp,
                 this.shippingAddress,
+                this.accountNumber,
                 this.tags);
     }
 
@@ -150,6 +161,8 @@ public final class CheckDetails {
 
         private Optional<Address> shippingAddress = Optional.empty();
 
+        private Optional<String> accountNumber = Optional.empty();
+
         private Optional<List<Tag>> tags = Optional.empty();
 
         @JsonAnySetter
@@ -164,6 +177,7 @@ public final class CheckDetails {
             deliveryStatus(other.getDeliveryStatus());
             etaTimestamp(other.getEtaTimestamp());
             shippingAddress(other.getShippingAddress());
+            accountNumber(other.getAccountNumber());
             tags(other.getTags());
             return this;
         }
@@ -234,6 +248,17 @@ public final class CheckDetails {
             return this;
         }
 
+        @JsonSetter(value = "accountNumber", nulls = Nulls.SKIP)
+        public Builder accountNumber(Optional<String> accountNumber) {
+            this.accountNumber = accountNumber;
+            return this;
+        }
+
+        public Builder accountNumber(String accountNumber) {
+            this.accountNumber = Optional.ofNullable(accountNumber);
+            return this;
+        }
+
         @JsonSetter(value = "tags", nulls = Nulls.SKIP)
         public Builder tags(Optional<List<Tag>> tags) {
             this.tags = tags;
@@ -253,6 +278,7 @@ public final class CheckDetails {
                     deliveryStatus,
                     etaTimestamp,
                     shippingAddress,
+                    accountNumber,
                     tags,
                     additionalProperties);
         }
