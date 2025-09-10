@@ -25,6 +25,8 @@ public final class SwiftDetails {
 
     private final Optional<String> accountNumber;
 
+    private final Optional<String> routingNumber;
+
     private final Optional<Amount> accountBalance;
 
     private final Optional<String> accountType;
@@ -48,6 +50,7 @@ public final class SwiftDetails {
     private SwiftDetails(
             Optional<String> swiftCode,
             Optional<String> accountNumber,
+            Optional<String> routingNumber,
             Optional<Amount> accountBalance,
             Optional<String> accountType,
             Optional<String> bankName,
@@ -60,6 +63,7 @@ public final class SwiftDetails {
             Map<String, Object> additionalProperties) {
         this.swiftCode = swiftCode;
         this.accountNumber = accountNumber;
+        this.routingNumber = routingNumber;
         this.accountBalance = accountBalance;
         this.accountType = accountType;
         this.bankName = bankName;
@@ -86,6 +90,14 @@ public final class SwiftDetails {
     @JsonProperty("accountNumber")
     public Optional<String> getAccountNumber() {
         return accountNumber;
+    }
+
+    /**
+     * @return Routing number of the bank
+     */
+    @JsonProperty("routingNumber")
+    public Optional<String> getRoutingNumber() {
+        return routingNumber;
     }
 
     @JsonProperty("accountBalance")
@@ -162,6 +174,7 @@ public final class SwiftDetails {
     private boolean equalTo(SwiftDetails other) {
         return swiftCode.equals(other.swiftCode)
                 && accountNumber.equals(other.accountNumber)
+                && routingNumber.equals(other.routingNumber)
                 && accountBalance.equals(other.accountBalance)
                 && accountType.equals(other.accountType)
                 && bankName.equals(other.bankName)
@@ -178,6 +191,7 @@ public final class SwiftDetails {
         return Objects.hash(
                 this.swiftCode,
                 this.accountNumber,
+                this.routingNumber,
                 this.accountBalance,
                 this.accountType,
                 this.bankName,
@@ -203,6 +217,8 @@ public final class SwiftDetails {
         private Optional<String> swiftCode = Optional.empty();
 
         private Optional<String> accountNumber = Optional.empty();
+
+        private Optional<String> routingNumber = Optional.empty();
 
         private Optional<Amount> accountBalance = Optional.empty();
 
@@ -230,6 +246,7 @@ public final class SwiftDetails {
         public Builder from(SwiftDetails other) {
             swiftCode(other.getSwiftCode());
             accountNumber(other.getAccountNumber());
+            routingNumber(other.getRoutingNumber());
             accountBalance(other.getAccountBalance());
             accountType(other.getAccountType());
             bankName(other.getBankName());
@@ -261,6 +278,17 @@ public final class SwiftDetails {
 
         public Builder accountNumber(String accountNumber) {
             this.accountNumber = Optional.ofNullable(accountNumber);
+            return this;
+        }
+
+        @JsonSetter(value = "routingNumber", nulls = Nulls.SKIP)
+        public Builder routingNumber(Optional<String> routingNumber) {
+            this.routingNumber = routingNumber;
+            return this;
+        }
+
+        public Builder routingNumber(String routingNumber) {
+            this.routingNumber = Optional.ofNullable(routingNumber);
             return this;
         }
 
@@ -367,6 +395,7 @@ public final class SwiftDetails {
             return new SwiftDetails(
                     swiftCode,
                     accountNumber,
+                    routingNumber,
                     accountBalance,
                     accountType,
                     bankName,

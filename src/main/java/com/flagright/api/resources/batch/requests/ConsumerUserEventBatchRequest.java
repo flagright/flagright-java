@@ -12,6 +12,7 @@ import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.annotation.Nulls;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.flagright.api.core.ObjectMappers;
+import com.flagright.api.types.BooleanString;
 import com.flagright.api.types.ConsumerUserEvent;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -23,6 +24,10 @@ import java.util.Optional;
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
 @JsonDeserialize(builder = ConsumerUserEventBatchRequest.Builder.class)
 public final class ConsumerUserEventBatchRequest {
+    private final Optional<BooleanString> lockCraRiskLevel;
+
+    private final Optional<BooleanString> lockKycRiskLevel;
+
     private final Optional<String> batchId;
 
     private final List<ConsumerUserEvent> data;
@@ -30,10 +35,32 @@ public final class ConsumerUserEventBatchRequest {
     private final Map<String, Object> additionalProperties;
 
     private ConsumerUserEventBatchRequest(
-            Optional<String> batchId, List<ConsumerUserEvent> data, Map<String, Object> additionalProperties) {
+            Optional<BooleanString> lockCraRiskLevel,
+            Optional<BooleanString> lockKycRiskLevel,
+            Optional<String> batchId,
+            List<ConsumerUserEvent> data,
+            Map<String, Object> additionalProperties) {
+        this.lockCraRiskLevel = lockCraRiskLevel;
+        this.lockKycRiskLevel = lockKycRiskLevel;
         this.batchId = batchId;
         this.data = data;
         this.additionalProperties = additionalProperties;
+    }
+
+    /**
+     * @return Boolean string whether Flagright should lock the CRA risk level for the user.
+     */
+    @JsonProperty("lockCraRiskLevel")
+    public Optional<BooleanString> getLockCraRiskLevel() {
+        return lockCraRiskLevel;
+    }
+
+    /**
+     * @return Boolean string whether Flagright should lock the KYC risk level for the user.
+     */
+    @JsonProperty("lockKycRiskLevel")
+    public Optional<BooleanString> getLockKycRiskLevel() {
+        return lockKycRiskLevel;
     }
 
     @JsonProperty("batchId")
@@ -58,12 +85,15 @@ public final class ConsumerUserEventBatchRequest {
     }
 
     private boolean equalTo(ConsumerUserEventBatchRequest other) {
-        return batchId.equals(other.batchId) && data.equals(other.data);
+        return lockCraRiskLevel.equals(other.lockCraRiskLevel)
+                && lockKycRiskLevel.equals(other.lockKycRiskLevel)
+                && batchId.equals(other.batchId)
+                && data.equals(other.data);
     }
 
     @java.lang.Override
     public int hashCode() {
-        return Objects.hash(this.batchId, this.data);
+        return Objects.hash(this.lockCraRiskLevel, this.lockKycRiskLevel, this.batchId, this.data);
     }
 
     @java.lang.Override
@@ -77,6 +107,10 @@ public final class ConsumerUserEventBatchRequest {
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static final class Builder {
+        private Optional<BooleanString> lockCraRiskLevel = Optional.empty();
+
+        private Optional<BooleanString> lockKycRiskLevel = Optional.empty();
+
         private Optional<String> batchId = Optional.empty();
 
         private List<ConsumerUserEvent> data = new ArrayList<>();
@@ -87,8 +121,32 @@ public final class ConsumerUserEventBatchRequest {
         private Builder() {}
 
         public Builder from(ConsumerUserEventBatchRequest other) {
+            lockCraRiskLevel(other.getLockCraRiskLevel());
+            lockKycRiskLevel(other.getLockKycRiskLevel());
             batchId(other.getBatchId());
             data(other.getData());
+            return this;
+        }
+
+        @JsonSetter(value = "lockCraRiskLevel", nulls = Nulls.SKIP)
+        public Builder lockCraRiskLevel(Optional<BooleanString> lockCraRiskLevel) {
+            this.lockCraRiskLevel = lockCraRiskLevel;
+            return this;
+        }
+
+        public Builder lockCraRiskLevel(BooleanString lockCraRiskLevel) {
+            this.lockCraRiskLevel = Optional.ofNullable(lockCraRiskLevel);
+            return this;
+        }
+
+        @JsonSetter(value = "lockKycRiskLevel", nulls = Nulls.SKIP)
+        public Builder lockKycRiskLevel(Optional<BooleanString> lockKycRiskLevel) {
+            this.lockKycRiskLevel = lockKycRiskLevel;
+            return this;
+        }
+
+        public Builder lockKycRiskLevel(BooleanString lockKycRiskLevel) {
+            this.lockKycRiskLevel = Optional.ofNullable(lockKycRiskLevel);
             return this;
         }
 
@@ -121,7 +179,8 @@ public final class ConsumerUserEventBatchRequest {
         }
 
         public ConsumerUserEventBatchRequest build() {
-            return new ConsumerUserEventBatchRequest(batchId, data, additionalProperties);
+            return new ConsumerUserEventBatchRequest(
+                    lockCraRiskLevel, lockKycRiskLevel, batchId, data, additionalProperties);
         }
     }
 }

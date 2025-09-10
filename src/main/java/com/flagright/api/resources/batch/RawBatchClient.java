@@ -269,24 +269,42 @@ public class RawBatchClient {
 
     public FlagrightHttpResponse<BatchResponse> createConsumerUsers(
             UserBatchRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("batch/consumer/users")
-                .build();
+                .addPathSegments("batch/consumer/users");
+        if (request.getLockCraRiskLevel().isPresent()) {
+            QueryStringMapper.addQueryParameter(
+                    httpUrl,
+                    "lockCraRiskLevel",
+                    request.getLockCraRiskLevel().get().toString(),
+                    false);
+        }
+        if (request.getLockKycRiskLevel().isPresent()) {
+            QueryStringMapper.addQueryParameter(
+                    httpUrl,
+                    "lockKycRiskLevel",
+                    request.getLockKycRiskLevel().get().toString(),
+                    false);
+        }
+        Map<String, Object> properties = new HashMap<>();
+        if (request.getBatchId().isPresent()) {
+            properties.put("batchId", request.getBatchId());
+        }
+        properties.put("data", request.getData());
         RequestBody body;
         try {
             body = RequestBody.create(
-                    ObjectMappers.JSON_MAPPER.writeValueAsBytes(request), MediaTypes.APPLICATION_JSON);
-        } catch (JsonProcessingException e) {
-            throw new FlagrightException("Failed to serialize request", e);
+                    ObjectMappers.JSON_MAPPER.writeValueAsBytes(properties), MediaTypes.APPLICATION_JSON);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
-        Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+        Request.Builder _requestBuilder = new Request.Builder()
+                .url(httpUrl.build())
                 .method("POST", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")
-                .addHeader("Accept", "application/json")
-                .build();
+                .addHeader("Accept", "application/json");
+        Request okhttpRequest = _requestBuilder.build();
         OkHttpClient client = clientOptions.httpClient();
         if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
             client = clientOptions.httpClientWithTimeout(requestOptions);
@@ -332,24 +350,42 @@ public class RawBatchClient {
 
     public FlagrightHttpResponse<BatchResponse> createBusinessUsers(
             BusinessBatchRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("batch/business/users")
-                .build();
+                .addPathSegments("batch/business/users");
+        if (request.getLockCraRiskLevel().isPresent()) {
+            QueryStringMapper.addQueryParameter(
+                    httpUrl,
+                    "lockCraRiskLevel",
+                    request.getLockCraRiskLevel().get().toString(),
+                    false);
+        }
+        if (request.getLockKycRiskLevel().isPresent()) {
+            QueryStringMapper.addQueryParameter(
+                    httpUrl,
+                    "lockKycRiskLevel",
+                    request.getLockKycRiskLevel().get().toString(),
+                    false);
+        }
+        Map<String, Object> properties = new HashMap<>();
+        if (request.getBatchId().isPresent()) {
+            properties.put("batchId", request.getBatchId());
+        }
+        properties.put("data", request.getData());
         RequestBody body;
         try {
             body = RequestBody.create(
-                    ObjectMappers.JSON_MAPPER.writeValueAsBytes(request), MediaTypes.APPLICATION_JSON);
-        } catch (JsonProcessingException e) {
-            throw new FlagrightException("Failed to serialize request", e);
+                    ObjectMappers.JSON_MAPPER.writeValueAsBytes(properties), MediaTypes.APPLICATION_JSON);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
-        Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+        Request.Builder _requestBuilder = new Request.Builder()
+                .url(httpUrl.build())
                 .method("POST", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")
-                .addHeader("Accept", "application/json")
-                .build();
+                .addHeader("Accept", "application/json");
+        Request okhttpRequest = _requestBuilder.build();
         OkHttpClient client = clientOptions.httpClient();
         if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
             client = clientOptions.httpClientWithTimeout(requestOptions);
@@ -395,24 +431,42 @@ public class RawBatchClient {
 
     public FlagrightHttpResponse<BatchResponse> createConsumerUserEvents(
             ConsumerUserEventBatchRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("batch/events/consumer/user")
-                .build();
+                .addPathSegments("batch/events/consumer/user");
+        if (request.getLockCraRiskLevel().isPresent()) {
+            QueryStringMapper.addQueryParameter(
+                    httpUrl,
+                    "lockCraRiskLevel",
+                    request.getLockCraRiskLevel().get().toString(),
+                    false);
+        }
+        if (request.getLockKycRiskLevel().isPresent()) {
+            QueryStringMapper.addQueryParameter(
+                    httpUrl,
+                    "lockKycRiskLevel",
+                    request.getLockKycRiskLevel().get().toString(),
+                    false);
+        }
+        Map<String, Object> properties = new HashMap<>();
+        if (request.getBatchId().isPresent()) {
+            properties.put("batchId", request.getBatchId());
+        }
+        properties.put("data", request.getData());
         RequestBody body;
         try {
             body = RequestBody.create(
-                    ObjectMappers.JSON_MAPPER.writeValueAsBytes(request), MediaTypes.APPLICATION_JSON);
-        } catch (JsonProcessingException e) {
-            throw new FlagrightException("Failed to serialize request", e);
+                    ObjectMappers.JSON_MAPPER.writeValueAsBytes(properties), MediaTypes.APPLICATION_JSON);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
-        Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+        Request.Builder _requestBuilder = new Request.Builder()
+                .url(httpUrl.build())
                 .method("POST", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")
-                .addHeader("Accept", "application/json")
-                .build();
+                .addHeader("Accept", "application/json");
+        Request okhttpRequest = _requestBuilder.build();
         OkHttpClient client = clientOptions.httpClient();
         if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
             client = clientOptions.httpClientWithTimeout(requestOptions);
@@ -458,24 +512,42 @@ public class RawBatchClient {
 
     public FlagrightHttpResponse<BatchResponse> createBusinessUserEvents(
             BusinessUserEventBatchRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("batch/events/business/user")
-                .build();
+                .addPathSegments("batch/events/business/user");
+        if (request.getLockCraRiskLevel().isPresent()) {
+            QueryStringMapper.addQueryParameter(
+                    httpUrl,
+                    "lockCraRiskLevel",
+                    request.getLockCraRiskLevel().get().toString(),
+                    false);
+        }
+        if (request.getLockKycRiskLevel().isPresent()) {
+            QueryStringMapper.addQueryParameter(
+                    httpUrl,
+                    "lockKycRiskLevel",
+                    request.getLockKycRiskLevel().get().toString(),
+                    false);
+        }
+        Map<String, Object> properties = new HashMap<>();
+        if (request.getBatchId().isPresent()) {
+            properties.put("batchId", request.getBatchId());
+        }
+        properties.put("data", request.getData());
         RequestBody body;
         try {
             body = RequestBody.create(
-                    ObjectMappers.JSON_MAPPER.writeValueAsBytes(request), MediaTypes.APPLICATION_JSON);
-        } catch (JsonProcessingException e) {
-            throw new FlagrightException("Failed to serialize request", e);
+                    ObjectMappers.JSON_MAPPER.writeValueAsBytes(properties), MediaTypes.APPLICATION_JSON);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
-        Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+        Request.Builder _requestBuilder = new Request.Builder()
+                .url(httpUrl.build())
                 .method("POST", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")
-                .addHeader("Accept", "application/json")
-                .build();
+                .addHeader("Accept", "application/json");
+        Request okhttpRequest = _requestBuilder.build();
         OkHttpClient client = clientOptions.httpClient();
         if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
             client = clientOptions.httpClientWithTimeout(requestOptions);

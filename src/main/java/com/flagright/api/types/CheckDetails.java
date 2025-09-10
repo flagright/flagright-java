@@ -25,6 +25,8 @@ public final class CheckDetails {
 
     private final Optional<String> checkIdentifier;
 
+    private final Optional<String> routingNumber;
+
     private final Optional<String> name;
 
     private final Optional<CheckDeliveryStatus> deliveryStatus;
@@ -42,6 +44,7 @@ public final class CheckDetails {
     private CheckDetails(
             Optional<String> checkNumber,
             Optional<String> checkIdentifier,
+            Optional<String> routingNumber,
             Optional<String> name,
             Optional<CheckDeliveryStatus> deliveryStatus,
             Optional<Double> etaTimestamp,
@@ -51,6 +54,7 @@ public final class CheckDetails {
             Map<String, Object> additionalProperties) {
         this.checkNumber = checkNumber;
         this.checkIdentifier = checkIdentifier;
+        this.routingNumber = routingNumber;
         this.name = name;
         this.deliveryStatus = deliveryStatus;
         this.etaTimestamp = etaTimestamp;
@@ -68,6 +72,14 @@ public final class CheckDetails {
     @JsonProperty("checkIdentifier")
     public Optional<String> getCheckIdentifier() {
         return checkIdentifier;
+    }
+
+    /**
+     * @return Routing number of the bank
+     */
+    @JsonProperty("routingNumber")
+    public Optional<String> getRoutingNumber() {
+        return routingNumber;
     }
 
     @JsonProperty("name")
@@ -117,6 +129,7 @@ public final class CheckDetails {
     private boolean equalTo(CheckDetails other) {
         return checkNumber.equals(other.checkNumber)
                 && checkIdentifier.equals(other.checkIdentifier)
+                && routingNumber.equals(other.routingNumber)
                 && name.equals(other.name)
                 && deliveryStatus.equals(other.deliveryStatus)
                 && etaTimestamp.equals(other.etaTimestamp)
@@ -130,6 +143,7 @@ public final class CheckDetails {
         return Objects.hash(
                 this.checkNumber,
                 this.checkIdentifier,
+                this.routingNumber,
                 this.name,
                 this.deliveryStatus,
                 this.etaTimestamp,
@@ -153,6 +167,8 @@ public final class CheckDetails {
 
         private Optional<String> checkIdentifier = Optional.empty();
 
+        private Optional<String> routingNumber = Optional.empty();
+
         private Optional<String> name = Optional.empty();
 
         private Optional<CheckDeliveryStatus> deliveryStatus = Optional.empty();
@@ -173,6 +189,7 @@ public final class CheckDetails {
         public Builder from(CheckDetails other) {
             checkNumber(other.getCheckNumber());
             checkIdentifier(other.getCheckIdentifier());
+            routingNumber(other.getRoutingNumber());
             name(other.getName());
             deliveryStatus(other.getDeliveryStatus());
             etaTimestamp(other.getEtaTimestamp());
@@ -201,6 +218,17 @@ public final class CheckDetails {
 
         public Builder checkIdentifier(String checkIdentifier) {
             this.checkIdentifier = Optional.ofNullable(checkIdentifier);
+            return this;
+        }
+
+        @JsonSetter(value = "routingNumber", nulls = Nulls.SKIP)
+        public Builder routingNumber(Optional<String> routingNumber) {
+            this.routingNumber = routingNumber;
+            return this;
+        }
+
+        public Builder routingNumber(String routingNumber) {
+            this.routingNumber = Optional.ofNullable(routingNumber);
             return this;
         }
 
@@ -274,6 +302,7 @@ public final class CheckDetails {
             return new CheckDetails(
                     checkNumber,
                     checkIdentifier,
+                    routingNumber,
                     name,
                     deliveryStatus,
                     etaTimestamp,

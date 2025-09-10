@@ -39,6 +39,12 @@ public final class WalletDetails {
 
     private final Optional<WalletNetwork> network;
 
+    private final Optional<Address> address;
+
+    private final Optional<CountryCode> nationality;
+
+    private final Optional<String> dateOfBirth;
+
     private final Map<String, Object> additionalProperties;
 
     private WalletDetails(
@@ -51,6 +57,9 @@ public final class WalletDetails {
             Optional<String> walletPhoneNumber,
             Optional<Amount> walletBalance,
             Optional<WalletNetwork> network,
+            Optional<Address> address,
+            Optional<CountryCode> nationality,
+            Optional<String> dateOfBirth,
             Map<String, Object> additionalProperties) {
         this.walletType = walletType;
         this.walletId = walletId;
@@ -61,6 +70,9 @@ public final class WalletDetails {
         this.walletPhoneNumber = walletPhoneNumber;
         this.walletBalance = walletBalance;
         this.network = network;
+        this.address = address;
+        this.nationality = nationality;
+        this.dateOfBirth = dateOfBirth;
         this.additionalProperties = additionalProperties;
     }
 
@@ -127,6 +139,24 @@ public final class WalletDetails {
         return network;
     }
 
+    @JsonProperty("address")
+    public Optional<Address> getAddress() {
+        return address;
+    }
+
+    @JsonProperty("nationality")
+    public Optional<CountryCode> getNationality() {
+        return nationality;
+    }
+
+    /**
+     * @return Date of birth of the account holder (YYYY-MM-DD)
+     */
+    @JsonProperty("dateOfBirth")
+    public Optional<String> getDateOfBirth() {
+        return dateOfBirth;
+    }
+
     @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
@@ -147,7 +177,10 @@ public final class WalletDetails {
                 && tags.equals(other.tags)
                 && walletPhoneNumber.equals(other.walletPhoneNumber)
                 && walletBalance.equals(other.walletBalance)
-                && network.equals(other.network);
+                && network.equals(other.network)
+                && address.equals(other.address)
+                && nationality.equals(other.nationality)
+                && dateOfBirth.equals(other.dateOfBirth);
     }
 
     @java.lang.Override
@@ -161,7 +194,10 @@ public final class WalletDetails {
                 this.tags,
                 this.walletPhoneNumber,
                 this.walletBalance,
-                this.network);
+                this.network,
+                this.address,
+                this.nationality,
+                this.dateOfBirth);
     }
 
     @java.lang.Override
@@ -193,6 +229,12 @@ public final class WalletDetails {
 
         private Optional<WalletNetwork> network = Optional.empty();
 
+        private Optional<Address> address = Optional.empty();
+
+        private Optional<CountryCode> nationality = Optional.empty();
+
+        private Optional<String> dateOfBirth = Optional.empty();
+
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
 
@@ -208,6 +250,9 @@ public final class WalletDetails {
             walletPhoneNumber(other.getWalletPhoneNumber());
             walletBalance(other.getWalletBalance());
             network(other.getNetwork());
+            address(other.getAddress());
+            nationality(other.getNationality());
+            dateOfBirth(other.getDateOfBirth());
             return this;
         }
 
@@ -310,6 +355,39 @@ public final class WalletDetails {
             return this;
         }
 
+        @JsonSetter(value = "address", nulls = Nulls.SKIP)
+        public Builder address(Optional<Address> address) {
+            this.address = address;
+            return this;
+        }
+
+        public Builder address(Address address) {
+            this.address = Optional.ofNullable(address);
+            return this;
+        }
+
+        @JsonSetter(value = "nationality", nulls = Nulls.SKIP)
+        public Builder nationality(Optional<CountryCode> nationality) {
+            this.nationality = nationality;
+            return this;
+        }
+
+        public Builder nationality(CountryCode nationality) {
+            this.nationality = Optional.ofNullable(nationality);
+            return this;
+        }
+
+        @JsonSetter(value = "dateOfBirth", nulls = Nulls.SKIP)
+        public Builder dateOfBirth(Optional<String> dateOfBirth) {
+            this.dateOfBirth = dateOfBirth;
+            return this;
+        }
+
+        public Builder dateOfBirth(String dateOfBirth) {
+            this.dateOfBirth = Optional.ofNullable(dateOfBirth);
+            return this;
+        }
+
         public WalletDetails build() {
             return new WalletDetails(
                     walletType,
@@ -321,6 +399,9 @@ public final class WalletDetails {
                     walletPhoneNumber,
                     walletBalance,
                     network,
+                    address,
+                    nationality,
+                    dateOfBirth,
                     additionalProperties);
         }
     }

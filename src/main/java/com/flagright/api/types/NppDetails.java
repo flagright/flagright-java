@@ -17,7 +17,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
-import org.jetbrains.annotations.NotNull;
 
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
 @JsonDeserialize(builder = NppDetails.Builder.class)
@@ -32,9 +31,9 @@ public final class NppDetails {
 
     private final Optional<String> bsb;
 
-    private final String payId;
+    private final Optional<String> payId;
 
-    private final String endToEndId;
+    private final Optional<String> endToEndId;
 
     private final Optional<String> oskoReference;
 
@@ -70,8 +69,8 @@ public final class NppDetails {
             Optional<String> emailId,
             Optional<String> contactNumber,
             Optional<String> bsb,
-            String payId,
-            String endToEndId,
+            Optional<String> payId,
+            Optional<String> endToEndId,
             Optional<String> oskoReference,
             Optional<String> payIdReference,
             Optional<Boolean> isInstant,
@@ -147,7 +146,7 @@ public final class NppDetails {
      * @return PayID
      */
     @JsonProperty("payId")
-    public String getPayId() {
+    public Optional<String> getPayId() {
         return payId;
     }
 
@@ -155,7 +154,7 @@ public final class NppDetails {
      * @return End to End ID
      */
     @JsonProperty("endToEndId")
-    public String getEndToEndId() {
+    public Optional<String> getEndToEndId() {
         return endToEndId;
     }
 
@@ -324,144 +323,57 @@ public final class NppDetails {
         return ObjectMappers.stringify(this);
     }
 
-    public static PayIdStage builder() {
+    public static Builder builder() {
         return new Builder();
     }
 
-    public interface PayIdStage {
-        EndToEndIdStage payId(@NotNull String payId);
-
-        Builder from(NppDetails other);
-    }
-
-    public interface EndToEndIdStage {
-        _FinalStage endToEndId(@NotNull String endToEndId);
-    }
-
-    public interface _FinalStage {
-        NppDetails build();
-
-        _FinalStage accountNumber(Optional<String> accountNumber);
-
-        _FinalStage accountNumber(String accountNumber);
-
-        _FinalStage name(Optional<ConsumerName> name);
-
-        _FinalStage name(ConsumerName name);
-
-        _FinalStage emailId(Optional<String> emailId);
-
-        _FinalStage emailId(String emailId);
-
-        _FinalStage contactNumber(Optional<String> contactNumber);
-
-        _FinalStage contactNumber(String contactNumber);
-
-        _FinalStage bsb(Optional<String> bsb);
-
-        _FinalStage bsb(String bsb);
-
-        _FinalStage oskoReference(Optional<String> oskoReference);
-
-        _FinalStage oskoReference(String oskoReference);
-
-        _FinalStage payIdReference(Optional<String> payIdReference);
-
-        _FinalStage payIdReference(String payIdReference);
-
-        _FinalStage isInstant(Optional<Boolean> isInstant);
-
-        _FinalStage isInstant(Boolean isInstant);
-
-        _FinalStage remittanceInformation(Optional<String> remittanceInformation);
-
-        _FinalStage remittanceInformation(String remittanceInformation);
-
-        _FinalStage remittanceAdvice(Optional<String> remittanceAdvice);
-
-        _FinalStage remittanceAdvice(String remittanceAdvice);
-
-        _FinalStage tags(Optional<List<Tag>> tags);
-
-        _FinalStage tags(List<Tag> tags);
-
-        _FinalStage processingDate(Optional<Double> processingDate);
-
-        _FinalStage processingDate(Double processingDate);
-
-        _FinalStage settlementDate(Optional<Double> settlementDate);
-
-        _FinalStage settlementDate(Double settlementDate);
-
-        _FinalStage referenceNumber(Optional<String> referenceNumber);
-
-        _FinalStage referenceNumber(String referenceNumber);
-
-        _FinalStage traceNumber(Optional<String> traceNumber);
-
-        _FinalStage traceNumber(String traceNumber);
-
-        _FinalStage messageFormat(Optional<String> messageFormat);
-
-        _FinalStage messageFormat(String messageFormat);
-
-        _FinalStage bankName(Optional<String> bankName);
-
-        _FinalStage bankName(String bankName);
-
-        _FinalStage address(Optional<Address> address);
-
-        _FinalStage address(Address address);
-    }
-
     @JsonIgnoreProperties(ignoreUnknown = true)
-    public static final class Builder implements PayIdStage, EndToEndIdStage, _FinalStage {
-        private String payId;
-
-        private String endToEndId;
-
-        private Optional<Address> address = Optional.empty();
-
-        private Optional<String> bankName = Optional.empty();
-
-        private Optional<String> messageFormat = Optional.empty();
-
-        private Optional<String> traceNumber = Optional.empty();
-
-        private Optional<String> referenceNumber = Optional.empty();
-
-        private Optional<Double> settlementDate = Optional.empty();
-
-        private Optional<Double> processingDate = Optional.empty();
-
-        private Optional<List<Tag>> tags = Optional.empty();
-
-        private Optional<String> remittanceAdvice = Optional.empty();
-
-        private Optional<String> remittanceInformation = Optional.empty();
-
-        private Optional<Boolean> isInstant = Optional.empty();
-
-        private Optional<String> payIdReference = Optional.empty();
-
-        private Optional<String> oskoReference = Optional.empty();
-
-        private Optional<String> bsb = Optional.empty();
-
-        private Optional<String> contactNumber = Optional.empty();
-
-        private Optional<String> emailId = Optional.empty();
+    public static final class Builder {
+        private Optional<String> accountNumber = Optional.empty();
 
         private Optional<ConsumerName> name = Optional.empty();
 
-        private Optional<String> accountNumber = Optional.empty();
+        private Optional<String> emailId = Optional.empty();
+
+        private Optional<String> contactNumber = Optional.empty();
+
+        private Optional<String> bsb = Optional.empty();
+
+        private Optional<String> payId = Optional.empty();
+
+        private Optional<String> endToEndId = Optional.empty();
+
+        private Optional<String> oskoReference = Optional.empty();
+
+        private Optional<String> payIdReference = Optional.empty();
+
+        private Optional<Boolean> isInstant = Optional.empty();
+
+        private Optional<String> remittanceInformation = Optional.empty();
+
+        private Optional<String> remittanceAdvice = Optional.empty();
+
+        private Optional<List<Tag>> tags = Optional.empty();
+
+        private Optional<Double> processingDate = Optional.empty();
+
+        private Optional<Double> settlementDate = Optional.empty();
+
+        private Optional<String> referenceNumber = Optional.empty();
+
+        private Optional<String> traceNumber = Optional.empty();
+
+        private Optional<String> messageFormat = Optional.empty();
+
+        private Optional<String> bankName = Optional.empty();
+
+        private Optional<Address> address = Optional.empty();
 
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
 
         private Builder() {}
 
-        @java.lang.Override
         public Builder from(NppDetails other) {
             accountNumber(other.getAccountNumber());
             name(other.getName());
@@ -486,323 +398,226 @@ public final class NppDetails {
             return this;
         }
 
-        /**
-         * <p>PayID</p>
-         * @return Reference to {@code this} so that method calls can be chained together.
-         */
-        @java.lang.Override
-        @JsonSetter("payId")
-        public EndToEndIdStage payId(@NotNull String payId) {
-            this.payId = Objects.requireNonNull(payId, "payId must not be null");
-            return this;
-        }
-
-        /**
-         * <p>End to End ID</p>
-         * @return Reference to {@code this} so that method calls can be chained together.
-         */
-        @java.lang.Override
-        @JsonSetter("endToEndId")
-        public _FinalStage endToEndId(@NotNull String endToEndId) {
-            this.endToEndId = Objects.requireNonNull(endToEndId, "endToEndId must not be null");
-            return this;
-        }
-
-        @java.lang.Override
-        public _FinalStage address(Address address) {
-            this.address = Optional.ofNullable(address);
-            return this;
-        }
-
-        @java.lang.Override
-        @JsonSetter(value = "address", nulls = Nulls.SKIP)
-        public _FinalStage address(Optional<Address> address) {
-            this.address = address;
-            return this;
-        }
-
-        /**
-         * <p>Name of the bank associated with the account</p>
-         * @return Reference to {@code this} so that method calls can be chained together.
-         */
-        @java.lang.Override
-        public _FinalStage bankName(String bankName) {
-            this.bankName = Optional.ofNullable(bankName);
-            return this;
-        }
-
-        @java.lang.Override
-        @JsonSetter(value = "bankName", nulls = Nulls.SKIP)
-        public _FinalStage bankName(Optional<String> bankName) {
-            this.bankName = bankName;
-            return this;
-        }
-
-        /**
-         * <p>Format of the NPP message (e.g., JSON, XML)</p>
-         * @return Reference to {@code this} so that method calls can be chained together.
-         */
-        @java.lang.Override
-        public _FinalStage messageFormat(String messageFormat) {
-            this.messageFormat = Optional.ofNullable(messageFormat);
-            return this;
-        }
-
-        @java.lang.Override
-        @JsonSetter(value = "messageFormat", nulls = Nulls.SKIP)
-        public _FinalStage messageFormat(Optional<String> messageFormat) {
-            this.messageFormat = messageFormat;
-            return this;
-        }
-
-        /**
-         * <p>Trace number for tracking the payment through the NPP system</p>
-         * @return Reference to {@code this} so that method calls can be chained together.
-         */
-        @java.lang.Override
-        public _FinalStage traceNumber(String traceNumber) {
-            this.traceNumber = Optional.ofNullable(traceNumber);
-            return this;
-        }
-
-        @java.lang.Override
-        @JsonSetter(value = "traceNumber", nulls = Nulls.SKIP)
-        public _FinalStage traceNumber(Optional<String> traceNumber) {
-            this.traceNumber = traceNumber;
-            return this;
-        }
-
-        /**
-         * <p>Unique reference number for transaction reconciliation</p>
-         * @return Reference to {@code this} so that method calls can be chained together.
-         */
-        @java.lang.Override
-        public _FinalStage referenceNumber(String referenceNumber) {
-            this.referenceNumber = Optional.ofNullable(referenceNumber);
-            return this;
-        }
-
-        @java.lang.Override
-        @JsonSetter(value = "referenceNumber", nulls = Nulls.SKIP)
-        public _FinalStage referenceNumber(Optional<String> referenceNumber) {
-            this.referenceNumber = referenceNumber;
-            return this;
-        }
-
-        /**
-         * <p>Timestamp of the event</p>
-         * @return Reference to {@code this} so that method calls can be chained together.
-         */
-        @java.lang.Override
-        public _FinalStage settlementDate(Double settlementDate) {
-            this.settlementDate = Optional.ofNullable(settlementDate);
-            return this;
-        }
-
-        @java.lang.Override
-        @JsonSetter(value = "settlementDate", nulls = Nulls.SKIP)
-        public _FinalStage settlementDate(Optional<Double> settlementDate) {
-            this.settlementDate = settlementDate;
-            return this;
-        }
-
-        /**
-         * <p>Timestamp of the event</p>
-         * @return Reference to {@code this} so that method calls can be chained together.
-         */
-        @java.lang.Override
-        public _FinalStage processingDate(Double processingDate) {
-            this.processingDate = Optional.ofNullable(processingDate);
-            return this;
-        }
-
-        @java.lang.Override
-        @JsonSetter(value = "processingDate", nulls = Nulls.SKIP)
-        public _FinalStage processingDate(Optional<Double> processingDate) {
-            this.processingDate = processingDate;
-            return this;
-        }
-
-        /**
-         * <p>Additional information that can be added via tags</p>
-         * @return Reference to {@code this} so that method calls can be chained together.
-         */
-        @java.lang.Override
-        public _FinalStage tags(List<Tag> tags) {
-            this.tags = Optional.ofNullable(tags);
-            return this;
-        }
-
-        @java.lang.Override
-        @JsonSetter(value = "tags", nulls = Nulls.SKIP)
-        public _FinalStage tags(Optional<List<Tag>> tags) {
-            this.tags = tags;
-            return this;
-        }
-
-        /**
-         * <p>Remittance advice</p>
-         * @return Reference to {@code this} so that method calls can be chained together.
-         */
-        @java.lang.Override
-        public _FinalStage remittanceAdvice(String remittanceAdvice) {
-            this.remittanceAdvice = Optional.ofNullable(remittanceAdvice);
-            return this;
-        }
-
-        @java.lang.Override
-        @JsonSetter(value = "remittanceAdvice", nulls = Nulls.SKIP)
-        public _FinalStage remittanceAdvice(Optional<String> remittanceAdvice) {
-            this.remittanceAdvice = remittanceAdvice;
-            return this;
-        }
-
-        /**
-         * <p>Remittance information</p>
-         * @return Reference to {@code this} so that method calls can be chained together.
-         */
-        @java.lang.Override
-        public _FinalStage remittanceInformation(String remittanceInformation) {
-            this.remittanceInformation = Optional.ofNullable(remittanceInformation);
-            return this;
-        }
-
-        @java.lang.Override
-        @JsonSetter(value = "remittanceInformation", nulls = Nulls.SKIP)
-        public _FinalStage remittanceInformation(Optional<String> remittanceInformation) {
-            this.remittanceInformation = remittanceInformation;
-            return this;
-        }
-
-        /**
-         * <p>Whether the payment is instant</p>
-         * @return Reference to {@code this} so that method calls can be chained together.
-         */
-        @java.lang.Override
-        public _FinalStage isInstant(Boolean isInstant) {
-            this.isInstant = Optional.ofNullable(isInstant);
-            return this;
-        }
-
-        @java.lang.Override
-        @JsonSetter(value = "isInstant", nulls = Nulls.SKIP)
-        public _FinalStage isInstant(Optional<Boolean> isInstant) {
-            this.isInstant = isInstant;
-            return this;
-        }
-
-        /**
-         * <p>PayID reference</p>
-         * @return Reference to {@code this} so that method calls can be chained together.
-         */
-        @java.lang.Override
-        public _FinalStage payIdReference(String payIdReference) {
-            this.payIdReference = Optional.ofNullable(payIdReference);
-            return this;
-        }
-
-        @java.lang.Override
-        @JsonSetter(value = "payIdReference", nulls = Nulls.SKIP)
-        public _FinalStage payIdReference(Optional<String> payIdReference) {
-            this.payIdReference = payIdReference;
-            return this;
-        }
-
-        /**
-         * <p>OSKO reference</p>
-         * @return Reference to {@code this} so that method calls can be chained together.
-         */
-        @java.lang.Override
-        public _FinalStage oskoReference(String oskoReference) {
-            this.oskoReference = Optional.ofNullable(oskoReference);
-            return this;
-        }
-
-        @java.lang.Override
-        @JsonSetter(value = "oskoReference", nulls = Nulls.SKIP)
-        public _FinalStage oskoReference(Optional<String> oskoReference) {
-            this.oskoReference = oskoReference;
-            return this;
-        }
-
-        /**
-         * <p>BSB number</p>
-         * @return Reference to {@code this} so that method calls can be chained together.
-         */
-        @java.lang.Override
-        public _FinalStage bsb(String bsb) {
-            this.bsb = Optional.ofNullable(bsb);
-            return this;
-        }
-
-        @java.lang.Override
-        @JsonSetter(value = "bsb", nulls = Nulls.SKIP)
-        public _FinalStage bsb(Optional<String> bsb) {
-            this.bsb = bsb;
-            return this;
-        }
-
-        /**
-         * <p>Contact number</p>
-         * @return Reference to {@code this} so that method calls can be chained together.
-         */
-        @java.lang.Override
-        public _FinalStage contactNumber(String contactNumber) {
-            this.contactNumber = Optional.ofNullable(contactNumber);
-            return this;
-        }
-
-        @java.lang.Override
-        @JsonSetter(value = "contactNumber", nulls = Nulls.SKIP)
-        public _FinalStage contactNumber(Optional<String> contactNumber) {
-            this.contactNumber = contactNumber;
-            return this;
-        }
-
-        @java.lang.Override
-        public _FinalStage emailId(String emailId) {
-            this.emailId = Optional.ofNullable(emailId);
-            return this;
-        }
-
-        @java.lang.Override
-        @JsonSetter(value = "emailId", nulls = Nulls.SKIP)
-        public _FinalStage emailId(Optional<String> emailId) {
-            this.emailId = emailId;
-            return this;
-        }
-
-        @java.lang.Override
-        public _FinalStage name(ConsumerName name) {
-            this.name = Optional.ofNullable(name);
-            return this;
-        }
-
-        @java.lang.Override
-        @JsonSetter(value = "name", nulls = Nulls.SKIP)
-        public _FinalStage name(Optional<ConsumerName> name) {
-            this.name = name;
-            return this;
-        }
-
-        /**
-         * <p>Account number</p>
-         * @return Reference to {@code this} so that method calls can be chained together.
-         */
-        @java.lang.Override
-        public _FinalStage accountNumber(String accountNumber) {
-            this.accountNumber = Optional.ofNullable(accountNumber);
-            return this;
-        }
-
-        @java.lang.Override
         @JsonSetter(value = "accountNumber", nulls = Nulls.SKIP)
-        public _FinalStage accountNumber(Optional<String> accountNumber) {
+        public Builder accountNumber(Optional<String> accountNumber) {
             this.accountNumber = accountNumber;
             return this;
         }
 
-        @java.lang.Override
+        public Builder accountNumber(String accountNumber) {
+            this.accountNumber = Optional.ofNullable(accountNumber);
+            return this;
+        }
+
+        @JsonSetter(value = "name", nulls = Nulls.SKIP)
+        public Builder name(Optional<ConsumerName> name) {
+            this.name = name;
+            return this;
+        }
+
+        public Builder name(ConsumerName name) {
+            this.name = Optional.ofNullable(name);
+            return this;
+        }
+
+        @JsonSetter(value = "emailId", nulls = Nulls.SKIP)
+        public Builder emailId(Optional<String> emailId) {
+            this.emailId = emailId;
+            return this;
+        }
+
+        public Builder emailId(String emailId) {
+            this.emailId = Optional.ofNullable(emailId);
+            return this;
+        }
+
+        @JsonSetter(value = "contactNumber", nulls = Nulls.SKIP)
+        public Builder contactNumber(Optional<String> contactNumber) {
+            this.contactNumber = contactNumber;
+            return this;
+        }
+
+        public Builder contactNumber(String contactNumber) {
+            this.contactNumber = Optional.ofNullable(contactNumber);
+            return this;
+        }
+
+        @JsonSetter(value = "bsb", nulls = Nulls.SKIP)
+        public Builder bsb(Optional<String> bsb) {
+            this.bsb = bsb;
+            return this;
+        }
+
+        public Builder bsb(String bsb) {
+            this.bsb = Optional.ofNullable(bsb);
+            return this;
+        }
+
+        @JsonSetter(value = "payId", nulls = Nulls.SKIP)
+        public Builder payId(Optional<String> payId) {
+            this.payId = payId;
+            return this;
+        }
+
+        public Builder payId(String payId) {
+            this.payId = Optional.ofNullable(payId);
+            return this;
+        }
+
+        @JsonSetter(value = "endToEndId", nulls = Nulls.SKIP)
+        public Builder endToEndId(Optional<String> endToEndId) {
+            this.endToEndId = endToEndId;
+            return this;
+        }
+
+        public Builder endToEndId(String endToEndId) {
+            this.endToEndId = Optional.ofNullable(endToEndId);
+            return this;
+        }
+
+        @JsonSetter(value = "oskoReference", nulls = Nulls.SKIP)
+        public Builder oskoReference(Optional<String> oskoReference) {
+            this.oskoReference = oskoReference;
+            return this;
+        }
+
+        public Builder oskoReference(String oskoReference) {
+            this.oskoReference = Optional.ofNullable(oskoReference);
+            return this;
+        }
+
+        @JsonSetter(value = "payIdReference", nulls = Nulls.SKIP)
+        public Builder payIdReference(Optional<String> payIdReference) {
+            this.payIdReference = payIdReference;
+            return this;
+        }
+
+        public Builder payIdReference(String payIdReference) {
+            this.payIdReference = Optional.ofNullable(payIdReference);
+            return this;
+        }
+
+        @JsonSetter(value = "isInstant", nulls = Nulls.SKIP)
+        public Builder isInstant(Optional<Boolean> isInstant) {
+            this.isInstant = isInstant;
+            return this;
+        }
+
+        public Builder isInstant(Boolean isInstant) {
+            this.isInstant = Optional.ofNullable(isInstant);
+            return this;
+        }
+
+        @JsonSetter(value = "remittanceInformation", nulls = Nulls.SKIP)
+        public Builder remittanceInformation(Optional<String> remittanceInformation) {
+            this.remittanceInformation = remittanceInformation;
+            return this;
+        }
+
+        public Builder remittanceInformation(String remittanceInformation) {
+            this.remittanceInformation = Optional.ofNullable(remittanceInformation);
+            return this;
+        }
+
+        @JsonSetter(value = "remittanceAdvice", nulls = Nulls.SKIP)
+        public Builder remittanceAdvice(Optional<String> remittanceAdvice) {
+            this.remittanceAdvice = remittanceAdvice;
+            return this;
+        }
+
+        public Builder remittanceAdvice(String remittanceAdvice) {
+            this.remittanceAdvice = Optional.ofNullable(remittanceAdvice);
+            return this;
+        }
+
+        @JsonSetter(value = "tags", nulls = Nulls.SKIP)
+        public Builder tags(Optional<List<Tag>> tags) {
+            this.tags = tags;
+            return this;
+        }
+
+        public Builder tags(List<Tag> tags) {
+            this.tags = Optional.ofNullable(tags);
+            return this;
+        }
+
+        @JsonSetter(value = "processingDate", nulls = Nulls.SKIP)
+        public Builder processingDate(Optional<Double> processingDate) {
+            this.processingDate = processingDate;
+            return this;
+        }
+
+        public Builder processingDate(Double processingDate) {
+            this.processingDate = Optional.ofNullable(processingDate);
+            return this;
+        }
+
+        @JsonSetter(value = "settlementDate", nulls = Nulls.SKIP)
+        public Builder settlementDate(Optional<Double> settlementDate) {
+            this.settlementDate = settlementDate;
+            return this;
+        }
+
+        public Builder settlementDate(Double settlementDate) {
+            this.settlementDate = Optional.ofNullable(settlementDate);
+            return this;
+        }
+
+        @JsonSetter(value = "referenceNumber", nulls = Nulls.SKIP)
+        public Builder referenceNumber(Optional<String> referenceNumber) {
+            this.referenceNumber = referenceNumber;
+            return this;
+        }
+
+        public Builder referenceNumber(String referenceNumber) {
+            this.referenceNumber = Optional.ofNullable(referenceNumber);
+            return this;
+        }
+
+        @JsonSetter(value = "traceNumber", nulls = Nulls.SKIP)
+        public Builder traceNumber(Optional<String> traceNumber) {
+            this.traceNumber = traceNumber;
+            return this;
+        }
+
+        public Builder traceNumber(String traceNumber) {
+            this.traceNumber = Optional.ofNullable(traceNumber);
+            return this;
+        }
+
+        @JsonSetter(value = "messageFormat", nulls = Nulls.SKIP)
+        public Builder messageFormat(Optional<String> messageFormat) {
+            this.messageFormat = messageFormat;
+            return this;
+        }
+
+        public Builder messageFormat(String messageFormat) {
+            this.messageFormat = Optional.ofNullable(messageFormat);
+            return this;
+        }
+
+        @JsonSetter(value = "bankName", nulls = Nulls.SKIP)
+        public Builder bankName(Optional<String> bankName) {
+            this.bankName = bankName;
+            return this;
+        }
+
+        public Builder bankName(String bankName) {
+            this.bankName = Optional.ofNullable(bankName);
+            return this;
+        }
+
+        @JsonSetter(value = "address", nulls = Nulls.SKIP)
+        public Builder address(Optional<Address> address) {
+            this.address = address;
+            return this;
+        }
+
+        public Builder address(Address address) {
+            this.address = Optional.ofNullable(address);
+            return this;
+        }
+
         public NppDetails build() {
             return new NppDetails(
                     accountNumber,
