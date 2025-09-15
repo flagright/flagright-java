@@ -33,11 +33,11 @@ public final class WebhookEventData {
         if (this.type == 0) {
             return visitor.visit((UserStateDetails) this.value);
         } else if (this.type == 1) {
-            return visitor.visit((CaseClosedDetails) this.value);
+            return visitor.visit((CaseStatusDetails) this.value);
         } else if (this.type == 2) {
             return visitor.visit((CaseOpenedDetails) this.value);
         } else if (this.type == 3) {
-            return visitor.visit((AlertClosedDetails) this.value);
+            return visitor.visit((AlertStatusDetails) this.value);
         } else if (this.type == 4) {
             return visitor.visit((AlertOpenedDetails) this.value);
         } else if (this.type == 5) {
@@ -76,7 +76,7 @@ public final class WebhookEventData {
         return new WebhookEventData(value, 0);
     }
 
-    public static WebhookEventData of(CaseClosedDetails value) {
+    public static WebhookEventData of(CaseStatusDetails value) {
         return new WebhookEventData(value, 1);
     }
 
@@ -84,7 +84,7 @@ public final class WebhookEventData {
         return new WebhookEventData(value, 2);
     }
 
-    public static WebhookEventData of(AlertClosedDetails value) {
+    public static WebhookEventData of(AlertStatusDetails value) {
         return new WebhookEventData(value, 3);
     }
 
@@ -111,11 +111,11 @@ public final class WebhookEventData {
     public interface Visitor<T> {
         T visit(UserStateDetails value);
 
-        T visit(CaseClosedDetails value);
+        T visit(CaseStatusDetails value);
 
         T visit(CaseOpenedDetails value);
 
-        T visit(AlertClosedDetails value);
+        T visit(AlertStatusDetails value);
 
         T visit(AlertOpenedDetails value);
 
@@ -141,7 +141,7 @@ public final class WebhookEventData {
             } catch (IllegalArgumentException e) {
             }
             try {
-                return of(ObjectMappers.JSON_MAPPER.convertValue(value, CaseClosedDetails.class));
+                return of(ObjectMappers.JSON_MAPPER.convertValue(value, CaseStatusDetails.class));
             } catch (IllegalArgumentException e) {
             }
             try {
@@ -149,7 +149,7 @@ public final class WebhookEventData {
             } catch (IllegalArgumentException e) {
             }
             try {
-                return of(ObjectMappers.JSON_MAPPER.convertValue(value, AlertClosedDetails.class));
+                return of(ObjectMappers.JSON_MAPPER.convertValue(value, AlertStatusDetails.class));
             } catch (IllegalArgumentException e) {
             }
             try {

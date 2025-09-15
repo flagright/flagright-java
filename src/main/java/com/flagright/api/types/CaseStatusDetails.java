@@ -19,9 +19,9 @@ import java.util.Objects;
 import java.util.Optional;
 
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
-@JsonDeserialize(builder = AlertClosedDetails.Builder.class)
-public final class AlertClosedDetails {
-    private final Optional<String> alertId;
+@JsonDeserialize(builder = CaseStatusDetails.Builder.class)
+public final class CaseStatusDetails {
+    private final Optional<String> caseId;
 
     private final Optional<String> status;
 
@@ -35,46 +35,30 @@ public final class AlertClosedDetails {
 
     private final Optional<List<String>> transactionIds;
 
-    private final Optional<String> ruleName;
-
-    private final Optional<String> ruleDescription;
-
-    private final Optional<String> ruleId;
-
-    private final Optional<String> ruleInstanceId;
-
     private final Map<String, Object> additionalProperties;
 
-    private AlertClosedDetails(
-            Optional<String> alertId,
+    private CaseStatusDetails(
+            Optional<String> caseId,
             Optional<String> status,
             Optional<List<String>> reasons,
             Optional<String> reasonDescriptionForOther,
             Optional<String> comment,
             Optional<String> userId,
             Optional<List<String>> transactionIds,
-            Optional<String> ruleName,
-            Optional<String> ruleDescription,
-            Optional<String> ruleId,
-            Optional<String> ruleInstanceId,
             Map<String, Object> additionalProperties) {
-        this.alertId = alertId;
+        this.caseId = caseId;
         this.status = status;
         this.reasons = reasons;
         this.reasonDescriptionForOther = reasonDescriptionForOther;
         this.comment = comment;
         this.userId = userId;
         this.transactionIds = transactionIds;
-        this.ruleName = ruleName;
-        this.ruleDescription = ruleDescription;
-        this.ruleId = ruleId;
-        this.ruleInstanceId = ruleInstanceId;
         this.additionalProperties = additionalProperties;
     }
 
-    @JsonProperty("alertId")
-    public Optional<String> getAlertId() {
-        return alertId;
+    @JsonProperty("caseId")
+    public Optional<String> getCaseId() {
+        return caseId;
     }
 
     @JsonProperty("status")
@@ -107,30 +91,10 @@ public final class AlertClosedDetails {
         return transactionIds;
     }
 
-    @JsonProperty("ruleName")
-    public Optional<String> getRuleName() {
-        return ruleName;
-    }
-
-    @JsonProperty("ruleDescription")
-    public Optional<String> getRuleDescription() {
-        return ruleDescription;
-    }
-
-    @JsonProperty("ruleId")
-    public Optional<String> getRuleId() {
-        return ruleId;
-    }
-
-    @JsonProperty("ruleInstanceId")
-    public Optional<String> getRuleInstanceId() {
-        return ruleInstanceId;
-    }
-
     @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
-        return other instanceof AlertClosedDetails && equalTo((AlertClosedDetails) other);
+        return other instanceof CaseStatusDetails && equalTo((CaseStatusDetails) other);
     }
 
     @JsonAnyGetter
@@ -138,34 +102,26 @@ public final class AlertClosedDetails {
         return this.additionalProperties;
     }
 
-    private boolean equalTo(AlertClosedDetails other) {
-        return alertId.equals(other.alertId)
+    private boolean equalTo(CaseStatusDetails other) {
+        return caseId.equals(other.caseId)
                 && status.equals(other.status)
                 && reasons.equals(other.reasons)
                 && reasonDescriptionForOther.equals(other.reasonDescriptionForOther)
                 && comment.equals(other.comment)
                 && userId.equals(other.userId)
-                && transactionIds.equals(other.transactionIds)
-                && ruleName.equals(other.ruleName)
-                && ruleDescription.equals(other.ruleDescription)
-                && ruleId.equals(other.ruleId)
-                && ruleInstanceId.equals(other.ruleInstanceId);
+                && transactionIds.equals(other.transactionIds);
     }
 
     @java.lang.Override
     public int hashCode() {
         return Objects.hash(
-                this.alertId,
+                this.caseId,
                 this.status,
                 this.reasons,
                 this.reasonDescriptionForOther,
                 this.comment,
                 this.userId,
-                this.transactionIds,
-                this.ruleName,
-                this.ruleDescription,
-                this.ruleId,
-                this.ruleInstanceId);
+                this.transactionIds);
     }
 
     @java.lang.Override
@@ -179,7 +135,7 @@ public final class AlertClosedDetails {
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static final class Builder {
-        private Optional<String> alertId = Optional.empty();
+        private Optional<String> caseId = Optional.empty();
 
         private Optional<String> status = Optional.empty();
 
@@ -193,42 +149,30 @@ public final class AlertClosedDetails {
 
         private Optional<List<String>> transactionIds = Optional.empty();
 
-        private Optional<String> ruleName = Optional.empty();
-
-        private Optional<String> ruleDescription = Optional.empty();
-
-        private Optional<String> ruleId = Optional.empty();
-
-        private Optional<String> ruleInstanceId = Optional.empty();
-
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
 
         private Builder() {}
 
-        public Builder from(AlertClosedDetails other) {
-            alertId(other.getAlertId());
+        public Builder from(CaseStatusDetails other) {
+            caseId(other.getCaseId());
             status(other.getStatus());
             reasons(other.getReasons());
             reasonDescriptionForOther(other.getReasonDescriptionForOther());
             comment(other.getComment());
             userId(other.getUserId());
             transactionIds(other.getTransactionIds());
-            ruleName(other.getRuleName());
-            ruleDescription(other.getRuleDescription());
-            ruleId(other.getRuleId());
-            ruleInstanceId(other.getRuleInstanceId());
             return this;
         }
 
-        @JsonSetter(value = "alertId", nulls = Nulls.SKIP)
-        public Builder alertId(Optional<String> alertId) {
-            this.alertId = alertId;
+        @JsonSetter(value = "caseId", nulls = Nulls.SKIP)
+        public Builder caseId(Optional<String> caseId) {
+            this.caseId = caseId;
             return this;
         }
 
-        public Builder alertId(String alertId) {
-            this.alertId = Optional.ofNullable(alertId);
+        public Builder caseId(String caseId) {
+            this.caseId = Optional.ofNullable(caseId);
             return this;
         }
 
@@ -298,63 +242,15 @@ public final class AlertClosedDetails {
             return this;
         }
 
-        @JsonSetter(value = "ruleName", nulls = Nulls.SKIP)
-        public Builder ruleName(Optional<String> ruleName) {
-            this.ruleName = ruleName;
-            return this;
-        }
-
-        public Builder ruleName(String ruleName) {
-            this.ruleName = Optional.ofNullable(ruleName);
-            return this;
-        }
-
-        @JsonSetter(value = "ruleDescription", nulls = Nulls.SKIP)
-        public Builder ruleDescription(Optional<String> ruleDescription) {
-            this.ruleDescription = ruleDescription;
-            return this;
-        }
-
-        public Builder ruleDescription(String ruleDescription) {
-            this.ruleDescription = Optional.ofNullable(ruleDescription);
-            return this;
-        }
-
-        @JsonSetter(value = "ruleId", nulls = Nulls.SKIP)
-        public Builder ruleId(Optional<String> ruleId) {
-            this.ruleId = ruleId;
-            return this;
-        }
-
-        public Builder ruleId(String ruleId) {
-            this.ruleId = Optional.ofNullable(ruleId);
-            return this;
-        }
-
-        @JsonSetter(value = "ruleInstanceId", nulls = Nulls.SKIP)
-        public Builder ruleInstanceId(Optional<String> ruleInstanceId) {
-            this.ruleInstanceId = ruleInstanceId;
-            return this;
-        }
-
-        public Builder ruleInstanceId(String ruleInstanceId) {
-            this.ruleInstanceId = Optional.ofNullable(ruleInstanceId);
-            return this;
-        }
-
-        public AlertClosedDetails build() {
-            return new AlertClosedDetails(
-                    alertId,
+        public CaseStatusDetails build() {
+            return new CaseStatusDetails(
+                    caseId,
                     status,
                     reasons,
                     reasonDescriptionForOther,
                     comment,
                     userId,
                     transactionIds,
-                    ruleName,
-                    ruleDescription,
-                    ruleId,
-                    ruleInstanceId,
                     additionalProperties);
         }
     }
