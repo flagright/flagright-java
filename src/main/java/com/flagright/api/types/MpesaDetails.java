@@ -30,6 +30,10 @@ public final class MpesaDetails {
 
     private final Optional<String> emailId;
 
+    private final Optional<String> name;
+
+    private final Optional<Address> address;
+
     private final Optional<List<Tag>> tags;
 
     private final Map<String, Object> additionalProperties;
@@ -39,12 +43,16 @@ public final class MpesaDetails {
             MpesaTransactionType transactionType,
             String phoneNumber,
             Optional<String> emailId,
+            Optional<String> name,
+            Optional<Address> address,
             Optional<List<Tag>> tags,
             Map<String, Object> additionalProperties) {
         this.businessShortCode = businessShortCode;
         this.transactionType = transactionType;
         this.phoneNumber = phoneNumber;
         this.emailId = emailId;
+        this.name = name;
+        this.address = address;
         this.tags = tags;
         this.additionalProperties = additionalProperties;
     }
@@ -76,6 +84,19 @@ public final class MpesaDetails {
     }
 
     /**
+     * @return Name of the account holder
+     */
+    @JsonProperty("name")
+    public Optional<String> getName() {
+        return name;
+    }
+
+    @JsonProperty("address")
+    public Optional<Address> getAddress() {
+        return address;
+    }
+
+    /**
      * @return Additional information that can be added via tags
      */
     @JsonProperty("tags")
@@ -99,12 +120,21 @@ public final class MpesaDetails {
                 && transactionType.equals(other.transactionType)
                 && phoneNumber.equals(other.phoneNumber)
                 && emailId.equals(other.emailId)
+                && name.equals(other.name)
+                && address.equals(other.address)
                 && tags.equals(other.tags);
     }
 
     @java.lang.Override
     public int hashCode() {
-        return Objects.hash(this.businessShortCode, this.transactionType, this.phoneNumber, this.emailId, this.tags);
+        return Objects.hash(
+                this.businessShortCode,
+                this.transactionType,
+                this.phoneNumber,
+                this.emailId,
+                this.name,
+                this.address,
+                this.tags);
     }
 
     @java.lang.Override
@@ -137,6 +167,14 @@ public final class MpesaDetails {
 
         _FinalStage emailId(String emailId);
 
+        _FinalStage name(Optional<String> name);
+
+        _FinalStage name(String name);
+
+        _FinalStage address(Optional<Address> address);
+
+        _FinalStage address(Address address);
+
         _FinalStage tags(Optional<List<Tag>> tags);
 
         _FinalStage tags(List<Tag> tags);
@@ -153,6 +191,10 @@ public final class MpesaDetails {
 
         private Optional<List<Tag>> tags = Optional.empty();
 
+        private Optional<Address> address = Optional.empty();
+
+        private Optional<String> name = Optional.empty();
+
         private Optional<String> emailId = Optional.empty();
 
         @JsonAnySetter
@@ -166,6 +208,8 @@ public final class MpesaDetails {
             transactionType(other.getTransactionType());
             phoneNumber(other.getPhoneNumber());
             emailId(other.getEmailId());
+            name(other.getName());
+            address(other.getAddress());
             tags(other.getTags());
             return this;
         }
@@ -217,6 +261,36 @@ public final class MpesaDetails {
         }
 
         @java.lang.Override
+        public _FinalStage address(Address address) {
+            this.address = Optional.ofNullable(address);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "address", nulls = Nulls.SKIP)
+        public _FinalStage address(Optional<Address> address) {
+            this.address = address;
+            return this;
+        }
+
+        /**
+         * <p>Name of the account holder</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
+        @java.lang.Override
+        public _FinalStage name(String name) {
+            this.name = Optional.ofNullable(name);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "name", nulls = Nulls.SKIP)
+        public _FinalStage name(Optional<String> name) {
+            this.name = name;
+            return this;
+        }
+
+        @java.lang.Override
         public _FinalStage emailId(String emailId) {
             this.emailId = Optional.ofNullable(emailId);
             return this;
@@ -232,7 +306,14 @@ public final class MpesaDetails {
         @java.lang.Override
         public MpesaDetails build() {
             return new MpesaDetails(
-                    businessShortCode, transactionType, phoneNumber, emailId, tags, additionalProperties);
+                    businessShortCode,
+                    transactionType,
+                    phoneNumber,
+                    emailId,
+                    name,
+                    address,
+                    tags,
+                    additionalProperties);
         }
     }
 }

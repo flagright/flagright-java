@@ -61,6 +61,8 @@ public final class CardDetails {
 
     private final Optional<Double> networkProviderRiskScore;
 
+    private final Optional<Address> address;
+
     private final Optional<List<Tag>> tags;
 
     private final Map<String, Object> additionalProperties;
@@ -86,6 +88,7 @@ public final class CardDetails {
             Optional<Amount> cardBalance,
             Optional<CardMerchantDetails> merchantDetails,
             Optional<Double> networkProviderRiskScore,
+            Optional<Address> address,
             Optional<List<Tag>> tags,
             Map<String, Object> additionalProperties) {
         this.cardFingerprint = cardFingerprint;
@@ -108,6 +111,7 @@ public final class CardDetails {
         this.cardBalance = cardBalance;
         this.merchantDetails = merchantDetails;
         this.networkProviderRiskScore = networkProviderRiskScore;
+        this.address = address;
         this.tags = tags;
         this.additionalProperties = additionalProperties;
     }
@@ -236,6 +240,11 @@ public final class CardDetails {
         return networkProviderRiskScore;
     }
 
+    @JsonProperty("address")
+    public Optional<Address> getAddress() {
+        return address;
+    }
+
     /**
      * @return Additional information that can be added via tags
      */
@@ -276,6 +285,7 @@ public final class CardDetails {
                 && cardBalance.equals(other.cardBalance)
                 && merchantDetails.equals(other.merchantDetails)
                 && networkProviderRiskScore.equals(other.networkProviderRiskScore)
+                && address.equals(other.address)
                 && tags.equals(other.tags);
     }
 
@@ -302,6 +312,7 @@ public final class CardDetails {
                 this.cardBalance,
                 this.merchantDetails,
                 this.networkProviderRiskScore,
+                this.address,
                 this.tags);
     }
 
@@ -356,6 +367,8 @@ public final class CardDetails {
 
         private Optional<Double> networkProviderRiskScore = Optional.empty();
 
+        private Optional<Address> address = Optional.empty();
+
         private Optional<List<Tag>> tags = Optional.empty();
 
         @JsonAnySetter
@@ -384,6 +397,7 @@ public final class CardDetails {
             cardBalance(other.getCardBalance());
             merchantDetails(other.getMerchantDetails());
             networkProviderRiskScore(other.getNetworkProviderRiskScore());
+            address(other.getAddress());
             tags(other.getTags());
             return this;
         }
@@ -608,6 +622,17 @@ public final class CardDetails {
             return this;
         }
 
+        @JsonSetter(value = "address", nulls = Nulls.SKIP)
+        public Builder address(Optional<Address> address) {
+            this.address = address;
+            return this;
+        }
+
+        public Builder address(Address address) {
+            this.address = Optional.ofNullable(address);
+            return this;
+        }
+
         @JsonSetter(value = "tags", nulls = Nulls.SKIP)
         public Builder tags(Optional<List<Tag>> tags) {
             this.tags = tags;
@@ -641,6 +666,7 @@ public final class CardDetails {
                     cardBalance,
                     merchantDetails,
                     networkProviderRiskScore,
+                    address,
                     tags,
                     additionalProperties);
         }

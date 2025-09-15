@@ -22,10 +22,20 @@ import java.util.Optional;
 public final class CashDetails {
     private final Optional<String> identifier;
 
+    private final Optional<Address> address;
+
+    private final Optional<String> name;
+
     private final Map<String, Object> additionalProperties;
 
-    private CashDetails(Optional<String> identifier, Map<String, Object> additionalProperties) {
+    private CashDetails(
+            Optional<String> identifier,
+            Optional<Address> address,
+            Optional<String> name,
+            Map<String, Object> additionalProperties) {
         this.identifier = identifier;
+        this.address = address;
+        this.name = name;
         this.additionalProperties = additionalProperties;
     }
 
@@ -35,6 +45,16 @@ public final class CashDetails {
     @JsonProperty("identifier")
     public Optional<String> getIdentifier() {
         return identifier;
+    }
+
+    @JsonProperty("address")
+    public Optional<Address> getAddress() {
+        return address;
+    }
+
+    @JsonProperty("name")
+    public Optional<String> getName() {
+        return name;
     }
 
     @java.lang.Override
@@ -49,12 +69,12 @@ public final class CashDetails {
     }
 
     private boolean equalTo(CashDetails other) {
-        return identifier.equals(other.identifier);
+        return identifier.equals(other.identifier) && address.equals(other.address) && name.equals(other.name);
     }
 
     @java.lang.Override
     public int hashCode() {
-        return Objects.hash(this.identifier);
+        return Objects.hash(this.identifier, this.address, this.name);
     }
 
     @java.lang.Override
@@ -70,6 +90,10 @@ public final class CashDetails {
     public static final class Builder {
         private Optional<String> identifier = Optional.empty();
 
+        private Optional<Address> address = Optional.empty();
+
+        private Optional<String> name = Optional.empty();
+
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
 
@@ -77,6 +101,8 @@ public final class CashDetails {
 
         public Builder from(CashDetails other) {
             identifier(other.getIdentifier());
+            address(other.getAddress());
+            name(other.getName());
             return this;
         }
 
@@ -91,8 +117,30 @@ public final class CashDetails {
             return this;
         }
 
+        @JsonSetter(value = "address", nulls = Nulls.SKIP)
+        public Builder address(Optional<Address> address) {
+            this.address = address;
+            return this;
+        }
+
+        public Builder address(Address address) {
+            this.address = Optional.ofNullable(address);
+            return this;
+        }
+
+        @JsonSetter(value = "name", nulls = Nulls.SKIP)
+        public Builder name(Optional<String> name) {
+            this.name = name;
+            return this;
+        }
+
+        public Builder name(String name) {
+            this.name = Optional.ofNullable(name);
+            return this;
+        }
+
         public CashDetails build() {
-            return new CashDetails(identifier, additionalProperties);
+            return new CashDetails(identifier, address, name, additionalProperties);
         }
     }
 }
