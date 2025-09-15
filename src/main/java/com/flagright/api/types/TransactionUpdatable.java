@@ -21,8 +21,6 @@ import java.util.Optional;
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
 @JsonDeserialize(builder = TransactionUpdatable.Builder.class)
 public final class TransactionUpdatable {
-    private final Optional<TransactionState> transactionState;
-
     private final Optional<TransactionAmountDetails> originAmountDetails;
 
     private final Optional<TransactionAmountDetails> destinationAmountDetails;
@@ -52,7 +50,6 @@ public final class TransactionUpdatable {
     private final Map<String, Object> additionalProperties;
 
     private TransactionUpdatable(
-            Optional<TransactionState> transactionState,
             Optional<TransactionAmountDetails> originAmountDetails,
             Optional<TransactionAmountDetails> destinationAmountDetails,
             Optional<TransactionUpdatableOriginPaymentDetails> originPaymentDetails,
@@ -67,7 +64,6 @@ public final class TransactionUpdatable {
             Optional<List<Tag>> tags,
             Optional<Double> updateCount,
             Map<String, Object> additionalProperties) {
-        this.transactionState = transactionState;
         this.originAmountDetails = originAmountDetails;
         this.destinationAmountDetails = destinationAmountDetails;
         this.originPaymentDetails = originPaymentDetails;
@@ -82,11 +78,6 @@ public final class TransactionUpdatable {
         this.tags = tags;
         this.updateCount = updateCount;
         this.additionalProperties = additionalProperties;
-    }
-
-    @JsonProperty("transactionState")
-    public Optional<TransactionState> getTransactionState() {
-        return transactionState;
     }
 
     @JsonProperty("originAmountDetails")
@@ -184,8 +175,7 @@ public final class TransactionUpdatable {
     }
 
     private boolean equalTo(TransactionUpdatable other) {
-        return transactionState.equals(other.transactionState)
-                && originAmountDetails.equals(other.originAmountDetails)
+        return originAmountDetails.equals(other.originAmountDetails)
                 && destinationAmountDetails.equals(other.destinationAmountDetails)
                 && originPaymentDetails.equals(other.originPaymentDetails)
                 && destinationPaymentDetails.equals(other.destinationPaymentDetails)
@@ -203,7 +193,6 @@ public final class TransactionUpdatable {
     @java.lang.Override
     public int hashCode() {
         return Objects.hash(
-                this.transactionState,
                 this.originAmountDetails,
                 this.destinationAmountDetails,
                 this.originPaymentDetails,
@@ -230,8 +219,6 @@ public final class TransactionUpdatable {
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static final class Builder {
-        private Optional<TransactionState> transactionState = Optional.empty();
-
         private Optional<TransactionAmountDetails> originAmountDetails = Optional.empty();
 
         private Optional<TransactionAmountDetails> destinationAmountDetails = Optional.empty();
@@ -264,7 +251,6 @@ public final class TransactionUpdatable {
         private Builder() {}
 
         public Builder from(TransactionUpdatable other) {
-            transactionState(other.getTransactionState());
             originAmountDetails(other.getOriginAmountDetails());
             destinationAmountDetails(other.getDestinationAmountDetails());
             originPaymentDetails(other.getOriginPaymentDetails());
@@ -278,17 +264,6 @@ public final class TransactionUpdatable {
             destinationDeviceData(other.getDestinationDeviceData());
             tags(other.getTags());
             updateCount(other.getUpdateCount());
-            return this;
-        }
-
-        @JsonSetter(value = "transactionState", nulls = Nulls.SKIP)
-        public Builder transactionState(Optional<TransactionState> transactionState) {
-            this.transactionState = transactionState;
-            return this;
-        }
-
-        public Builder transactionState(TransactionState transactionState) {
-            this.transactionState = Optional.ofNullable(transactionState);
             return this;
         }
 
@@ -439,7 +414,6 @@ public final class TransactionUpdatable {
 
         public TransactionUpdatable build() {
             return new TransactionUpdatable(
-                    transactionState,
                     originAmountDetails,
                     destinationAmountDetails,
                     originPaymentDetails,

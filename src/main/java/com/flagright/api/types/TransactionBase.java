@@ -31,6 +31,8 @@ public final class TransactionBase {
 
     private final Optional<String> destinationUserId;
 
+    private final Optional<TransactionState> transactionState;
+
     private final Map<String, Object> additionalProperties;
 
     private TransactionBase(
@@ -39,12 +41,14 @@ public final class TransactionBase {
             double timestamp,
             Optional<String> originUserId,
             Optional<String> destinationUserId,
+            Optional<TransactionState> transactionState,
             Map<String, Object> additionalProperties) {
         this.type = type;
         this.transactionId = transactionId;
         this.timestamp = timestamp;
         this.originUserId = originUserId;
         this.destinationUserId = destinationUserId;
+        this.transactionState = transactionState;
         this.additionalProperties = additionalProperties;
     }
 
@@ -88,6 +92,11 @@ public final class TransactionBase {
         return destinationUserId;
     }
 
+    @JsonProperty("transactionState")
+    public Optional<TransactionState> getTransactionState() {
+        return transactionState;
+    }
+
     @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
@@ -104,12 +113,19 @@ public final class TransactionBase {
                 && transactionId.equals(other.transactionId)
                 && timestamp == other.timestamp
                 && originUserId.equals(other.originUserId)
-                && destinationUserId.equals(other.destinationUserId);
+                && destinationUserId.equals(other.destinationUserId)
+                && transactionState.equals(other.transactionState);
     }
 
     @java.lang.Override
     public int hashCode() {
-        return Objects.hash(this.type, this.transactionId, this.timestamp, this.originUserId, this.destinationUserId);
+        return Objects.hash(
+                this.type,
+                this.transactionId,
+                this.timestamp,
+                this.originUserId,
+                this.destinationUserId,
+                this.transactionState);
     }
 
     @java.lang.Override
@@ -145,6 +161,10 @@ public final class TransactionBase {
         _FinalStage destinationUserId(Optional<String> destinationUserId);
 
         _FinalStage destinationUserId(String destinationUserId);
+
+        _FinalStage transactionState(Optional<TransactionState> transactionState);
+
+        _FinalStage transactionState(TransactionState transactionState);
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
@@ -154,6 +174,8 @@ public final class TransactionBase {
         private String transactionId;
 
         private double timestamp;
+
+        private Optional<TransactionState> transactionState = Optional.empty();
 
         private Optional<String> destinationUserId = Optional.empty();
 
@@ -171,6 +193,7 @@ public final class TransactionBase {
             timestamp(other.getTimestamp());
             originUserId(other.getOriginUserId());
             destinationUserId(other.getDestinationUserId());
+            transactionState(other.getTransactionState());
             return this;
         }
 
@@ -204,6 +227,19 @@ public final class TransactionBase {
         @JsonSetter("timestamp")
         public _FinalStage timestamp(double timestamp) {
             this.timestamp = timestamp;
+            return this;
+        }
+
+        @java.lang.Override
+        public _FinalStage transactionState(TransactionState transactionState) {
+            this.transactionState = Optional.ofNullable(transactionState);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "transactionState", nulls = Nulls.SKIP)
+        public _FinalStage transactionState(Optional<TransactionState> transactionState) {
+            this.transactionState = transactionState;
             return this;
         }
 
@@ -244,7 +280,13 @@ public final class TransactionBase {
         @java.lang.Override
         public TransactionBase build() {
             return new TransactionBase(
-                    type, transactionId, timestamp, originUserId, destinationUserId, additionalProperties);
+                    type,
+                    transactionId,
+                    timestamp,
+                    originUserId,
+                    destinationUserId,
+                    transactionState,
+                    additionalProperties);
         }
     }
 }
