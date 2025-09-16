@@ -41,7 +41,7 @@ public final class WalletDetails {
 
     private final Optional<Address> address;
 
-    private final Optional<CountryCode> nationality;
+    private final Optional<CountryCode> countryOfNationality;
 
     private final Optional<String> dateOfBirth;
 
@@ -58,7 +58,7 @@ public final class WalletDetails {
             Optional<Amount> walletBalance,
             Optional<WalletNetwork> network,
             Optional<Address> address,
-            Optional<CountryCode> nationality,
+            Optional<CountryCode> countryOfNationality,
             Optional<String> dateOfBirth,
             Map<String, Object> additionalProperties) {
         this.walletType = walletType;
@@ -71,7 +71,7 @@ public final class WalletDetails {
         this.walletBalance = walletBalance;
         this.network = network;
         this.address = address;
-        this.nationality = nationality;
+        this.countryOfNationality = countryOfNationality;
         this.dateOfBirth = dateOfBirth;
         this.additionalProperties = additionalProperties;
     }
@@ -144,9 +144,9 @@ public final class WalletDetails {
         return address;
     }
 
-    @JsonProperty("nationality")
-    public Optional<CountryCode> getNationality() {
-        return nationality;
+    @JsonProperty("countryOfNationality")
+    public Optional<CountryCode> getCountryOfNationality() {
+        return countryOfNationality;
     }
 
     /**
@@ -179,7 +179,7 @@ public final class WalletDetails {
                 && walletBalance.equals(other.walletBalance)
                 && network.equals(other.network)
                 && address.equals(other.address)
-                && nationality.equals(other.nationality)
+                && countryOfNationality.equals(other.countryOfNationality)
                 && dateOfBirth.equals(other.dateOfBirth);
     }
 
@@ -196,7 +196,7 @@ public final class WalletDetails {
                 this.walletBalance,
                 this.network,
                 this.address,
-                this.nationality,
+                this.countryOfNationality,
                 this.dateOfBirth);
     }
 
@@ -231,7 +231,7 @@ public final class WalletDetails {
 
         private Optional<Address> address = Optional.empty();
 
-        private Optional<CountryCode> nationality = Optional.empty();
+        private Optional<CountryCode> countryOfNationality = Optional.empty();
 
         private Optional<String> dateOfBirth = Optional.empty();
 
@@ -251,7 +251,7 @@ public final class WalletDetails {
             walletBalance(other.getWalletBalance());
             network(other.getNetwork());
             address(other.getAddress());
-            nationality(other.getNationality());
+            countryOfNationality(other.getCountryOfNationality());
             dateOfBirth(other.getDateOfBirth());
             return this;
         }
@@ -366,14 +366,14 @@ public final class WalletDetails {
             return this;
         }
 
-        @JsonSetter(value = "nationality", nulls = Nulls.SKIP)
-        public Builder nationality(Optional<CountryCode> nationality) {
-            this.nationality = nationality;
+        @JsonSetter(value = "countryOfNationality", nulls = Nulls.SKIP)
+        public Builder countryOfNationality(Optional<CountryCode> countryOfNationality) {
+            this.countryOfNationality = countryOfNationality;
             return this;
         }
 
-        public Builder nationality(CountryCode nationality) {
-            this.nationality = Optional.ofNullable(nationality);
+        public Builder countryOfNationality(CountryCode countryOfNationality) {
+            this.countryOfNationality = Optional.ofNullable(countryOfNationality);
             return this;
         }
 
@@ -400,7 +400,7 @@ public final class WalletDetails {
                     walletBalance,
                     network,
                     address,
-                    nationality,
+                    countryOfNationality,
                     dateOfBirth,
                     additionalProperties);
         }
