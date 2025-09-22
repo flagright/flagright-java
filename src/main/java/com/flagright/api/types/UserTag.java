@@ -25,13 +25,21 @@ public final class UserTag {
 
     private final String value;
 
+    private final Optional<Boolean> isTimestamp;
+
     private final Optional<Boolean> isEditable;
 
     private final Map<String, Object> additionalProperties;
 
-    private UserTag(String key, String value, Optional<Boolean> isEditable, Map<String, Object> additionalProperties) {
+    private UserTag(
+            String key,
+            String value,
+            Optional<Boolean> isTimestamp,
+            Optional<Boolean> isEditable,
+            Map<String, Object> additionalProperties) {
         this.key = key;
         this.value = value;
+        this.isTimestamp = isTimestamp;
         this.isEditable = isEditable;
         this.additionalProperties = additionalProperties;
     }
@@ -50,6 +58,14 @@ public final class UserTag {
     @JsonProperty("value")
     public String getValue() {
         return value;
+    }
+
+    /**
+     * @return Flag to indicate if the tag value is a timestamp
+     */
+    @JsonProperty("isTimestamp")
+    public Optional<Boolean> getIsTimestamp() {
+        return isTimestamp;
     }
 
     /**
@@ -72,12 +88,15 @@ public final class UserTag {
     }
 
     private boolean equalTo(UserTag other) {
-        return key.equals(other.key) && value.equals(other.value) && isEditable.equals(other.isEditable);
+        return key.equals(other.key)
+                && value.equals(other.value)
+                && isTimestamp.equals(other.isTimestamp)
+                && isEditable.equals(other.isEditable);
     }
 
     @java.lang.Override
     public int hashCode() {
-        return Objects.hash(this.key, this.value, this.isEditable);
+        return Objects.hash(this.key, this.value, this.isTimestamp, this.isEditable);
     }
 
     @java.lang.Override
@@ -102,6 +121,10 @@ public final class UserTag {
     public interface _FinalStage {
         UserTag build();
 
+        _FinalStage isTimestamp(Optional<Boolean> isTimestamp);
+
+        _FinalStage isTimestamp(Boolean isTimestamp);
+
         _FinalStage isEditable(Optional<Boolean> isEditable);
 
         _FinalStage isEditable(Boolean isEditable);
@@ -115,6 +138,8 @@ public final class UserTag {
 
         private Optional<Boolean> isEditable = Optional.empty();
 
+        private Optional<Boolean> isTimestamp = Optional.empty();
+
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
 
@@ -124,6 +149,7 @@ public final class UserTag {
         public Builder from(UserTag other) {
             key(other.getKey());
             value(other.getValue());
+            isTimestamp(other.getIsTimestamp());
             isEditable(other.getIsEditable());
             return this;
         }
@@ -167,9 +193,26 @@ public final class UserTag {
             return this;
         }
 
+        /**
+         * <p>Flag to indicate if the tag value is a timestamp</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
+        @java.lang.Override
+        public _FinalStage isTimestamp(Boolean isTimestamp) {
+            this.isTimestamp = Optional.ofNullable(isTimestamp);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "isTimestamp", nulls = Nulls.SKIP)
+        public _FinalStage isTimestamp(Optional<Boolean> isTimestamp) {
+            this.isTimestamp = isTimestamp;
+            return this;
+        }
+
         @java.lang.Override
         public UserTag build() {
-            return new UserTag(key, value, isEditable, additionalProperties);
+            return new UserTag(key, value, isTimestamp, isEditable, additionalProperties);
         }
     }
 }

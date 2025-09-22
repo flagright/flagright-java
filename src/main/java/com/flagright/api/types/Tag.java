@@ -9,11 +9,13 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import com.fasterxml.jackson.annotation.Nulls;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.flagright.api.core.ObjectMappers;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Optional;
 import org.jetbrains.annotations.NotNull;
 
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
@@ -23,11 +25,14 @@ public final class Tag {
 
     private final String value;
 
+    private final Optional<Boolean> isTimestamp;
+
     private final Map<String, Object> additionalProperties;
 
-    private Tag(String key, String value, Map<String, Object> additionalProperties) {
+    private Tag(String key, String value, Optional<Boolean> isTimestamp, Map<String, Object> additionalProperties) {
         this.key = key;
         this.value = value;
+        this.isTimestamp = isTimestamp;
         this.additionalProperties = additionalProperties;
     }
 
@@ -47,6 +52,14 @@ public final class Tag {
         return value;
     }
 
+    /**
+     * @return Flag to indicate if the tag value is a timestamp
+     */
+    @JsonProperty("isTimestamp")
+    public Optional<Boolean> getIsTimestamp() {
+        return isTimestamp;
+    }
+
     @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
@@ -59,12 +72,12 @@ public final class Tag {
     }
 
     private boolean equalTo(Tag other) {
-        return key.equals(other.key) && value.equals(other.value);
+        return key.equals(other.key) && value.equals(other.value) && isTimestamp.equals(other.isTimestamp);
     }
 
     @java.lang.Override
     public int hashCode() {
-        return Objects.hash(this.key, this.value);
+        return Objects.hash(this.key, this.value, this.isTimestamp);
     }
 
     @java.lang.Override
@@ -88,6 +101,10 @@ public final class Tag {
 
     public interface _FinalStage {
         Tag build();
+
+        _FinalStage isTimestamp(Optional<Boolean> isTimestamp);
+
+        _FinalStage isTimestamp(Boolean isTimestamp);
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
@@ -95,6 +112,8 @@ public final class Tag {
         private String key;
 
         private String value;
+
+        private Optional<Boolean> isTimestamp = Optional.empty();
 
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
@@ -105,6 +124,7 @@ public final class Tag {
         public Builder from(Tag other) {
             key(other.getKey());
             value(other.getValue());
+            isTimestamp(other.getIsTimestamp());
             return this;
         }
 
@@ -130,9 +150,26 @@ public final class Tag {
             return this;
         }
 
+        /**
+         * <p>Flag to indicate if the tag value is a timestamp</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
+        @java.lang.Override
+        public _FinalStage isTimestamp(Boolean isTimestamp) {
+            this.isTimestamp = Optional.ofNullable(isTimestamp);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "isTimestamp", nulls = Nulls.SKIP)
+        public _FinalStage isTimestamp(Optional<Boolean> isTimestamp) {
+            this.isTimestamp = isTimestamp;
+            return this;
+        }
+
         @java.lang.Override
         public Tag build() {
-            return new Tag(key, value, additionalProperties);
+            return new Tag(key, value, isTimestamp, additionalProperties);
         }
     }
 }
