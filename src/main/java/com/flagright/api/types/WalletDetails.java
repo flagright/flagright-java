@@ -45,6 +45,8 @@ public final class WalletDetails {
 
     private final Optional<String> dateOfBirth;
 
+    private final Optional<String> transactionHash;
+
     private final Map<String, Object> additionalProperties;
 
     private WalletDetails(
@@ -60,6 +62,7 @@ public final class WalletDetails {
             Optional<Address> address,
             Optional<CountryCode> countryOfNationality,
             Optional<String> dateOfBirth,
+            Optional<String> transactionHash,
             Map<String, Object> additionalProperties) {
         this.walletType = walletType;
         this.walletId = walletId;
@@ -73,6 +76,7 @@ public final class WalletDetails {
         this.address = address;
         this.countryOfNationality = countryOfNationality;
         this.dateOfBirth = dateOfBirth;
+        this.transactionHash = transactionHash;
         this.additionalProperties = additionalProperties;
     }
 
@@ -157,6 +161,14 @@ public final class WalletDetails {
         return dateOfBirth;
     }
 
+    /**
+     * @return A hash is a cryptographic fingerprint that uniquely identifies a blockchain transaction on the network, whereas a transactionId is just an internal reference used by a wallet or platform to track the transaction in its own system.
+     */
+    @JsonProperty("transactionHash")
+    public Optional<String> getTransactionHash() {
+        return transactionHash;
+    }
+
     @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
@@ -180,7 +192,8 @@ public final class WalletDetails {
                 && network.equals(other.network)
                 && address.equals(other.address)
                 && countryOfNationality.equals(other.countryOfNationality)
-                && dateOfBirth.equals(other.dateOfBirth);
+                && dateOfBirth.equals(other.dateOfBirth)
+                && transactionHash.equals(other.transactionHash);
     }
 
     @java.lang.Override
@@ -197,7 +210,8 @@ public final class WalletDetails {
                 this.network,
                 this.address,
                 this.countryOfNationality,
-                this.dateOfBirth);
+                this.dateOfBirth,
+                this.transactionHash);
     }
 
     @java.lang.Override
@@ -235,6 +249,8 @@ public final class WalletDetails {
 
         private Optional<String> dateOfBirth = Optional.empty();
 
+        private Optional<String> transactionHash = Optional.empty();
+
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
 
@@ -253,6 +269,7 @@ public final class WalletDetails {
             address(other.getAddress());
             countryOfNationality(other.getCountryOfNationality());
             dateOfBirth(other.getDateOfBirth());
+            transactionHash(other.getTransactionHash());
             return this;
         }
 
@@ -388,6 +405,17 @@ public final class WalletDetails {
             return this;
         }
 
+        @JsonSetter(value = "transactionHash", nulls = Nulls.SKIP)
+        public Builder transactionHash(Optional<String> transactionHash) {
+            this.transactionHash = transactionHash;
+            return this;
+        }
+
+        public Builder transactionHash(String transactionHash) {
+            this.transactionHash = Optional.ofNullable(transactionHash);
+            return this;
+        }
+
         public WalletDetails build() {
             return new WalletDetails(
                     walletType,
@@ -402,6 +430,7 @@ public final class WalletDetails {
                     address,
                     countryOfNationality,
                     dateOfBirth,
+                    transactionHash,
                     additionalProperties);
         }
     }
