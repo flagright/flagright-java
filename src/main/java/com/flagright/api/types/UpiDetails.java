@@ -30,6 +30,8 @@ public final class UpiDetails {
 
     private final Optional<String> name;
 
+    private final Optional<Address> address;
+
     private final Optional<String> emailId;
 
     private final Optional<List<Tag>> tags;
@@ -41,6 +43,7 @@ public final class UpiDetails {
             Optional<String> bankProvider,
             Optional<String> interfaceProvider,
             Optional<String> name,
+            Optional<Address> address,
             Optional<String> emailId,
             Optional<List<Tag>> tags,
             Map<String, Object> additionalProperties) {
@@ -48,6 +51,7 @@ public final class UpiDetails {
         this.bankProvider = bankProvider;
         this.interfaceProvider = interfaceProvider;
         this.name = name;
+        this.address = address;
         this.emailId = emailId;
         this.tags = tags;
         this.additionalProperties = additionalProperties;
@@ -85,6 +89,11 @@ public final class UpiDetails {
         return name;
     }
 
+    @JsonProperty("address")
+    public Optional<Address> getAddress() {
+        return address;
+    }
+
     @JsonProperty("emailId")
     public Optional<String> getEmailId() {
         return emailId;
@@ -114,13 +123,21 @@ public final class UpiDetails {
                 && bankProvider.equals(other.bankProvider)
                 && interfaceProvider.equals(other.interfaceProvider)
                 && name.equals(other.name)
+                && address.equals(other.address)
                 && emailId.equals(other.emailId)
                 && tags.equals(other.tags);
     }
 
     @java.lang.Override
     public int hashCode() {
-        return Objects.hash(this.upiId, this.bankProvider, this.interfaceProvider, this.name, this.emailId, this.tags);
+        return Objects.hash(
+                this.upiId,
+                this.bankProvider,
+                this.interfaceProvider,
+                this.name,
+                this.address,
+                this.emailId,
+                this.tags);
     }
 
     @java.lang.Override
@@ -153,6 +170,10 @@ public final class UpiDetails {
 
         _FinalStage name(String name);
 
+        _FinalStage address(Optional<Address> address);
+
+        _FinalStage address(Address address);
+
         _FinalStage emailId(Optional<String> emailId);
 
         _FinalStage emailId(String emailId);
@@ -169,6 +190,8 @@ public final class UpiDetails {
         private Optional<List<Tag>> tags = Optional.empty();
 
         private Optional<String> emailId = Optional.empty();
+
+        private Optional<Address> address = Optional.empty();
 
         private Optional<String> name = Optional.empty();
 
@@ -187,6 +210,7 @@ public final class UpiDetails {
             bankProvider(other.getBankProvider());
             interfaceProvider(other.getInterfaceProvider());
             name(other.getName());
+            address(other.getAddress());
             emailId(other.getEmailId());
             tags(other.getTags());
             return this;
@@ -230,6 +254,19 @@ public final class UpiDetails {
         @JsonSetter(value = "emailId", nulls = Nulls.SKIP)
         public _FinalStage emailId(Optional<String> emailId) {
             this.emailId = emailId;
+            return this;
+        }
+
+        @java.lang.Override
+        public _FinalStage address(Address address) {
+            this.address = Optional.ofNullable(address);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "address", nulls = Nulls.SKIP)
+        public _FinalStage address(Optional<Address> address) {
+            this.address = address;
             return this;
         }
 
@@ -286,7 +323,8 @@ public final class UpiDetails {
 
         @java.lang.Override
         public UpiDetails build() {
-            return new UpiDetails(upiId, bankProvider, interfaceProvider, name, emailId, tags, additionalProperties);
+            return new UpiDetails(
+                    upiId, bankProvider, interfaceProvider, name, address, emailId, tags, additionalProperties);
         }
     }
 }
