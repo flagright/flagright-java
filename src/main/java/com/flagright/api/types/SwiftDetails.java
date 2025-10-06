@@ -43,6 +43,8 @@ public final class SwiftDetails {
 
     private final Optional<Address> address;
 
+    private final Optional<List<CorrespondenceBankDetails>> correspondenceBankDetails;
+
     private final Optional<List<Tag>> tags;
 
     private final Map<String, Object> additionalProperties;
@@ -59,6 +61,7 @@ public final class SwiftDetails {
             Optional<String> emailId,
             Optional<String> specialInstructions,
             Optional<Address> address,
+            Optional<List<CorrespondenceBankDetails>> correspondenceBankDetails,
             Optional<List<Tag>> tags,
             Map<String, Object> additionalProperties) {
         this.swiftCode = swiftCode;
@@ -72,6 +75,7 @@ public final class SwiftDetails {
         this.emailId = emailId;
         this.specialInstructions = specialInstructions;
         this.address = address;
+        this.correspondenceBankDetails = correspondenceBankDetails;
         this.tags = tags;
         this.additionalProperties = additionalProperties;
     }
@@ -152,6 +156,11 @@ public final class SwiftDetails {
         return address;
     }
 
+    @JsonProperty("correspondenceBankDetails")
+    public Optional<List<CorrespondenceBankDetails>> getCorrespondenceBankDetails() {
+        return correspondenceBankDetails;
+    }
+
     /**
      * @return Additional information that can be added via tags
      */
@@ -183,6 +192,7 @@ public final class SwiftDetails {
                 && emailId.equals(other.emailId)
                 && specialInstructions.equals(other.specialInstructions)
                 && address.equals(other.address)
+                && correspondenceBankDetails.equals(other.correspondenceBankDetails)
                 && tags.equals(other.tags);
     }
 
@@ -200,6 +210,7 @@ public final class SwiftDetails {
                 this.emailId,
                 this.specialInstructions,
                 this.address,
+                this.correspondenceBankDetails,
                 this.tags);
     }
 
@@ -236,6 +247,8 @@ public final class SwiftDetails {
 
         private Optional<Address> address = Optional.empty();
 
+        private Optional<List<CorrespondenceBankDetails>> correspondenceBankDetails = Optional.empty();
+
         private Optional<List<Tag>> tags = Optional.empty();
 
         @JsonAnySetter
@@ -255,6 +268,7 @@ public final class SwiftDetails {
             emailId(other.getEmailId());
             specialInstructions(other.getSpecialInstructions());
             address(other.getAddress());
+            correspondenceBankDetails(other.getCorrespondenceBankDetails());
             tags(other.getTags());
             return this;
         }
@@ -380,6 +394,17 @@ public final class SwiftDetails {
             return this;
         }
 
+        @JsonSetter(value = "correspondenceBankDetails", nulls = Nulls.SKIP)
+        public Builder correspondenceBankDetails(Optional<List<CorrespondenceBankDetails>> correspondenceBankDetails) {
+            this.correspondenceBankDetails = correspondenceBankDetails;
+            return this;
+        }
+
+        public Builder correspondenceBankDetails(List<CorrespondenceBankDetails> correspondenceBankDetails) {
+            this.correspondenceBankDetails = Optional.ofNullable(correspondenceBankDetails);
+            return this;
+        }
+
         @JsonSetter(value = "tags", nulls = Nulls.SKIP)
         public Builder tags(Optional<List<Tag>> tags) {
             this.tags = tags;
@@ -404,6 +429,7 @@ public final class SwiftDetails {
                     emailId,
                     specialInstructions,
                     address,
+                    correspondenceBankDetails,
                     tags,
                     additionalProperties);
         }

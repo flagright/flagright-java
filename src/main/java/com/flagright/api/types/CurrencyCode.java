@@ -248,6 +248,8 @@ public enum CurrencyCode {
 
     DREP("DREP"),
 
+    DYDX("DYDX"),
+
     DYP("DYP"),
 
     DZD("DZD"),
@@ -406,6 +408,8 @@ public enum CurrencyCode {
 
     INV("INV"),
 
+    IOTA("IOTA"),
+
     IOTX("IOTX"),
 
     ISLM("ISLM"),
@@ -439,6 +443,8 @@ public enum CurrencyCode {
     KGS("KGS"),
 
     KHR("KHR"),
+
+    KLAY("KLAY"),
 
     KMF("KMF"),
 
@@ -491,6 +497,8 @@ public enum CurrencyCode {
     LTC("LTC"),
 
     LTL("LTL"),
+
+    LUNA_2("LUNA2"),
 
     LVL("LVL"),
 
@@ -575,6 +583,8 @@ public enum CurrencyCode {
     NCT("NCT"),
 
     NEAR("NEAR"),
+
+    NEO("NEO"),
 
     NEST("NEST"),
 
@@ -886,6 +896,8 @@ public enum CurrencyCode {
 
     WAMPL("WAMPL"),
 
+    WAVES("WAVES"),
+
     WAXL("WAXL"),
 
     WBTC("WBTC"),
@@ -939,6 +951,8 @@ public enum CurrencyCode {
     ZEN("ZEN"),
 
     ZETA("ZETA"),
+
+    ZIL("ZIL"),
 
     ZMK("ZMK"),
 

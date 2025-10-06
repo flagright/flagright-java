@@ -43,6 +43,8 @@ public final class WalletDetails {
 
     private final Optional<CountryCode> countryOfNationality;
 
+    private final Optional<List<UserDetails>> authorizedRepresentative;
+
     private final Optional<String> dateOfBirth;
 
     private final Optional<String> transactionHash;
@@ -61,6 +63,7 @@ public final class WalletDetails {
             Optional<WalletNetwork> network,
             Optional<Address> address,
             Optional<CountryCode> countryOfNationality,
+            Optional<List<UserDetails>> authorizedRepresentative,
             Optional<String> dateOfBirth,
             Optional<String> transactionHash,
             Map<String, Object> additionalProperties) {
@@ -75,6 +78,7 @@ public final class WalletDetails {
         this.network = network;
         this.address = address;
         this.countryOfNationality = countryOfNationality;
+        this.authorizedRepresentative = authorizedRepresentative;
         this.dateOfBirth = dateOfBirth;
         this.transactionHash = transactionHash;
         this.additionalProperties = additionalProperties;
@@ -153,6 +157,11 @@ public final class WalletDetails {
         return countryOfNationality;
     }
 
+    @JsonProperty("authorizedRepresentative")
+    public Optional<List<UserDetails>> getAuthorizedRepresentative() {
+        return authorizedRepresentative;
+    }
+
     /**
      * @return Date of birth of the account holder (YYYY-MM-DD)
      */
@@ -192,6 +201,7 @@ public final class WalletDetails {
                 && network.equals(other.network)
                 && address.equals(other.address)
                 && countryOfNationality.equals(other.countryOfNationality)
+                && authorizedRepresentative.equals(other.authorizedRepresentative)
                 && dateOfBirth.equals(other.dateOfBirth)
                 && transactionHash.equals(other.transactionHash);
     }
@@ -210,6 +220,7 @@ public final class WalletDetails {
                 this.network,
                 this.address,
                 this.countryOfNationality,
+                this.authorizedRepresentative,
                 this.dateOfBirth,
                 this.transactionHash);
     }
@@ -247,6 +258,8 @@ public final class WalletDetails {
 
         private Optional<CountryCode> countryOfNationality = Optional.empty();
 
+        private Optional<List<UserDetails>> authorizedRepresentative = Optional.empty();
+
         private Optional<String> dateOfBirth = Optional.empty();
 
         private Optional<String> transactionHash = Optional.empty();
@@ -268,6 +281,7 @@ public final class WalletDetails {
             network(other.getNetwork());
             address(other.getAddress());
             countryOfNationality(other.getCountryOfNationality());
+            authorizedRepresentative(other.getAuthorizedRepresentative());
             dateOfBirth(other.getDateOfBirth());
             transactionHash(other.getTransactionHash());
             return this;
@@ -394,6 +408,17 @@ public final class WalletDetails {
             return this;
         }
 
+        @JsonSetter(value = "authorizedRepresentative", nulls = Nulls.SKIP)
+        public Builder authorizedRepresentative(Optional<List<UserDetails>> authorizedRepresentative) {
+            this.authorizedRepresentative = authorizedRepresentative;
+            return this;
+        }
+
+        public Builder authorizedRepresentative(List<UserDetails> authorizedRepresentative) {
+            this.authorizedRepresentative = Optional.ofNullable(authorizedRepresentative);
+            return this;
+        }
+
         @JsonSetter(value = "dateOfBirth", nulls = Nulls.SKIP)
         public Builder dateOfBirth(Optional<String> dateOfBirth) {
             this.dateOfBirth = dateOfBirth;
@@ -429,6 +454,7 @@ public final class WalletDetails {
                     network,
                     address,
                     countryOfNationality,
+                    authorizedRepresentative,
                     dateOfBirth,
                     transactionHash,
                     additionalProperties);
