@@ -996,7 +996,9 @@ public enum CurrencyCode {
 
     XAI("XAI"),
 
-    SLE("SLE");
+    SLE("SLE"),
+
+    UDI("UDI");
 
     private final String value;
 
