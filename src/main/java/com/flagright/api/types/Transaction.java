@@ -60,6 +60,8 @@ public final class Transaction {
 
     private final Optional<Double> updateCount;
 
+    private final Optional<Double> paymentApprovalTimestamp;
+
     private final Map<String, Object> additionalProperties;
 
     private Transaction(
@@ -82,6 +84,7 @@ public final class Transaction {
             Optional<DeviceData> destinationDeviceData,
             Optional<List<Tag>> tags,
             Optional<Double> updateCount,
+            Optional<Double> paymentApprovalTimestamp,
             Map<String, Object> additionalProperties) {
         this.type = type;
         this.transactionId = transactionId;
@@ -102,6 +105,7 @@ public final class Transaction {
         this.destinationDeviceData = destinationDeviceData;
         this.tags = tags;
         this.updateCount = updateCount;
+        this.paymentApprovalTimestamp = paymentApprovalTimestamp;
         this.additionalProperties = additionalProperties;
     }
 
@@ -233,6 +237,11 @@ public final class Transaction {
         return updateCount;
     }
 
+    @JsonProperty("paymentApprovalTimestamp")
+    public Optional<Double> getPaymentApprovalTimestamp() {
+        return paymentApprovalTimestamp;
+    }
+
     @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
@@ -263,7 +272,8 @@ public final class Transaction {
                 && originDeviceData.equals(other.originDeviceData)
                 && destinationDeviceData.equals(other.destinationDeviceData)
                 && tags.equals(other.tags)
-                && updateCount.equals(other.updateCount);
+                && updateCount.equals(other.updateCount)
+                && paymentApprovalTimestamp.equals(other.paymentApprovalTimestamp);
     }
 
     @java.lang.Override
@@ -287,7 +297,8 @@ public final class Transaction {
                 this.originDeviceData,
                 this.destinationDeviceData,
                 this.tags,
-                this.updateCount);
+                this.updateCount,
+                this.paymentApprovalTimestamp);
     }
 
     @java.lang.Override
@@ -379,6 +390,10 @@ public final class Transaction {
         _FinalStage updateCount(Optional<Double> updateCount);
 
         _FinalStage updateCount(Double updateCount);
+
+        _FinalStage paymentApprovalTimestamp(Optional<Double> paymentApprovalTimestamp);
+
+        _FinalStage paymentApprovalTimestamp(Double paymentApprovalTimestamp);
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
@@ -388,6 +403,8 @@ public final class Transaction {
         private String transactionId;
 
         private double timestamp;
+
+        private Optional<Double> paymentApprovalTimestamp = Optional.empty();
 
         private Optional<Double> updateCount = Optional.empty();
 
@@ -447,6 +464,7 @@ public final class Transaction {
             destinationDeviceData(other.getDestinationDeviceData());
             tags(other.getTags());
             updateCount(other.getUpdateCount());
+            paymentApprovalTimestamp(other.getPaymentApprovalTimestamp());
             return this;
         }
 
@@ -480,6 +498,19 @@ public final class Transaction {
         @JsonSetter("timestamp")
         public _FinalStage timestamp(double timestamp) {
             this.timestamp = timestamp;
+            return this;
+        }
+
+        @java.lang.Override
+        public _FinalStage paymentApprovalTimestamp(Double paymentApprovalTimestamp) {
+            this.paymentApprovalTimestamp = Optional.ofNullable(paymentApprovalTimestamp);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "paymentApprovalTimestamp", nulls = Nulls.SKIP)
+        public _FinalStage paymentApprovalTimestamp(Optional<Double> paymentApprovalTimestamp) {
+            this.paymentApprovalTimestamp = paymentApprovalTimestamp;
             return this;
         }
 
@@ -746,6 +777,7 @@ public final class Transaction {
                     destinationDeviceData,
                     tags,
                     updateCount,
+                    paymentApprovalTimestamp,
                     additionalProperties);
         }
     }

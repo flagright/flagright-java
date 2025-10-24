@@ -19,15 +19,15 @@ import java.util.Objects;
 import java.util.Optional;
 
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
-@JsonDeserialize(builder = CorrespondenceBankDetails.Builder.class)
-public final class CorrespondenceBankDetails {
+@JsonDeserialize(builder = CorrespondentBankDetails.Builder.class)
+public final class CorrespondentBankDetails {
     private final Optional<String> bankName;
 
     private final Optional<List<Tag>> tags;
 
     private final Map<String, Object> additionalProperties;
 
-    private CorrespondenceBankDetails(
+    private CorrespondentBankDetails(
             Optional<String> bankName, Optional<List<Tag>> tags, Map<String, Object> additionalProperties) {
         this.bankName = bankName;
         this.tags = tags;
@@ -53,7 +53,7 @@ public final class CorrespondenceBankDetails {
     @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
-        return other instanceof CorrespondenceBankDetails && equalTo((CorrespondenceBankDetails) other);
+        return other instanceof CorrespondentBankDetails && equalTo((CorrespondentBankDetails) other);
     }
 
     @JsonAnyGetter
@@ -61,7 +61,7 @@ public final class CorrespondenceBankDetails {
         return this.additionalProperties;
     }
 
-    private boolean equalTo(CorrespondenceBankDetails other) {
+    private boolean equalTo(CorrespondentBankDetails other) {
         return bankName.equals(other.bankName) && tags.equals(other.tags);
     }
 
@@ -90,7 +90,7 @@ public final class CorrespondenceBankDetails {
 
         private Builder() {}
 
-        public Builder from(CorrespondenceBankDetails other) {
+        public Builder from(CorrespondentBankDetails other) {
             bankName(other.getBankName());
             tags(other.getTags());
             return this;
@@ -118,8 +118,8 @@ public final class CorrespondenceBankDetails {
             return this;
         }
 
-        public CorrespondenceBankDetails build() {
-            return new CorrespondenceBankDetails(bankName, tags, additionalProperties);
+        public CorrespondentBankDetails build() {
+            return new CorrespondentBankDetails(bankName, tags, additionalProperties);
         }
     }
 }

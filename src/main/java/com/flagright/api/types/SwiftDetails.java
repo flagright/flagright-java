@@ -43,7 +43,7 @@ public final class SwiftDetails {
 
     private final Optional<Address> address;
 
-    private final Optional<List<CorrespondenceBankDetails>> correspondenceBankDetails;
+    private final Optional<List<CorrespondentBankDetails>> correspondentBankDetails;
 
     private final Optional<List<Tag>> tags;
 
@@ -61,7 +61,7 @@ public final class SwiftDetails {
             Optional<String> emailId,
             Optional<String> specialInstructions,
             Optional<Address> address,
-            Optional<List<CorrespondenceBankDetails>> correspondenceBankDetails,
+            Optional<List<CorrespondentBankDetails>> correspondentBankDetails,
             Optional<List<Tag>> tags,
             Map<String, Object> additionalProperties) {
         this.swiftCode = swiftCode;
@@ -75,7 +75,7 @@ public final class SwiftDetails {
         this.emailId = emailId;
         this.specialInstructions = specialInstructions;
         this.address = address;
-        this.correspondenceBankDetails = correspondenceBankDetails;
+        this.correspondentBankDetails = correspondentBankDetails;
         this.tags = tags;
         this.additionalProperties = additionalProperties;
     }
@@ -156,9 +156,9 @@ public final class SwiftDetails {
         return address;
     }
 
-    @JsonProperty("correspondenceBankDetails")
-    public Optional<List<CorrespondenceBankDetails>> getCorrespondenceBankDetails() {
-        return correspondenceBankDetails;
+    @JsonProperty("correspondentBankDetails")
+    public Optional<List<CorrespondentBankDetails>> getCorrespondentBankDetails() {
+        return correspondentBankDetails;
     }
 
     /**
@@ -192,7 +192,7 @@ public final class SwiftDetails {
                 && emailId.equals(other.emailId)
                 && specialInstructions.equals(other.specialInstructions)
                 && address.equals(other.address)
-                && correspondenceBankDetails.equals(other.correspondenceBankDetails)
+                && correspondentBankDetails.equals(other.correspondentBankDetails)
                 && tags.equals(other.tags);
     }
 
@@ -210,7 +210,7 @@ public final class SwiftDetails {
                 this.emailId,
                 this.specialInstructions,
                 this.address,
-                this.correspondenceBankDetails,
+                this.correspondentBankDetails,
                 this.tags);
     }
 
@@ -247,7 +247,7 @@ public final class SwiftDetails {
 
         private Optional<Address> address = Optional.empty();
 
-        private Optional<List<CorrespondenceBankDetails>> correspondenceBankDetails = Optional.empty();
+        private Optional<List<CorrespondentBankDetails>> correspondentBankDetails = Optional.empty();
 
         private Optional<List<Tag>> tags = Optional.empty();
 
@@ -268,7 +268,7 @@ public final class SwiftDetails {
             emailId(other.getEmailId());
             specialInstructions(other.getSpecialInstructions());
             address(other.getAddress());
-            correspondenceBankDetails(other.getCorrespondenceBankDetails());
+            correspondentBankDetails(other.getCorrespondentBankDetails());
             tags(other.getTags());
             return this;
         }
@@ -394,14 +394,14 @@ public final class SwiftDetails {
             return this;
         }
 
-        @JsonSetter(value = "correspondenceBankDetails", nulls = Nulls.SKIP)
-        public Builder correspondenceBankDetails(Optional<List<CorrespondenceBankDetails>> correspondenceBankDetails) {
-            this.correspondenceBankDetails = correspondenceBankDetails;
+        @JsonSetter(value = "correspondentBankDetails", nulls = Nulls.SKIP)
+        public Builder correspondentBankDetails(Optional<List<CorrespondentBankDetails>> correspondentBankDetails) {
+            this.correspondentBankDetails = correspondentBankDetails;
             return this;
         }
 
-        public Builder correspondenceBankDetails(List<CorrespondenceBankDetails> correspondenceBankDetails) {
-            this.correspondenceBankDetails = Optional.ofNullable(correspondenceBankDetails);
+        public Builder correspondentBankDetails(List<CorrespondentBankDetails> correspondentBankDetails) {
+            this.correspondentBankDetails = Optional.ofNullable(correspondentBankDetails);
             return this;
         }
 
@@ -429,7 +429,7 @@ public final class SwiftDetails {
                     emailId,
                     specialInstructions,
                     address,
-                    correspondenceBankDetails,
+                    correspondentBankDetails,
                     tags,
                     additionalProperties);
         }

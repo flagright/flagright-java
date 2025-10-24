@@ -47,6 +47,8 @@ public final class TransactionUpdatable {
 
     private final Optional<Double> updateCount;
 
+    private final Optional<Double> paymentApprovalTimestamp;
+
     private final Map<String, Object> additionalProperties;
 
     private TransactionUpdatable(
@@ -63,6 +65,7 @@ public final class TransactionUpdatable {
             Optional<DeviceData> destinationDeviceData,
             Optional<List<Tag>> tags,
             Optional<Double> updateCount,
+            Optional<Double> paymentApprovalTimestamp,
             Map<String, Object> additionalProperties) {
         this.originAmountDetails = originAmountDetails;
         this.destinationAmountDetails = destinationAmountDetails;
@@ -77,6 +80,7 @@ public final class TransactionUpdatable {
         this.destinationDeviceData = destinationDeviceData;
         this.tags = tags;
         this.updateCount = updateCount;
+        this.paymentApprovalTimestamp = paymentApprovalTimestamp;
         this.additionalProperties = additionalProperties;
     }
 
@@ -163,6 +167,11 @@ public final class TransactionUpdatable {
         return updateCount;
     }
 
+    @JsonProperty("paymentApprovalTimestamp")
+    public Optional<Double> getPaymentApprovalTimestamp() {
+        return paymentApprovalTimestamp;
+    }
+
     @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
@@ -187,7 +196,8 @@ public final class TransactionUpdatable {
                 && originDeviceData.equals(other.originDeviceData)
                 && destinationDeviceData.equals(other.destinationDeviceData)
                 && tags.equals(other.tags)
-                && updateCount.equals(other.updateCount);
+                && updateCount.equals(other.updateCount)
+                && paymentApprovalTimestamp.equals(other.paymentApprovalTimestamp);
     }
 
     @java.lang.Override
@@ -205,7 +215,8 @@ public final class TransactionUpdatable {
                 this.originDeviceData,
                 this.destinationDeviceData,
                 this.tags,
-                this.updateCount);
+                this.updateCount,
+                this.paymentApprovalTimestamp);
     }
 
     @java.lang.Override
@@ -245,6 +256,8 @@ public final class TransactionUpdatable {
 
         private Optional<Double> updateCount = Optional.empty();
 
+        private Optional<Double> paymentApprovalTimestamp = Optional.empty();
+
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
 
@@ -264,6 +277,7 @@ public final class TransactionUpdatable {
             destinationDeviceData(other.getDestinationDeviceData());
             tags(other.getTags());
             updateCount(other.getUpdateCount());
+            paymentApprovalTimestamp(other.getPaymentApprovalTimestamp());
             return this;
         }
 
@@ -412,6 +426,17 @@ public final class TransactionUpdatable {
             return this;
         }
 
+        @JsonSetter(value = "paymentApprovalTimestamp", nulls = Nulls.SKIP)
+        public Builder paymentApprovalTimestamp(Optional<Double> paymentApprovalTimestamp) {
+            this.paymentApprovalTimestamp = paymentApprovalTimestamp;
+            return this;
+        }
+
+        public Builder paymentApprovalTimestamp(Double paymentApprovalTimestamp) {
+            this.paymentApprovalTimestamp = Optional.ofNullable(paymentApprovalTimestamp);
+            return this;
+        }
+
         public TransactionUpdatable build() {
             return new TransactionUpdatable(
                     originAmountDetails,
@@ -427,6 +452,7 @@ public final class TransactionUpdatable {
                     destinationDeviceData,
                     tags,
                     updateCount,
+                    paymentApprovalTimestamp,
                     additionalProperties);
         }
     }
