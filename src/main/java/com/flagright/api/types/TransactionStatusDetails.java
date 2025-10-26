@@ -25,6 +25,8 @@ import org.jetbrains.annotations.NotNull;
 public final class TransactionStatusDetails {
     private final String transactionId;
 
+    private final Optional<String> type;
+
     private final List<String> reasons;
 
     private final RuleAction status;
@@ -35,11 +37,13 @@ public final class TransactionStatusDetails {
 
     private TransactionStatusDetails(
             String transactionId,
+            Optional<String> type,
             List<String> reasons,
             RuleAction status,
             Optional<String> comment,
             Map<String, Object> additionalProperties) {
         this.transactionId = transactionId;
+        this.type = type;
         this.reasons = reasons;
         this.status = status;
         this.comment = comment;
@@ -49,6 +53,14 @@ public final class TransactionStatusDetails {
     @JsonProperty("transactionId")
     public String getTransactionId() {
         return transactionId;
+    }
+
+    /**
+     * @return Type of transaction (ex: DEPOSIT, WITHDRAWAL, TRANSFER, EXTERNAL_PAYMENT, REFUND, OTHER)
+     */
+    @JsonProperty("type")
+    public Optional<String> getType() {
+        return type;
     }
 
     @JsonProperty("reasons")
@@ -79,6 +91,7 @@ public final class TransactionStatusDetails {
 
     private boolean equalTo(TransactionStatusDetails other) {
         return transactionId.equals(other.transactionId)
+                && type.equals(other.type)
                 && reasons.equals(other.reasons)
                 && status.equals(other.status)
                 && comment.equals(other.comment);
@@ -86,7 +99,7 @@ public final class TransactionStatusDetails {
 
     @java.lang.Override
     public int hashCode() {
-        return Objects.hash(this.transactionId, this.reasons, this.status, this.comment);
+        return Objects.hash(this.transactionId, this.type, this.reasons, this.status, this.comment);
     }
 
     @java.lang.Override
@@ -111,6 +124,10 @@ public final class TransactionStatusDetails {
     public interface _FinalStage {
         TransactionStatusDetails build();
 
+        _FinalStage type(Optional<String> type);
+
+        _FinalStage type(String type);
+
         _FinalStage reasons(List<String> reasons);
 
         _FinalStage addReasons(String reasons);
@@ -132,6 +149,8 @@ public final class TransactionStatusDetails {
 
         private List<String> reasons = new ArrayList<>();
 
+        private Optional<String> type = Optional.empty();
+
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
 
@@ -140,6 +159,7 @@ public final class TransactionStatusDetails {
         @java.lang.Override
         public Builder from(TransactionStatusDetails other) {
             transactionId(other.getTransactionId());
+            type(other.getType());
             reasons(other.getReasons());
             status(other.getStatus());
             comment(other.getComment());
@@ -193,9 +213,26 @@ public final class TransactionStatusDetails {
             return this;
         }
 
+        /**
+         * <p>Type of transaction (ex: DEPOSIT, WITHDRAWAL, TRANSFER, EXTERNAL_PAYMENT, REFUND, OTHER)</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
+        @java.lang.Override
+        public _FinalStage type(String type) {
+            this.type = Optional.ofNullable(type);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "type", nulls = Nulls.SKIP)
+        public _FinalStage type(Optional<String> type) {
+            this.type = type;
+            return this;
+        }
+
         @java.lang.Override
         public TransactionStatusDetails build() {
-            return new TransactionStatusDetails(transactionId, reasons, status, comment, additionalProperties);
+            return new TransactionStatusDetails(transactionId, type, reasons, status, comment, additionalProperties);
         }
     }
 }
