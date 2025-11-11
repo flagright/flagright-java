@@ -57,6 +57,8 @@ public final class BusinessOptional {
 
     private final Optional<DeviceData> metaData;
 
+    private final Optional<String> jurisdiction;
+
     private final Optional<Double> updateCount;
 
     private final Map<String, Object> additionalProperties;
@@ -80,6 +82,7 @@ public final class BusinessOptional {
             Optional<List<UserTag>> tags,
             Optional<List<PersonAttachment>> attachments,
             Optional<DeviceData> metaData,
+            Optional<String> jurisdiction,
             Optional<Double> updateCount,
             Map<String, Object> additionalProperties) {
         this.activatedTimestamp = activatedTimestamp;
@@ -100,6 +103,7 @@ public final class BusinessOptional {
         this.tags = tags;
         this.attachments = attachments;
         this.metaData = metaData;
+        this.jurisdiction = jurisdiction;
         this.updateCount = updateCount;
         this.additionalProperties = additionalProperties;
     }
@@ -212,6 +216,14 @@ public final class BusinessOptional {
         return metaData;
     }
 
+    /**
+     * @return Legal authority or region governing the transaction
+     */
+    @JsonProperty("jurisdiction")
+    public Optional<String> getJurisdiction() {
+        return jurisdiction;
+    }
+
     @JsonProperty("updateCount")
     public Optional<Double> getUpdateCount() {
         return updateCount;
@@ -247,6 +259,7 @@ public final class BusinessOptional {
                 && tags.equals(other.tags)
                 && attachments.equals(other.attachments)
                 && metaData.equals(other.metaData)
+                && jurisdiction.equals(other.jurisdiction)
                 && updateCount.equals(other.updateCount);
     }
 
@@ -271,6 +284,7 @@ public final class BusinessOptional {
                 this.tags,
                 this.attachments,
                 this.metaData,
+                this.jurisdiction,
                 this.updateCount);
     }
 
@@ -321,6 +335,8 @@ public final class BusinessOptional {
 
         private Optional<DeviceData> metaData = Optional.empty();
 
+        private Optional<String> jurisdiction = Optional.empty();
+
         private Optional<Double> updateCount = Optional.empty();
 
         @JsonAnySetter
@@ -347,6 +363,7 @@ public final class BusinessOptional {
             tags(other.getTags());
             attachments(other.getAttachments());
             metaData(other.getMetaData());
+            jurisdiction(other.getJurisdiction());
             updateCount(other.getUpdateCount());
             return this;
         }
@@ -550,6 +567,17 @@ public final class BusinessOptional {
             return this;
         }
 
+        @JsonSetter(value = "jurisdiction", nulls = Nulls.SKIP)
+        public Builder jurisdiction(Optional<String> jurisdiction) {
+            this.jurisdiction = jurisdiction;
+            return this;
+        }
+
+        public Builder jurisdiction(String jurisdiction) {
+            this.jurisdiction = Optional.ofNullable(jurisdiction);
+            return this;
+        }
+
         @JsonSetter(value = "updateCount", nulls = Nulls.SKIP)
         public Builder updateCount(Optional<Double> updateCount) {
             this.updateCount = updateCount;
@@ -581,6 +609,7 @@ public final class BusinessOptional {
                     tags,
                     attachments,
                     metaData,
+                    jurisdiction,
                     updateCount,
                     additionalProperties);
         }

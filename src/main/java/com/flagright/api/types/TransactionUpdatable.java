@@ -45,6 +45,8 @@ public final class TransactionUpdatable {
 
     private final Optional<List<Tag>> tags;
 
+    private final Optional<String> jurisdiction;
+
     private final Optional<Double> updateCount;
 
     private final Optional<Double> paymentApprovalTimestamp;
@@ -64,6 +66,7 @@ public final class TransactionUpdatable {
             Optional<DeviceData> originDeviceData,
             Optional<DeviceData> destinationDeviceData,
             Optional<List<Tag>> tags,
+            Optional<String> jurisdiction,
             Optional<Double> updateCount,
             Optional<Double> paymentApprovalTimestamp,
             Map<String, Object> additionalProperties) {
@@ -79,6 +82,7 @@ public final class TransactionUpdatable {
         this.originDeviceData = originDeviceData;
         this.destinationDeviceData = destinationDeviceData;
         this.tags = tags;
+        this.jurisdiction = jurisdiction;
         this.updateCount = updateCount;
         this.paymentApprovalTimestamp = paymentApprovalTimestamp;
         this.additionalProperties = additionalProperties;
@@ -162,6 +166,14 @@ public final class TransactionUpdatable {
         return tags;
     }
 
+    /**
+     * @return Legal authority or region governing the transaction
+     */
+    @JsonProperty("jurisdiction")
+    public Optional<String> getJurisdiction() {
+        return jurisdiction;
+    }
+
     @JsonProperty("updateCount")
     public Optional<Double> getUpdateCount() {
         return updateCount;
@@ -196,6 +208,7 @@ public final class TransactionUpdatable {
                 && originDeviceData.equals(other.originDeviceData)
                 && destinationDeviceData.equals(other.destinationDeviceData)
                 && tags.equals(other.tags)
+                && jurisdiction.equals(other.jurisdiction)
                 && updateCount.equals(other.updateCount)
                 && paymentApprovalTimestamp.equals(other.paymentApprovalTimestamp);
     }
@@ -215,6 +228,7 @@ public final class TransactionUpdatable {
                 this.originDeviceData,
                 this.destinationDeviceData,
                 this.tags,
+                this.jurisdiction,
                 this.updateCount,
                 this.paymentApprovalTimestamp);
     }
@@ -254,6 +268,8 @@ public final class TransactionUpdatable {
 
         private Optional<List<Tag>> tags = Optional.empty();
 
+        private Optional<String> jurisdiction = Optional.empty();
+
         private Optional<Double> updateCount = Optional.empty();
 
         private Optional<Double> paymentApprovalTimestamp = Optional.empty();
@@ -276,6 +292,7 @@ public final class TransactionUpdatable {
             originDeviceData(other.getOriginDeviceData());
             destinationDeviceData(other.getDestinationDeviceData());
             tags(other.getTags());
+            jurisdiction(other.getJurisdiction());
             updateCount(other.getUpdateCount());
             paymentApprovalTimestamp(other.getPaymentApprovalTimestamp());
             return this;
@@ -415,6 +432,17 @@ public final class TransactionUpdatable {
             return this;
         }
 
+        @JsonSetter(value = "jurisdiction", nulls = Nulls.SKIP)
+        public Builder jurisdiction(Optional<String> jurisdiction) {
+            this.jurisdiction = jurisdiction;
+            return this;
+        }
+
+        public Builder jurisdiction(String jurisdiction) {
+            this.jurisdiction = Optional.ofNullable(jurisdiction);
+            return this;
+        }
+
         @JsonSetter(value = "updateCount", nulls = Nulls.SKIP)
         public Builder updateCount(Optional<Double> updateCount) {
             this.updateCount = updateCount;
@@ -451,6 +479,7 @@ public final class TransactionUpdatable {
                     originDeviceData,
                     destinationDeviceData,
                     tags,
+                    jurisdiction,
                     updateCount,
                     paymentApprovalTimestamp,
                     additionalProperties);

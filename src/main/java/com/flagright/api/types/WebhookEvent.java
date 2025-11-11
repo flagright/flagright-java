@@ -9,11 +9,13 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import com.fasterxml.jackson.annotation.Nulls;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.flagright.api.core.ObjectMappers;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Optional;
 import org.jetbrains.annotations.NotNull;
 
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
@@ -25,6 +27,8 @@ public final class WebhookEvent {
 
     private final double createdTimestamp;
 
+    private final Optional<String> account;
+
     private final WebhookEventType type;
 
     private final WebhookEventData data;
@@ -35,12 +39,14 @@ public final class WebhookEvent {
             String id,
             WebhookEventTriggeredBy triggeredBy,
             double createdTimestamp,
+            Optional<String> account,
             WebhookEventType type,
             WebhookEventData data,
             Map<String, Object> additionalProperties) {
         this.id = id;
         this.triggeredBy = triggeredBy;
         this.createdTimestamp = createdTimestamp;
+        this.account = account;
         this.type = type;
         this.data = data;
         this.additionalProperties = additionalProperties;
@@ -70,6 +76,14 @@ public final class WebhookEvent {
         return createdTimestamp;
     }
 
+    /**
+     * @return Email ID associated with the event
+     */
+    @JsonProperty("account")
+    public Optional<String> getAccount() {
+        return account;
+    }
+
     @JsonProperty("type")
     public WebhookEventType getType() {
         return type;
@@ -95,13 +109,14 @@ public final class WebhookEvent {
         return id.equals(other.id)
                 && triggeredBy.equals(other.triggeredBy)
                 && createdTimestamp == other.createdTimestamp
+                && account.equals(other.account)
                 && type.equals(other.type)
                 && data.equals(other.data);
     }
 
     @java.lang.Override
     public int hashCode() {
-        return Objects.hash(this.id, this.triggeredBy, this.createdTimestamp, this.type, this.data);
+        return Objects.hash(this.id, this.triggeredBy, this.createdTimestamp, this.account, this.type, this.data);
     }
 
     @java.lang.Override
@@ -137,6 +152,10 @@ public final class WebhookEvent {
 
     public interface _FinalStage {
         WebhookEvent build();
+
+        _FinalStage account(Optional<String> account);
+
+        _FinalStage account(String account);
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
@@ -152,6 +171,8 @@ public final class WebhookEvent {
 
         private WebhookEventData data;
 
+        private Optional<String> account = Optional.empty();
+
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
 
@@ -162,6 +183,7 @@ public final class WebhookEvent {
             id(other.getId());
             triggeredBy(other.getTriggeredBy());
             createdTimestamp(other.getCreatedTimestamp());
+            account(other.getAccount());
             type(other.getType());
             data(other.getData());
             return this;
@@ -214,9 +236,26 @@ public final class WebhookEvent {
             return this;
         }
 
+        /**
+         * <p>Email ID associated with the event</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
+        @java.lang.Override
+        public _FinalStage account(String account) {
+            this.account = Optional.ofNullable(account);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "account", nulls = Nulls.SKIP)
+        public _FinalStage account(Optional<String> account) {
+            this.account = account;
+            return this;
+        }
+
         @java.lang.Override
         public WebhookEvent build() {
-            return new WebhookEvent(id, triggeredBy, createdTimestamp, type, data, additionalProperties);
+            return new WebhookEvent(id, triggeredBy, createdTimestamp, account, type, data, additionalProperties);
         }
     }
 }

@@ -80,6 +80,8 @@ public final class User {
 
     private final Optional<DeviceData> metaData;
 
+    private final Optional<String> jurisdiction;
+
     private final Optional<Double> updateCount;
 
     private final Map<String, Object> additionalProperties;
@@ -114,6 +116,7 @@ public final class User {
             Optional<List<UserTag>> tags,
             Optional<List<PersonAttachment>> attachments,
             Optional<DeviceData> metaData,
+            Optional<String> jurisdiction,
             Optional<Double> updateCount,
             Map<String, Object> additionalProperties) {
         this.userId = userId;
@@ -145,6 +148,7 @@ public final class User {
         this.tags = tags;
         this.attachments = attachments;
         this.metaData = metaData;
+        this.jurisdiction = jurisdiction;
         this.updateCount = updateCount;
         this.additionalProperties = additionalProperties;
     }
@@ -315,6 +319,14 @@ public final class User {
         return metaData;
     }
 
+    /**
+     * @return Legal authority or region governing the transaction
+     */
+    @JsonProperty("jurisdiction")
+    public Optional<String> getJurisdiction() {
+        return jurisdiction;
+    }
+
     @JsonProperty("updateCount")
     public Optional<Double> getUpdateCount() {
         return updateCount;
@@ -361,6 +373,7 @@ public final class User {
                 && tags.equals(other.tags)
                 && attachments.equals(other.attachments)
                 && metaData.equals(other.metaData)
+                && jurisdiction.equals(other.jurisdiction)
                 && updateCount.equals(other.updateCount);
     }
 
@@ -396,6 +409,7 @@ public final class User {
                 this.tags,
                 this.attachments,
                 this.metaData,
+                this.jurisdiction,
                 this.updateCount);
     }
 
@@ -529,6 +543,10 @@ public final class User {
 
         _FinalStage metaData(DeviceData metaData);
 
+        _FinalStage jurisdiction(Optional<String> jurisdiction);
+
+        _FinalStage jurisdiction(String jurisdiction);
+
         _FinalStage updateCount(Optional<Double> updateCount);
 
         _FinalStage updateCount(Double updateCount);
@@ -541,6 +559,8 @@ public final class User {
         private double createdTimestamp;
 
         private Optional<Double> updateCount = Optional.empty();
+
+        private Optional<String> jurisdiction = Optional.empty();
 
         private Optional<DeviceData> metaData = Optional.empty();
 
@@ -632,6 +652,7 @@ public final class User {
             tags(other.getTags());
             attachments(other.getAttachments());
             metaData(other.getMetaData());
+            jurisdiction(other.getJurisdiction());
             updateCount(other.getUpdateCount());
             return this;
         }
@@ -668,6 +689,23 @@ public final class User {
         @JsonSetter(value = "updateCount", nulls = Nulls.SKIP)
         public _FinalStage updateCount(Optional<Double> updateCount) {
             this.updateCount = updateCount;
+            return this;
+        }
+
+        /**
+         * <p>Legal authority or region governing the transaction</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
+        @java.lang.Override
+        public _FinalStage jurisdiction(String jurisdiction) {
+            this.jurisdiction = Optional.ofNullable(jurisdiction);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "jurisdiction", nulls = Nulls.SKIP)
+        public _FinalStage jurisdiction(Optional<String> jurisdiction) {
+            this.jurisdiction = jurisdiction;
             return this;
         }
 
@@ -1074,6 +1112,7 @@ public final class User {
                     tags,
                     attachments,
                     metaData,
+                    jurisdiction,
                     updateCount,
                     additionalProperties);
         }

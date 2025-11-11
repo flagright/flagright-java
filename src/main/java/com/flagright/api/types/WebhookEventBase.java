@@ -9,11 +9,13 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import com.fasterxml.jackson.annotation.Nulls;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.flagright.api.core.ObjectMappers;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Optional;
 import org.jetbrains.annotations.NotNull;
 
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
@@ -25,16 +27,20 @@ public final class WebhookEventBase {
 
     private final double createdTimestamp;
 
+    private final Optional<String> account;
+
     private final Map<String, Object> additionalProperties;
 
     private WebhookEventBase(
             String id,
             WebhookEventBaseTriggeredBy triggeredBy,
             double createdTimestamp,
+            Optional<String> account,
             Map<String, Object> additionalProperties) {
         this.id = id;
         this.triggeredBy = triggeredBy;
         this.createdTimestamp = createdTimestamp;
+        this.account = account;
         this.additionalProperties = additionalProperties;
     }
 
@@ -62,6 +68,14 @@ public final class WebhookEventBase {
         return createdTimestamp;
     }
 
+    /**
+     * @return Email ID associated with the event
+     */
+    @JsonProperty("account")
+    public Optional<String> getAccount() {
+        return account;
+    }
+
     @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
@@ -76,12 +90,13 @@ public final class WebhookEventBase {
     private boolean equalTo(WebhookEventBase other) {
         return id.equals(other.id)
                 && triggeredBy.equals(other.triggeredBy)
-                && createdTimestamp == other.createdTimestamp;
+                && createdTimestamp == other.createdTimestamp
+                && account.equals(other.account);
     }
 
     @java.lang.Override
     public int hashCode() {
-        return Objects.hash(this.id, this.triggeredBy, this.createdTimestamp);
+        return Objects.hash(this.id, this.triggeredBy, this.createdTimestamp, this.account);
     }
 
     @java.lang.Override
@@ -109,6 +124,10 @@ public final class WebhookEventBase {
 
     public interface _FinalStage {
         WebhookEventBase build();
+
+        _FinalStage account(Optional<String> account);
+
+        _FinalStage account(String account);
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
@@ -118,6 +137,8 @@ public final class WebhookEventBase {
         private WebhookEventBaseTriggeredBy triggeredBy;
 
         private double createdTimestamp;
+
+        private Optional<String> account = Optional.empty();
 
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
@@ -129,6 +150,7 @@ public final class WebhookEventBase {
             id(other.getId());
             triggeredBy(other.getTriggeredBy());
             createdTimestamp(other.getCreatedTimestamp());
+            account(other.getAccount());
             return this;
         }
 
@@ -165,9 +187,26 @@ public final class WebhookEventBase {
             return this;
         }
 
+        /**
+         * <p>Email ID associated with the event</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
+        @java.lang.Override
+        public _FinalStage account(String account) {
+            this.account = Optional.ofNullable(account);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "account", nulls = Nulls.SKIP)
+        public _FinalStage account(Optional<String> account) {
+            this.account = account;
+            return this;
+        }
+
         @java.lang.Override
         public WebhookEventBase build() {
-            return new WebhookEventBase(id, triggeredBy, createdTimestamp, additionalProperties);
+            return new WebhookEventBase(id, triggeredBy, createdTimestamp, account, additionalProperties);
         }
     }
 }

@@ -80,6 +80,8 @@ public final class UserWithRulesResult {
 
     private final Optional<DeviceData> metaData;
 
+    private final Optional<String> jurisdiction;
+
     private final Optional<Double> updateCount;
 
     private final Optional<List<ExecutedRulesResult>> executedRules;
@@ -120,6 +122,7 @@ public final class UserWithRulesResult {
             Optional<List<UserTag>> tags,
             Optional<List<PersonAttachment>> attachments,
             Optional<DeviceData> metaData,
+            Optional<String> jurisdiction,
             Optional<Double> updateCount,
             Optional<List<ExecutedRulesResult>> executedRules,
             Optional<List<HitRulesDetails>> hitRules,
@@ -154,6 +157,7 @@ public final class UserWithRulesResult {
         this.tags = tags;
         this.attachments = attachments;
         this.metaData = metaData;
+        this.jurisdiction = jurisdiction;
         this.updateCount = updateCount;
         this.executedRules = executedRules;
         this.hitRules = hitRules;
@@ -327,6 +331,14 @@ public final class UserWithRulesResult {
         return metaData;
     }
 
+    /**
+     * @return Legal authority or region governing the transaction
+     */
+    @JsonProperty("jurisdiction")
+    public Optional<String> getJurisdiction() {
+        return jurisdiction;
+    }
+
     @JsonProperty("updateCount")
     public Optional<Double> getUpdateCount() {
         return updateCount;
@@ -388,6 +400,7 @@ public final class UserWithRulesResult {
                 && tags.equals(other.tags)
                 && attachments.equals(other.attachments)
                 && metaData.equals(other.metaData)
+                && jurisdiction.equals(other.jurisdiction)
                 && updateCount.equals(other.updateCount)
                 && executedRules.equals(other.executedRules)
                 && hitRules.equals(other.hitRules)
@@ -426,6 +439,7 @@ public final class UserWithRulesResult {
                 this.tags,
                 this.attachments,
                 this.metaData,
+                this.jurisdiction,
                 this.updateCount,
                 this.executedRules,
                 this.hitRules,
@@ -562,6 +576,10 @@ public final class UserWithRulesResult {
 
         _FinalStage metaData(DeviceData metaData);
 
+        _FinalStage jurisdiction(Optional<String> jurisdiction);
+
+        _FinalStage jurisdiction(String jurisdiction);
+
         _FinalStage updateCount(Optional<Double> updateCount);
 
         _FinalStage updateCount(Double updateCount);
@@ -592,6 +610,8 @@ public final class UserWithRulesResult {
         private Optional<List<ExecutedRulesResult>> executedRules = Optional.empty();
 
         private Optional<Double> updateCount = Optional.empty();
+
+        private Optional<String> jurisdiction = Optional.empty();
 
         private Optional<DeviceData> metaData = Optional.empty();
 
@@ -683,6 +703,7 @@ public final class UserWithRulesResult {
             tags(other.getTags());
             attachments(other.getAttachments());
             metaData(other.getMetaData());
+            jurisdiction(other.getJurisdiction());
             updateCount(other.getUpdateCount());
             executedRules(other.getExecutedRules());
             hitRules(other.getHitRules());
@@ -761,6 +782,23 @@ public final class UserWithRulesResult {
         @JsonSetter(value = "updateCount", nulls = Nulls.SKIP)
         public _FinalStage updateCount(Optional<Double> updateCount) {
             this.updateCount = updateCount;
+            return this;
+        }
+
+        /**
+         * <p>Legal authority or region governing the transaction</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
+        @java.lang.Override
+        public _FinalStage jurisdiction(String jurisdiction) {
+            this.jurisdiction = Optional.ofNullable(jurisdiction);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "jurisdiction", nulls = Nulls.SKIP)
+        public _FinalStage jurisdiction(Optional<String> jurisdiction) {
+            this.jurisdiction = jurisdiction;
             return this;
         }
 
@@ -1168,6 +1206,7 @@ public final class UserWithRulesResult {
                     tags,
                     attachments,
                     metaData,
+                    jurisdiction,
                     updateCount,
                     executedRules,
                     hitRules,

@@ -25,42 +25,34 @@ import org.jetbrains.annotations.NotNull;
 public final class TransactionStatusDetails {
     private final String transactionId;
 
-    private final Optional<String> type;
-
     private final List<String> reasons;
 
     private final RuleAction status;
 
     private final Optional<String> comment;
 
+    private final Optional<String> type;
+
     private final Map<String, Object> additionalProperties;
 
     private TransactionStatusDetails(
             String transactionId,
-            Optional<String> type,
             List<String> reasons,
             RuleAction status,
             Optional<String> comment,
+            Optional<String> type,
             Map<String, Object> additionalProperties) {
         this.transactionId = transactionId;
-        this.type = type;
         this.reasons = reasons;
         this.status = status;
         this.comment = comment;
+        this.type = type;
         this.additionalProperties = additionalProperties;
     }
 
     @JsonProperty("transactionId")
     public String getTransactionId() {
         return transactionId;
-    }
-
-    /**
-     * @return Type of transaction (ex: DEPOSIT, WITHDRAWAL, TRANSFER, EXTERNAL_PAYMENT, REFUND, OTHER)
-     */
-    @JsonProperty("type")
-    public Optional<String> getType() {
-        return type;
     }
 
     @JsonProperty("reasons")
@@ -78,6 +70,14 @@ public final class TransactionStatusDetails {
         return comment;
     }
 
+    /**
+     * @return Type of transaction (ex: DEPOSIT, WITHDRAWAL, TRANSFER, EXTERNAL_PAYMENT, REFUND, OTHER)
+     */
+    @JsonProperty("type")
+    public Optional<String> getType() {
+        return type;
+    }
+
     @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
@@ -91,15 +91,15 @@ public final class TransactionStatusDetails {
 
     private boolean equalTo(TransactionStatusDetails other) {
         return transactionId.equals(other.transactionId)
-                && type.equals(other.type)
                 && reasons.equals(other.reasons)
                 && status.equals(other.status)
-                && comment.equals(other.comment);
+                && comment.equals(other.comment)
+                && type.equals(other.type);
     }
 
     @java.lang.Override
     public int hashCode() {
-        return Objects.hash(this.transactionId, this.type, this.reasons, this.status, this.comment);
+        return Objects.hash(this.transactionId, this.reasons, this.status, this.comment, this.type);
     }
 
     @java.lang.Override
@@ -124,10 +124,6 @@ public final class TransactionStatusDetails {
     public interface _FinalStage {
         TransactionStatusDetails build();
 
-        _FinalStage type(Optional<String> type);
-
-        _FinalStage type(String type);
-
         _FinalStage reasons(List<String> reasons);
 
         _FinalStage addReasons(String reasons);
@@ -137,6 +133,10 @@ public final class TransactionStatusDetails {
         _FinalStage comment(Optional<String> comment);
 
         _FinalStage comment(String comment);
+
+        _FinalStage type(Optional<String> type);
+
+        _FinalStage type(String type);
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
@@ -145,11 +145,11 @@ public final class TransactionStatusDetails {
 
         private RuleAction status;
 
+        private Optional<String> type = Optional.empty();
+
         private Optional<String> comment = Optional.empty();
 
         private List<String> reasons = new ArrayList<>();
-
-        private Optional<String> type = Optional.empty();
 
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
@@ -159,10 +159,10 @@ public final class TransactionStatusDetails {
         @java.lang.Override
         public Builder from(TransactionStatusDetails other) {
             transactionId(other.getTransactionId());
-            type(other.getType());
             reasons(other.getReasons());
             status(other.getStatus());
             comment(other.getComment());
+            type(other.getType());
             return this;
         }
 
@@ -177,6 +177,23 @@ public final class TransactionStatusDetails {
         @JsonSetter("status")
         public _FinalStage status(@NotNull RuleAction status) {
             this.status = Objects.requireNonNull(status, "status must not be null");
+            return this;
+        }
+
+        /**
+         * <p>Type of transaction (ex: DEPOSIT, WITHDRAWAL, TRANSFER, EXTERNAL_PAYMENT, REFUND, OTHER)</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
+        @java.lang.Override
+        public _FinalStage type(String type) {
+            this.type = Optional.ofNullable(type);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "type", nulls = Nulls.SKIP)
+        public _FinalStage type(Optional<String> type) {
+            this.type = type;
             return this;
         }
 
@@ -213,26 +230,9 @@ public final class TransactionStatusDetails {
             return this;
         }
 
-        /**
-         * <p>Type of transaction (ex: DEPOSIT, WITHDRAWAL, TRANSFER, EXTERNAL_PAYMENT, REFUND, OTHER)</p>
-         * @return Reference to {@code this} so that method calls can be chained together.
-         */
-        @java.lang.Override
-        public _FinalStage type(String type) {
-            this.type = Optional.ofNullable(type);
-            return this;
-        }
-
-        @java.lang.Override
-        @JsonSetter(value = "type", nulls = Nulls.SKIP)
-        public _FinalStage type(Optional<String> type) {
-            this.type = type;
-            return this;
-        }
-
         @java.lang.Override
         public TransactionStatusDetails build() {
-            return new TransactionStatusDetails(transactionId, type, reasons, status, comment, additionalProperties);
+            return new TransactionStatusDetails(transactionId, reasons, status, comment, type, additionalProperties);
         }
     }
 }
