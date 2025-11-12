@@ -66,6 +66,8 @@ public final class BatchBusinessUserWithRulesResult {
 
     private final Optional<Double> updateCount;
 
+    private final Optional<List<ProductsEnabled>> productsEnabled;
+
     private final Optional<List<ExecutedRulesResult>> executedRules;
 
     private final Optional<UserRiskScoreDetails> riskScoreDetails;
@@ -95,6 +97,7 @@ public final class BatchBusinessUserWithRulesResult {
             Optional<DeviceData> metaData,
             Optional<String> jurisdiction,
             Optional<Double> updateCount,
+            Optional<List<ProductsEnabled>> productsEnabled,
             Optional<List<ExecutedRulesResult>> executedRules,
             Optional<UserRiskScoreDetails> riskScoreDetails,
             Map<String, Object> additionalProperties) {
@@ -120,6 +123,7 @@ public final class BatchBusinessUserWithRulesResult {
         this.metaData = metaData;
         this.jurisdiction = jurisdiction;
         this.updateCount = updateCount;
+        this.productsEnabled = productsEnabled;
         this.executedRules = executedRules;
         this.riskScoreDetails = riskScoreDetails;
         this.additionalProperties = additionalProperties;
@@ -262,6 +266,11 @@ public final class BatchBusinessUserWithRulesResult {
         return updateCount;
     }
 
+    @JsonProperty("productsEnabled")
+    public Optional<List<ProductsEnabled>> getProductsEnabled() {
+        return productsEnabled;
+    }
+
     @JsonProperty("executedRules")
     public Optional<List<ExecutedRulesResult>> getExecutedRules() {
         return executedRules;
@@ -306,6 +315,7 @@ public final class BatchBusinessUserWithRulesResult {
                 && metaData.equals(other.metaData)
                 && jurisdiction.equals(other.jurisdiction)
                 && updateCount.equals(other.updateCount)
+                && productsEnabled.equals(other.productsEnabled)
                 && executedRules.equals(other.executedRules)
                 && riskScoreDetails.equals(other.riskScoreDetails);
     }
@@ -335,6 +345,7 @@ public final class BatchBusinessUserWithRulesResult {
                 this.metaData,
                 this.jurisdiction,
                 this.updateCount,
+                this.productsEnabled,
                 this.executedRules,
                 this.riskScoreDetails);
     }
@@ -443,6 +454,10 @@ public final class BatchBusinessUserWithRulesResult {
 
         _FinalStage updateCount(Double updateCount);
 
+        _FinalStage productsEnabled(Optional<List<ProductsEnabled>> productsEnabled);
+
+        _FinalStage productsEnabled(List<ProductsEnabled> productsEnabled);
+
         _FinalStage executedRules(Optional<List<ExecutedRulesResult>> executedRules);
 
         _FinalStage executedRules(List<ExecutedRulesResult> executedRules);
@@ -463,6 +478,8 @@ public final class BatchBusinessUserWithRulesResult {
         private Optional<UserRiskScoreDetails> riskScoreDetails = Optional.empty();
 
         private Optional<List<ExecutedRulesResult>> executedRules = Optional.empty();
+
+        private Optional<List<ProductsEnabled>> productsEnabled = Optional.empty();
 
         private Optional<Double> updateCount = Optional.empty();
 
@@ -532,6 +549,7 @@ public final class BatchBusinessUserWithRulesResult {
             metaData(other.getMetaData());
             jurisdiction(other.getJurisdiction());
             updateCount(other.getUpdateCount());
+            productsEnabled(other.getProductsEnabled());
             executedRules(other.getExecutedRules());
             riskScoreDetails(other.getRiskScoreDetails());
             return this;
@@ -589,6 +607,19 @@ public final class BatchBusinessUserWithRulesResult {
         @JsonSetter(value = "executedRules", nulls = Nulls.SKIP)
         public _FinalStage executedRules(Optional<List<ExecutedRulesResult>> executedRules) {
             this.executedRules = executedRules;
+            return this;
+        }
+
+        @java.lang.Override
+        public _FinalStage productsEnabled(List<ProductsEnabled> productsEnabled) {
+            this.productsEnabled = Optional.ofNullable(productsEnabled);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "productsEnabled", nulls = Nulls.SKIP)
+        public _FinalStage productsEnabled(Optional<List<ProductsEnabled>> productsEnabled) {
+            this.productsEnabled = productsEnabled;
             return this;
         }
 
@@ -894,6 +925,7 @@ public final class BatchBusinessUserWithRulesResult {
                     metaData,
                     jurisdiction,
                     updateCount,
+                    productsEnabled,
                     executedRules,
                     riskScoreDetails,
                     additionalProperties);

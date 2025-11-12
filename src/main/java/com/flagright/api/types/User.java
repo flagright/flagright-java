@@ -84,6 +84,8 @@ public final class User {
 
     private final Optional<Double> updateCount;
 
+    private final Optional<List<ProductsEnabled>> productsEnabled;
+
     private final Map<String, Object> additionalProperties;
 
     private User(
@@ -118,6 +120,7 @@ public final class User {
             Optional<DeviceData> metaData,
             Optional<String> jurisdiction,
             Optional<Double> updateCount,
+            Optional<List<ProductsEnabled>> productsEnabled,
             Map<String, Object> additionalProperties) {
         this.userId = userId;
         this.createdTimestamp = createdTimestamp;
@@ -150,6 +153,7 @@ public final class User {
         this.metaData = metaData;
         this.jurisdiction = jurisdiction;
         this.updateCount = updateCount;
+        this.productsEnabled = productsEnabled;
         this.additionalProperties = additionalProperties;
     }
 
@@ -332,6 +336,11 @@ public final class User {
         return updateCount;
     }
 
+    @JsonProperty("productsEnabled")
+    public Optional<List<ProductsEnabled>> getProductsEnabled() {
+        return productsEnabled;
+    }
+
     @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
@@ -374,7 +383,8 @@ public final class User {
                 && attachments.equals(other.attachments)
                 && metaData.equals(other.metaData)
                 && jurisdiction.equals(other.jurisdiction)
-                && updateCount.equals(other.updateCount);
+                && updateCount.equals(other.updateCount)
+                && productsEnabled.equals(other.productsEnabled);
     }
 
     @java.lang.Override
@@ -410,7 +420,8 @@ public final class User {
                 this.attachments,
                 this.metaData,
                 this.jurisdiction,
-                this.updateCount);
+                this.updateCount,
+                this.productsEnabled);
     }
 
     @java.lang.Override
@@ -550,6 +561,10 @@ public final class User {
         _FinalStage updateCount(Optional<Double> updateCount);
 
         _FinalStage updateCount(Double updateCount);
+
+        _FinalStage productsEnabled(Optional<List<ProductsEnabled>> productsEnabled);
+
+        _FinalStage productsEnabled(List<ProductsEnabled> productsEnabled);
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
@@ -557,6 +572,8 @@ public final class User {
         private String userId;
 
         private double createdTimestamp;
+
+        private Optional<List<ProductsEnabled>> productsEnabled = Optional.empty();
 
         private Optional<Double> updateCount = Optional.empty();
 
@@ -654,6 +671,7 @@ public final class User {
             metaData(other.getMetaData());
             jurisdiction(other.getJurisdiction());
             updateCount(other.getUpdateCount());
+            productsEnabled(other.getProductsEnabled());
             return this;
         }
 
@@ -676,6 +694,19 @@ public final class User {
         @JsonSetter("createdTimestamp")
         public _FinalStage createdTimestamp(double createdTimestamp) {
             this.createdTimestamp = createdTimestamp;
+            return this;
+        }
+
+        @java.lang.Override
+        public _FinalStage productsEnabled(List<ProductsEnabled> productsEnabled) {
+            this.productsEnabled = Optional.ofNullable(productsEnabled);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "productsEnabled", nulls = Nulls.SKIP)
+        public _FinalStage productsEnabled(Optional<List<ProductsEnabled>> productsEnabled) {
+            this.productsEnabled = productsEnabled;
             return this;
         }
 
@@ -1114,6 +1145,7 @@ public final class User {
                     metaData,
                     jurisdiction,
                     updateCount,
+                    productsEnabled,
                     additionalProperties);
         }
     }

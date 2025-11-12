@@ -61,6 +61,8 @@ public final class BusinessOptional {
 
     private final Optional<Double> updateCount;
 
+    private final Optional<List<ProductsEnabled>> productsEnabled;
+
     private final Map<String, Object> additionalProperties;
 
     private BusinessOptional(
@@ -84,6 +86,7 @@ public final class BusinessOptional {
             Optional<DeviceData> metaData,
             Optional<String> jurisdiction,
             Optional<Double> updateCount,
+            Optional<List<ProductsEnabled>> productsEnabled,
             Map<String, Object> additionalProperties) {
         this.activatedTimestamp = activatedTimestamp;
         this.userStateDetails = userStateDetails;
@@ -105,6 +108,7 @@ public final class BusinessOptional {
         this.metaData = metaData;
         this.jurisdiction = jurisdiction;
         this.updateCount = updateCount;
+        this.productsEnabled = productsEnabled;
         this.additionalProperties = additionalProperties;
     }
 
@@ -229,6 +233,11 @@ public final class BusinessOptional {
         return updateCount;
     }
 
+    @JsonProperty("productsEnabled")
+    public Optional<List<ProductsEnabled>> getProductsEnabled() {
+        return productsEnabled;
+    }
+
     @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
@@ -260,7 +269,8 @@ public final class BusinessOptional {
                 && attachments.equals(other.attachments)
                 && metaData.equals(other.metaData)
                 && jurisdiction.equals(other.jurisdiction)
-                && updateCount.equals(other.updateCount);
+                && updateCount.equals(other.updateCount)
+                && productsEnabled.equals(other.productsEnabled);
     }
 
     @java.lang.Override
@@ -285,7 +295,8 @@ public final class BusinessOptional {
                 this.attachments,
                 this.metaData,
                 this.jurisdiction,
-                this.updateCount);
+                this.updateCount,
+                this.productsEnabled);
     }
 
     @java.lang.Override
@@ -339,6 +350,8 @@ public final class BusinessOptional {
 
         private Optional<Double> updateCount = Optional.empty();
 
+        private Optional<List<ProductsEnabled>> productsEnabled = Optional.empty();
+
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
 
@@ -365,6 +378,7 @@ public final class BusinessOptional {
             metaData(other.getMetaData());
             jurisdiction(other.getJurisdiction());
             updateCount(other.getUpdateCount());
+            productsEnabled(other.getProductsEnabled());
             return this;
         }
 
@@ -589,6 +603,17 @@ public final class BusinessOptional {
             return this;
         }
 
+        @JsonSetter(value = "productsEnabled", nulls = Nulls.SKIP)
+        public Builder productsEnabled(Optional<List<ProductsEnabled>> productsEnabled) {
+            this.productsEnabled = productsEnabled;
+            return this;
+        }
+
+        public Builder productsEnabled(List<ProductsEnabled> productsEnabled) {
+            this.productsEnabled = Optional.ofNullable(productsEnabled);
+            return this;
+        }
+
         public BusinessOptional build() {
             return new BusinessOptional(
                     activatedTimestamp,
@@ -611,6 +636,7 @@ public final class BusinessOptional {
                     metaData,
                     jurisdiction,
                     updateCount,
+                    productsEnabled,
                     additionalProperties);
         }
     }

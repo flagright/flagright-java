@@ -84,6 +84,8 @@ public final class UserWithRulesResult {
 
     private final Optional<Double> updateCount;
 
+    private final Optional<List<ProductsEnabled>> productsEnabled;
+
     private final Optional<List<ExecutedRulesResult>> executedRules;
 
     private final Optional<List<HitRulesDetails>> hitRules;
@@ -124,6 +126,7 @@ public final class UserWithRulesResult {
             Optional<DeviceData> metaData,
             Optional<String> jurisdiction,
             Optional<Double> updateCount,
+            Optional<List<ProductsEnabled>> productsEnabled,
             Optional<List<ExecutedRulesResult>> executedRules,
             Optional<List<HitRulesDetails>> hitRules,
             Optional<UserRiskScoreDetails> riskScoreDetails,
@@ -159,6 +162,7 @@ public final class UserWithRulesResult {
         this.metaData = metaData;
         this.jurisdiction = jurisdiction;
         this.updateCount = updateCount;
+        this.productsEnabled = productsEnabled;
         this.executedRules = executedRules;
         this.hitRules = hitRules;
         this.riskScoreDetails = riskScoreDetails;
@@ -344,6 +348,11 @@ public final class UserWithRulesResult {
         return updateCount;
     }
 
+    @JsonProperty("productsEnabled")
+    public Optional<List<ProductsEnabled>> getProductsEnabled() {
+        return productsEnabled;
+    }
+
     @JsonProperty("executedRules")
     public Optional<List<ExecutedRulesResult>> getExecutedRules() {
         return executedRules;
@@ -402,6 +411,7 @@ public final class UserWithRulesResult {
                 && metaData.equals(other.metaData)
                 && jurisdiction.equals(other.jurisdiction)
                 && updateCount.equals(other.updateCount)
+                && productsEnabled.equals(other.productsEnabled)
                 && executedRules.equals(other.executedRules)
                 && hitRules.equals(other.hitRules)
                 && riskScoreDetails.equals(other.riskScoreDetails);
@@ -441,6 +451,7 @@ public final class UserWithRulesResult {
                 this.metaData,
                 this.jurisdiction,
                 this.updateCount,
+                this.productsEnabled,
                 this.executedRules,
                 this.hitRules,
                 this.riskScoreDetails);
@@ -584,6 +595,10 @@ public final class UserWithRulesResult {
 
         _FinalStage updateCount(Double updateCount);
 
+        _FinalStage productsEnabled(Optional<List<ProductsEnabled>> productsEnabled);
+
+        _FinalStage productsEnabled(List<ProductsEnabled> productsEnabled);
+
         _FinalStage executedRules(Optional<List<ExecutedRulesResult>> executedRules);
 
         _FinalStage executedRules(List<ExecutedRulesResult> executedRules);
@@ -608,6 +623,8 @@ public final class UserWithRulesResult {
         private Optional<List<HitRulesDetails>> hitRules = Optional.empty();
 
         private Optional<List<ExecutedRulesResult>> executedRules = Optional.empty();
+
+        private Optional<List<ProductsEnabled>> productsEnabled = Optional.empty();
 
         private Optional<Double> updateCount = Optional.empty();
 
@@ -705,6 +722,7 @@ public final class UserWithRulesResult {
             metaData(other.getMetaData());
             jurisdiction(other.getJurisdiction());
             updateCount(other.getUpdateCount());
+            productsEnabled(other.getProductsEnabled());
             executedRules(other.getExecutedRules());
             hitRules(other.getHitRules());
             riskScoreDetails(other.getRiskScoreDetails());
@@ -769,6 +787,19 @@ public final class UserWithRulesResult {
         @JsonSetter(value = "executedRules", nulls = Nulls.SKIP)
         public _FinalStage executedRules(Optional<List<ExecutedRulesResult>> executedRules) {
             this.executedRules = executedRules;
+            return this;
+        }
+
+        @java.lang.Override
+        public _FinalStage productsEnabled(List<ProductsEnabled> productsEnabled) {
+            this.productsEnabled = Optional.ofNullable(productsEnabled);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "productsEnabled", nulls = Nulls.SKIP)
+        public _FinalStage productsEnabled(Optional<List<ProductsEnabled>> productsEnabled) {
+            this.productsEnabled = productsEnabled;
             return this;
         }
 
@@ -1208,6 +1239,7 @@ public final class UserWithRulesResult {
                     metaData,
                     jurisdiction,
                     updateCount,
+                    productsEnabled,
                     executedRules,
                     hitRules,
                     riskScoreDetails,
