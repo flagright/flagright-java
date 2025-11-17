@@ -29,7 +29,7 @@ public final class BusinessOptional {
 
     private final Optional<LegalEntity> legalEntity;
 
-    private final Optional<List<Person>> shareHolders;
+    private final Optional<List<BusinessOptionalShareHoldersItem>> shareHolders;
 
     private final Optional<List<Person>> directors;
 
@@ -70,7 +70,7 @@ public final class BusinessOptional {
             Optional<UserStateDetails> userStateDetails,
             Optional<KycStatusDetails> kycStatusDetails,
             Optional<LegalEntity> legalEntity,
-            Optional<List<Person>> shareHolders,
+            Optional<List<BusinessOptionalShareHoldersItem>> shareHolders,
             Optional<List<Person>> directors,
             Optional<TransactionLimits> transactionLimits,
             Optional<RiskLevel> riskLevel,
@@ -139,7 +139,7 @@ public final class BusinessOptional {
      * @return Shareholders (beneficiaries) of the company that hold at least 25% ownership. Can be another company or an individual
      */
     @JsonProperty("shareHolders")
-    public Optional<List<Person>> getShareHolders() {
+    public Optional<List<BusinessOptionalShareHoldersItem>> getShareHolders() {
         return shareHolders;
     }
 
@@ -318,7 +318,7 @@ public final class BusinessOptional {
 
         private Optional<LegalEntity> legalEntity = Optional.empty();
 
-        private Optional<List<Person>> shareHolders = Optional.empty();
+        private Optional<List<BusinessOptionalShareHoldersItem>> shareHolders = Optional.empty();
 
         private Optional<List<Person>> directors = Optional.empty();
 
@@ -427,12 +427,12 @@ public final class BusinessOptional {
         }
 
         @JsonSetter(value = "shareHolders", nulls = Nulls.SKIP)
-        public Builder shareHolders(Optional<List<Person>> shareHolders) {
+        public Builder shareHolders(Optional<List<BusinessOptionalShareHoldersItem>> shareHolders) {
             this.shareHolders = shareHolders;
             return this;
         }
 
-        public Builder shareHolders(List<Person> shareHolders) {
+        public Builder shareHolders(List<BusinessOptionalShareHoldersItem> shareHolders) {
             this.shareHolders = Optional.ofNullable(shareHolders);
             return this;
         }

@@ -34,7 +34,7 @@ public final class BatchBusinessUserWithRulesResult {
 
     private final Optional<KycStatusDetails> kycStatusDetails;
 
-    private final Optional<List<Person>> shareHolders;
+    private final Optional<List<BatchBusinessUserWithRulesResultShareHoldersItem>> shareHolders;
 
     private final Optional<List<Person>> directors;
 
@@ -81,7 +81,7 @@ public final class BatchBusinessUserWithRulesResult {
             Optional<Double> activatedTimestamp,
             Optional<UserStateDetails> userStateDetails,
             Optional<KycStatusDetails> kycStatusDetails,
-            Optional<List<Person>> shareHolders,
+            Optional<List<BatchBusinessUserWithRulesResultShareHoldersItem>> shareHolders,
             Optional<List<Person>> directors,
             Optional<TransactionLimits> transactionLimits,
             Optional<RiskLevel> riskLevel,
@@ -172,7 +172,7 @@ public final class BatchBusinessUserWithRulesResult {
      * @return Shareholders (beneficiaries) of the company that hold at least 25% ownership. Can be another company or an individual
      */
     @JsonProperty("shareHolders")
-    public Optional<List<Person>> getShareHolders() {
+    public Optional<List<BatchBusinessUserWithRulesResultShareHoldersItem>> getShareHolders() {
         return shareHolders;
     }
 
@@ -388,9 +388,9 @@ public final class BatchBusinessUserWithRulesResult {
 
         _FinalStage kycStatusDetails(KycStatusDetails kycStatusDetails);
 
-        _FinalStage shareHolders(Optional<List<Person>> shareHolders);
+        _FinalStage shareHolders(Optional<List<BatchBusinessUserWithRulesResultShareHoldersItem>> shareHolders);
 
-        _FinalStage shareHolders(List<Person> shareHolders);
+        _FinalStage shareHolders(List<BatchBusinessUserWithRulesResultShareHoldersItem> shareHolders);
 
         _FinalStage directors(Optional<List<Person>> directors);
 
@@ -512,7 +512,7 @@ public final class BatchBusinessUserWithRulesResult {
 
         private Optional<List<Person>> directors = Optional.empty();
 
-        private Optional<List<Person>> shareHolders = Optional.empty();
+        private Optional<List<BatchBusinessUserWithRulesResultShareHoldersItem>> shareHolders = Optional.empty();
 
         private Optional<KycStatusDetails> kycStatusDetails = Optional.empty();
 
@@ -845,14 +845,14 @@ public final class BatchBusinessUserWithRulesResult {
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
-        public _FinalStage shareHolders(List<Person> shareHolders) {
+        public _FinalStage shareHolders(List<BatchBusinessUserWithRulesResultShareHoldersItem> shareHolders) {
             this.shareHolders = Optional.ofNullable(shareHolders);
             return this;
         }
 
         @java.lang.Override
         @JsonSetter(value = "shareHolders", nulls = Nulls.SKIP)
-        public _FinalStage shareHolders(Optional<List<Person>> shareHolders) {
+        public _FinalStage shareHolders(Optional<List<BatchBusinessUserWithRulesResultShareHoldersItem>> shareHolders) {
             this.shareHolders = shareHolders;
             return this;
         }

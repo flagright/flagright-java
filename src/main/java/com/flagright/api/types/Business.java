@@ -34,7 +34,7 @@ public final class Business {
 
     private final Optional<KycStatusDetails> kycStatusDetails;
 
-    private final Optional<List<Person>> shareHolders;
+    private final Optional<List<BusinessShareHoldersItem>> shareHolders;
 
     private final Optional<List<Person>> directors;
 
@@ -77,7 +77,7 @@ public final class Business {
             Optional<Double> activatedTimestamp,
             Optional<UserStateDetails> userStateDetails,
             Optional<KycStatusDetails> kycStatusDetails,
-            Optional<List<Person>> shareHolders,
+            Optional<List<BusinessShareHoldersItem>> shareHolders,
             Optional<List<Person>> directors,
             Optional<TransactionLimits> transactionLimits,
             Optional<RiskLevel> riskLevel,
@@ -164,7 +164,7 @@ public final class Business {
      * @return Shareholders (beneficiaries) of the company that hold at least 25% ownership. Can be another company or an individual
      */
     @JsonProperty("shareHolders")
-    public Optional<List<Person>> getShareHolders() {
+    public Optional<List<BusinessShareHoldersItem>> getShareHolders() {
         return shareHolders;
     }
 
@@ -366,9 +366,9 @@ public final class Business {
 
         _FinalStage kycStatusDetails(KycStatusDetails kycStatusDetails);
 
-        _FinalStage shareHolders(Optional<List<Person>> shareHolders);
+        _FinalStage shareHolders(Optional<List<BusinessShareHoldersItem>> shareHolders);
 
-        _FinalStage shareHolders(List<Person> shareHolders);
+        _FinalStage shareHolders(List<BusinessShareHoldersItem> shareHolders);
 
         _FinalStage directors(Optional<List<Person>> directors);
 
@@ -475,7 +475,7 @@ public final class Business {
 
         private Optional<List<Person>> directors = Optional.empty();
 
-        private Optional<List<Person>> shareHolders = Optional.empty();
+        private Optional<List<BusinessShareHoldersItem>> shareHolders = Optional.empty();
 
         private Optional<KycStatusDetails> kycStatusDetails = Optional.empty();
 
@@ -778,14 +778,14 @@ public final class Business {
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
-        public _FinalStage shareHolders(List<Person> shareHolders) {
+        public _FinalStage shareHolders(List<BusinessShareHoldersItem> shareHolders) {
             this.shareHolders = Optional.ofNullable(shareHolders);
             return this;
         }
 
         @java.lang.Override
         @JsonSetter(value = "shareHolders", nulls = Nulls.SKIP)
-        public _FinalStage shareHolders(Optional<List<Person>> shareHolders) {
+        public _FinalStage shareHolders(Optional<List<BusinessShareHoldersItem>> shareHolders) {
             this.shareHolders = shareHolders;
             return this;
         }
