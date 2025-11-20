@@ -63,6 +63,12 @@ public final class BusinessOptional {
 
     private final Optional<List<ProductsEnabled>> productsEnabled;
 
+    private final Optional<List<PepStatus>> pepStatus;
+
+    private final Optional<Boolean> sanctionsStatus;
+
+    private final Optional<Boolean> adverseMediaStatus;
+
     private final Map<String, Object> additionalProperties;
 
     private BusinessOptional(
@@ -87,6 +93,9 @@ public final class BusinessOptional {
             Optional<String> jurisdiction,
             Optional<Double> updateCount,
             Optional<List<ProductsEnabled>> productsEnabled,
+            Optional<List<PepStatus>> pepStatus,
+            Optional<Boolean> sanctionsStatus,
+            Optional<Boolean> adverseMediaStatus,
             Map<String, Object> additionalProperties) {
         this.activatedTimestamp = activatedTimestamp;
         this.userStateDetails = userStateDetails;
@@ -109,6 +118,9 @@ public final class BusinessOptional {
         this.jurisdiction = jurisdiction;
         this.updateCount = updateCount;
         this.productsEnabled = productsEnabled;
+        this.pepStatus = pepStatus;
+        this.sanctionsStatus = sanctionsStatus;
+        this.adverseMediaStatus = adverseMediaStatus;
         this.additionalProperties = additionalProperties;
     }
 
@@ -238,6 +250,27 @@ public final class BusinessOptional {
         return productsEnabled;
     }
 
+    @JsonProperty("pepStatus")
+    public Optional<List<PepStatus>> getPepStatus() {
+        return pepStatus;
+    }
+
+    /**
+     * @return Whether the user is sanctioned
+     */
+    @JsonProperty("sanctionsStatus")
+    public Optional<Boolean> getSanctionsStatus() {
+        return sanctionsStatus;
+    }
+
+    /**
+     * @return Whether the user is in the adverse media list
+     */
+    @JsonProperty("adverseMediaStatus")
+    public Optional<Boolean> getAdverseMediaStatus() {
+        return adverseMediaStatus;
+    }
+
     @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
@@ -270,7 +303,10 @@ public final class BusinessOptional {
                 && metaData.equals(other.metaData)
                 && jurisdiction.equals(other.jurisdiction)
                 && updateCount.equals(other.updateCount)
-                && productsEnabled.equals(other.productsEnabled);
+                && productsEnabled.equals(other.productsEnabled)
+                && pepStatus.equals(other.pepStatus)
+                && sanctionsStatus.equals(other.sanctionsStatus)
+                && adverseMediaStatus.equals(other.adverseMediaStatus);
     }
 
     @java.lang.Override
@@ -296,7 +332,10 @@ public final class BusinessOptional {
                 this.metaData,
                 this.jurisdiction,
                 this.updateCount,
-                this.productsEnabled);
+                this.productsEnabled,
+                this.pepStatus,
+                this.sanctionsStatus,
+                this.adverseMediaStatus);
     }
 
     @java.lang.Override
@@ -352,6 +391,12 @@ public final class BusinessOptional {
 
         private Optional<List<ProductsEnabled>> productsEnabled = Optional.empty();
 
+        private Optional<List<PepStatus>> pepStatus = Optional.empty();
+
+        private Optional<Boolean> sanctionsStatus = Optional.empty();
+
+        private Optional<Boolean> adverseMediaStatus = Optional.empty();
+
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
 
@@ -379,6 +424,9 @@ public final class BusinessOptional {
             jurisdiction(other.getJurisdiction());
             updateCount(other.getUpdateCount());
             productsEnabled(other.getProductsEnabled());
+            pepStatus(other.getPepStatus());
+            sanctionsStatus(other.getSanctionsStatus());
+            adverseMediaStatus(other.getAdverseMediaStatus());
             return this;
         }
 
@@ -614,6 +662,39 @@ public final class BusinessOptional {
             return this;
         }
 
+        @JsonSetter(value = "pepStatus", nulls = Nulls.SKIP)
+        public Builder pepStatus(Optional<List<PepStatus>> pepStatus) {
+            this.pepStatus = pepStatus;
+            return this;
+        }
+
+        public Builder pepStatus(List<PepStatus> pepStatus) {
+            this.pepStatus = Optional.ofNullable(pepStatus);
+            return this;
+        }
+
+        @JsonSetter(value = "sanctionsStatus", nulls = Nulls.SKIP)
+        public Builder sanctionsStatus(Optional<Boolean> sanctionsStatus) {
+            this.sanctionsStatus = sanctionsStatus;
+            return this;
+        }
+
+        public Builder sanctionsStatus(Boolean sanctionsStatus) {
+            this.sanctionsStatus = Optional.ofNullable(sanctionsStatus);
+            return this;
+        }
+
+        @JsonSetter(value = "adverseMediaStatus", nulls = Nulls.SKIP)
+        public Builder adverseMediaStatus(Optional<Boolean> adverseMediaStatus) {
+            this.adverseMediaStatus = adverseMediaStatus;
+            return this;
+        }
+
+        public Builder adverseMediaStatus(Boolean adverseMediaStatus) {
+            this.adverseMediaStatus = Optional.ofNullable(adverseMediaStatus);
+            return this;
+        }
+
         public BusinessOptional build() {
             return new BusinessOptional(
                     activatedTimestamp,
@@ -637,6 +718,9 @@ public final class BusinessOptional {
                     jurisdiction,
                     updateCount,
                     productsEnabled,
+                    pepStatus,
+                    sanctionsStatus,
+                    adverseMediaStatus,
                     additionalProperties);
         }
     }

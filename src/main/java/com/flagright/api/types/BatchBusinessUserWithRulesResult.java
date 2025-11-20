@@ -68,6 +68,12 @@ public final class BatchBusinessUserWithRulesResult {
 
     private final Optional<List<ProductsEnabled>> productsEnabled;
 
+    private final Optional<List<PepStatus>> pepStatus;
+
+    private final Optional<Boolean> sanctionsStatus;
+
+    private final Optional<Boolean> adverseMediaStatus;
+
     private final Optional<List<ExecutedRulesResult>> executedRules;
 
     private final Optional<UserRiskScoreDetails> riskScoreDetails;
@@ -98,6 +104,9 @@ public final class BatchBusinessUserWithRulesResult {
             Optional<String> jurisdiction,
             Optional<Double> updateCount,
             Optional<List<ProductsEnabled>> productsEnabled,
+            Optional<List<PepStatus>> pepStatus,
+            Optional<Boolean> sanctionsStatus,
+            Optional<Boolean> adverseMediaStatus,
             Optional<List<ExecutedRulesResult>> executedRules,
             Optional<UserRiskScoreDetails> riskScoreDetails,
             Map<String, Object> additionalProperties) {
@@ -124,6 +133,9 @@ public final class BatchBusinessUserWithRulesResult {
         this.jurisdiction = jurisdiction;
         this.updateCount = updateCount;
         this.productsEnabled = productsEnabled;
+        this.pepStatus = pepStatus;
+        this.sanctionsStatus = sanctionsStatus;
+        this.adverseMediaStatus = adverseMediaStatus;
         this.executedRules = executedRules;
         this.riskScoreDetails = riskScoreDetails;
         this.additionalProperties = additionalProperties;
@@ -271,6 +283,27 @@ public final class BatchBusinessUserWithRulesResult {
         return productsEnabled;
     }
 
+    @JsonProperty("pepStatus")
+    public Optional<List<PepStatus>> getPepStatus() {
+        return pepStatus;
+    }
+
+    /**
+     * @return Whether the user is sanctioned
+     */
+    @JsonProperty("sanctionsStatus")
+    public Optional<Boolean> getSanctionsStatus() {
+        return sanctionsStatus;
+    }
+
+    /**
+     * @return Whether the user is in the adverse media list
+     */
+    @JsonProperty("adverseMediaStatus")
+    public Optional<Boolean> getAdverseMediaStatus() {
+        return adverseMediaStatus;
+    }
+
     @JsonProperty("executedRules")
     public Optional<List<ExecutedRulesResult>> getExecutedRules() {
         return executedRules;
@@ -316,6 +349,9 @@ public final class BatchBusinessUserWithRulesResult {
                 && jurisdiction.equals(other.jurisdiction)
                 && updateCount.equals(other.updateCount)
                 && productsEnabled.equals(other.productsEnabled)
+                && pepStatus.equals(other.pepStatus)
+                && sanctionsStatus.equals(other.sanctionsStatus)
+                && adverseMediaStatus.equals(other.adverseMediaStatus)
                 && executedRules.equals(other.executedRules)
                 && riskScoreDetails.equals(other.riskScoreDetails);
     }
@@ -346,6 +382,9 @@ public final class BatchBusinessUserWithRulesResult {
                 this.jurisdiction,
                 this.updateCount,
                 this.productsEnabled,
+                this.pepStatus,
+                this.sanctionsStatus,
+                this.adverseMediaStatus,
                 this.executedRules,
                 this.riskScoreDetails);
     }
@@ -458,6 +497,18 @@ public final class BatchBusinessUserWithRulesResult {
 
         _FinalStage productsEnabled(List<ProductsEnabled> productsEnabled);
 
+        _FinalStage pepStatus(Optional<List<PepStatus>> pepStatus);
+
+        _FinalStage pepStatus(List<PepStatus> pepStatus);
+
+        _FinalStage sanctionsStatus(Optional<Boolean> sanctionsStatus);
+
+        _FinalStage sanctionsStatus(Boolean sanctionsStatus);
+
+        _FinalStage adverseMediaStatus(Optional<Boolean> adverseMediaStatus);
+
+        _FinalStage adverseMediaStatus(Boolean adverseMediaStatus);
+
         _FinalStage executedRules(Optional<List<ExecutedRulesResult>> executedRules);
 
         _FinalStage executedRules(List<ExecutedRulesResult> executedRules);
@@ -478,6 +529,12 @@ public final class BatchBusinessUserWithRulesResult {
         private Optional<UserRiskScoreDetails> riskScoreDetails = Optional.empty();
 
         private Optional<List<ExecutedRulesResult>> executedRules = Optional.empty();
+
+        private Optional<Boolean> adverseMediaStatus = Optional.empty();
+
+        private Optional<Boolean> sanctionsStatus = Optional.empty();
+
+        private Optional<List<PepStatus>> pepStatus = Optional.empty();
 
         private Optional<List<ProductsEnabled>> productsEnabled = Optional.empty();
 
@@ -550,6 +607,9 @@ public final class BatchBusinessUserWithRulesResult {
             jurisdiction(other.getJurisdiction());
             updateCount(other.getUpdateCount());
             productsEnabled(other.getProductsEnabled());
+            pepStatus(other.getPepStatus());
+            sanctionsStatus(other.getSanctionsStatus());
+            adverseMediaStatus(other.getAdverseMediaStatus());
             executedRules(other.getExecutedRules());
             riskScoreDetails(other.getRiskScoreDetails());
             return this;
@@ -607,6 +667,53 @@ public final class BatchBusinessUserWithRulesResult {
         @JsonSetter(value = "executedRules", nulls = Nulls.SKIP)
         public _FinalStage executedRules(Optional<List<ExecutedRulesResult>> executedRules) {
             this.executedRules = executedRules;
+            return this;
+        }
+
+        /**
+         * <p>Whether the user is in the adverse media list</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
+        @java.lang.Override
+        public _FinalStage adverseMediaStatus(Boolean adverseMediaStatus) {
+            this.adverseMediaStatus = Optional.ofNullable(adverseMediaStatus);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "adverseMediaStatus", nulls = Nulls.SKIP)
+        public _FinalStage adverseMediaStatus(Optional<Boolean> adverseMediaStatus) {
+            this.adverseMediaStatus = adverseMediaStatus;
+            return this;
+        }
+
+        /**
+         * <p>Whether the user is sanctioned</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
+        @java.lang.Override
+        public _FinalStage sanctionsStatus(Boolean sanctionsStatus) {
+            this.sanctionsStatus = Optional.ofNullable(sanctionsStatus);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "sanctionsStatus", nulls = Nulls.SKIP)
+        public _FinalStage sanctionsStatus(Optional<Boolean> sanctionsStatus) {
+            this.sanctionsStatus = sanctionsStatus;
+            return this;
+        }
+
+        @java.lang.Override
+        public _FinalStage pepStatus(List<PepStatus> pepStatus) {
+            this.pepStatus = Optional.ofNullable(pepStatus);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "pepStatus", nulls = Nulls.SKIP)
+        public _FinalStage pepStatus(Optional<List<PepStatus>> pepStatus) {
+            this.pepStatus = pepStatus;
             return this;
         }
 
@@ -926,6 +1033,9 @@ public final class BatchBusinessUserWithRulesResult {
                     jurisdiction,
                     updateCount,
                     productsEnabled,
+                    pepStatus,
+                    sanctionsStatus,
+                    adverseMediaStatus,
                     executedRules,
                     riskScoreDetails,
                     additionalProperties);
