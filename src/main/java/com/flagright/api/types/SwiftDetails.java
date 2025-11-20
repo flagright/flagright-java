@@ -37,6 +37,10 @@ public final class SwiftDetails {
 
     private final Optional<Address> bankAddress;
 
+    private final Optional<CountryCode> countryOfNationality;
+
+    private final Optional<CountryCode> countryOfResidence;
+
     private final Optional<String> emailId;
 
     private final Optional<String> specialInstructions;
@@ -58,6 +62,8 @@ public final class SwiftDetails {
             Optional<String> bankName,
             Optional<String> name,
             Optional<Address> bankAddress,
+            Optional<CountryCode> countryOfNationality,
+            Optional<CountryCode> countryOfResidence,
             Optional<String> emailId,
             Optional<String> specialInstructions,
             Optional<Address> address,
@@ -72,6 +78,8 @@ public final class SwiftDetails {
         this.bankName = bankName;
         this.name = name;
         this.bankAddress = bankAddress;
+        this.countryOfNationality = countryOfNationality;
+        this.countryOfResidence = countryOfResidence;
         this.emailId = emailId;
         this.specialInstructions = specialInstructions;
         this.address = address;
@@ -138,6 +146,16 @@ public final class SwiftDetails {
         return bankAddress;
     }
 
+    @JsonProperty("countryOfNationality")
+    public Optional<CountryCode> getCountryOfNationality() {
+        return countryOfNationality;
+    }
+
+    @JsonProperty("countryOfResidence")
+    public Optional<CountryCode> getCountryOfResidence() {
+        return countryOfResidence;
+    }
+
     @JsonProperty("emailId")
     public Optional<String> getEmailId() {
         return emailId;
@@ -189,6 +207,8 @@ public final class SwiftDetails {
                 && bankName.equals(other.bankName)
                 && name.equals(other.name)
                 && bankAddress.equals(other.bankAddress)
+                && countryOfNationality.equals(other.countryOfNationality)
+                && countryOfResidence.equals(other.countryOfResidence)
                 && emailId.equals(other.emailId)
                 && specialInstructions.equals(other.specialInstructions)
                 && address.equals(other.address)
@@ -207,6 +227,8 @@ public final class SwiftDetails {
                 this.bankName,
                 this.name,
                 this.bankAddress,
+                this.countryOfNationality,
+                this.countryOfResidence,
                 this.emailId,
                 this.specialInstructions,
                 this.address,
@@ -241,6 +263,10 @@ public final class SwiftDetails {
 
         private Optional<Address> bankAddress = Optional.empty();
 
+        private Optional<CountryCode> countryOfNationality = Optional.empty();
+
+        private Optional<CountryCode> countryOfResidence = Optional.empty();
+
         private Optional<String> emailId = Optional.empty();
 
         private Optional<String> specialInstructions = Optional.empty();
@@ -265,6 +291,8 @@ public final class SwiftDetails {
             bankName(other.getBankName());
             name(other.getName());
             bankAddress(other.getBankAddress());
+            countryOfNationality(other.getCountryOfNationality());
+            countryOfResidence(other.getCountryOfResidence());
             emailId(other.getEmailId());
             specialInstructions(other.getSpecialInstructions());
             address(other.getAddress());
@@ -361,6 +389,28 @@ public final class SwiftDetails {
             return this;
         }
 
+        @JsonSetter(value = "countryOfNationality", nulls = Nulls.SKIP)
+        public Builder countryOfNationality(Optional<CountryCode> countryOfNationality) {
+            this.countryOfNationality = countryOfNationality;
+            return this;
+        }
+
+        public Builder countryOfNationality(CountryCode countryOfNationality) {
+            this.countryOfNationality = Optional.ofNullable(countryOfNationality);
+            return this;
+        }
+
+        @JsonSetter(value = "countryOfResidence", nulls = Nulls.SKIP)
+        public Builder countryOfResidence(Optional<CountryCode> countryOfResidence) {
+            this.countryOfResidence = countryOfResidence;
+            return this;
+        }
+
+        public Builder countryOfResidence(CountryCode countryOfResidence) {
+            this.countryOfResidence = Optional.ofNullable(countryOfResidence);
+            return this;
+        }
+
         @JsonSetter(value = "emailId", nulls = Nulls.SKIP)
         public Builder emailId(Optional<String> emailId) {
             this.emailId = emailId;
@@ -426,6 +476,8 @@ public final class SwiftDetails {
                     bankName,
                     name,
                     bankAddress,
+                    countryOfNationality,
+                    countryOfResidence,
                     emailId,
                     specialInstructions,
                     address,

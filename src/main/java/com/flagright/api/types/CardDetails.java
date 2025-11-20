@@ -63,6 +63,12 @@ public final class CardDetails {
 
     private final Optional<Address> address;
 
+    private final Optional<CountryCode> countryOfNationality;
+
+    private final Optional<CountryCode> countryOfResidence;
+
+    private final Optional<Address> bankAddress;
+
     private final Optional<List<Tag>> tags;
 
     private final Map<String, Object> additionalProperties;
@@ -89,6 +95,9 @@ public final class CardDetails {
             Optional<CardMerchantDetails> merchantDetails,
             Optional<Double> networkProviderRiskScore,
             Optional<Address> address,
+            Optional<CountryCode> countryOfNationality,
+            Optional<CountryCode> countryOfResidence,
+            Optional<Address> bankAddress,
             Optional<List<Tag>> tags,
             Map<String, Object> additionalProperties) {
         this.cardFingerprint = cardFingerprint;
@@ -112,6 +121,9 @@ public final class CardDetails {
         this.merchantDetails = merchantDetails;
         this.networkProviderRiskScore = networkProviderRiskScore;
         this.address = address;
+        this.countryOfNationality = countryOfNationality;
+        this.countryOfResidence = countryOfResidence;
+        this.bankAddress = bankAddress;
         this.tags = tags;
         this.additionalProperties = additionalProperties;
     }
@@ -245,6 +257,21 @@ public final class CardDetails {
         return address;
     }
 
+    @JsonProperty("countryOfNationality")
+    public Optional<CountryCode> getCountryOfNationality() {
+        return countryOfNationality;
+    }
+
+    @JsonProperty("countryOfResidence")
+    public Optional<CountryCode> getCountryOfResidence() {
+        return countryOfResidence;
+    }
+
+    @JsonProperty("bankAddress")
+    public Optional<Address> getBankAddress() {
+        return bankAddress;
+    }
+
     /**
      * @return Additional information that can be added via tags
      */
@@ -286,6 +313,9 @@ public final class CardDetails {
                 && merchantDetails.equals(other.merchantDetails)
                 && networkProviderRiskScore.equals(other.networkProviderRiskScore)
                 && address.equals(other.address)
+                && countryOfNationality.equals(other.countryOfNationality)
+                && countryOfResidence.equals(other.countryOfResidence)
+                && bankAddress.equals(other.bankAddress)
                 && tags.equals(other.tags);
     }
 
@@ -313,6 +343,9 @@ public final class CardDetails {
                 this.merchantDetails,
                 this.networkProviderRiskScore,
                 this.address,
+                this.countryOfNationality,
+                this.countryOfResidence,
+                this.bankAddress,
                 this.tags);
     }
 
@@ -369,6 +402,12 @@ public final class CardDetails {
 
         private Optional<Address> address = Optional.empty();
 
+        private Optional<CountryCode> countryOfNationality = Optional.empty();
+
+        private Optional<CountryCode> countryOfResidence = Optional.empty();
+
+        private Optional<Address> bankAddress = Optional.empty();
+
         private Optional<List<Tag>> tags = Optional.empty();
 
         @JsonAnySetter
@@ -398,6 +437,9 @@ public final class CardDetails {
             merchantDetails(other.getMerchantDetails());
             networkProviderRiskScore(other.getNetworkProviderRiskScore());
             address(other.getAddress());
+            countryOfNationality(other.getCountryOfNationality());
+            countryOfResidence(other.getCountryOfResidence());
+            bankAddress(other.getBankAddress());
             tags(other.getTags());
             return this;
         }
@@ -633,6 +675,39 @@ public final class CardDetails {
             return this;
         }
 
+        @JsonSetter(value = "countryOfNationality", nulls = Nulls.SKIP)
+        public Builder countryOfNationality(Optional<CountryCode> countryOfNationality) {
+            this.countryOfNationality = countryOfNationality;
+            return this;
+        }
+
+        public Builder countryOfNationality(CountryCode countryOfNationality) {
+            this.countryOfNationality = Optional.ofNullable(countryOfNationality);
+            return this;
+        }
+
+        @JsonSetter(value = "countryOfResidence", nulls = Nulls.SKIP)
+        public Builder countryOfResidence(Optional<CountryCode> countryOfResidence) {
+            this.countryOfResidence = countryOfResidence;
+            return this;
+        }
+
+        public Builder countryOfResidence(CountryCode countryOfResidence) {
+            this.countryOfResidence = Optional.ofNullable(countryOfResidence);
+            return this;
+        }
+
+        @JsonSetter(value = "bankAddress", nulls = Nulls.SKIP)
+        public Builder bankAddress(Optional<Address> bankAddress) {
+            this.bankAddress = bankAddress;
+            return this;
+        }
+
+        public Builder bankAddress(Address bankAddress) {
+            this.bankAddress = Optional.ofNullable(bankAddress);
+            return this;
+        }
+
         @JsonSetter(value = "tags", nulls = Nulls.SKIP)
         public Builder tags(Optional<List<Tag>> tags) {
             this.tags = tags;
@@ -667,6 +742,9 @@ public final class CardDetails {
                     merchantDetails,
                     networkProviderRiskScore,
                     address,
+                    countryOfNationality,
+                    countryOfResidence,
+                    bankAddress,
                     tags,
                     additionalProperties);
         }

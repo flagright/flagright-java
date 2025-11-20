@@ -43,6 +43,10 @@ public final class WalletDetails {
 
     private final Optional<CountryCode> countryOfNationality;
 
+    private final Optional<CountryCode> countryOfResidence;
+
+    private final Optional<Address> bankAddress;
+
     private final Optional<List<UserDetails>> authorizedRepresentative;
 
     private final Optional<String> dateOfBirth;
@@ -63,6 +67,8 @@ public final class WalletDetails {
             Optional<WalletNetwork> network,
             Optional<Address> address,
             Optional<CountryCode> countryOfNationality,
+            Optional<CountryCode> countryOfResidence,
+            Optional<Address> bankAddress,
             Optional<List<UserDetails>> authorizedRepresentative,
             Optional<String> dateOfBirth,
             Optional<String> transactionHash,
@@ -78,6 +84,8 @@ public final class WalletDetails {
         this.network = network;
         this.address = address;
         this.countryOfNationality = countryOfNationality;
+        this.countryOfResidence = countryOfResidence;
+        this.bankAddress = bankAddress;
         this.authorizedRepresentative = authorizedRepresentative;
         this.dateOfBirth = dateOfBirth;
         this.transactionHash = transactionHash;
@@ -157,6 +165,16 @@ public final class WalletDetails {
         return countryOfNationality;
     }
 
+    @JsonProperty("countryOfResidence")
+    public Optional<CountryCode> getCountryOfResidence() {
+        return countryOfResidence;
+    }
+
+    @JsonProperty("bankAddress")
+    public Optional<Address> getBankAddress() {
+        return bankAddress;
+    }
+
     @JsonProperty("authorizedRepresentative")
     public Optional<List<UserDetails>> getAuthorizedRepresentative() {
         return authorizedRepresentative;
@@ -201,6 +219,8 @@ public final class WalletDetails {
                 && network.equals(other.network)
                 && address.equals(other.address)
                 && countryOfNationality.equals(other.countryOfNationality)
+                && countryOfResidence.equals(other.countryOfResidence)
+                && bankAddress.equals(other.bankAddress)
                 && authorizedRepresentative.equals(other.authorizedRepresentative)
                 && dateOfBirth.equals(other.dateOfBirth)
                 && transactionHash.equals(other.transactionHash);
@@ -220,6 +240,8 @@ public final class WalletDetails {
                 this.network,
                 this.address,
                 this.countryOfNationality,
+                this.countryOfResidence,
+                this.bankAddress,
                 this.authorizedRepresentative,
                 this.dateOfBirth,
                 this.transactionHash);
@@ -258,6 +280,10 @@ public final class WalletDetails {
 
         private Optional<CountryCode> countryOfNationality = Optional.empty();
 
+        private Optional<CountryCode> countryOfResidence = Optional.empty();
+
+        private Optional<Address> bankAddress = Optional.empty();
+
         private Optional<List<UserDetails>> authorizedRepresentative = Optional.empty();
 
         private Optional<String> dateOfBirth = Optional.empty();
@@ -281,6 +307,8 @@ public final class WalletDetails {
             network(other.getNetwork());
             address(other.getAddress());
             countryOfNationality(other.getCountryOfNationality());
+            countryOfResidence(other.getCountryOfResidence());
+            bankAddress(other.getBankAddress());
             authorizedRepresentative(other.getAuthorizedRepresentative());
             dateOfBirth(other.getDateOfBirth());
             transactionHash(other.getTransactionHash());
@@ -408,6 +436,28 @@ public final class WalletDetails {
             return this;
         }
 
+        @JsonSetter(value = "countryOfResidence", nulls = Nulls.SKIP)
+        public Builder countryOfResidence(Optional<CountryCode> countryOfResidence) {
+            this.countryOfResidence = countryOfResidence;
+            return this;
+        }
+
+        public Builder countryOfResidence(CountryCode countryOfResidence) {
+            this.countryOfResidence = Optional.ofNullable(countryOfResidence);
+            return this;
+        }
+
+        @JsonSetter(value = "bankAddress", nulls = Nulls.SKIP)
+        public Builder bankAddress(Optional<Address> bankAddress) {
+            this.bankAddress = bankAddress;
+            return this;
+        }
+
+        public Builder bankAddress(Address bankAddress) {
+            this.bankAddress = Optional.ofNullable(bankAddress);
+            return this;
+        }
+
         @JsonSetter(value = "authorizedRepresentative", nulls = Nulls.SKIP)
         public Builder authorizedRepresentative(Optional<List<UserDetails>> authorizedRepresentative) {
             this.authorizedRepresentative = authorizedRepresentative;
@@ -454,6 +504,8 @@ public final class WalletDetails {
                     network,
                     address,
                     countryOfNationality,
+                    countryOfResidence,
+                    bankAddress,
                     authorizedRepresentative,
                     dateOfBirth,
                     transactionHash,

@@ -37,6 +37,12 @@ public final class CheckDetails {
 
     private final Optional<String> accountNumber;
 
+    private final Optional<CountryCode> countryOfNationality;
+
+    private final Optional<CountryCode> countryOfResidence;
+
+    private final Optional<Address> bankAddress;
+
     private final Optional<List<Tag>> tags;
 
     private final Map<String, Object> additionalProperties;
@@ -50,6 +56,9 @@ public final class CheckDetails {
             Optional<Double> etaTimestamp,
             Optional<Address> shippingAddress,
             Optional<String> accountNumber,
+            Optional<CountryCode> countryOfNationality,
+            Optional<CountryCode> countryOfResidence,
+            Optional<Address> bankAddress,
             Optional<List<Tag>> tags,
             Map<String, Object> additionalProperties) {
         this.checkNumber = checkNumber;
@@ -60,6 +69,9 @@ public final class CheckDetails {
         this.etaTimestamp = etaTimestamp;
         this.shippingAddress = shippingAddress;
         this.accountNumber = accountNumber;
+        this.countryOfNationality = countryOfNationality;
+        this.countryOfResidence = countryOfResidence;
+        this.bankAddress = bankAddress;
         this.tags = tags;
         this.additionalProperties = additionalProperties;
     }
@@ -107,6 +119,21 @@ public final class CheckDetails {
         return accountNumber;
     }
 
+    @JsonProperty("countryOfNationality")
+    public Optional<CountryCode> getCountryOfNationality() {
+        return countryOfNationality;
+    }
+
+    @JsonProperty("countryOfResidence")
+    public Optional<CountryCode> getCountryOfResidence() {
+        return countryOfResidence;
+    }
+
+    @JsonProperty("bankAddress")
+    public Optional<Address> getBankAddress() {
+        return bankAddress;
+    }
+
     /**
      * @return Additional information that can be added via tags
      */
@@ -135,6 +162,9 @@ public final class CheckDetails {
                 && etaTimestamp.equals(other.etaTimestamp)
                 && shippingAddress.equals(other.shippingAddress)
                 && accountNumber.equals(other.accountNumber)
+                && countryOfNationality.equals(other.countryOfNationality)
+                && countryOfResidence.equals(other.countryOfResidence)
+                && bankAddress.equals(other.bankAddress)
                 && tags.equals(other.tags);
     }
 
@@ -149,6 +179,9 @@ public final class CheckDetails {
                 this.etaTimestamp,
                 this.shippingAddress,
                 this.accountNumber,
+                this.countryOfNationality,
+                this.countryOfResidence,
+                this.bankAddress,
                 this.tags);
     }
 
@@ -179,6 +212,12 @@ public final class CheckDetails {
 
         private Optional<String> accountNumber = Optional.empty();
 
+        private Optional<CountryCode> countryOfNationality = Optional.empty();
+
+        private Optional<CountryCode> countryOfResidence = Optional.empty();
+
+        private Optional<Address> bankAddress = Optional.empty();
+
         private Optional<List<Tag>> tags = Optional.empty();
 
         @JsonAnySetter
@@ -195,6 +234,9 @@ public final class CheckDetails {
             etaTimestamp(other.getEtaTimestamp());
             shippingAddress(other.getShippingAddress());
             accountNumber(other.getAccountNumber());
+            countryOfNationality(other.getCountryOfNationality());
+            countryOfResidence(other.getCountryOfResidence());
+            bankAddress(other.getBankAddress());
             tags(other.getTags());
             return this;
         }
@@ -287,6 +329,39 @@ public final class CheckDetails {
             return this;
         }
 
+        @JsonSetter(value = "countryOfNationality", nulls = Nulls.SKIP)
+        public Builder countryOfNationality(Optional<CountryCode> countryOfNationality) {
+            this.countryOfNationality = countryOfNationality;
+            return this;
+        }
+
+        public Builder countryOfNationality(CountryCode countryOfNationality) {
+            this.countryOfNationality = Optional.ofNullable(countryOfNationality);
+            return this;
+        }
+
+        @JsonSetter(value = "countryOfResidence", nulls = Nulls.SKIP)
+        public Builder countryOfResidence(Optional<CountryCode> countryOfResidence) {
+            this.countryOfResidence = countryOfResidence;
+            return this;
+        }
+
+        public Builder countryOfResidence(CountryCode countryOfResidence) {
+            this.countryOfResidence = Optional.ofNullable(countryOfResidence);
+            return this;
+        }
+
+        @JsonSetter(value = "bankAddress", nulls = Nulls.SKIP)
+        public Builder bankAddress(Optional<Address> bankAddress) {
+            this.bankAddress = bankAddress;
+            return this;
+        }
+
+        public Builder bankAddress(Address bankAddress) {
+            this.bankAddress = Optional.ofNullable(bankAddress);
+            return this;
+        }
+
         @JsonSetter(value = "tags", nulls = Nulls.SKIP)
         public Builder tags(Optional<List<Tag>> tags) {
             this.tags = tags;
@@ -308,6 +383,9 @@ public final class CheckDetails {
                     etaTimestamp,
                     shippingAddress,
                     accountNumber,
+                    countryOfNationality,
+                    countryOfResidence,
+                    bankAddress,
                     tags,
                     additionalProperties);
         }

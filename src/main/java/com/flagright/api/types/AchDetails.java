@@ -33,6 +33,10 @@ public final class AchDetails {
 
     private final Optional<Address> bankAddress;
 
+    private final Optional<CountryCode> countryOfNationality;
+
+    private final Optional<CountryCode> countryOfResidence;
+
     private final Optional<String> beneficiaryName;
 
     private final Optional<String> emailId;
@@ -48,6 +52,8 @@ public final class AchDetails {
             Optional<String> bankName,
             Optional<String> name,
             Optional<Address> bankAddress,
+            Optional<CountryCode> countryOfNationality,
+            Optional<CountryCode> countryOfResidence,
             Optional<String> beneficiaryName,
             Optional<String> emailId,
             Optional<List<Tag>> tags,
@@ -58,6 +64,8 @@ public final class AchDetails {
         this.bankName = bankName;
         this.name = name;
         this.bankAddress = bankAddress;
+        this.countryOfNationality = countryOfNationality;
+        this.countryOfResidence = countryOfResidence;
         this.beneficiaryName = beneficiaryName;
         this.emailId = emailId;
         this.tags = tags;
@@ -106,6 +114,16 @@ public final class AchDetails {
         return bankAddress;
     }
 
+    @JsonProperty("countryOfNationality")
+    public Optional<CountryCode> getCountryOfNationality() {
+        return countryOfNationality;
+    }
+
+    @JsonProperty("countryOfResidence")
+    public Optional<CountryCode> getCountryOfResidence() {
+        return countryOfResidence;
+    }
+
     /**
      * @return Beneficiary name of the account
      */
@@ -145,6 +163,8 @@ public final class AchDetails {
                 && bankName.equals(other.bankName)
                 && name.equals(other.name)
                 && bankAddress.equals(other.bankAddress)
+                && countryOfNationality.equals(other.countryOfNationality)
+                && countryOfResidence.equals(other.countryOfResidence)
                 && beneficiaryName.equals(other.beneficiaryName)
                 && emailId.equals(other.emailId)
                 && tags.equals(other.tags);
@@ -159,6 +179,8 @@ public final class AchDetails {
                 this.bankName,
                 this.name,
                 this.bankAddress,
+                this.countryOfNationality,
+                this.countryOfResidence,
                 this.beneficiaryName,
                 this.emailId,
                 this.tags);
@@ -187,6 +209,10 @@ public final class AchDetails {
 
         private Optional<Address> bankAddress = Optional.empty();
 
+        private Optional<CountryCode> countryOfNationality = Optional.empty();
+
+        private Optional<CountryCode> countryOfResidence = Optional.empty();
+
         private Optional<String> beneficiaryName = Optional.empty();
 
         private Optional<String> emailId = Optional.empty();
@@ -205,6 +231,8 @@ public final class AchDetails {
             bankName(other.getBankName());
             name(other.getName());
             bankAddress(other.getBankAddress());
+            countryOfNationality(other.getCountryOfNationality());
+            countryOfResidence(other.getCountryOfResidence());
             beneficiaryName(other.getBeneficiaryName());
             emailId(other.getEmailId());
             tags(other.getTags());
@@ -277,6 +305,28 @@ public final class AchDetails {
             return this;
         }
 
+        @JsonSetter(value = "countryOfNationality", nulls = Nulls.SKIP)
+        public Builder countryOfNationality(Optional<CountryCode> countryOfNationality) {
+            this.countryOfNationality = countryOfNationality;
+            return this;
+        }
+
+        public Builder countryOfNationality(CountryCode countryOfNationality) {
+            this.countryOfNationality = Optional.ofNullable(countryOfNationality);
+            return this;
+        }
+
+        @JsonSetter(value = "countryOfResidence", nulls = Nulls.SKIP)
+        public Builder countryOfResidence(Optional<CountryCode> countryOfResidence) {
+            this.countryOfResidence = countryOfResidence;
+            return this;
+        }
+
+        public Builder countryOfResidence(CountryCode countryOfResidence) {
+            this.countryOfResidence = Optional.ofNullable(countryOfResidence);
+            return this;
+        }
+
         @JsonSetter(value = "beneficiaryName", nulls = Nulls.SKIP)
         public Builder beneficiaryName(Optional<String> beneficiaryName) {
             this.beneficiaryName = beneficiaryName;
@@ -318,6 +368,8 @@ public final class AchDetails {
                     bankName,
                     name,
                     bankAddress,
+                    countryOfNationality,
+                    countryOfResidence,
                     beneficiaryName,
                     emailId,
                     tags,

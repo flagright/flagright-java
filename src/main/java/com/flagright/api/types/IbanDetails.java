@@ -41,6 +41,10 @@ public final class IbanDetails {
 
     private final Optional<String> paymentChannel;
 
+    private final Optional<CountryCode> countryOfNationality;
+
+    private final Optional<CountryCode> countryOfResidence;
+
     private final Optional<List<Tag>> tags;
 
     private final Map<String, Object> additionalProperties;
@@ -56,6 +60,8 @@ public final class IbanDetails {
             Optional<String> emailId,
             Optional<String> bankBranchCode,
             Optional<String> paymentChannel,
+            Optional<CountryCode> countryOfNationality,
+            Optional<CountryCode> countryOfResidence,
             Optional<List<Tag>> tags,
             Map<String, Object> additionalProperties) {
         this.bic = bic;
@@ -68,6 +74,8 @@ public final class IbanDetails {
         this.emailId = emailId;
         this.bankBranchCode = bankBranchCode;
         this.paymentChannel = paymentChannel;
+        this.countryOfNationality = countryOfNationality;
+        this.countryOfResidence = countryOfResidence;
         this.tags = tags;
         this.additionalProperties = additionalProperties;
     }
@@ -137,6 +145,16 @@ public final class IbanDetails {
         return paymentChannel;
     }
 
+    @JsonProperty("countryOfNationality")
+    public Optional<CountryCode> getCountryOfNationality() {
+        return countryOfNationality;
+    }
+
+    @JsonProperty("countryOfResidence")
+    public Optional<CountryCode> getCountryOfResidence() {
+        return countryOfResidence;
+    }
+
     /**
      * @return Additional information that can be added via tags
      */
@@ -167,6 +185,8 @@ public final class IbanDetails {
                 && emailId.equals(other.emailId)
                 && bankBranchCode.equals(other.bankBranchCode)
                 && paymentChannel.equals(other.paymentChannel)
+                && countryOfNationality.equals(other.countryOfNationality)
+                && countryOfResidence.equals(other.countryOfResidence)
                 && tags.equals(other.tags);
     }
 
@@ -183,6 +203,8 @@ public final class IbanDetails {
                 this.emailId,
                 this.bankBranchCode,
                 this.paymentChannel,
+                this.countryOfNationality,
+                this.countryOfResidence,
                 this.tags);
     }
 
@@ -217,6 +239,10 @@ public final class IbanDetails {
 
         private Optional<String> paymentChannel = Optional.empty();
 
+        private Optional<CountryCode> countryOfNationality = Optional.empty();
+
+        private Optional<CountryCode> countryOfResidence = Optional.empty();
+
         private Optional<List<Tag>> tags = Optional.empty();
 
         @JsonAnySetter
@@ -235,6 +261,8 @@ public final class IbanDetails {
             emailId(other.getEmailId());
             bankBranchCode(other.getBankBranchCode());
             paymentChannel(other.getPaymentChannel());
+            countryOfNationality(other.getCountryOfNationality());
+            countryOfResidence(other.getCountryOfResidence());
             tags(other.getTags());
             return this;
         }
@@ -349,6 +377,28 @@ public final class IbanDetails {
             return this;
         }
 
+        @JsonSetter(value = "countryOfNationality", nulls = Nulls.SKIP)
+        public Builder countryOfNationality(Optional<CountryCode> countryOfNationality) {
+            this.countryOfNationality = countryOfNationality;
+            return this;
+        }
+
+        public Builder countryOfNationality(CountryCode countryOfNationality) {
+            this.countryOfNationality = Optional.ofNullable(countryOfNationality);
+            return this;
+        }
+
+        @JsonSetter(value = "countryOfResidence", nulls = Nulls.SKIP)
+        public Builder countryOfResidence(Optional<CountryCode> countryOfResidence) {
+            this.countryOfResidence = countryOfResidence;
+            return this;
+        }
+
+        public Builder countryOfResidence(CountryCode countryOfResidence) {
+            this.countryOfResidence = Optional.ofNullable(countryOfResidence);
+            return this;
+        }
+
         @JsonSetter(value = "tags", nulls = Nulls.SKIP)
         public Builder tags(Optional<List<Tag>> tags) {
             this.tags = tags;
@@ -372,6 +422,8 @@ public final class IbanDetails {
                     emailId,
                     bankBranchCode,
                     paymentChannel,
+                    countryOfNationality,
+                    countryOfResidence,
                     tags,
                     additionalProperties);
         }
