@@ -27,6 +27,8 @@ public final class IbanDetails {
 
     private final Optional<Address> bankAddress;
 
+    private final Optional<Address> address;
+
     private final Optional<CountryCode> country;
 
     private final Optional<String> iban;
@@ -53,6 +55,7 @@ public final class IbanDetails {
             Optional<String> bic,
             Optional<String> bankName,
             Optional<Address> bankAddress,
+            Optional<Address> address,
             Optional<CountryCode> country,
             Optional<String> iban,
             Optional<Amount> accountBalance,
@@ -67,6 +70,7 @@ public final class IbanDetails {
         this.bic = bic;
         this.bankName = bankName;
         this.bankAddress = bankAddress;
+        this.address = address;
         this.country = country;
         this.iban = iban;
         this.accountBalance = accountBalance;
@@ -99,6 +103,14 @@ public final class IbanDetails {
     @JsonProperty("bankAddress")
     public Optional<Address> getBankAddress() {
         return bankAddress;
+    }
+
+    /**
+     * @return Address of the account holder
+     */
+    @JsonProperty("address")
+    public Optional<Address> getAddress() {
+        return address;
     }
 
     @JsonProperty("country")
@@ -178,6 +190,7 @@ public final class IbanDetails {
         return bic.equals(other.bic)
                 && bankName.equals(other.bankName)
                 && bankAddress.equals(other.bankAddress)
+                && address.equals(other.address)
                 && country.equals(other.country)
                 && iban.equals(other.iban)
                 && accountBalance.equals(other.accountBalance)
@@ -196,6 +209,7 @@ public final class IbanDetails {
                 this.bic,
                 this.bankName,
                 this.bankAddress,
+                this.address,
                 this.country,
                 this.iban,
                 this.accountBalance,
@@ -224,6 +238,8 @@ public final class IbanDetails {
         private Optional<String> bankName = Optional.empty();
 
         private Optional<Address> bankAddress = Optional.empty();
+
+        private Optional<Address> address = Optional.empty();
 
         private Optional<CountryCode> country = Optional.empty();
 
@@ -254,6 +270,7 @@ public final class IbanDetails {
             bic(other.getBic());
             bankName(other.getBankName());
             bankAddress(other.getBankAddress());
+            address(other.getAddress());
             country(other.getCountry());
             iban(other.getIban());
             accountBalance(other.getAccountBalance());
@@ -297,6 +314,17 @@ public final class IbanDetails {
 
         public Builder bankAddress(Address bankAddress) {
             this.bankAddress = Optional.ofNullable(bankAddress);
+            return this;
+        }
+
+        @JsonSetter(value = "address", nulls = Nulls.SKIP)
+        public Builder address(Optional<Address> address) {
+            this.address = address;
+            return this;
+        }
+
+        public Builder address(Address address) {
+            this.address = Optional.ofNullable(address);
             return this;
         }
 
@@ -415,6 +443,7 @@ public final class IbanDetails {
                     bic,
                     bankName,
                     bankAddress,
+                    address,
                     country,
                     iban,
                     accountBalance,

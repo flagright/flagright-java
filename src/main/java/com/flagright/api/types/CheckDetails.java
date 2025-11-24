@@ -35,7 +35,11 @@ public final class CheckDetails {
 
     private final Optional<Address> shippingAddress;
 
+    private final Optional<Address> address;
+
     private final Optional<String> accountNumber;
+
+    private final Optional<String> emailId;
 
     private final Optional<CountryCode> countryOfNationality;
 
@@ -55,7 +59,9 @@ public final class CheckDetails {
             Optional<CheckDeliveryStatus> deliveryStatus,
             Optional<Double> etaTimestamp,
             Optional<Address> shippingAddress,
+            Optional<Address> address,
             Optional<String> accountNumber,
+            Optional<String> emailId,
             Optional<CountryCode> countryOfNationality,
             Optional<CountryCode> countryOfResidence,
             Optional<Address> bankAddress,
@@ -68,7 +74,9 @@ public final class CheckDetails {
         this.deliveryStatus = deliveryStatus;
         this.etaTimestamp = etaTimestamp;
         this.shippingAddress = shippingAddress;
+        this.address = address;
         this.accountNumber = accountNumber;
+        this.emailId = emailId;
         this.countryOfNationality = countryOfNationality;
         this.countryOfResidence = countryOfResidence;
         this.bankAddress = bankAddress;
@@ -114,9 +122,25 @@ public final class CheckDetails {
         return shippingAddress;
     }
 
+    /**
+     * @return Address of the account holder
+     */
+    @JsonProperty("address")
+    public Optional<Address> getAddress() {
+        return address;
+    }
+
     @JsonProperty("accountNumber")
     public Optional<String> getAccountNumber() {
         return accountNumber;
+    }
+
+    /**
+     * @return Email ID of the account holder
+     */
+    @JsonProperty("emailId")
+    public Optional<String> getEmailId() {
+        return emailId;
     }
 
     @JsonProperty("countryOfNationality")
@@ -161,7 +185,9 @@ public final class CheckDetails {
                 && deliveryStatus.equals(other.deliveryStatus)
                 && etaTimestamp.equals(other.etaTimestamp)
                 && shippingAddress.equals(other.shippingAddress)
+                && address.equals(other.address)
                 && accountNumber.equals(other.accountNumber)
+                && emailId.equals(other.emailId)
                 && countryOfNationality.equals(other.countryOfNationality)
                 && countryOfResidence.equals(other.countryOfResidence)
                 && bankAddress.equals(other.bankAddress)
@@ -178,7 +204,9 @@ public final class CheckDetails {
                 this.deliveryStatus,
                 this.etaTimestamp,
                 this.shippingAddress,
+                this.address,
                 this.accountNumber,
+                this.emailId,
                 this.countryOfNationality,
                 this.countryOfResidence,
                 this.bankAddress,
@@ -210,7 +238,11 @@ public final class CheckDetails {
 
         private Optional<Address> shippingAddress = Optional.empty();
 
+        private Optional<Address> address = Optional.empty();
+
         private Optional<String> accountNumber = Optional.empty();
+
+        private Optional<String> emailId = Optional.empty();
 
         private Optional<CountryCode> countryOfNationality = Optional.empty();
 
@@ -233,7 +265,9 @@ public final class CheckDetails {
             deliveryStatus(other.getDeliveryStatus());
             etaTimestamp(other.getEtaTimestamp());
             shippingAddress(other.getShippingAddress());
+            address(other.getAddress());
             accountNumber(other.getAccountNumber());
+            emailId(other.getEmailId());
             countryOfNationality(other.getCountryOfNationality());
             countryOfResidence(other.getCountryOfResidence());
             bankAddress(other.getBankAddress());
@@ -318,6 +352,17 @@ public final class CheckDetails {
             return this;
         }
 
+        @JsonSetter(value = "address", nulls = Nulls.SKIP)
+        public Builder address(Optional<Address> address) {
+            this.address = address;
+            return this;
+        }
+
+        public Builder address(Address address) {
+            this.address = Optional.ofNullable(address);
+            return this;
+        }
+
         @JsonSetter(value = "accountNumber", nulls = Nulls.SKIP)
         public Builder accountNumber(Optional<String> accountNumber) {
             this.accountNumber = accountNumber;
@@ -326,6 +371,17 @@ public final class CheckDetails {
 
         public Builder accountNumber(String accountNumber) {
             this.accountNumber = Optional.ofNullable(accountNumber);
+            return this;
+        }
+
+        @JsonSetter(value = "emailId", nulls = Nulls.SKIP)
+        public Builder emailId(Optional<String> emailId) {
+            this.emailId = emailId;
+            return this;
+        }
+
+        public Builder emailId(String emailId) {
+            this.emailId = Optional.ofNullable(emailId);
             return this;
         }
 
@@ -382,7 +438,9 @@ public final class CheckDetails {
                     deliveryStatus,
                     etaTimestamp,
                     shippingAddress,
+                    address,
                     accountNumber,
+                    emailId,
                     countryOfNationality,
                     countryOfResidence,
                     bankAddress,

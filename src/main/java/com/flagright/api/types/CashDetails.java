@@ -26,16 +26,20 @@ public final class CashDetails {
 
     private final Optional<String> name;
 
+    private final Optional<String> emailId;
+
     private final Map<String, Object> additionalProperties;
 
     private CashDetails(
             Optional<String> identifier,
             Optional<Address> address,
             Optional<String> name,
+            Optional<String> emailId,
             Map<String, Object> additionalProperties) {
         this.identifier = identifier;
         this.address = address;
         this.name = name;
+        this.emailId = emailId;
         this.additionalProperties = additionalProperties;
     }
 
@@ -57,6 +61,11 @@ public final class CashDetails {
         return name;
     }
 
+    @JsonProperty("emailId")
+    public Optional<String> getEmailId() {
+        return emailId;
+    }
+
     @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
@@ -69,12 +78,15 @@ public final class CashDetails {
     }
 
     private boolean equalTo(CashDetails other) {
-        return identifier.equals(other.identifier) && address.equals(other.address) && name.equals(other.name);
+        return identifier.equals(other.identifier)
+                && address.equals(other.address)
+                && name.equals(other.name)
+                && emailId.equals(other.emailId);
     }
 
     @java.lang.Override
     public int hashCode() {
-        return Objects.hash(this.identifier, this.address, this.name);
+        return Objects.hash(this.identifier, this.address, this.name, this.emailId);
     }
 
     @java.lang.Override
@@ -94,6 +106,8 @@ public final class CashDetails {
 
         private Optional<String> name = Optional.empty();
 
+        private Optional<String> emailId = Optional.empty();
+
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
 
@@ -103,6 +117,7 @@ public final class CashDetails {
             identifier(other.getIdentifier());
             address(other.getAddress());
             name(other.getName());
+            emailId(other.getEmailId());
             return this;
         }
 
@@ -139,8 +154,19 @@ public final class CashDetails {
             return this;
         }
 
+        @JsonSetter(value = "emailId", nulls = Nulls.SKIP)
+        public Builder emailId(Optional<String> emailId) {
+            this.emailId = emailId;
+            return this;
+        }
+
+        public Builder emailId(String emailId) {
+            this.emailId = Optional.ofNullable(emailId);
+            return this;
+        }
+
         public CashDetails build() {
-            return new CashDetails(identifier, address, name, additionalProperties);
+            return new CashDetails(identifier, address, name, emailId, additionalProperties);
         }
     }
 }

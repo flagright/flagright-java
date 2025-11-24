@@ -33,6 +33,8 @@ public final class AchDetails {
 
     private final Optional<Address> bankAddress;
 
+    private final Optional<Address> address;
+
     private final Optional<CountryCode> countryOfNationality;
 
     private final Optional<CountryCode> countryOfResidence;
@@ -52,6 +54,7 @@ public final class AchDetails {
             Optional<String> bankName,
             Optional<String> name,
             Optional<Address> bankAddress,
+            Optional<Address> address,
             Optional<CountryCode> countryOfNationality,
             Optional<CountryCode> countryOfResidence,
             Optional<String> beneficiaryName,
@@ -64,6 +67,7 @@ public final class AchDetails {
         this.bankName = bankName;
         this.name = name;
         this.bankAddress = bankAddress;
+        this.address = address;
         this.countryOfNationality = countryOfNationality;
         this.countryOfResidence = countryOfResidence;
         this.beneficiaryName = beneficiaryName;
@@ -112,6 +116,14 @@ public final class AchDetails {
     @JsonProperty("bankAddress")
     public Optional<Address> getBankAddress() {
         return bankAddress;
+    }
+
+    /**
+     * @return Address of the account holder
+     */
+    @JsonProperty("address")
+    public Optional<Address> getAddress() {
+        return address;
     }
 
     @JsonProperty("countryOfNationality")
@@ -163,6 +175,7 @@ public final class AchDetails {
                 && bankName.equals(other.bankName)
                 && name.equals(other.name)
                 && bankAddress.equals(other.bankAddress)
+                && address.equals(other.address)
                 && countryOfNationality.equals(other.countryOfNationality)
                 && countryOfResidence.equals(other.countryOfResidence)
                 && beneficiaryName.equals(other.beneficiaryName)
@@ -179,6 +192,7 @@ public final class AchDetails {
                 this.bankName,
                 this.name,
                 this.bankAddress,
+                this.address,
                 this.countryOfNationality,
                 this.countryOfResidence,
                 this.beneficiaryName,
@@ -209,6 +223,8 @@ public final class AchDetails {
 
         private Optional<Address> bankAddress = Optional.empty();
 
+        private Optional<Address> address = Optional.empty();
+
         private Optional<CountryCode> countryOfNationality = Optional.empty();
 
         private Optional<CountryCode> countryOfResidence = Optional.empty();
@@ -231,6 +247,7 @@ public final class AchDetails {
             bankName(other.getBankName());
             name(other.getName());
             bankAddress(other.getBankAddress());
+            address(other.getAddress());
             countryOfNationality(other.getCountryOfNationality());
             countryOfResidence(other.getCountryOfResidence());
             beneficiaryName(other.getBeneficiaryName());
@@ -305,6 +322,17 @@ public final class AchDetails {
             return this;
         }
 
+        @JsonSetter(value = "address", nulls = Nulls.SKIP)
+        public Builder address(Optional<Address> address) {
+            this.address = address;
+            return this;
+        }
+
+        public Builder address(Address address) {
+            this.address = Optional.ofNullable(address);
+            return this;
+        }
+
         @JsonSetter(value = "countryOfNationality", nulls = Nulls.SKIP)
         public Builder countryOfNationality(Optional<CountryCode> countryOfNationality) {
             this.countryOfNationality = countryOfNationality;
@@ -368,6 +396,7 @@ public final class AchDetails {
                     bankName,
                     name,
                     bankAddress,
+                    address,
                     countryOfNationality,
                     countryOfResidence,
                     beneficiaryName,
