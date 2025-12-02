@@ -34,6 +34,8 @@ public final class BatchBusinessUserWithRulesResult {
 
     private final Optional<KycStatusDetails> kycStatusDetails;
 
+    private final Optional<List<CorporateEntityDetails>> corporateEntities;
+
     private final Optional<List<BatchBusinessUserWithRulesResultShareHoldersItem>> shareHolders;
 
     private final Optional<List<Person>> directors;
@@ -87,6 +89,7 @@ public final class BatchBusinessUserWithRulesResult {
             Optional<Double> activatedTimestamp,
             Optional<UserStateDetails> userStateDetails,
             Optional<KycStatusDetails> kycStatusDetails,
+            Optional<List<CorporateEntityDetails>> corporateEntities,
             Optional<List<BatchBusinessUserWithRulesResultShareHoldersItem>> shareHolders,
             Optional<List<Person>> directors,
             Optional<TransactionLimits> transactionLimits,
@@ -116,6 +119,7 @@ public final class BatchBusinessUserWithRulesResult {
         this.activatedTimestamp = activatedTimestamp;
         this.userStateDetails = userStateDetails;
         this.kycStatusDetails = kycStatusDetails;
+        this.corporateEntities = corporateEntities;
         this.shareHolders = shareHolders;
         this.directors = directors;
         this.transactionLimits = transactionLimits;
@@ -178,6 +182,14 @@ public final class BatchBusinessUserWithRulesResult {
     @JsonProperty("kycStatusDetails")
     public Optional<KycStatusDetails> getKycStatusDetails() {
         return kycStatusDetails;
+    }
+
+    /**
+     * @return Corporate entities of the user
+     */
+    @JsonProperty("corporateEntities")
+    public Optional<List<CorporateEntityDetails>> getCorporateEntities() {
+        return corporateEntities;
     }
 
     /**
@@ -332,6 +344,7 @@ public final class BatchBusinessUserWithRulesResult {
                 && activatedTimestamp.equals(other.activatedTimestamp)
                 && userStateDetails.equals(other.userStateDetails)
                 && kycStatusDetails.equals(other.kycStatusDetails)
+                && corporateEntities.equals(other.corporateEntities)
                 && shareHolders.equals(other.shareHolders)
                 && directors.equals(other.directors)
                 && transactionLimits.equals(other.transactionLimits)
@@ -365,6 +378,7 @@ public final class BatchBusinessUserWithRulesResult {
                 this.activatedTimestamp,
                 this.userStateDetails,
                 this.kycStatusDetails,
+                this.corporateEntities,
                 this.shareHolders,
                 this.directors,
                 this.transactionLimits,
@@ -426,6 +440,10 @@ public final class BatchBusinessUserWithRulesResult {
         _FinalStage kycStatusDetails(Optional<KycStatusDetails> kycStatusDetails);
 
         _FinalStage kycStatusDetails(KycStatusDetails kycStatusDetails);
+
+        _FinalStage corporateEntities(Optional<List<CorporateEntityDetails>> corporateEntities);
+
+        _FinalStage corporateEntities(List<CorporateEntityDetails> corporateEntities);
 
         _FinalStage shareHolders(Optional<List<BatchBusinessUserWithRulesResultShareHoldersItem>> shareHolders);
 
@@ -571,6 +589,8 @@ public final class BatchBusinessUserWithRulesResult {
 
         private Optional<List<BatchBusinessUserWithRulesResultShareHoldersItem>> shareHolders = Optional.empty();
 
+        private Optional<List<CorporateEntityDetails>> corporateEntities = Optional.empty();
+
         private Optional<KycStatusDetails> kycStatusDetails = Optional.empty();
 
         private Optional<UserStateDetails> userStateDetails = Optional.empty();
@@ -590,6 +610,7 @@ public final class BatchBusinessUserWithRulesResult {
             activatedTimestamp(other.getActivatedTimestamp());
             userStateDetails(other.getUserStateDetails());
             kycStatusDetails(other.getKycStatusDetails());
+            corporateEntities(other.getCorporateEntities());
             shareHolders(other.getShareHolders());
             directors(other.getDirectors());
             transactionLimits(other.getTransactionLimits());
@@ -964,6 +985,23 @@ public final class BatchBusinessUserWithRulesResult {
             return this;
         }
 
+        /**
+         * <p>Corporate entities of the user</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
+        @java.lang.Override
+        public _FinalStage corporateEntities(List<CorporateEntityDetails> corporateEntities) {
+            this.corporateEntities = Optional.ofNullable(corporateEntities);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "corporateEntities", nulls = Nulls.SKIP)
+        public _FinalStage corporateEntities(Optional<List<CorporateEntityDetails>> corporateEntities) {
+            this.corporateEntities = corporateEntities;
+            return this;
+        }
+
         @java.lang.Override
         public _FinalStage kycStatusDetails(KycStatusDetails kycStatusDetails) {
             this.kycStatusDetails = Optional.ofNullable(kycStatusDetails);
@@ -1016,6 +1054,7 @@ public final class BatchBusinessUserWithRulesResult {
                     activatedTimestamp,
                     userStateDetails,
                     kycStatusDetails,
+                    corporateEntities,
                     shareHolders,
                     directors,
                     transactionLimits,

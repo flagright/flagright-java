@@ -65,6 +65,8 @@ public final class UserOptional {
 
     private final Optional<Double> lastTransactionTimestamp;
 
+    private final Optional<List<CorporateEntityDetails>> corporateEntities;
+
     private final Optional<UserEntityLink> linkedEntities;
 
     private final Optional<List<UserOptionalSavedPaymentDetailsItem>> savedPaymentDetails;
@@ -106,6 +108,7 @@ public final class UserOptional {
             Optional<Boolean> sanctionsStatus,
             Optional<Boolean> adverseMediaStatus,
             Optional<Double> lastTransactionTimestamp,
+            Optional<List<CorporateEntityDetails>> corporateEntities,
             Optional<UserEntityLink> linkedEntities,
             Optional<List<UserOptionalSavedPaymentDetailsItem>> savedPaymentDetails,
             Optional<List<UserTag>> tags,
@@ -137,6 +140,7 @@ public final class UserOptional {
         this.sanctionsStatus = sanctionsStatus;
         this.adverseMediaStatus = adverseMediaStatus;
         this.lastTransactionTimestamp = lastTransactionTimestamp;
+        this.corporateEntities = corporateEntities;
         this.linkedEntities = linkedEntities;
         this.savedPaymentDetails = savedPaymentDetails;
         this.tags = tags;
@@ -267,6 +271,14 @@ public final class UserOptional {
         return lastTransactionTimestamp;
     }
 
+    /**
+     * @return Corporate entities of the user
+     */
+    @JsonProperty("corporateEntities")
+    public Optional<List<CorporateEntityDetails>> getCorporateEntities() {
+        return corporateEntities;
+    }
+
     @JsonProperty("linkedEntities")
     public Optional<UserEntityLink> getLinkedEntities() {
         return linkedEntities;
@@ -350,6 +362,7 @@ public final class UserOptional {
                 && sanctionsStatus.equals(other.sanctionsStatus)
                 && adverseMediaStatus.equals(other.adverseMediaStatus)
                 && lastTransactionTimestamp.equals(other.lastTransactionTimestamp)
+                && corporateEntities.equals(other.corporateEntities)
                 && linkedEntities.equals(other.linkedEntities)
                 && savedPaymentDetails.equals(other.savedPaymentDetails)
                 && tags.equals(other.tags)
@@ -385,6 +398,7 @@ public final class UserOptional {
                 this.sanctionsStatus,
                 this.adverseMediaStatus,
                 this.lastTransactionTimestamp,
+                this.corporateEntities,
                 this.linkedEntities,
                 this.savedPaymentDetails,
                 this.tags,
@@ -450,6 +464,8 @@ public final class UserOptional {
 
         private Optional<Double> lastTransactionTimestamp = Optional.empty();
 
+        private Optional<List<CorporateEntityDetails>> corporateEntities = Optional.empty();
+
         private Optional<UserEntityLink> linkedEntities = Optional.empty();
 
         private Optional<List<UserOptionalSavedPaymentDetailsItem>> savedPaymentDetails = Optional.empty();
@@ -494,6 +510,7 @@ public final class UserOptional {
             sanctionsStatus(other.getSanctionsStatus());
             adverseMediaStatus(other.getAdverseMediaStatus());
             lastTransactionTimestamp(other.getLastTransactionTimestamp());
+            corporateEntities(other.getCorporateEntities());
             linkedEntities(other.getLinkedEntities());
             savedPaymentDetails(other.getSavedPaymentDetails());
             tags(other.getTags());
@@ -747,6 +764,17 @@ public final class UserOptional {
             return this;
         }
 
+        @JsonSetter(value = "corporateEntities", nulls = Nulls.SKIP)
+        public Builder corporateEntities(Optional<List<CorporateEntityDetails>> corporateEntities) {
+            this.corporateEntities = corporateEntities;
+            return this;
+        }
+
+        public Builder corporateEntities(List<CorporateEntityDetails> corporateEntities) {
+            this.corporateEntities = Optional.ofNullable(corporateEntities);
+            return this;
+        }
+
         @JsonSetter(value = "linkedEntities", nulls = Nulls.SKIP)
         public Builder linkedEntities(Optional<UserEntityLink> linkedEntities) {
             this.linkedEntities = linkedEntities;
@@ -859,6 +887,7 @@ public final class UserOptional {
                     sanctionsStatus,
                     adverseMediaStatus,
                     lastTransactionTimestamp,
+                    corporateEntities,
                     linkedEntities,
                     savedPaymentDetails,
                     tags,

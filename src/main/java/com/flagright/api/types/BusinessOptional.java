@@ -29,6 +29,8 @@ public final class BusinessOptional {
 
     private final Optional<LegalEntity> legalEntity;
 
+    private final Optional<List<CorporateEntityDetails>> corporateEntities;
+
     private final Optional<List<BusinessOptionalShareHoldersItem>> shareHolders;
 
     private final Optional<List<Person>> directors;
@@ -76,6 +78,7 @@ public final class BusinessOptional {
             Optional<UserStateDetails> userStateDetails,
             Optional<KycStatusDetails> kycStatusDetails,
             Optional<LegalEntity> legalEntity,
+            Optional<List<CorporateEntityDetails>> corporateEntities,
             Optional<List<BusinessOptionalShareHoldersItem>> shareHolders,
             Optional<List<Person>> directors,
             Optional<TransactionLimits> transactionLimits,
@@ -101,6 +104,7 @@ public final class BusinessOptional {
         this.userStateDetails = userStateDetails;
         this.kycStatusDetails = kycStatusDetails;
         this.legalEntity = legalEntity;
+        this.corporateEntities = corporateEntities;
         this.shareHolders = shareHolders;
         this.directors = directors;
         this.transactionLimits = transactionLimits;
@@ -145,6 +149,14 @@ public final class BusinessOptional {
     @JsonProperty("legalEntity")
     public Optional<LegalEntity> getLegalEntity() {
         return legalEntity;
+    }
+
+    /**
+     * @return Corporate entities of the user
+     */
+    @JsonProperty("corporateEntities")
+    public Optional<List<CorporateEntityDetails>> getCorporateEntities() {
+        return corporateEntities;
     }
 
     /**
@@ -287,6 +299,7 @@ public final class BusinessOptional {
                 && userStateDetails.equals(other.userStateDetails)
                 && kycStatusDetails.equals(other.kycStatusDetails)
                 && legalEntity.equals(other.legalEntity)
+                && corporateEntities.equals(other.corporateEntities)
                 && shareHolders.equals(other.shareHolders)
                 && directors.equals(other.directors)
                 && transactionLimits.equals(other.transactionLimits)
@@ -316,6 +329,7 @@ public final class BusinessOptional {
                 this.userStateDetails,
                 this.kycStatusDetails,
                 this.legalEntity,
+                this.corporateEntities,
                 this.shareHolders,
                 this.directors,
                 this.transactionLimits,
@@ -356,6 +370,8 @@ public final class BusinessOptional {
         private Optional<KycStatusDetails> kycStatusDetails = Optional.empty();
 
         private Optional<LegalEntity> legalEntity = Optional.empty();
+
+        private Optional<List<CorporateEntityDetails>> corporateEntities = Optional.empty();
 
         private Optional<List<BusinessOptionalShareHoldersItem>> shareHolders = Optional.empty();
 
@@ -407,6 +423,7 @@ public final class BusinessOptional {
             userStateDetails(other.getUserStateDetails());
             kycStatusDetails(other.getKycStatusDetails());
             legalEntity(other.getLegalEntity());
+            corporateEntities(other.getCorporateEntities());
             shareHolders(other.getShareHolders());
             directors(other.getDirectors());
             transactionLimits(other.getTransactionLimits());
@@ -471,6 +488,17 @@ public final class BusinessOptional {
 
         public Builder legalEntity(LegalEntity legalEntity) {
             this.legalEntity = Optional.ofNullable(legalEntity);
+            return this;
+        }
+
+        @JsonSetter(value = "corporateEntities", nulls = Nulls.SKIP)
+        public Builder corporateEntities(Optional<List<CorporateEntityDetails>> corporateEntities) {
+            this.corporateEntities = corporateEntities;
+            return this;
+        }
+
+        public Builder corporateEntities(List<CorporateEntityDetails> corporateEntities) {
+            this.corporateEntities = Optional.ofNullable(corporateEntities);
             return this;
         }
 
@@ -701,6 +729,7 @@ public final class BusinessOptional {
                     userStateDetails,
                     kycStatusDetails,
                     legalEntity,
+                    corporateEntities,
                     shareHolders,
                     directors,
                     transactionLimits,

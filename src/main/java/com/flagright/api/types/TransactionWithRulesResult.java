@@ -45,6 +45,8 @@ public final class TransactionWithRulesResult {
 
     private final Optional<OriginFundsInfo> originFundsInfo;
 
+    private final Optional<CorporateEntityDetails> originCorporateEntity;
+
     private final Optional<List<String>> relatedTransactionIds;
 
     private final Optional<String> productType;
@@ -87,6 +89,7 @@ public final class TransactionWithRulesResult {
             Optional<TransactionWithRulesResultOriginPaymentDetails> originPaymentDetails,
             Optional<TransactionWithRulesResultDestinationPaymentDetails> destinationPaymentDetails,
             Optional<OriginFundsInfo> originFundsInfo,
+            Optional<CorporateEntityDetails> originCorporateEntity,
             Optional<List<String>> relatedTransactionIds,
             Optional<String> productType,
             Optional<Boolean> promotionCodeUsed,
@@ -113,6 +116,7 @@ public final class TransactionWithRulesResult {
         this.originPaymentDetails = originPaymentDetails;
         this.destinationPaymentDetails = destinationPaymentDetails;
         this.originFundsInfo = originFundsInfo;
+        this.originCorporateEntity = originCorporateEntity;
         this.relatedTransactionIds = relatedTransactionIds;
         this.productType = productType;
         this.promotionCodeUsed = promotionCodeUsed;
@@ -201,6 +205,11 @@ public final class TransactionWithRulesResult {
     @JsonProperty("originFundsInfo")
     public Optional<OriginFundsInfo> getOriginFundsInfo() {
         return originFundsInfo;
+    }
+
+    @JsonProperty("originCorporateEntity")
+    public Optional<CorporateEntityDetails> getOriginCorporateEntity() {
+        return originCorporateEntity;
     }
 
     /**
@@ -314,6 +323,7 @@ public final class TransactionWithRulesResult {
                 && originPaymentDetails.equals(other.originPaymentDetails)
                 && destinationPaymentDetails.equals(other.destinationPaymentDetails)
                 && originFundsInfo.equals(other.originFundsInfo)
+                && originCorporateEntity.equals(other.originCorporateEntity)
                 && relatedTransactionIds.equals(other.relatedTransactionIds)
                 && productType.equals(other.productType)
                 && promotionCodeUsed.equals(other.promotionCodeUsed)
@@ -344,6 +354,7 @@ public final class TransactionWithRulesResult {
                 this.originPaymentDetails,
                 this.destinationPaymentDetails,
                 this.originFundsInfo,
+                this.originCorporateEntity,
                 this.relatedTransactionIds,
                 this.productType,
                 this.promotionCodeUsed,
@@ -423,6 +434,10 @@ public final class TransactionWithRulesResult {
         _FinalStage originFundsInfo(Optional<OriginFundsInfo> originFundsInfo);
 
         _FinalStage originFundsInfo(OriginFundsInfo originFundsInfo);
+
+        _FinalStage originCorporateEntity(Optional<CorporateEntityDetails> originCorporateEntity);
+
+        _FinalStage originCorporateEntity(CorporateEntityDetails originCorporateEntity);
 
         _FinalStage relatedTransactionIds(Optional<List<String>> relatedTransactionIds);
 
@@ -518,6 +533,8 @@ public final class TransactionWithRulesResult {
 
         private Optional<List<String>> relatedTransactionIds = Optional.empty();
 
+        private Optional<CorporateEntityDetails> originCorporateEntity = Optional.empty();
+
         private Optional<OriginFundsInfo> originFundsInfo = Optional.empty();
 
         private Optional<TransactionWithRulesResultDestinationPaymentDetails> destinationPaymentDetails =
@@ -553,6 +570,7 @@ public final class TransactionWithRulesResult {
             originPaymentDetails(other.getOriginPaymentDetails());
             destinationPaymentDetails(other.getDestinationPaymentDetails());
             originFundsInfo(other.getOriginFundsInfo());
+            originCorporateEntity(other.getOriginCorporateEntity());
             relatedTransactionIds(other.getRelatedTransactionIds());
             productType(other.getProductType());
             promotionCodeUsed(other.getPromotionCodeUsed());
@@ -818,6 +836,19 @@ public final class TransactionWithRulesResult {
         }
 
         @java.lang.Override
+        public _FinalStage originCorporateEntity(CorporateEntityDetails originCorporateEntity) {
+            this.originCorporateEntity = Optional.ofNullable(originCorporateEntity);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "originCorporateEntity", nulls = Nulls.SKIP)
+        public _FinalStage originCorporateEntity(Optional<CorporateEntityDetails> originCorporateEntity) {
+            this.originCorporateEntity = originCorporateEntity;
+            return this;
+        }
+
+        @java.lang.Override
         public _FinalStage originFundsInfo(OriginFundsInfo originFundsInfo) {
             this.originFundsInfo = Optional.ofNullable(originFundsInfo);
             return this;
@@ -950,6 +981,7 @@ public final class TransactionWithRulesResult {
                     originPaymentDetails,
                     destinationPaymentDetails,
                     originFundsInfo,
+                    originCorporateEntity,
                     relatedTransactionIds,
                     productType,
                     promotionCodeUsed,

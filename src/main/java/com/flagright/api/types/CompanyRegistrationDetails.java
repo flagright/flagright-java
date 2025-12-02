@@ -17,14 +17,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
-import org.jetbrains.annotations.NotNull;
 
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
 @JsonDeserialize(builder = CompanyRegistrationDetails.Builder.class)
 public final class CompanyRegistrationDetails {
-    private final String registrationIdentifier;
+    private final Optional<String> registrationIdentifier;
 
-    private final CountryCode registrationCountry;
+    private final Optional<CountryCode> registrationCountry;
 
     private final Optional<CountryCode> taxResidenceCountry;
 
@@ -39,8 +38,8 @@ public final class CompanyRegistrationDetails {
     private final Map<String, Object> additionalProperties;
 
     private CompanyRegistrationDetails(
-            String registrationIdentifier,
-            CountryCode registrationCountry,
+            Optional<String> registrationIdentifier,
+            Optional<CountryCode> registrationCountry,
             Optional<CountryCode> taxResidenceCountry,
             Optional<String> taxIdentifier,
             Optional<String> legalEntityType,
@@ -61,12 +60,12 @@ public final class CompanyRegistrationDetails {
      * @return Commercial registry registration number for the company in its registration country
      */
     @JsonProperty("registrationIdentifier")
-    public String getRegistrationIdentifier() {
+    public Optional<String> getRegistrationIdentifier() {
         return registrationIdentifier;
     }
 
     @JsonProperty("registrationCountry")
-    public CountryCode getRegistrationCountry() {
+    public Optional<CountryCode> getRegistrationCountry() {
         return registrationCountry;
     }
 
@@ -142,66 +141,31 @@ public final class CompanyRegistrationDetails {
         return ObjectMappers.stringify(this);
     }
 
-    public static RegistrationIdentifierStage builder() {
+    public static Builder builder() {
         return new Builder();
     }
 
-    public interface RegistrationIdentifierStage {
-        RegistrationCountryStage registrationIdentifier(@NotNull String registrationIdentifier);
-
-        Builder from(CompanyRegistrationDetails other);
-    }
-
-    public interface RegistrationCountryStage {
-        _FinalStage registrationCountry(@NotNull CountryCode registrationCountry);
-    }
-
-    public interface _FinalStage {
-        CompanyRegistrationDetails build();
-
-        _FinalStage taxResidenceCountry(Optional<CountryCode> taxResidenceCountry);
-
-        _FinalStage taxResidenceCountry(CountryCode taxResidenceCountry);
-
-        _FinalStage taxIdentifier(Optional<String> taxIdentifier);
-
-        _FinalStage taxIdentifier(String taxIdentifier);
-
-        _FinalStage legalEntityType(Optional<String> legalEntityType);
-
-        _FinalStage legalEntityType(String legalEntityType);
-
-        _FinalStage dateOfRegistration(Optional<String> dateOfRegistration);
-
-        _FinalStage dateOfRegistration(String dateOfRegistration);
-
-        _FinalStage tags(Optional<List<Tag>> tags);
-
-        _FinalStage tags(List<Tag> tags);
-    }
-
     @JsonIgnoreProperties(ignoreUnknown = true)
-    public static final class Builder implements RegistrationIdentifierStage, RegistrationCountryStage, _FinalStage {
-        private String registrationIdentifier;
+    public static final class Builder {
+        private Optional<String> registrationIdentifier = Optional.empty();
 
-        private CountryCode registrationCountry;
+        private Optional<CountryCode> registrationCountry = Optional.empty();
 
-        private Optional<List<Tag>> tags = Optional.empty();
-
-        private Optional<String> dateOfRegistration = Optional.empty();
-
-        private Optional<String> legalEntityType = Optional.empty();
+        private Optional<CountryCode> taxResidenceCountry = Optional.empty();
 
         private Optional<String> taxIdentifier = Optional.empty();
 
-        private Optional<CountryCode> taxResidenceCountry = Optional.empty();
+        private Optional<String> legalEntityType = Optional.empty();
+
+        private Optional<String> dateOfRegistration = Optional.empty();
+
+        private Optional<List<Tag>> tags = Optional.empty();
 
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
 
         private Builder() {}
 
-        @java.lang.Override
         public Builder from(CompanyRegistrationDetails other) {
             registrationIdentifier(other.getRegistrationIdentifier());
             registrationCountry(other.getRegistrationCountry());
@@ -213,104 +177,83 @@ public final class CompanyRegistrationDetails {
             return this;
         }
 
-        /**
-         * <p>Commercial registry registration number for the company in its registration country</p>
-         * @return Reference to {@code this} so that method calls can be chained together.
-         */
-        @java.lang.Override
-        @JsonSetter("registrationIdentifier")
-        public RegistrationCountryStage registrationIdentifier(@NotNull String registrationIdentifier) {
-            this.registrationIdentifier =
-                    Objects.requireNonNull(registrationIdentifier, "registrationIdentifier must not be null");
+        @JsonSetter(value = "registrationIdentifier", nulls = Nulls.SKIP)
+        public Builder registrationIdentifier(Optional<String> registrationIdentifier) {
+            this.registrationIdentifier = registrationIdentifier;
             return this;
         }
 
-        @java.lang.Override
-        @JsonSetter("registrationCountry")
-        public _FinalStage registrationCountry(@NotNull CountryCode registrationCountry) {
-            this.registrationCountry =
-                    Objects.requireNonNull(registrationCountry, "registrationCountry must not be null");
+        public Builder registrationIdentifier(String registrationIdentifier) {
+            this.registrationIdentifier = Optional.ofNullable(registrationIdentifier);
             return this;
         }
 
-        /**
-         * <p>Additional information that can be added via tags</p>
-         * @return Reference to {@code this} so that method calls can be chained together.
-         */
-        @java.lang.Override
-        public _FinalStage tags(List<Tag> tags) {
-            this.tags = Optional.ofNullable(tags);
+        @JsonSetter(value = "registrationCountry", nulls = Nulls.SKIP)
+        public Builder registrationCountry(Optional<CountryCode> registrationCountry) {
+            this.registrationCountry = registrationCountry;
             return this;
         }
 
-        @java.lang.Override
-        @JsonSetter(value = "tags", nulls = Nulls.SKIP)
-        public _FinalStage tags(Optional<List<Tag>> tags) {
-            this.tags = tags;
+        public Builder registrationCountry(CountryCode registrationCountry) {
+            this.registrationCountry = Optional.ofNullable(registrationCountry);
             return this;
         }
 
-        @java.lang.Override
-        public _FinalStage dateOfRegistration(String dateOfRegistration) {
-            this.dateOfRegistration = Optional.ofNullable(dateOfRegistration);
-            return this;
-        }
-
-        @java.lang.Override
-        @JsonSetter(value = "dateOfRegistration", nulls = Nulls.SKIP)
-        public _FinalStage dateOfRegistration(Optional<String> dateOfRegistration) {
-            this.dateOfRegistration = dateOfRegistration;
-            return this;
-        }
-
-        /**
-         * <p>Type of legal entity, e.g., Limited Liability</p>
-         * @return Reference to {@code this} so that method calls can be chained together.
-         */
-        @java.lang.Override
-        public _FinalStage legalEntityType(String legalEntityType) {
-            this.legalEntityType = Optional.ofNullable(legalEntityType);
-            return this;
-        }
-
-        @java.lang.Override
-        @JsonSetter(value = "legalEntityType", nulls = Nulls.SKIP)
-        public _FinalStage legalEntityType(Optional<String> legalEntityType) {
-            this.legalEntityType = legalEntityType;
-            return this;
-        }
-
-        /**
-         * <p>Tax ID number of the registered entity</p>
-         * @return Reference to {@code this} so that method calls can be chained together.
-         */
-        @java.lang.Override
-        public _FinalStage taxIdentifier(String taxIdentifier) {
-            this.taxIdentifier = Optional.ofNullable(taxIdentifier);
-            return this;
-        }
-
-        @java.lang.Override
-        @JsonSetter(value = "taxIdentifier", nulls = Nulls.SKIP)
-        public _FinalStage taxIdentifier(Optional<String> taxIdentifier) {
-            this.taxIdentifier = taxIdentifier;
-            return this;
-        }
-
-        @java.lang.Override
-        public _FinalStage taxResidenceCountry(CountryCode taxResidenceCountry) {
-            this.taxResidenceCountry = Optional.ofNullable(taxResidenceCountry);
-            return this;
-        }
-
-        @java.lang.Override
         @JsonSetter(value = "taxResidenceCountry", nulls = Nulls.SKIP)
-        public _FinalStage taxResidenceCountry(Optional<CountryCode> taxResidenceCountry) {
+        public Builder taxResidenceCountry(Optional<CountryCode> taxResidenceCountry) {
             this.taxResidenceCountry = taxResidenceCountry;
             return this;
         }
 
-        @java.lang.Override
+        public Builder taxResidenceCountry(CountryCode taxResidenceCountry) {
+            this.taxResidenceCountry = Optional.ofNullable(taxResidenceCountry);
+            return this;
+        }
+
+        @JsonSetter(value = "taxIdentifier", nulls = Nulls.SKIP)
+        public Builder taxIdentifier(Optional<String> taxIdentifier) {
+            this.taxIdentifier = taxIdentifier;
+            return this;
+        }
+
+        public Builder taxIdentifier(String taxIdentifier) {
+            this.taxIdentifier = Optional.ofNullable(taxIdentifier);
+            return this;
+        }
+
+        @JsonSetter(value = "legalEntityType", nulls = Nulls.SKIP)
+        public Builder legalEntityType(Optional<String> legalEntityType) {
+            this.legalEntityType = legalEntityType;
+            return this;
+        }
+
+        public Builder legalEntityType(String legalEntityType) {
+            this.legalEntityType = Optional.ofNullable(legalEntityType);
+            return this;
+        }
+
+        @JsonSetter(value = "dateOfRegistration", nulls = Nulls.SKIP)
+        public Builder dateOfRegistration(Optional<String> dateOfRegistration) {
+            this.dateOfRegistration = dateOfRegistration;
+            return this;
+        }
+
+        public Builder dateOfRegistration(String dateOfRegistration) {
+            this.dateOfRegistration = Optional.ofNullable(dateOfRegistration);
+            return this;
+        }
+
+        @JsonSetter(value = "tags", nulls = Nulls.SKIP)
+        public Builder tags(Optional<List<Tag>> tags) {
+            this.tags = tags;
+            return this;
+        }
+
+        public Builder tags(List<Tag> tags) {
+            this.tags = Optional.ofNullable(tags);
+            return this;
+        }
+
         public CompanyRegistrationDetails build() {
             return new CompanyRegistrationDetails(
                     registrationIdentifier,

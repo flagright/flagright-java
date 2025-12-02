@@ -70,6 +70,8 @@ public final class User {
 
     private final Optional<Double> lastTransactionTimestamp;
 
+    private final Optional<List<CorporateEntityDetails>> corporateEntities;
+
     private final Optional<UserEntityLink> linkedEntities;
 
     private final Optional<List<UserSavedPaymentDetailsItem>> savedPaymentDetails;
@@ -113,6 +115,7 @@ public final class User {
             Optional<Boolean> sanctionsStatus,
             Optional<Boolean> adverseMediaStatus,
             Optional<Double> lastTransactionTimestamp,
+            Optional<List<CorporateEntityDetails>> corporateEntities,
             Optional<UserEntityLink> linkedEntities,
             Optional<List<UserSavedPaymentDetailsItem>> savedPaymentDetails,
             Optional<List<UserTag>> tags,
@@ -146,6 +149,7 @@ public final class User {
         this.sanctionsStatus = sanctionsStatus;
         this.adverseMediaStatus = adverseMediaStatus;
         this.lastTransactionTimestamp = lastTransactionTimestamp;
+        this.corporateEntities = corporateEntities;
         this.linkedEntities = linkedEntities;
         this.savedPaymentDetails = savedPaymentDetails;
         this.tags = tags;
@@ -292,6 +296,14 @@ public final class User {
         return lastTransactionTimestamp;
     }
 
+    /**
+     * @return Corporate entities of the user
+     */
+    @JsonProperty("corporateEntities")
+    public Optional<List<CorporateEntityDetails>> getCorporateEntities() {
+        return corporateEntities;
+    }
+
     @JsonProperty("linkedEntities")
     public Optional<UserEntityLink> getLinkedEntities() {
         return linkedEntities;
@@ -377,6 +389,7 @@ public final class User {
                 && sanctionsStatus.equals(other.sanctionsStatus)
                 && adverseMediaStatus.equals(other.adverseMediaStatus)
                 && lastTransactionTimestamp.equals(other.lastTransactionTimestamp)
+                && corporateEntities.equals(other.corporateEntities)
                 && linkedEntities.equals(other.linkedEntities)
                 && savedPaymentDetails.equals(other.savedPaymentDetails)
                 && tags.equals(other.tags)
@@ -414,6 +427,7 @@ public final class User {
                 this.sanctionsStatus,
                 this.adverseMediaStatus,
                 this.lastTransactionTimestamp,
+                this.corporateEntities,
                 this.linkedEntities,
                 this.savedPaymentDetails,
                 this.tags,
@@ -534,6 +548,10 @@ public final class User {
 
         _FinalStage lastTransactionTimestamp(Double lastTransactionTimestamp);
 
+        _FinalStage corporateEntities(Optional<List<CorporateEntityDetails>> corporateEntities);
+
+        _FinalStage corporateEntities(List<CorporateEntityDetails> corporateEntities);
+
         _FinalStage linkedEntities(Optional<UserEntityLink> linkedEntities);
 
         _FinalStage linkedEntities(UserEntityLink linkedEntities);
@@ -588,6 +606,8 @@ public final class User {
         private Optional<List<UserSavedPaymentDetailsItem>> savedPaymentDetails = Optional.empty();
 
         private Optional<UserEntityLink> linkedEntities = Optional.empty();
+
+        private Optional<List<CorporateEntityDetails>> corporateEntities = Optional.empty();
 
         private Optional<Double> lastTransactionTimestamp = Optional.empty();
 
@@ -664,6 +684,7 @@ public final class User {
             sanctionsStatus(other.getSanctionsStatus());
             adverseMediaStatus(other.getAdverseMediaStatus());
             lastTransactionTimestamp(other.getLastTransactionTimestamp());
+            corporateEntities(other.getCorporateEntities());
             linkedEntities(other.getLinkedEntities());
             savedPaymentDetails(other.getSavedPaymentDetails());
             tags(other.getTags());
@@ -810,6 +831,23 @@ public final class User {
         @JsonSetter(value = "linkedEntities", nulls = Nulls.SKIP)
         public _FinalStage linkedEntities(Optional<UserEntityLink> linkedEntities) {
             this.linkedEntities = linkedEntities;
+            return this;
+        }
+
+        /**
+         * <p>Corporate entities of the user</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
+        @java.lang.Override
+        public _FinalStage corporateEntities(List<CorporateEntityDetails> corporateEntities) {
+            this.corporateEntities = Optional.ofNullable(corporateEntities);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "corporateEntities", nulls = Nulls.SKIP)
+        public _FinalStage corporateEntities(Optional<List<CorporateEntityDetails>> corporateEntities) {
+            this.corporateEntities = corporateEntities;
             return this;
         }
 
@@ -1138,6 +1176,7 @@ public final class User {
                     sanctionsStatus,
                     adverseMediaStatus,
                     lastTransactionTimestamp,
+                    corporateEntities,
                     linkedEntities,
                     savedPaymentDetails,
                     tags,
