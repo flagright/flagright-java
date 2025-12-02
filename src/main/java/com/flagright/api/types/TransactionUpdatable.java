@@ -45,6 +45,8 @@ public final class TransactionUpdatable {
 
     private final Optional<DeviceData> destinationDeviceData;
 
+    private final Optional<TransactionMetadata> metadata;
+
     private final Optional<List<Tag>> tags;
 
     private final Optional<String> jurisdiction;
@@ -68,6 +70,7 @@ public final class TransactionUpdatable {
             Optional<String> reference,
             Optional<DeviceData> originDeviceData,
             Optional<DeviceData> destinationDeviceData,
+            Optional<TransactionMetadata> metadata,
             Optional<List<Tag>> tags,
             Optional<String> jurisdiction,
             Optional<Double> updateCount,
@@ -85,6 +88,7 @@ public final class TransactionUpdatable {
         this.reference = reference;
         this.originDeviceData = originDeviceData;
         this.destinationDeviceData = destinationDeviceData;
+        this.metadata = metadata;
         this.tags = tags;
         this.jurisdiction = jurisdiction;
         this.updateCount = updateCount;
@@ -167,6 +171,11 @@ public final class TransactionUpdatable {
         return destinationDeviceData;
     }
 
+    @JsonProperty("metadata")
+    public Optional<TransactionMetadata> getMetadata() {
+        return metadata;
+    }
+
     /**
      * @return Additional information that can be added via tags
      */
@@ -217,6 +226,7 @@ public final class TransactionUpdatable {
                 && reference.equals(other.reference)
                 && originDeviceData.equals(other.originDeviceData)
                 && destinationDeviceData.equals(other.destinationDeviceData)
+                && metadata.equals(other.metadata)
                 && tags.equals(other.tags)
                 && jurisdiction.equals(other.jurisdiction)
                 && updateCount.equals(other.updateCount)
@@ -238,6 +248,7 @@ public final class TransactionUpdatable {
                 this.reference,
                 this.originDeviceData,
                 this.destinationDeviceData,
+                this.metadata,
                 this.tags,
                 this.jurisdiction,
                 this.updateCount,
@@ -279,6 +290,8 @@ public final class TransactionUpdatable {
 
         private Optional<DeviceData> destinationDeviceData = Optional.empty();
 
+        private Optional<TransactionMetadata> metadata = Optional.empty();
+
         private Optional<List<Tag>> tags = Optional.empty();
 
         private Optional<String> jurisdiction = Optional.empty();
@@ -305,6 +318,7 @@ public final class TransactionUpdatable {
             reference(other.getReference());
             originDeviceData(other.getOriginDeviceData());
             destinationDeviceData(other.getDestinationDeviceData());
+            metadata(other.getMetadata());
             tags(other.getTags());
             jurisdiction(other.getJurisdiction());
             updateCount(other.getUpdateCount());
@@ -446,6 +460,17 @@ public final class TransactionUpdatable {
             return this;
         }
 
+        @JsonSetter(value = "metadata", nulls = Nulls.SKIP)
+        public Builder metadata(Optional<TransactionMetadata> metadata) {
+            this.metadata = metadata;
+            return this;
+        }
+
+        public Builder metadata(TransactionMetadata metadata) {
+            this.metadata = Optional.ofNullable(metadata);
+            return this;
+        }
+
         @JsonSetter(value = "tags", nulls = Nulls.SKIP)
         public Builder tags(Optional<List<Tag>> tags) {
             this.tags = tags;
@@ -504,6 +529,7 @@ public final class TransactionUpdatable {
                     reference,
                     originDeviceData,
                     destinationDeviceData,
+                    metadata,
                     tags,
                     jurisdiction,
                     updateCount,

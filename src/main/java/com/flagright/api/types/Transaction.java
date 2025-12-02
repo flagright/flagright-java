@@ -58,6 +58,8 @@ public final class Transaction {
 
     private final Optional<DeviceData> destinationDeviceData;
 
+    private final Optional<TransactionMetadata> metadata;
+
     private final Optional<List<Tag>> tags;
 
     private final Optional<String> jurisdiction;
@@ -87,6 +89,7 @@ public final class Transaction {
             Optional<String> reference,
             Optional<DeviceData> originDeviceData,
             Optional<DeviceData> destinationDeviceData,
+            Optional<TransactionMetadata> metadata,
             Optional<List<Tag>> tags,
             Optional<String> jurisdiction,
             Optional<Double> updateCount,
@@ -110,6 +113,7 @@ public final class Transaction {
         this.reference = reference;
         this.originDeviceData = originDeviceData;
         this.destinationDeviceData = destinationDeviceData;
+        this.metadata = metadata;
         this.tags = tags;
         this.jurisdiction = jurisdiction;
         this.updateCount = updateCount;
@@ -237,6 +241,11 @@ public final class Transaction {
         return destinationDeviceData;
     }
 
+    @JsonProperty("metadata")
+    public Optional<TransactionMetadata> getMetadata() {
+        return metadata;
+    }
+
     /**
      * @return Additional information that can be added via tags
      */
@@ -293,6 +302,7 @@ public final class Transaction {
                 && reference.equals(other.reference)
                 && originDeviceData.equals(other.originDeviceData)
                 && destinationDeviceData.equals(other.destinationDeviceData)
+                && metadata.equals(other.metadata)
                 && tags.equals(other.tags)
                 && jurisdiction.equals(other.jurisdiction)
                 && updateCount.equals(other.updateCount)
@@ -320,6 +330,7 @@ public final class Transaction {
                 this.reference,
                 this.originDeviceData,
                 this.destinationDeviceData,
+                this.metadata,
                 this.tags,
                 this.jurisdiction,
                 this.updateCount,
@@ -412,6 +423,10 @@ public final class Transaction {
 
         _FinalStage destinationDeviceData(DeviceData destinationDeviceData);
 
+        _FinalStage metadata(Optional<TransactionMetadata> metadata);
+
+        _FinalStage metadata(TransactionMetadata metadata);
+
         _FinalStage tags(Optional<List<Tag>> tags);
 
         _FinalStage tags(List<Tag> tags);
@@ -444,6 +459,8 @@ public final class Transaction {
         private Optional<String> jurisdiction = Optional.empty();
 
         private Optional<List<Tag>> tags = Optional.empty();
+
+        private Optional<TransactionMetadata> metadata = Optional.empty();
 
         private Optional<DeviceData> destinationDeviceData = Optional.empty();
 
@@ -500,6 +517,7 @@ public final class Transaction {
             reference(other.getReference());
             originDeviceData(other.getOriginDeviceData());
             destinationDeviceData(other.getDestinationDeviceData());
+            metadata(other.getMetadata());
             tags(other.getTags());
             jurisdiction(other.getJurisdiction());
             updateCount(other.getUpdateCount());
@@ -597,6 +615,19 @@ public final class Transaction {
         @JsonSetter(value = "tags", nulls = Nulls.SKIP)
         public _FinalStage tags(Optional<List<Tag>> tags) {
             this.tags = tags;
+            return this;
+        }
+
+        @java.lang.Override
+        public _FinalStage metadata(TransactionMetadata metadata) {
+            this.metadata = Optional.ofNullable(metadata);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "metadata", nulls = Nulls.SKIP)
+        public _FinalStage metadata(Optional<TransactionMetadata> metadata) {
+            this.metadata = metadata;
             return this;
         }
 
@@ -845,6 +876,7 @@ public final class Transaction {
                     reference,
                     originDeviceData,
                     destinationDeviceData,
+                    metadata,
                     tags,
                     jurisdiction,
                     updateCount,
