@@ -574,6 +574,10 @@ public enum CurrencyCode {
 
     MXN("MXN"),
 
+    MXNB("MXNB"),
+
+    MXND("MXND"),
+
     MYR("MYR"),
 
     MZN("MZN"),
@@ -714,6 +718,8 @@ public enum CurrencyCode {
 
     RLY("RLY"),
 
+    RLUSD("RLUSD"),
+
     RNDR("RNDR"),
 
     RON("RON"),
@@ -804,6 +810,8 @@ public enum CurrencyCode {
 
     SYP("SYP"),
 
+    SYRUPUSDC("SYRUPUSDC"),
+
     SZL("SZL"),
 
     T("T"),
@@ -864,9 +872,19 @@ public enum CurrencyCode {
 
     USD("USD"),
 
+    USDG("USDG"),
+
+    USDAI("USDAI"),
+
+    USDE("USDE"),
+
+    USDH("USDH"),
+
     USDC("USDC"),
 
     USDT("USDT"),
+
+    USYC("USYC"),
 
     UST("UST"),
 
