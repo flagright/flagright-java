@@ -23,13 +23,23 @@ import java.util.Optional;
 public final class CorrespondentBankDetails {
     private final Optional<String> bankName;
 
+    private final Optional<Address> bankAddress;
+
+    private final Optional<String> swiftCode;
+
     private final Optional<List<Tag>> tags;
 
     private final Map<String, Object> additionalProperties;
 
     private CorrespondentBankDetails(
-            Optional<String> bankName, Optional<List<Tag>> tags, Map<String, Object> additionalProperties) {
+            Optional<String> bankName,
+            Optional<Address> bankAddress,
+            Optional<String> swiftCode,
+            Optional<List<Tag>> tags,
+            Map<String, Object> additionalProperties) {
         this.bankName = bankName;
+        this.bankAddress = bankAddress;
+        this.swiftCode = swiftCode;
         this.tags = tags;
         this.additionalProperties = additionalProperties;
     }
@@ -40,6 +50,19 @@ public final class CorrespondentBankDetails {
     @JsonProperty("bankName")
     public Optional<String> getBankName() {
         return bankName;
+    }
+
+    @JsonProperty("bankAddress")
+    public Optional<Address> getBankAddress() {
+        return bankAddress;
+    }
+
+    /**
+     * @return SWIFT code of the correspondent bank
+     */
+    @JsonProperty("swiftCode")
+    public Optional<String> getSwiftCode() {
+        return swiftCode;
     }
 
     /**
@@ -62,12 +85,15 @@ public final class CorrespondentBankDetails {
     }
 
     private boolean equalTo(CorrespondentBankDetails other) {
-        return bankName.equals(other.bankName) && tags.equals(other.tags);
+        return bankName.equals(other.bankName)
+                && bankAddress.equals(other.bankAddress)
+                && swiftCode.equals(other.swiftCode)
+                && tags.equals(other.tags);
     }
 
     @java.lang.Override
     public int hashCode() {
-        return Objects.hash(this.bankName, this.tags);
+        return Objects.hash(this.bankName, this.bankAddress, this.swiftCode, this.tags);
     }
 
     @java.lang.Override
@@ -83,6 +109,10 @@ public final class CorrespondentBankDetails {
     public static final class Builder {
         private Optional<String> bankName = Optional.empty();
 
+        private Optional<Address> bankAddress = Optional.empty();
+
+        private Optional<String> swiftCode = Optional.empty();
+
         private Optional<List<Tag>> tags = Optional.empty();
 
         @JsonAnySetter
@@ -92,6 +122,8 @@ public final class CorrespondentBankDetails {
 
         public Builder from(CorrespondentBankDetails other) {
             bankName(other.getBankName());
+            bankAddress(other.getBankAddress());
+            swiftCode(other.getSwiftCode());
             tags(other.getTags());
             return this;
         }
@@ -107,6 +139,28 @@ public final class CorrespondentBankDetails {
             return this;
         }
 
+        @JsonSetter(value = "bankAddress", nulls = Nulls.SKIP)
+        public Builder bankAddress(Optional<Address> bankAddress) {
+            this.bankAddress = bankAddress;
+            return this;
+        }
+
+        public Builder bankAddress(Address bankAddress) {
+            this.bankAddress = Optional.ofNullable(bankAddress);
+            return this;
+        }
+
+        @JsonSetter(value = "swiftCode", nulls = Nulls.SKIP)
+        public Builder swiftCode(Optional<String> swiftCode) {
+            this.swiftCode = swiftCode;
+            return this;
+        }
+
+        public Builder swiftCode(String swiftCode) {
+            this.swiftCode = Optional.ofNullable(swiftCode);
+            return this;
+        }
+
         @JsonSetter(value = "tags", nulls = Nulls.SKIP)
         public Builder tags(Optional<List<Tag>> tags) {
             this.tags = tags;
@@ -119,7 +173,7 @@ public final class CorrespondentBankDetails {
         }
 
         public CorrespondentBankDetails build() {
-            return new CorrespondentBankDetails(bankName, tags, additionalProperties);
+            return new CorrespondentBankDetails(bankName, bankAddress, swiftCode, tags, additionalProperties);
         }
     }
 }
