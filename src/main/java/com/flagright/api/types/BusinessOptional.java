@@ -35,6 +35,8 @@ public final class BusinessOptional {
 
     private final Optional<List<Person>> directors;
 
+    private final Optional<List<LegalEntity>> businessPartners;
+
     private final Optional<TransactionLimits> transactionLimits;
 
     private final Optional<RiskLevel> riskLevel;
@@ -81,6 +83,7 @@ public final class BusinessOptional {
             Optional<List<CorporateEntityDetails>> corporateEntities,
             Optional<List<BusinessOptionalShareHoldersItem>> shareHolders,
             Optional<List<Person>> directors,
+            Optional<List<LegalEntity>> businessPartners,
             Optional<TransactionLimits> transactionLimits,
             Optional<RiskLevel> riskLevel,
             Optional<RiskLevel> kycRiskLevel,
@@ -107,6 +110,7 @@ public final class BusinessOptional {
         this.corporateEntities = corporateEntities;
         this.shareHolders = shareHolders;
         this.directors = directors;
+        this.businessPartners = businessPartners;
         this.transactionLimits = transactionLimits;
         this.riskLevel = riskLevel;
         this.kycRiskLevel = kycRiskLevel;
@@ -173,6 +177,14 @@ public final class BusinessOptional {
     @JsonProperty("directors")
     public Optional<List<Person>> getDirectors() {
         return directors;
+    }
+
+    /**
+     * @return Business partners of the company
+     */
+    @JsonProperty("businessPartners")
+    public Optional<List<LegalEntity>> getBusinessPartners() {
+        return businessPartners;
     }
 
     @JsonProperty("transactionLimits")
@@ -302,6 +314,7 @@ public final class BusinessOptional {
                 && corporateEntities.equals(other.corporateEntities)
                 && shareHolders.equals(other.shareHolders)
                 && directors.equals(other.directors)
+                && businessPartners.equals(other.businessPartners)
                 && transactionLimits.equals(other.transactionLimits)
                 && riskLevel.equals(other.riskLevel)
                 && kycRiskLevel.equals(other.kycRiskLevel)
@@ -332,6 +345,7 @@ public final class BusinessOptional {
                 this.corporateEntities,
                 this.shareHolders,
                 this.directors,
+                this.businessPartners,
                 this.transactionLimits,
                 this.riskLevel,
                 this.kycRiskLevel,
@@ -376,6 +390,8 @@ public final class BusinessOptional {
         private Optional<List<BusinessOptionalShareHoldersItem>> shareHolders = Optional.empty();
 
         private Optional<List<Person>> directors = Optional.empty();
+
+        private Optional<List<LegalEntity>> businessPartners = Optional.empty();
 
         private Optional<TransactionLimits> transactionLimits = Optional.empty();
 
@@ -426,6 +442,7 @@ public final class BusinessOptional {
             corporateEntities(other.getCorporateEntities());
             shareHolders(other.getShareHolders());
             directors(other.getDirectors());
+            businessPartners(other.getBusinessPartners());
             transactionLimits(other.getTransactionLimits());
             riskLevel(other.getRiskLevel());
             kycRiskLevel(other.getKycRiskLevel());
@@ -521,6 +538,17 @@ public final class BusinessOptional {
 
         public Builder directors(List<Person> directors) {
             this.directors = Optional.ofNullable(directors);
+            return this;
+        }
+
+        @JsonSetter(value = "businessPartners", nulls = Nulls.SKIP)
+        public Builder businessPartners(Optional<List<LegalEntity>> businessPartners) {
+            this.businessPartners = businessPartners;
+            return this;
+        }
+
+        public Builder businessPartners(List<LegalEntity> businessPartners) {
+            this.businessPartners = Optional.ofNullable(businessPartners);
             return this;
         }
 
@@ -732,6 +760,7 @@ public final class BusinessOptional {
                     corporateEntities,
                     shareHolders,
                     directors,
+                    businessPartners,
                     transactionLimits,
                     riskLevel,
                     kycRiskLevel,

@@ -13,6 +13,7 @@ import com.fasterxml.jackson.annotation.Nulls;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.flagright.api.core.ObjectMappers;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
@@ -26,16 +27,20 @@ public final class BlockchainRiskSubject {
 
     private final Optional<BlockchainRiskSubjectDirection> direction;
 
+    private final Optional<List<Tag>> tags;
+
     private final Map<String, Object> additionalProperties;
 
     private BlockchainRiskSubject(
             Optional<BlockchainRiskSubjectType> type,
             Optional<String> value,
             Optional<BlockchainRiskSubjectDirection> direction,
+            Optional<List<Tag>> tags,
             Map<String, Object> additionalProperties) {
         this.type = type;
         this.value = value;
         this.direction = direction;
+        this.tags = tags;
         this.additionalProperties = additionalProperties;
     }
 
@@ -63,6 +68,14 @@ public final class BlockchainRiskSubject {
         return direction;
     }
 
+    /**
+     * @return Additional information that can be added via tags
+     */
+    @JsonProperty("tags")
+    public Optional<List<Tag>> getTags() {
+        return tags;
+    }
+
     @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
@@ -75,12 +88,15 @@ public final class BlockchainRiskSubject {
     }
 
     private boolean equalTo(BlockchainRiskSubject other) {
-        return type.equals(other.type) && value.equals(other.value) && direction.equals(other.direction);
+        return type.equals(other.type)
+                && value.equals(other.value)
+                && direction.equals(other.direction)
+                && tags.equals(other.tags);
     }
 
     @java.lang.Override
     public int hashCode() {
-        return Objects.hash(this.type, this.value, this.direction);
+        return Objects.hash(this.type, this.value, this.direction, this.tags);
     }
 
     @java.lang.Override
@@ -100,6 +116,8 @@ public final class BlockchainRiskSubject {
 
         private Optional<BlockchainRiskSubjectDirection> direction = Optional.empty();
 
+        private Optional<List<Tag>> tags = Optional.empty();
+
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
 
@@ -109,6 +127,7 @@ public final class BlockchainRiskSubject {
             type(other.getType());
             value(other.getValue());
             direction(other.getDirection());
+            tags(other.getTags());
             return this;
         }
 
@@ -145,8 +164,19 @@ public final class BlockchainRiskSubject {
             return this;
         }
 
+        @JsonSetter(value = "tags", nulls = Nulls.SKIP)
+        public Builder tags(Optional<List<Tag>> tags) {
+            this.tags = tags;
+            return this;
+        }
+
+        public Builder tags(List<Tag> tags) {
+            this.tags = Optional.ofNullable(tags);
+            return this;
+        }
+
         public BlockchainRiskSubject build() {
-            return new BlockchainRiskSubject(type, value, direction, additionalProperties);
+            return new BlockchainRiskSubject(type, value, direction, tags, additionalProperties);
         }
     }
 }

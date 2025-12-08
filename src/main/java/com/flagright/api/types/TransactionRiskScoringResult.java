@@ -16,14 +16,13 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
-import org.jetbrains.annotations.NotNull;
 
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
 @JsonDeserialize(builder = TransactionRiskScoringResult.Builder.class)
 public final class TransactionRiskScoringResult {
-    private final double trsScore;
+    private final Optional<Double> trsScore;
 
-    private final RiskLevel trsRiskLevel;
+    private final Optional<RiskLevel> trsRiskLevel;
 
     private final Optional<Double> originUserCraRiskScore;
 
@@ -36,8 +35,8 @@ public final class TransactionRiskScoringResult {
     private final Map<String, Object> additionalProperties;
 
     private TransactionRiskScoringResult(
-            double trsScore,
-            RiskLevel trsRiskLevel,
+            Optional<Double> trsScore,
+            Optional<RiskLevel> trsRiskLevel,
             Optional<Double> originUserCraRiskScore,
             Optional<Double> destinationUserCraRiskScore,
             Optional<RiskLevel> originUserCraRiskLevel,
@@ -56,12 +55,12 @@ public final class TransactionRiskScoringResult {
      * @return Transaction risk scoring score
      */
     @JsonProperty("trsScore")
-    public double getTrsScore() {
+    public Optional<Double> getTrsScore() {
         return trsScore;
     }
 
     @JsonProperty("trsRiskLevel")
-    public RiskLevel getTrsRiskLevel() {
+    public Optional<RiskLevel> getTrsRiskLevel() {
         return trsRiskLevel;
     }
 
@@ -103,7 +102,7 @@ public final class TransactionRiskScoringResult {
     }
 
     private boolean equalTo(TransactionRiskScoringResult other) {
-        return trsScore == other.trsScore
+        return trsScore.equals(other.trsScore)
                 && trsRiskLevel.equals(other.trsRiskLevel)
                 && originUserCraRiskScore.equals(other.originUserCraRiskScore)
                 && destinationUserCraRiskScore.equals(other.destinationUserCraRiskScore)
@@ -127,60 +126,29 @@ public final class TransactionRiskScoringResult {
         return ObjectMappers.stringify(this);
     }
 
-    public static TrsScoreStage builder() {
+    public static Builder builder() {
         return new Builder();
     }
 
-    public interface TrsScoreStage {
-        TrsRiskLevelStage trsScore(double trsScore);
-
-        Builder from(TransactionRiskScoringResult other);
-    }
-
-    public interface TrsRiskLevelStage {
-        _FinalStage trsRiskLevel(@NotNull RiskLevel trsRiskLevel);
-    }
-
-    public interface _FinalStage {
-        TransactionRiskScoringResult build();
-
-        _FinalStage originUserCraRiskScore(Optional<Double> originUserCraRiskScore);
-
-        _FinalStage originUserCraRiskScore(Double originUserCraRiskScore);
-
-        _FinalStage destinationUserCraRiskScore(Optional<Double> destinationUserCraRiskScore);
-
-        _FinalStage destinationUserCraRiskScore(Double destinationUserCraRiskScore);
-
-        _FinalStage originUserCraRiskLevel(Optional<RiskLevel> originUserCraRiskLevel);
-
-        _FinalStage originUserCraRiskLevel(RiskLevel originUserCraRiskLevel);
-
-        _FinalStage destinationUserCraRiskLevel(Optional<RiskLevel> destinationUserCraRiskLevel);
-
-        _FinalStage destinationUserCraRiskLevel(RiskLevel destinationUserCraRiskLevel);
-    }
-
     @JsonIgnoreProperties(ignoreUnknown = true)
-    public static final class Builder implements TrsScoreStage, TrsRiskLevelStage, _FinalStage {
-        private double trsScore;
+    public static final class Builder {
+        private Optional<Double> trsScore = Optional.empty();
 
-        private RiskLevel trsRiskLevel;
+        private Optional<RiskLevel> trsRiskLevel = Optional.empty();
 
-        private Optional<RiskLevel> destinationUserCraRiskLevel = Optional.empty();
-
-        private Optional<RiskLevel> originUserCraRiskLevel = Optional.empty();
+        private Optional<Double> originUserCraRiskScore = Optional.empty();
 
         private Optional<Double> destinationUserCraRiskScore = Optional.empty();
 
-        private Optional<Double> originUserCraRiskScore = Optional.empty();
+        private Optional<RiskLevel> originUserCraRiskLevel = Optional.empty();
+
+        private Optional<RiskLevel> destinationUserCraRiskLevel = Optional.empty();
 
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
 
         private Builder() {}
 
-        @java.lang.Override
         public Builder from(TransactionRiskScoringResult other) {
             trsScore(other.getTrsScore());
             trsRiskLevel(other.getTrsRiskLevel());
@@ -191,85 +159,72 @@ public final class TransactionRiskScoringResult {
             return this;
         }
 
-        /**
-         * <p>Transaction risk scoring score</p>
-         * @return Reference to {@code this} so that method calls can be chained together.
-         */
-        @java.lang.Override
-        @JsonSetter("trsScore")
-        public TrsRiskLevelStage trsScore(double trsScore) {
+        @JsonSetter(value = "trsScore", nulls = Nulls.SKIP)
+        public Builder trsScore(Optional<Double> trsScore) {
             this.trsScore = trsScore;
             return this;
         }
 
-        @java.lang.Override
-        @JsonSetter("trsRiskLevel")
-        public _FinalStage trsRiskLevel(@NotNull RiskLevel trsRiskLevel) {
-            this.trsRiskLevel = Objects.requireNonNull(trsRiskLevel, "trsRiskLevel must not be null");
+        public Builder trsScore(Double trsScore) {
+            this.trsScore = Optional.ofNullable(trsScore);
             return this;
         }
 
-        @java.lang.Override
-        public _FinalStage destinationUserCraRiskLevel(RiskLevel destinationUserCraRiskLevel) {
-            this.destinationUserCraRiskLevel = Optional.ofNullable(destinationUserCraRiskLevel);
+        @JsonSetter(value = "trsRiskLevel", nulls = Nulls.SKIP)
+        public Builder trsRiskLevel(Optional<RiskLevel> trsRiskLevel) {
+            this.trsRiskLevel = trsRiskLevel;
             return this;
         }
 
-        @java.lang.Override
-        @JsonSetter(value = "destinationUserCraRiskLevel", nulls = Nulls.SKIP)
-        public _FinalStage destinationUserCraRiskLevel(Optional<RiskLevel> destinationUserCraRiskLevel) {
-            this.destinationUserCraRiskLevel = destinationUserCraRiskLevel;
+        public Builder trsRiskLevel(RiskLevel trsRiskLevel) {
+            this.trsRiskLevel = Optional.ofNullable(trsRiskLevel);
             return this;
         }
 
-        @java.lang.Override
-        public _FinalStage originUserCraRiskLevel(RiskLevel originUserCraRiskLevel) {
-            this.originUserCraRiskLevel = Optional.ofNullable(originUserCraRiskLevel);
-            return this;
-        }
-
-        @java.lang.Override
-        @JsonSetter(value = "originUserCraRiskLevel", nulls = Nulls.SKIP)
-        public _FinalStage originUserCraRiskLevel(Optional<RiskLevel> originUserCraRiskLevel) {
-            this.originUserCraRiskLevel = originUserCraRiskLevel;
-            return this;
-        }
-
-        /**
-         * <p>Destination user's CRA risk score</p>
-         * @return Reference to {@code this} so that method calls can be chained together.
-         */
-        @java.lang.Override
-        public _FinalStage destinationUserCraRiskScore(Double destinationUserCraRiskScore) {
-            this.destinationUserCraRiskScore = Optional.ofNullable(destinationUserCraRiskScore);
-            return this;
-        }
-
-        @java.lang.Override
-        @JsonSetter(value = "destinationUserCraRiskScore", nulls = Nulls.SKIP)
-        public _FinalStage destinationUserCraRiskScore(Optional<Double> destinationUserCraRiskScore) {
-            this.destinationUserCraRiskScore = destinationUserCraRiskScore;
-            return this;
-        }
-
-        /**
-         * <p>Origin user's CRA risk score</p>
-         * @return Reference to {@code this} so that method calls can be chained together.
-         */
-        @java.lang.Override
-        public _FinalStage originUserCraRiskScore(Double originUserCraRiskScore) {
-            this.originUserCraRiskScore = Optional.ofNullable(originUserCraRiskScore);
-            return this;
-        }
-
-        @java.lang.Override
         @JsonSetter(value = "originUserCraRiskScore", nulls = Nulls.SKIP)
-        public _FinalStage originUserCraRiskScore(Optional<Double> originUserCraRiskScore) {
+        public Builder originUserCraRiskScore(Optional<Double> originUserCraRiskScore) {
             this.originUserCraRiskScore = originUserCraRiskScore;
             return this;
         }
 
-        @java.lang.Override
+        public Builder originUserCraRiskScore(Double originUserCraRiskScore) {
+            this.originUserCraRiskScore = Optional.ofNullable(originUserCraRiskScore);
+            return this;
+        }
+
+        @JsonSetter(value = "destinationUserCraRiskScore", nulls = Nulls.SKIP)
+        public Builder destinationUserCraRiskScore(Optional<Double> destinationUserCraRiskScore) {
+            this.destinationUserCraRiskScore = destinationUserCraRiskScore;
+            return this;
+        }
+
+        public Builder destinationUserCraRiskScore(Double destinationUserCraRiskScore) {
+            this.destinationUserCraRiskScore = Optional.ofNullable(destinationUserCraRiskScore);
+            return this;
+        }
+
+        @JsonSetter(value = "originUserCraRiskLevel", nulls = Nulls.SKIP)
+        public Builder originUserCraRiskLevel(Optional<RiskLevel> originUserCraRiskLevel) {
+            this.originUserCraRiskLevel = originUserCraRiskLevel;
+            return this;
+        }
+
+        public Builder originUserCraRiskLevel(RiskLevel originUserCraRiskLevel) {
+            this.originUserCraRiskLevel = Optional.ofNullable(originUserCraRiskLevel);
+            return this;
+        }
+
+        @JsonSetter(value = "destinationUserCraRiskLevel", nulls = Nulls.SKIP)
+        public Builder destinationUserCraRiskLevel(Optional<RiskLevel> destinationUserCraRiskLevel) {
+            this.destinationUserCraRiskLevel = destinationUserCraRiskLevel;
+            return this;
+        }
+
+        public Builder destinationUserCraRiskLevel(RiskLevel destinationUserCraRiskLevel) {
+            this.destinationUserCraRiskLevel = Optional.ofNullable(destinationUserCraRiskLevel);
+            return this;
+        }
+
         public TransactionRiskScoringResult build() {
             return new TransactionRiskScoringResult(
                     trsScore,

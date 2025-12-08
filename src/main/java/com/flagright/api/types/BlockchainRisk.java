@@ -23,6 +23,8 @@ import java.util.Optional;
 public final class BlockchainRisk {
     private final Optional<String> provider;
 
+    private final Optional<Double> timestamp;
+
     private final Optional<RiskLevel> riskLevel;
 
     private final Optional<Double> riskScore;
@@ -33,22 +35,28 @@ public final class BlockchainRisk {
 
     private final Optional<List<BlockchainRiskDetail>> risks;
 
+    private final Optional<List<Tag>> tags;
+
     private final Map<String, Object> additionalProperties;
 
     private BlockchainRisk(
             Optional<String> provider,
+            Optional<Double> timestamp,
             Optional<RiskLevel> riskLevel,
             Optional<Double> riskScore,
             Optional<List<BlockchainCounterparty>> counterparties,
             Optional<BlockchainRiskSubject> subject,
             Optional<List<BlockchainRiskDetail>> risks,
+            Optional<List<Tag>> tags,
             Map<String, Object> additionalProperties) {
         this.provider = provider;
+        this.timestamp = timestamp;
         this.riskLevel = riskLevel;
         this.riskScore = riskScore;
         this.counterparties = counterparties;
         this.subject = subject;
         this.risks = risks;
+        this.tags = tags;
         this.additionalProperties = additionalProperties;
     }
 
@@ -58,6 +66,14 @@ public final class BlockchainRisk {
     @JsonProperty("provider")
     public Optional<String> getProvider() {
         return provider;
+    }
+
+    /**
+     * @return Unix timestamp of when the risk analysis was performed
+     */
+    @JsonProperty("timestamp")
+    public Optional<Double> getTimestamp() {
+        return timestamp;
     }
 
     /**
@@ -100,6 +116,14 @@ public final class BlockchainRisk {
         return risks;
     }
 
+    /**
+     * @return Additional information that can be added via tags
+     */
+    @JsonProperty("tags")
+    public Optional<List<Tag>> getTags() {
+        return tags;
+    }
+
     @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
@@ -113,17 +137,26 @@ public final class BlockchainRisk {
 
     private boolean equalTo(BlockchainRisk other) {
         return provider.equals(other.provider)
+                && timestamp.equals(other.timestamp)
                 && riskLevel.equals(other.riskLevel)
                 && riskScore.equals(other.riskScore)
                 && counterparties.equals(other.counterparties)
                 && subject.equals(other.subject)
-                && risks.equals(other.risks);
+                && risks.equals(other.risks)
+                && tags.equals(other.tags);
     }
 
     @java.lang.Override
     public int hashCode() {
         return Objects.hash(
-                this.provider, this.riskLevel, this.riskScore, this.counterparties, this.subject, this.risks);
+                this.provider,
+                this.timestamp,
+                this.riskLevel,
+                this.riskScore,
+                this.counterparties,
+                this.subject,
+                this.risks,
+                this.tags);
     }
 
     @java.lang.Override
@@ -139,6 +172,8 @@ public final class BlockchainRisk {
     public static final class Builder {
         private Optional<String> provider = Optional.empty();
 
+        private Optional<Double> timestamp = Optional.empty();
+
         private Optional<RiskLevel> riskLevel = Optional.empty();
 
         private Optional<Double> riskScore = Optional.empty();
@@ -149,6 +184,8 @@ public final class BlockchainRisk {
 
         private Optional<List<BlockchainRiskDetail>> risks = Optional.empty();
 
+        private Optional<List<Tag>> tags = Optional.empty();
+
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
 
@@ -156,11 +193,13 @@ public final class BlockchainRisk {
 
         public Builder from(BlockchainRisk other) {
             provider(other.getProvider());
+            timestamp(other.getTimestamp());
             riskLevel(other.getRiskLevel());
             riskScore(other.getRiskScore());
             counterparties(other.getCounterparties());
             subject(other.getSubject());
             risks(other.getRisks());
+            tags(other.getTags());
             return this;
         }
 
@@ -172,6 +211,17 @@ public final class BlockchainRisk {
 
         public Builder provider(String provider) {
             this.provider = Optional.ofNullable(provider);
+            return this;
+        }
+
+        @JsonSetter(value = "timestamp", nulls = Nulls.SKIP)
+        public Builder timestamp(Optional<Double> timestamp) {
+            this.timestamp = timestamp;
+            return this;
+        }
+
+        public Builder timestamp(Double timestamp) {
+            this.timestamp = Optional.ofNullable(timestamp);
             return this;
         }
 
@@ -230,9 +280,28 @@ public final class BlockchainRisk {
             return this;
         }
 
+        @JsonSetter(value = "tags", nulls = Nulls.SKIP)
+        public Builder tags(Optional<List<Tag>> tags) {
+            this.tags = tags;
+            return this;
+        }
+
+        public Builder tags(List<Tag> tags) {
+            this.tags = Optional.ofNullable(tags);
+            return this;
+        }
+
         public BlockchainRisk build() {
             return new BlockchainRisk(
-                    provider, riskLevel, riskScore, counterparties, subject, risks, additionalProperties);
+                    provider,
+                    timestamp,
+                    riskLevel,
+                    riskScore,
+                    counterparties,
+                    subject,
+                    risks,
+                    tags,
+                    additionalProperties);
         }
     }
 }

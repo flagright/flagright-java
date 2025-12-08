@@ -13,6 +13,7 @@ import com.fasterxml.jackson.annotation.Nulls;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.flagright.api.core.ObjectMappers;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
@@ -22,40 +23,28 @@ import java.util.Optional;
 public final class BlockchainRiskDetail {
     private final Optional<String> alertId;
 
-    private final Optional<String> categoryId;
+    private final Optional<BlockchainRiskCategory> category;
 
-    private final Optional<String> categoryName;
+    private final Optional<BlockChainEntity> entity;
 
-    private final Optional<RiskLevel> categoryRiskLevel;
+    private final Optional<BlockchainRiskExposure> exposure;
 
-    private final Optional<Double> categoryRiskScore;
-
-    private final Optional<RiskExposureType> exposureType;
-
-    private final Optional<String> entity;
-
-    private final Optional<TransactionAmountDetails> exposureAmount;
+    private final Optional<List<Tag>> tags;
 
     private final Map<String, Object> additionalProperties;
 
     private BlockchainRiskDetail(
             Optional<String> alertId,
-            Optional<String> categoryId,
-            Optional<String> categoryName,
-            Optional<RiskLevel> categoryRiskLevel,
-            Optional<Double> categoryRiskScore,
-            Optional<RiskExposureType> exposureType,
-            Optional<String> entity,
-            Optional<TransactionAmountDetails> exposureAmount,
+            Optional<BlockchainRiskCategory> category,
+            Optional<BlockChainEntity> entity,
+            Optional<BlockchainRiskExposure> exposure,
+            Optional<List<Tag>> tags,
             Map<String, Object> additionalProperties) {
         this.alertId = alertId;
-        this.categoryId = categoryId;
-        this.categoryName = categoryName;
-        this.categoryRiskLevel = categoryRiskLevel;
-        this.categoryRiskScore = categoryRiskScore;
-        this.exposureType = exposureType;
+        this.category = category;
         this.entity = entity;
-        this.exposureAmount = exposureAmount;
+        this.exposure = exposure;
+        this.tags = tags;
         this.additionalProperties = additionalProperties;
     }
 
@@ -67,60 +56,30 @@ public final class BlockchainRiskDetail {
         return alertId;
     }
 
-    /**
-     * @return Unique identifier for the risk category
-     */
-    @JsonProperty("categoryId")
-    public Optional<String> getCategoryId() {
-        return categoryId;
+    @JsonProperty("category")
+    public Optional<BlockchainRiskCategory> getCategory() {
+        return category;
     }
 
-    /**
-     * @return Human-readable name of the risk category
-     */
-    @JsonProperty("categoryName")
-    public Optional<String> getCategoryName() {
-        return categoryName;
-    }
-
-    /**
-     * @return Risk level specific to this category
-     */
-    @JsonProperty("categoryRiskLevel")
-    public Optional<RiskLevel> getCategoryRiskLevel() {
-        return categoryRiskLevel;
-    }
-
-    /**
-     * @return Numeric risk score for this specific category
-     */
-    @JsonProperty("categoryRiskScore")
-    public Optional<Double> getCategoryRiskScore() {
-        return categoryRiskScore;
-    }
-
-    /**
-     * @return Type of exposure to the risk entity
-     */
-    @JsonProperty("exposureType")
-    public Optional<RiskExposureType> getExposureType() {
-        return exposureType;
-    }
-
-    /**
-     * @return Name of the specific entity that poses the risk
-     */
     @JsonProperty("entity")
-    public Optional<String> getEntity() {
+    public Optional<BlockChainEntity> getEntity() {
         return entity;
     }
 
     /**
-     * @return Amount of the transaction exposed to this risk
+     * @return Exposure details for this risk category
      */
-    @JsonProperty("exposureAmount")
-    public Optional<TransactionAmountDetails> getExposureAmount() {
-        return exposureAmount;
+    @JsonProperty("exposure")
+    public Optional<BlockchainRiskExposure> getExposure() {
+        return exposure;
+    }
+
+    /**
+     * @return Additional information that can be added via tags
+     */
+    @JsonProperty("tags")
+    public Optional<List<Tag>> getTags() {
+        return tags;
     }
 
     @java.lang.Override
@@ -136,26 +95,15 @@ public final class BlockchainRiskDetail {
 
     private boolean equalTo(BlockchainRiskDetail other) {
         return alertId.equals(other.alertId)
-                && categoryId.equals(other.categoryId)
-                && categoryName.equals(other.categoryName)
-                && categoryRiskLevel.equals(other.categoryRiskLevel)
-                && categoryRiskScore.equals(other.categoryRiskScore)
-                && exposureType.equals(other.exposureType)
+                && category.equals(other.category)
                 && entity.equals(other.entity)
-                && exposureAmount.equals(other.exposureAmount);
+                && exposure.equals(other.exposure)
+                && tags.equals(other.tags);
     }
 
     @java.lang.Override
     public int hashCode() {
-        return Objects.hash(
-                this.alertId,
-                this.categoryId,
-                this.categoryName,
-                this.categoryRiskLevel,
-                this.categoryRiskScore,
-                this.exposureType,
-                this.entity,
-                this.exposureAmount);
+        return Objects.hash(this.alertId, this.category, this.entity, this.exposure, this.tags);
     }
 
     @java.lang.Override
@@ -171,19 +119,13 @@ public final class BlockchainRiskDetail {
     public static final class Builder {
         private Optional<String> alertId = Optional.empty();
 
-        private Optional<String> categoryId = Optional.empty();
+        private Optional<BlockchainRiskCategory> category = Optional.empty();
 
-        private Optional<String> categoryName = Optional.empty();
+        private Optional<BlockChainEntity> entity = Optional.empty();
 
-        private Optional<RiskLevel> categoryRiskLevel = Optional.empty();
+        private Optional<BlockchainRiskExposure> exposure = Optional.empty();
 
-        private Optional<Double> categoryRiskScore = Optional.empty();
-
-        private Optional<RiskExposureType> exposureType = Optional.empty();
-
-        private Optional<String> entity = Optional.empty();
-
-        private Optional<TransactionAmountDetails> exposureAmount = Optional.empty();
+        private Optional<List<Tag>> tags = Optional.empty();
 
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
@@ -192,13 +134,10 @@ public final class BlockchainRiskDetail {
 
         public Builder from(BlockchainRiskDetail other) {
             alertId(other.getAlertId());
-            categoryId(other.getCategoryId());
-            categoryName(other.getCategoryName());
-            categoryRiskLevel(other.getCategoryRiskLevel());
-            categoryRiskScore(other.getCategoryRiskScore());
-            exposureType(other.getExposureType());
+            category(other.getCategory());
             entity(other.getEntity());
-            exposureAmount(other.getExposureAmount());
+            exposure(other.getExposure());
+            tags(other.getTags());
             return this;
         }
 
@@ -213,94 +152,52 @@ public final class BlockchainRiskDetail {
             return this;
         }
 
-        @JsonSetter(value = "categoryId", nulls = Nulls.SKIP)
-        public Builder categoryId(Optional<String> categoryId) {
-            this.categoryId = categoryId;
+        @JsonSetter(value = "category", nulls = Nulls.SKIP)
+        public Builder category(Optional<BlockchainRiskCategory> category) {
+            this.category = category;
             return this;
         }
 
-        public Builder categoryId(String categoryId) {
-            this.categoryId = Optional.ofNullable(categoryId);
-            return this;
-        }
-
-        @JsonSetter(value = "categoryName", nulls = Nulls.SKIP)
-        public Builder categoryName(Optional<String> categoryName) {
-            this.categoryName = categoryName;
-            return this;
-        }
-
-        public Builder categoryName(String categoryName) {
-            this.categoryName = Optional.ofNullable(categoryName);
-            return this;
-        }
-
-        @JsonSetter(value = "categoryRiskLevel", nulls = Nulls.SKIP)
-        public Builder categoryRiskLevel(Optional<RiskLevel> categoryRiskLevel) {
-            this.categoryRiskLevel = categoryRiskLevel;
-            return this;
-        }
-
-        public Builder categoryRiskLevel(RiskLevel categoryRiskLevel) {
-            this.categoryRiskLevel = Optional.ofNullable(categoryRiskLevel);
-            return this;
-        }
-
-        @JsonSetter(value = "categoryRiskScore", nulls = Nulls.SKIP)
-        public Builder categoryRiskScore(Optional<Double> categoryRiskScore) {
-            this.categoryRiskScore = categoryRiskScore;
-            return this;
-        }
-
-        public Builder categoryRiskScore(Double categoryRiskScore) {
-            this.categoryRiskScore = Optional.ofNullable(categoryRiskScore);
-            return this;
-        }
-
-        @JsonSetter(value = "exposureType", nulls = Nulls.SKIP)
-        public Builder exposureType(Optional<RiskExposureType> exposureType) {
-            this.exposureType = exposureType;
-            return this;
-        }
-
-        public Builder exposureType(RiskExposureType exposureType) {
-            this.exposureType = Optional.ofNullable(exposureType);
+        public Builder category(BlockchainRiskCategory category) {
+            this.category = Optional.ofNullable(category);
             return this;
         }
 
         @JsonSetter(value = "entity", nulls = Nulls.SKIP)
-        public Builder entity(Optional<String> entity) {
+        public Builder entity(Optional<BlockChainEntity> entity) {
             this.entity = entity;
             return this;
         }
 
-        public Builder entity(String entity) {
+        public Builder entity(BlockChainEntity entity) {
             this.entity = Optional.ofNullable(entity);
             return this;
         }
 
-        @JsonSetter(value = "exposureAmount", nulls = Nulls.SKIP)
-        public Builder exposureAmount(Optional<TransactionAmountDetails> exposureAmount) {
-            this.exposureAmount = exposureAmount;
+        @JsonSetter(value = "exposure", nulls = Nulls.SKIP)
+        public Builder exposure(Optional<BlockchainRiskExposure> exposure) {
+            this.exposure = exposure;
             return this;
         }
 
-        public Builder exposureAmount(TransactionAmountDetails exposureAmount) {
-            this.exposureAmount = Optional.ofNullable(exposureAmount);
+        public Builder exposure(BlockchainRiskExposure exposure) {
+            this.exposure = Optional.ofNullable(exposure);
+            return this;
+        }
+
+        @JsonSetter(value = "tags", nulls = Nulls.SKIP)
+        public Builder tags(Optional<List<Tag>> tags) {
+            this.tags = tags;
+            return this;
+        }
+
+        public Builder tags(List<Tag> tags) {
+            this.tags = Optional.ofNullable(tags);
             return this;
         }
 
         public BlockchainRiskDetail build() {
-            return new BlockchainRiskDetail(
-                    alertId,
-                    categoryId,
-                    categoryName,
-                    categoryRiskLevel,
-                    categoryRiskScore,
-                    exposureType,
-                    entity,
-                    exposureAmount,
-                    additionalProperties);
+            return new BlockchainRiskDetail(alertId, category, entity, exposure, tags, additionalProperties);
         }
     }
 }

@@ -19,41 +19,27 @@ import java.util.Objects;
 import java.util.Optional;
 
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
-@JsonDeserialize(builder = BlockchainCounterparty.Builder.class)
-public final class BlockchainCounterparty {
+@JsonDeserialize(builder = BlockChainEntity.Builder.class)
+public final class BlockChainEntity {
     private final Optional<String> name;
-
-    private final Optional<String> categoryId;
 
     private final Optional<List<Tag>> tags;
 
     private final Map<String, Object> additionalProperties;
 
-    private BlockchainCounterparty(
-            Optional<String> name,
-            Optional<String> categoryId,
-            Optional<List<Tag>> tags,
-            Map<String, Object> additionalProperties) {
+    private BlockChainEntity(
+            Optional<String> name, Optional<List<Tag>> tags, Map<String, Object> additionalProperties) {
         this.name = name;
-        this.categoryId = categoryId;
         this.tags = tags;
         this.additionalProperties = additionalProperties;
     }
 
     /**
-     * @return Name of the counterparty (e.g., exchange name)
+     * @return Name of the entity
      */
     @JsonProperty("name")
     public Optional<String> getName() {
         return name;
-    }
-
-    /**
-     * @return Category identifier for the counterparty
-     */
-    @JsonProperty("categoryId")
-    public Optional<String> getCategoryId() {
-        return categoryId;
     }
 
     /**
@@ -67,7 +53,7 @@ public final class BlockchainCounterparty {
     @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
-        return other instanceof BlockchainCounterparty && equalTo((BlockchainCounterparty) other);
+        return other instanceof BlockChainEntity && equalTo((BlockChainEntity) other);
     }
 
     @JsonAnyGetter
@@ -75,13 +61,13 @@ public final class BlockchainCounterparty {
         return this.additionalProperties;
     }
 
-    private boolean equalTo(BlockchainCounterparty other) {
-        return name.equals(other.name) && categoryId.equals(other.categoryId) && tags.equals(other.tags);
+    private boolean equalTo(BlockChainEntity other) {
+        return name.equals(other.name) && tags.equals(other.tags);
     }
 
     @java.lang.Override
     public int hashCode() {
-        return Objects.hash(this.name, this.categoryId, this.tags);
+        return Objects.hash(this.name, this.tags);
     }
 
     @java.lang.Override
@@ -97,8 +83,6 @@ public final class BlockchainCounterparty {
     public static final class Builder {
         private Optional<String> name = Optional.empty();
 
-        private Optional<String> categoryId = Optional.empty();
-
         private Optional<List<Tag>> tags = Optional.empty();
 
         @JsonAnySetter
@@ -106,9 +90,8 @@ public final class BlockchainCounterparty {
 
         private Builder() {}
 
-        public Builder from(BlockchainCounterparty other) {
+        public Builder from(BlockChainEntity other) {
             name(other.getName());
-            categoryId(other.getCategoryId());
             tags(other.getTags());
             return this;
         }
@@ -124,17 +107,6 @@ public final class BlockchainCounterparty {
             return this;
         }
 
-        @JsonSetter(value = "categoryId", nulls = Nulls.SKIP)
-        public Builder categoryId(Optional<String> categoryId) {
-            this.categoryId = categoryId;
-            return this;
-        }
-
-        public Builder categoryId(String categoryId) {
-            this.categoryId = Optional.ofNullable(categoryId);
-            return this;
-        }
-
         @JsonSetter(value = "tags", nulls = Nulls.SKIP)
         public Builder tags(Optional<List<Tag>> tags) {
             this.tags = tags;
@@ -146,8 +118,8 @@ public final class BlockchainCounterparty {
             return this;
         }
 
-        public BlockchainCounterparty build() {
-            return new BlockchainCounterparty(name, categoryId, tags, additionalProperties);
+        public BlockChainEntity build() {
+            return new BlockChainEntity(name, tags, additionalProperties);
         }
     }
 }

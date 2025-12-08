@@ -40,6 +40,8 @@ public final class BatchBusinessUserWithRulesResult {
 
     private final Optional<List<Person>> directors;
 
+    private final Optional<List<LegalEntity>> businessPartners;
+
     private final Optional<TransactionLimits> transactionLimits;
 
     private final Optional<RiskLevel> riskLevel;
@@ -92,6 +94,7 @@ public final class BatchBusinessUserWithRulesResult {
             Optional<List<CorporateEntityDetails>> corporateEntities,
             Optional<List<BatchBusinessUserWithRulesResultShareHoldersItem>> shareHolders,
             Optional<List<Person>> directors,
+            Optional<List<LegalEntity>> businessPartners,
             Optional<TransactionLimits> transactionLimits,
             Optional<RiskLevel> riskLevel,
             Optional<RiskLevel> kycRiskLevel,
@@ -122,6 +125,7 @@ public final class BatchBusinessUserWithRulesResult {
         this.corporateEntities = corporateEntities;
         this.shareHolders = shareHolders;
         this.directors = directors;
+        this.businessPartners = businessPartners;
         this.transactionLimits = transactionLimits;
         this.riskLevel = riskLevel;
         this.kycRiskLevel = kycRiskLevel;
@@ -206,6 +210,14 @@ public final class BatchBusinessUserWithRulesResult {
     @JsonProperty("directors")
     public Optional<List<Person>> getDirectors() {
         return directors;
+    }
+
+    /**
+     * @return Business partners of the company
+     */
+    @JsonProperty("businessPartners")
+    public Optional<List<LegalEntity>> getBusinessPartners() {
+        return businessPartners;
     }
 
     @JsonProperty("transactionLimits")
@@ -347,6 +359,7 @@ public final class BatchBusinessUserWithRulesResult {
                 && corporateEntities.equals(other.corporateEntities)
                 && shareHolders.equals(other.shareHolders)
                 && directors.equals(other.directors)
+                && businessPartners.equals(other.businessPartners)
                 && transactionLimits.equals(other.transactionLimits)
                 && riskLevel.equals(other.riskLevel)
                 && kycRiskLevel.equals(other.kycRiskLevel)
@@ -381,6 +394,7 @@ public final class BatchBusinessUserWithRulesResult {
                 this.corporateEntities,
                 this.shareHolders,
                 this.directors,
+                this.businessPartners,
                 this.transactionLimits,
                 this.riskLevel,
                 this.kycRiskLevel,
@@ -452,6 +466,10 @@ public final class BatchBusinessUserWithRulesResult {
         _FinalStage directors(Optional<List<Person>> directors);
 
         _FinalStage directors(List<Person> directors);
+
+        _FinalStage businessPartners(Optional<List<LegalEntity>> businessPartners);
+
+        _FinalStage businessPartners(List<LegalEntity> businessPartners);
 
         _FinalStage transactionLimits(Optional<TransactionLimits> transactionLimits);
 
@@ -585,6 +603,8 @@ public final class BatchBusinessUserWithRulesResult {
 
         private Optional<TransactionLimits> transactionLimits = Optional.empty();
 
+        private Optional<List<LegalEntity>> businessPartners = Optional.empty();
+
         private Optional<List<Person>> directors = Optional.empty();
 
         private Optional<List<BatchBusinessUserWithRulesResultShareHoldersItem>> shareHolders = Optional.empty();
@@ -613,6 +633,7 @@ public final class BatchBusinessUserWithRulesResult {
             corporateEntities(other.getCorporateEntities());
             shareHolders(other.getShareHolders());
             directors(other.getDirectors());
+            businessPartners(other.getBusinessPartners());
             transactionLimits(other.getTransactionLimits());
             riskLevel(other.getRiskLevel());
             kycRiskLevel(other.getKycRiskLevel());
@@ -952,6 +973,23 @@ public final class BatchBusinessUserWithRulesResult {
         }
 
         /**
+         * <p>Business partners of the company</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
+        @java.lang.Override
+        public _FinalStage businessPartners(List<LegalEntity> businessPartners) {
+            this.businessPartners = Optional.ofNullable(businessPartners);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "businessPartners", nulls = Nulls.SKIP)
+        public _FinalStage businessPartners(Optional<List<LegalEntity>> businessPartners) {
+            this.businessPartners = businessPartners;
+            return this;
+        }
+
+        /**
          * <p>Director(s) of the company. Must be at least one</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
@@ -1057,6 +1095,7 @@ public final class BatchBusinessUserWithRulesResult {
                     corporateEntities,
                     shareHolders,
                     directors,
+                    businessPartners,
                     transactionLimits,
                     riskLevel,
                     kycRiskLevel,
