@@ -26,16 +26,20 @@ public final class PepStatus {
 
     private final Optional<PepRank> pepRank;
 
+    private final Optional<String> category;
+
     private final Map<String, Object> additionalProperties;
 
     private PepStatus(
             boolean isPepHit,
             Optional<CountryCode> pepCountry,
             Optional<PepRank> pepRank,
+            Optional<String> category,
             Map<String, Object> additionalProperties) {
         this.isPepHit = isPepHit;
         this.pepCountry = pepCountry;
         this.pepRank = pepRank;
+        this.category = category;
         this.additionalProperties = additionalProperties;
     }
 
@@ -54,6 +58,11 @@ public final class PepStatus {
         return pepRank;
     }
 
+    @JsonProperty("category")
+    public Optional<String> getCategory() {
+        return category;
+    }
+
     @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
@@ -66,12 +75,15 @@ public final class PepStatus {
     }
 
     private boolean equalTo(PepStatus other) {
-        return isPepHit == other.isPepHit && pepCountry.equals(other.pepCountry) && pepRank.equals(other.pepRank);
+        return isPepHit == other.isPepHit
+                && pepCountry.equals(other.pepCountry)
+                && pepRank.equals(other.pepRank)
+                && category.equals(other.category);
     }
 
     @java.lang.Override
     public int hashCode() {
-        return Objects.hash(this.isPepHit, this.pepCountry, this.pepRank);
+        return Objects.hash(this.isPepHit, this.pepCountry, this.pepRank, this.category);
     }
 
     @java.lang.Override
@@ -99,11 +111,17 @@ public final class PepStatus {
         _FinalStage pepRank(Optional<PepRank> pepRank);
 
         _FinalStage pepRank(PepRank pepRank);
+
+        _FinalStage category(Optional<String> category);
+
+        _FinalStage category(String category);
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static final class Builder implements IsPepHitStage, _FinalStage {
         private boolean isPepHit;
+
+        private Optional<String> category = Optional.empty();
 
         private Optional<PepRank> pepRank = Optional.empty();
 
@@ -119,6 +137,7 @@ public final class PepStatus {
             isPepHit(other.getIsPepHit());
             pepCountry(other.getPepCountry());
             pepRank(other.getPepRank());
+            category(other.getCategory());
             return this;
         }
 
@@ -126,6 +145,19 @@ public final class PepStatus {
         @JsonSetter("isPepHit")
         public _FinalStage isPepHit(boolean isPepHit) {
             this.isPepHit = isPepHit;
+            return this;
+        }
+
+        @java.lang.Override
+        public _FinalStage category(String category) {
+            this.category = Optional.ofNullable(category);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "category", nulls = Nulls.SKIP)
+        public _FinalStage category(Optional<String> category) {
+            this.category = category;
             return this;
         }
 
@@ -157,7 +189,7 @@ public final class PepStatus {
 
         @java.lang.Override
         public PepStatus build() {
-            return new PepStatus(isPepHit, pepCountry, pepRank, additionalProperties);
+            return new PepStatus(isPepHit, pepCountry, pepRank, category, additionalProperties);
         }
     }
 }
