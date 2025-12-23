@@ -27,6 +27,8 @@ public final class BusinessOptional {
 
     private final Optional<KycStatusDetails> kycStatusDetails;
 
+    private final Optional<Double> eoddDate;
+
     private final Optional<LegalEntity> legalEntity;
 
     private final Optional<List<CorporateEntityDetails>> corporateEntities;
@@ -79,6 +81,7 @@ public final class BusinessOptional {
             Optional<Double> activatedTimestamp,
             Optional<UserStateDetails> userStateDetails,
             Optional<KycStatusDetails> kycStatusDetails,
+            Optional<Double> eoddDate,
             Optional<LegalEntity> legalEntity,
             Optional<List<CorporateEntityDetails>> corporateEntities,
             Optional<List<BusinessOptionalShareHoldersItem>> shareHolders,
@@ -106,6 +109,7 @@ public final class BusinessOptional {
         this.activatedTimestamp = activatedTimestamp;
         this.userStateDetails = userStateDetails;
         this.kycStatusDetails = kycStatusDetails;
+        this.eoddDate = eoddDate;
         this.legalEntity = legalEntity;
         this.corporateEntities = corporateEntities;
         this.shareHolders = shareHolders;
@@ -148,6 +152,11 @@ public final class BusinessOptional {
     @JsonProperty("kycStatusDetails")
     public Optional<KycStatusDetails> getKycStatusDetails() {
         return kycStatusDetails;
+    }
+
+    @JsonProperty("eoddDate")
+    public Optional<Double> getEoddDate() {
+        return eoddDate;
     }
 
     @JsonProperty("legalEntity")
@@ -310,6 +319,7 @@ public final class BusinessOptional {
         return activatedTimestamp.equals(other.activatedTimestamp)
                 && userStateDetails.equals(other.userStateDetails)
                 && kycStatusDetails.equals(other.kycStatusDetails)
+                && eoddDate.equals(other.eoddDate)
                 && legalEntity.equals(other.legalEntity)
                 && corporateEntities.equals(other.corporateEntities)
                 && shareHolders.equals(other.shareHolders)
@@ -341,6 +351,7 @@ public final class BusinessOptional {
                 this.activatedTimestamp,
                 this.userStateDetails,
                 this.kycStatusDetails,
+                this.eoddDate,
                 this.legalEntity,
                 this.corporateEntities,
                 this.shareHolders,
@@ -382,6 +393,8 @@ public final class BusinessOptional {
         private Optional<UserStateDetails> userStateDetails = Optional.empty();
 
         private Optional<KycStatusDetails> kycStatusDetails = Optional.empty();
+
+        private Optional<Double> eoddDate = Optional.empty();
 
         private Optional<LegalEntity> legalEntity = Optional.empty();
 
@@ -438,6 +451,7 @@ public final class BusinessOptional {
             activatedTimestamp(other.getActivatedTimestamp());
             userStateDetails(other.getUserStateDetails());
             kycStatusDetails(other.getKycStatusDetails());
+            eoddDate(other.getEoddDate());
             legalEntity(other.getLegalEntity());
             corporateEntities(other.getCorporateEntities());
             shareHolders(other.getShareHolders());
@@ -494,6 +508,17 @@ public final class BusinessOptional {
 
         public Builder kycStatusDetails(KycStatusDetails kycStatusDetails) {
             this.kycStatusDetails = Optional.ofNullable(kycStatusDetails);
+            return this;
+        }
+
+        @JsonSetter(value = "eoddDate", nulls = Nulls.SKIP)
+        public Builder eoddDate(Optional<Double> eoddDate) {
+            this.eoddDate = eoddDate;
+            return this;
+        }
+
+        public Builder eoddDate(Double eoddDate) {
+            this.eoddDate = Optional.ofNullable(eoddDate);
             return this;
         }
 
@@ -756,6 +781,7 @@ public final class BusinessOptional {
                     activatedTimestamp,
                     userStateDetails,
                     kycStatusDetails,
+                    eoddDate,
                     legalEntity,
                     corporateEntities,
                     shareHolders,

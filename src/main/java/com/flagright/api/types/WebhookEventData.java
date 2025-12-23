@@ -48,6 +48,8 @@ public final class WebhookEventData {
             return visitor.visit((UserTagsUpdate) this.value);
         } else if (this.type == 8) {
             return visitor.visit((CraRiskLevelUpdatedDetails) this.value);
+        } else if (this.type == 9) {
+            return visitor.visit((BatchCompletedDetails) this.value);
         }
         throw new IllegalStateException("Failed to visit value. This should never happen.");
     }
@@ -108,6 +110,10 @@ public final class WebhookEventData {
         return new WebhookEventData(value, 8);
     }
 
+    public static WebhookEventData of(BatchCompletedDetails value) {
+        return new WebhookEventData(value, 9);
+    }
+
     public interface Visitor<T> {
         T visit(UserStateDetails value);
 
@@ -126,6 +132,8 @@ public final class WebhookEventData {
         T visit(UserTagsUpdate value);
 
         T visit(CraRiskLevelUpdatedDetails value);
+
+        T visit(BatchCompletedDetails value);
     }
 
     static final class Deserializer extends StdDeserializer<WebhookEventData> {
@@ -170,6 +178,10 @@ public final class WebhookEventData {
             }
             try {
                 return of(ObjectMappers.JSON_MAPPER.convertValue(value, CraRiskLevelUpdatedDetails.class));
+            } catch (IllegalArgumentException e) {
+            }
+            try {
+                return of(ObjectMappers.JSON_MAPPER.convertValue(value, BatchCompletedDetails.class));
             } catch (IllegalArgumentException e) {
             }
             throw new JsonParseException(p, "Failed to deserialize");

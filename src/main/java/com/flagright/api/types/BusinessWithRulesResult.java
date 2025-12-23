@@ -34,6 +34,8 @@ public final class BusinessWithRulesResult {
 
     private final Optional<KycStatusDetails> kycStatusDetails;
 
+    private final Optional<Double> eoddDate;
+
     private final Optional<List<CorporateEntityDetails>> corporateEntities;
 
     private final Optional<List<BusinessWithRulesResultShareHoldersItem>> shareHolders;
@@ -93,6 +95,7 @@ public final class BusinessWithRulesResult {
             Optional<Double> activatedTimestamp,
             Optional<UserStateDetails> userStateDetails,
             Optional<KycStatusDetails> kycStatusDetails,
+            Optional<Double> eoddDate,
             Optional<List<CorporateEntityDetails>> corporateEntities,
             Optional<List<BusinessWithRulesResultShareHoldersItem>> shareHolders,
             Optional<List<Person>> directors,
@@ -125,6 +128,7 @@ public final class BusinessWithRulesResult {
         this.activatedTimestamp = activatedTimestamp;
         this.userStateDetails = userStateDetails;
         this.kycStatusDetails = kycStatusDetails;
+        this.eoddDate = eoddDate;
         this.corporateEntities = corporateEntities;
         this.shareHolders = shareHolders;
         this.directors = directors;
@@ -190,6 +194,11 @@ public final class BusinessWithRulesResult {
     @JsonProperty("kycStatusDetails")
     public Optional<KycStatusDetails> getKycStatusDetails() {
         return kycStatusDetails;
+    }
+
+    @JsonProperty("eoddDate")
+    public Optional<Double> getEoddDate() {
+        return eoddDate;
     }
 
     /**
@@ -365,6 +374,7 @@ public final class BusinessWithRulesResult {
                 && activatedTimestamp.equals(other.activatedTimestamp)
                 && userStateDetails.equals(other.userStateDetails)
                 && kycStatusDetails.equals(other.kycStatusDetails)
+                && eoddDate.equals(other.eoddDate)
                 && corporateEntities.equals(other.corporateEntities)
                 && shareHolders.equals(other.shareHolders)
                 && directors.equals(other.directors)
@@ -401,6 +411,7 @@ public final class BusinessWithRulesResult {
                 this.activatedTimestamp,
                 this.userStateDetails,
                 this.kycStatusDetails,
+                this.eoddDate,
                 this.corporateEntities,
                 this.shareHolders,
                 this.directors,
@@ -465,6 +476,10 @@ public final class BusinessWithRulesResult {
         _FinalStage kycStatusDetails(Optional<KycStatusDetails> kycStatusDetails);
 
         _FinalStage kycStatusDetails(KycStatusDetails kycStatusDetails);
+
+        _FinalStage eoddDate(Optional<Double> eoddDate);
+
+        _FinalStage eoddDate(Double eoddDate);
 
         _FinalStage corporateEntities(Optional<List<CorporateEntityDetails>> corporateEntities);
 
@@ -626,6 +641,8 @@ public final class BusinessWithRulesResult {
 
         private Optional<List<CorporateEntityDetails>> corporateEntities = Optional.empty();
 
+        private Optional<Double> eoddDate = Optional.empty();
+
         private Optional<KycStatusDetails> kycStatusDetails = Optional.empty();
 
         private Optional<UserStateDetails> userStateDetails = Optional.empty();
@@ -645,6 +662,7 @@ public final class BusinessWithRulesResult {
             activatedTimestamp(other.getActivatedTimestamp());
             userStateDetails(other.getUserStateDetails());
             kycStatusDetails(other.getKycStatusDetails());
+            eoddDate(other.getEoddDate());
             corporateEntities(other.getCorporateEntities());
             shareHolders(other.getShareHolders());
             directors(other.getDirectors());
@@ -1070,6 +1088,19 @@ public final class BusinessWithRulesResult {
         }
 
         @java.lang.Override
+        public _FinalStage eoddDate(Double eoddDate) {
+            this.eoddDate = Optional.ofNullable(eoddDate);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "eoddDate", nulls = Nulls.SKIP)
+        public _FinalStage eoddDate(Optional<Double> eoddDate) {
+            this.eoddDate = eoddDate;
+            return this;
+        }
+
+        @java.lang.Override
         public _FinalStage kycStatusDetails(KycStatusDetails kycStatusDetails) {
             this.kycStatusDetails = Optional.ofNullable(kycStatusDetails);
             return this;
@@ -1121,6 +1152,7 @@ public final class BusinessWithRulesResult {
                     activatedTimestamp,
                     userStateDetails,
                     kycStatusDetails,
+                    eoddDate,
                     corporateEntities,
                     shareHolders,
                     directors,

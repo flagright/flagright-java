@@ -36,7 +36,9 @@ public enum WebhookEventType {
 
     CASE_ESCALATED("CASE_ESCALATED"),
 
-    ALERT_ESCALATED("ALERT_ESCALATED");
+    ALERT_ESCALATED("ALERT_ESCALATED"),
+
+    BATCH_COMPLETED("BATCH_COMPLETED");
 
     private final String value;
 
