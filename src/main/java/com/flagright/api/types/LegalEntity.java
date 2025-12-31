@@ -34,6 +34,10 @@ public final class LegalEntity {
 
     private final Optional<ContactDetails> contactDetails;
 
+    private final Optional<List<Tag>> tags;
+
+    private final Optional<List<PepStatus>> pepStatus;
+
     private final Map<String, Object> additionalProperties;
 
     private LegalEntity(
@@ -43,6 +47,8 @@ public final class LegalEntity {
             Optional<List<String>> reasonForAccountOpening,
             Optional<List<SourceOfFunds>> sourceOfFunds,
             Optional<ContactDetails> contactDetails,
+            Optional<List<Tag>> tags,
+            Optional<List<PepStatus>> pepStatus,
             Map<String, Object> additionalProperties) {
         this.companyGeneralDetails = companyGeneralDetails;
         this.companyFinancialDetails = companyFinancialDetails;
@@ -50,6 +56,8 @@ public final class LegalEntity {
         this.reasonForAccountOpening = reasonForAccountOpening;
         this.sourceOfFunds = sourceOfFunds;
         this.contactDetails = contactDetails;
+        this.tags = tags;
+        this.pepStatus = pepStatus;
         this.additionalProperties = additionalProperties;
     }
 
@@ -83,6 +91,19 @@ public final class LegalEntity {
         return contactDetails;
     }
 
+    /**
+     * @return Additional information that can be added via tags
+     */
+    @JsonProperty("tags")
+    public Optional<List<Tag>> getTags() {
+        return tags;
+    }
+
+    @JsonProperty("pepStatus")
+    public Optional<List<PepStatus>> getPepStatus() {
+        return pepStatus;
+    }
+
     @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
@@ -100,7 +121,9 @@ public final class LegalEntity {
                 && companyRegistrationDetails.equals(other.companyRegistrationDetails)
                 && reasonForAccountOpening.equals(other.reasonForAccountOpening)
                 && sourceOfFunds.equals(other.sourceOfFunds)
-                && contactDetails.equals(other.contactDetails);
+                && contactDetails.equals(other.contactDetails)
+                && tags.equals(other.tags)
+                && pepStatus.equals(other.pepStatus);
     }
 
     @java.lang.Override
@@ -111,7 +134,9 @@ public final class LegalEntity {
                 this.companyRegistrationDetails,
                 this.reasonForAccountOpening,
                 this.sourceOfFunds,
-                this.contactDetails);
+                this.contactDetails,
+                this.tags,
+                this.pepStatus);
     }
 
     @java.lang.Override
@@ -151,11 +176,23 @@ public final class LegalEntity {
         _FinalStage contactDetails(Optional<ContactDetails> contactDetails);
 
         _FinalStage contactDetails(ContactDetails contactDetails);
+
+        _FinalStage tags(Optional<List<Tag>> tags);
+
+        _FinalStage tags(List<Tag> tags);
+
+        _FinalStage pepStatus(Optional<List<PepStatus>> pepStatus);
+
+        _FinalStage pepStatus(List<PepStatus> pepStatus);
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static final class Builder implements CompanyGeneralDetailsStage, _FinalStage {
         private CompanyGeneralDetails companyGeneralDetails;
+
+        private Optional<List<PepStatus>> pepStatus = Optional.empty();
+
+        private Optional<List<Tag>> tags = Optional.empty();
 
         private Optional<ContactDetails> contactDetails = Optional.empty();
 
@@ -180,6 +217,8 @@ public final class LegalEntity {
             reasonForAccountOpening(other.getReasonForAccountOpening());
             sourceOfFunds(other.getSourceOfFunds());
             contactDetails(other.getContactDetails());
+            tags(other.getTags());
+            pepStatus(other.getPepStatus());
             return this;
         }
 
@@ -188,6 +227,36 @@ public final class LegalEntity {
         public _FinalStage companyGeneralDetails(@NotNull CompanyGeneralDetails companyGeneralDetails) {
             this.companyGeneralDetails =
                     Objects.requireNonNull(companyGeneralDetails, "companyGeneralDetails must not be null");
+            return this;
+        }
+
+        @java.lang.Override
+        public _FinalStage pepStatus(List<PepStatus> pepStatus) {
+            this.pepStatus = Optional.ofNullable(pepStatus);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "pepStatus", nulls = Nulls.SKIP)
+        public _FinalStage pepStatus(Optional<List<PepStatus>> pepStatus) {
+            this.pepStatus = pepStatus;
+            return this;
+        }
+
+        /**
+         * <p>Additional information that can be added via tags</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
+        @java.lang.Override
+        public _FinalStage tags(List<Tag> tags) {
+            this.tags = Optional.ofNullable(tags);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "tags", nulls = Nulls.SKIP)
+        public _FinalStage tags(Optional<List<Tag>> tags) {
+            this.tags = tags;
             return this;
         }
 
@@ -265,6 +334,8 @@ public final class LegalEntity {
                     reasonForAccountOpening,
                     sourceOfFunds,
                     contactDetails,
+                    tags,
+                    pepStatus,
                     additionalProperties);
         }
     }
