@@ -37,6 +37,8 @@ public final class BusinessOptional {
 
     private final Optional<List<Person>> directors;
 
+    private final Optional<List<BusinessOptionalAssociatedPartiesItem>> associatedParties;
+
     private final Optional<List<LegalEntity>> businessPartners;
 
     private final Optional<TransactionLimits> transactionLimits;
@@ -86,6 +88,7 @@ public final class BusinessOptional {
             Optional<List<CorporateEntityDetails>> corporateEntities,
             Optional<List<BusinessOptionalShareHoldersItem>> shareHolders,
             Optional<List<Person>> directors,
+            Optional<List<BusinessOptionalAssociatedPartiesItem>> associatedParties,
             Optional<List<LegalEntity>> businessPartners,
             Optional<TransactionLimits> transactionLimits,
             Optional<RiskLevel> riskLevel,
@@ -114,6 +117,7 @@ public final class BusinessOptional {
         this.corporateEntities = corporateEntities;
         this.shareHolders = shareHolders;
         this.directors = directors;
+        this.associatedParties = associatedParties;
         this.businessPartners = businessPartners;
         this.transactionLimits = transactionLimits;
         this.riskLevel = riskLevel;
@@ -186,6 +190,14 @@ public final class BusinessOptional {
     @JsonProperty("directors")
     public Optional<List<Person>> getDirectors() {
         return directors;
+    }
+
+    /**
+     * @return Parties associated with the company. Can be another company or an individual
+     */
+    @JsonProperty("associatedParties")
+    public Optional<List<BusinessOptionalAssociatedPartiesItem>> getAssociatedParties() {
+        return associatedParties;
     }
 
     /**
@@ -324,6 +336,7 @@ public final class BusinessOptional {
                 && corporateEntities.equals(other.corporateEntities)
                 && shareHolders.equals(other.shareHolders)
                 && directors.equals(other.directors)
+                && associatedParties.equals(other.associatedParties)
                 && businessPartners.equals(other.businessPartners)
                 && transactionLimits.equals(other.transactionLimits)
                 && riskLevel.equals(other.riskLevel)
@@ -356,6 +369,7 @@ public final class BusinessOptional {
                 this.corporateEntities,
                 this.shareHolders,
                 this.directors,
+                this.associatedParties,
                 this.businessPartners,
                 this.transactionLimits,
                 this.riskLevel,
@@ -403,6 +417,8 @@ public final class BusinessOptional {
         private Optional<List<BusinessOptionalShareHoldersItem>> shareHolders = Optional.empty();
 
         private Optional<List<Person>> directors = Optional.empty();
+
+        private Optional<List<BusinessOptionalAssociatedPartiesItem>> associatedParties = Optional.empty();
 
         private Optional<List<LegalEntity>> businessPartners = Optional.empty();
 
@@ -456,6 +472,7 @@ public final class BusinessOptional {
             corporateEntities(other.getCorporateEntities());
             shareHolders(other.getShareHolders());
             directors(other.getDirectors());
+            associatedParties(other.getAssociatedParties());
             businessPartners(other.getBusinessPartners());
             transactionLimits(other.getTransactionLimits());
             riskLevel(other.getRiskLevel());
@@ -563,6 +580,17 @@ public final class BusinessOptional {
 
         public Builder directors(List<Person> directors) {
             this.directors = Optional.ofNullable(directors);
+            return this;
+        }
+
+        @JsonSetter(value = "associatedParties", nulls = Nulls.SKIP)
+        public Builder associatedParties(Optional<List<BusinessOptionalAssociatedPartiesItem>> associatedParties) {
+            this.associatedParties = associatedParties;
+            return this;
+        }
+
+        public Builder associatedParties(List<BusinessOptionalAssociatedPartiesItem> associatedParties) {
+            this.associatedParties = Optional.ofNullable(associatedParties);
             return this;
         }
 
@@ -786,6 +814,7 @@ public final class BusinessOptional {
                     corporateEntities,
                     shareHolders,
                     directors,
+                    associatedParties,
                     businessPartners,
                     transactionLimits,
                     riskLevel,

@@ -42,6 +42,8 @@ public final class Business {
 
     private final Optional<List<Person>> directors;
 
+    private final Optional<List<BusinessAssociatedPartiesItem>> associatedParties;
+
     private final Optional<List<LegalEntity>> businessPartners;
 
     private final Optional<TransactionLimits> transactionLimits;
@@ -93,6 +95,7 @@ public final class Business {
             Optional<List<CorporateEntityDetails>> corporateEntities,
             Optional<List<BusinessShareHoldersItem>> shareHolders,
             Optional<List<Person>> directors,
+            Optional<List<BusinessAssociatedPartiesItem>> associatedParties,
             Optional<List<LegalEntity>> businessPartners,
             Optional<TransactionLimits> transactionLimits,
             Optional<RiskLevel> riskLevel,
@@ -123,6 +126,7 @@ public final class Business {
         this.corporateEntities = corporateEntities;
         this.shareHolders = shareHolders;
         this.directors = directors;
+        this.associatedParties = associatedParties;
         this.businessPartners = businessPartners;
         this.transactionLimits = transactionLimits;
         this.riskLevel = riskLevel;
@@ -211,6 +215,14 @@ public final class Business {
     @JsonProperty("directors")
     public Optional<List<Person>> getDirectors() {
         return directors;
+    }
+
+    /**
+     * @return Parties associated with the company. Can be another company or an individual
+     */
+    @JsonProperty("associatedParties")
+    public Optional<List<BusinessAssociatedPartiesItem>> getAssociatedParties() {
+        return associatedParties;
     }
 
     /**
@@ -351,6 +363,7 @@ public final class Business {
                 && corporateEntities.equals(other.corporateEntities)
                 && shareHolders.equals(other.shareHolders)
                 && directors.equals(other.directors)
+                && associatedParties.equals(other.associatedParties)
                 && businessPartners.equals(other.businessPartners)
                 && transactionLimits.equals(other.transactionLimits)
                 && riskLevel.equals(other.riskLevel)
@@ -385,6 +398,7 @@ public final class Business {
                 this.corporateEntities,
                 this.shareHolders,
                 this.directors,
+                this.associatedParties,
                 this.businessPartners,
                 this.transactionLimits,
                 this.riskLevel,
@@ -459,6 +473,10 @@ public final class Business {
         _FinalStage directors(Optional<List<Person>> directors);
 
         _FinalStage directors(List<Person> directors);
+
+        _FinalStage associatedParties(Optional<List<BusinessAssociatedPartiesItem>> associatedParties);
+
+        _FinalStage associatedParties(List<BusinessAssociatedPartiesItem> associatedParties);
 
         _FinalStage businessPartners(Optional<List<LegalEntity>> businessPartners);
 
@@ -583,6 +601,8 @@ public final class Business {
 
         private Optional<List<LegalEntity>> businessPartners = Optional.empty();
 
+        private Optional<List<BusinessAssociatedPartiesItem>> associatedParties = Optional.empty();
+
         private Optional<List<Person>> directors = Optional.empty();
 
         private Optional<List<BusinessShareHoldersItem>> shareHolders = Optional.empty();
@@ -614,6 +634,7 @@ public final class Business {
             corporateEntities(other.getCorporateEntities());
             shareHolders(other.getShareHolders());
             directors(other.getDirectors());
+            associatedParties(other.getAssociatedParties());
             businessPartners(other.getBusinessPartners());
             transactionLimits(other.getTransactionLimits());
             riskLevel(other.getRiskLevel());
@@ -941,6 +962,23 @@ public final class Business {
         }
 
         /**
+         * <p>Parties associated with the company. Can be another company or an individual</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
+        @java.lang.Override
+        public _FinalStage associatedParties(List<BusinessAssociatedPartiesItem> associatedParties) {
+            this.associatedParties = Optional.ofNullable(associatedParties);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "associatedParties", nulls = Nulls.SKIP)
+        public _FinalStage associatedParties(Optional<List<BusinessAssociatedPartiesItem>> associatedParties) {
+            this.associatedParties = associatedParties;
+            return this;
+        }
+
+        /**
          * <p>Director(s) of the company. Must be at least one</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
@@ -1060,6 +1098,7 @@ public final class Business {
                     corporateEntities,
                     shareHolders,
                     directors,
+                    associatedParties,
                     businessPartners,
                     transactionLimits,
                     riskLevel,
