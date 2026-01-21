@@ -20,6 +20,8 @@ import java.util.Optional;
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
 @JsonDeserialize(builder = CashDetails.Builder.class)
 public final class CashDetails {
+    private final Optional<CounterpartyType> counterpartyType;
+
     private final Optional<String> identifier;
 
     private final Optional<Address> address;
@@ -31,16 +33,23 @@ public final class CashDetails {
     private final Map<String, Object> additionalProperties;
 
     private CashDetails(
+            Optional<CounterpartyType> counterpartyType,
             Optional<String> identifier,
             Optional<Address> address,
             Optional<String> name,
             Optional<String> emailId,
             Map<String, Object> additionalProperties) {
+        this.counterpartyType = counterpartyType;
         this.identifier = identifier;
         this.address = address;
         this.name = name;
         this.emailId = emailId;
         this.additionalProperties = additionalProperties;
+    }
+
+    @JsonProperty("counterpartyType")
+    public Optional<CounterpartyType> getCounterpartyType() {
+        return counterpartyType;
     }
 
     /**
@@ -78,7 +87,8 @@ public final class CashDetails {
     }
 
     private boolean equalTo(CashDetails other) {
-        return identifier.equals(other.identifier)
+        return counterpartyType.equals(other.counterpartyType)
+                && identifier.equals(other.identifier)
                 && address.equals(other.address)
                 && name.equals(other.name)
                 && emailId.equals(other.emailId);
@@ -86,7 +96,7 @@ public final class CashDetails {
 
     @java.lang.Override
     public int hashCode() {
-        return Objects.hash(this.identifier, this.address, this.name, this.emailId);
+        return Objects.hash(this.counterpartyType, this.identifier, this.address, this.name, this.emailId);
     }
 
     @java.lang.Override
@@ -100,6 +110,8 @@ public final class CashDetails {
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static final class Builder {
+        private Optional<CounterpartyType> counterpartyType = Optional.empty();
+
         private Optional<String> identifier = Optional.empty();
 
         private Optional<Address> address = Optional.empty();
@@ -114,10 +126,22 @@ public final class CashDetails {
         private Builder() {}
 
         public Builder from(CashDetails other) {
+            counterpartyType(other.getCounterpartyType());
             identifier(other.getIdentifier());
             address(other.getAddress());
             name(other.getName());
             emailId(other.getEmailId());
+            return this;
+        }
+
+        @JsonSetter(value = "counterpartyType", nulls = Nulls.SKIP)
+        public Builder counterpartyType(Optional<CounterpartyType> counterpartyType) {
+            this.counterpartyType = counterpartyType;
+            return this;
+        }
+
+        public Builder counterpartyType(CounterpartyType counterpartyType) {
+            this.counterpartyType = Optional.ofNullable(counterpartyType);
             return this;
         }
 
@@ -166,7 +190,7 @@ public final class CashDetails {
         }
 
         public CashDetails build() {
-            return new CashDetails(identifier, address, name, emailId, additionalProperties);
+            return new CashDetails(counterpartyType, identifier, address, name, emailId, additionalProperties);
         }
     }
 }

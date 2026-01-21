@@ -35,7 +35,7 @@ public final class BusinessOptional {
 
     private final Optional<List<BusinessOptionalShareHoldersItem>> shareHolders;
 
-    private final Optional<List<Person>> directors;
+    private final Optional<List<BusinessOptionalDirectorsItem>> directors;
 
     private final Optional<List<BusinessOptionalAssociatedPartiesItem>> associatedParties;
 
@@ -87,7 +87,7 @@ public final class BusinessOptional {
             Optional<LegalEntity> legalEntity,
             Optional<List<CorporateEntityDetails>> corporateEntities,
             Optional<List<BusinessOptionalShareHoldersItem>> shareHolders,
-            Optional<List<Person>> directors,
+            Optional<List<BusinessOptionalDirectorsItem>> directors,
             Optional<List<BusinessOptionalAssociatedPartiesItem>> associatedParties,
             Optional<List<LegalEntity>> businessPartners,
             Optional<TransactionLimits> transactionLimits,
@@ -188,7 +188,7 @@ public final class BusinessOptional {
      * @return Director(s) of the company. Must be at least one
      */
     @JsonProperty("directors")
-    public Optional<List<Person>> getDirectors() {
+    public Optional<List<BusinessOptionalDirectorsItem>> getDirectors() {
         return directors;
     }
 
@@ -416,7 +416,7 @@ public final class BusinessOptional {
 
         private Optional<List<BusinessOptionalShareHoldersItem>> shareHolders = Optional.empty();
 
-        private Optional<List<Person>> directors = Optional.empty();
+        private Optional<List<BusinessOptionalDirectorsItem>> directors = Optional.empty();
 
         private Optional<List<BusinessOptionalAssociatedPartiesItem>> associatedParties = Optional.empty();
 
@@ -573,12 +573,12 @@ public final class BusinessOptional {
         }
 
         @JsonSetter(value = "directors", nulls = Nulls.SKIP)
-        public Builder directors(Optional<List<Person>> directors) {
+        public Builder directors(Optional<List<BusinessOptionalDirectorsItem>> directors) {
             this.directors = directors;
             return this;
         }
 
-        public Builder directors(List<Person> directors) {
+        public Builder directors(List<BusinessOptionalDirectorsItem> directors) {
             this.directors = Optional.ofNullable(directors);
             return this;
         }

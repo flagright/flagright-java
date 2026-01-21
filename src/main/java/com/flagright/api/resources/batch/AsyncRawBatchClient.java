@@ -17,7 +17,12 @@ import com.flagright.api.errors.ConflictError;
 import com.flagright.api.errors.NotFoundError;
 import com.flagright.api.errors.TooManyRequestsError;
 import com.flagright.api.errors.UnauthorizedError;
-import com.flagright.api.resources.batch.requests.BatchGetRequest;
+import com.flagright.api.resources.batch.requests.BatchGetBusinessUserEventsRequest;
+import com.flagright.api.resources.batch.requests.BatchGetBusinessUsersRequest;
+import com.flagright.api.resources.batch.requests.BatchGetConsumerUserEventsRequest;
+import com.flagright.api.resources.batch.requests.BatchGetConsumerUsersRequest;
+import com.flagright.api.resources.batch.requests.BatchGetTransactionEventsRequest;
+import com.flagright.api.resources.batch.requests.BatchGetTransactionsRequest;
 import com.flagright.api.resources.batch.requests.BusinessBatchRequest;
 import com.flagright.api.resources.batch.requests.BusinessUserEventBatchRequest;
 import com.flagright.api.resources.batch.requests.ConsumerUserEventBatchRequest;
@@ -26,7 +31,12 @@ import com.flagright.api.resources.batch.requests.TransactionEventBatchRequest;
 import com.flagright.api.resources.batch.requests.UserBatchRequest;
 import com.flagright.api.types.ApiErrorResponse;
 import com.flagright.api.types.BatchBusinessUserEventsWithRulesResult;
+import com.flagright.api.types.BatchBusinessUsersWithRulesResults;
+import com.flagright.api.types.BatchConsumerUserEventsRulesResult;
+import com.flagright.api.types.BatchConsumerUsersWithRulesResult;
 import com.flagright.api.types.BatchResponse;
+import com.flagright.api.types.BatchTransactionEventMonitoringResults;
+import com.flagright.api.types.BatchTransactionMonitoringResults;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -147,20 +157,20 @@ public class AsyncRawBatchClient {
         return future;
     }
 
-    public CompletableFuture<FlagrightHttpResponse<BatchBusinessUserEventsWithRulesResult>> get(String batchId) {
-        return get(batchId, BatchGetRequest.builder().build());
+    public CompletableFuture<FlagrightHttpResponse<BatchTransactionMonitoringResults>> getTransactions(String batchId) {
+        return getTransactions(batchId, BatchGetTransactionsRequest.builder().build());
     }
 
-    public CompletableFuture<FlagrightHttpResponse<BatchBusinessUserEventsWithRulesResult>> get(
-            String batchId, BatchGetRequest request) {
-        return get(batchId, request, null);
+    public CompletableFuture<FlagrightHttpResponse<BatchTransactionMonitoringResults>> getTransactions(
+            String batchId, BatchGetTransactionsRequest request) {
+        return getTransactions(batchId, request, null);
     }
 
-    public CompletableFuture<FlagrightHttpResponse<BatchBusinessUserEventsWithRulesResult>> get(
-            String batchId, BatchGetRequest request, RequestOptions requestOptions) {
+    public CompletableFuture<FlagrightHttpResponse<BatchTransactionMonitoringResults>> getTransactions(
+            String batchId, BatchGetTransactionsRequest request, RequestOptions requestOptions) {
         HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("batch/events/business/user")
+                .addPathSegments("batch/transactions")
                 .addPathSegment(batchId);
         if (request.getPageSize().isPresent()) {
             QueryStringMapper.addQueryParameter(
@@ -181,8 +191,7 @@ public class AsyncRawBatchClient {
         if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
             client = clientOptions.httpClientWithTimeout(requestOptions);
         }
-        CompletableFuture<FlagrightHttpResponse<BatchBusinessUserEventsWithRulesResult>> future =
-                new CompletableFuture<>();
+        CompletableFuture<FlagrightHttpResponse<BatchTransactionMonitoringResults>> future = new CompletableFuture<>();
         client.newCall(okhttpRequest).enqueue(new Callback() {
             @Override
             public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
@@ -190,7 +199,7 @@ public class AsyncRawBatchClient {
                     if (response.isSuccessful()) {
                         future.complete(new FlagrightHttpResponse<>(
                                 ObjectMappers.JSON_MAPPER.readValue(
-                                        responseBody.string(), BatchBusinessUserEventsWithRulesResult.class),
+                                        responseBody.string(), BatchTransactionMonitoringResults.class),
                                 response));
                         return;
                     }
@@ -321,6 +330,96 @@ public class AsyncRawBatchClient {
         return future;
     }
 
+    public CompletableFuture<FlagrightHttpResponse<BatchTransactionEventMonitoringResults>> getTransactionEvents(
+            String batchId) {
+        return getTransactionEvents(
+                batchId, BatchGetTransactionEventsRequest.builder().build());
+    }
+
+    public CompletableFuture<FlagrightHttpResponse<BatchTransactionEventMonitoringResults>> getTransactionEvents(
+            String batchId, BatchGetTransactionEventsRequest request) {
+        return getTransactionEvents(batchId, request, null);
+    }
+
+    public CompletableFuture<FlagrightHttpResponse<BatchTransactionEventMonitoringResults>> getTransactionEvents(
+            String batchId, BatchGetTransactionEventsRequest request, RequestOptions requestOptions) {
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+                .newBuilder()
+                .addPathSegments("batch/events/transaction")
+                .addPathSegment(batchId);
+        if (request.getPageSize().isPresent()) {
+            QueryStringMapper.addQueryParameter(
+                    httpUrl, "pageSize", request.getPageSize().get().toString(), false);
+        }
+        if (request.getPage().isPresent()) {
+            QueryStringMapper.addQueryParameter(
+                    httpUrl, "page", request.getPage().get().toString(), false);
+        }
+        Request.Builder _requestBuilder = new Request.Builder()
+                .url(httpUrl.build())
+                .method("GET", null)
+                .headers(Headers.of(clientOptions.headers(requestOptions)))
+                .addHeader("Content-Type", "application/json")
+                .addHeader("Accept", "application/json");
+        Request okhttpRequest = _requestBuilder.build();
+        OkHttpClient client = clientOptions.httpClient();
+        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
+            client = clientOptions.httpClientWithTimeout(requestOptions);
+        }
+        CompletableFuture<FlagrightHttpResponse<BatchTransactionEventMonitoringResults>> future =
+                new CompletableFuture<>();
+        client.newCall(okhttpRequest).enqueue(new Callback() {
+            @Override
+            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+                try (ResponseBody responseBody = response.body()) {
+                    if (response.isSuccessful()) {
+                        future.complete(new FlagrightHttpResponse<>(
+                                ObjectMappers.JSON_MAPPER.readValue(
+                                        responseBody.string(), BatchTransactionEventMonitoringResults.class),
+                                response));
+                        return;
+                    }
+                    String responseBodyString = responseBody != null ? responseBody.string() : "{}";
+                    try {
+                        switch (response.code()) {
+                            case 401:
+                                future.completeExceptionally(new UnauthorizedError(
+                                        ObjectMappers.JSON_MAPPER.readValue(responseBodyString, ApiErrorResponse.class),
+                                        response));
+                                return;
+                            case 404:
+                                future.completeExceptionally(new NotFoundError(
+                                        ObjectMappers.JSON_MAPPER.readValue(responseBodyString, ApiErrorResponse.class),
+                                        response));
+                                return;
+                            case 429:
+                                future.completeExceptionally(new TooManyRequestsError(
+                                        ObjectMappers.JSON_MAPPER.readValue(responseBodyString, ApiErrorResponse.class),
+                                        response));
+                                return;
+                        }
+                    } catch (JsonProcessingException ignored) {
+                        // unable to map error response, throwing generic error
+                    }
+                    future.completeExceptionally(new FlagrightApiException(
+                            "Error with status code " + response.code(),
+                            response.code(),
+                            ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class),
+                            response));
+                    return;
+                } catch (IOException e) {
+                    future.completeExceptionally(new FlagrightException("Network error executing HTTP request", e));
+                }
+            }
+
+            @Override
+            public void onFailure(@NotNull Call call, @NotNull IOException e) {
+                future.completeExceptionally(new FlagrightException("Network error executing HTTP request", e));
+            }
+        });
+        return future;
+    }
+
     public CompletableFuture<FlagrightHttpResponse<BatchResponse>> createConsumerUsers(UserBatchRequest request) {
         return createConsumerUsers(request, null);
     }
@@ -419,6 +518,182 @@ public class AsyncRawBatchClient {
         return future;
     }
 
+    public CompletableFuture<FlagrightHttpResponse<BatchConsumerUsersWithRulesResult>> getConsumerUsers(
+            String batchId) {
+        return getConsumerUsers(batchId, BatchGetConsumerUsersRequest.builder().build());
+    }
+
+    public CompletableFuture<FlagrightHttpResponse<BatchConsumerUsersWithRulesResult>> getConsumerUsers(
+            String batchId, BatchGetConsumerUsersRequest request) {
+        return getConsumerUsers(batchId, request, null);
+    }
+
+    public CompletableFuture<FlagrightHttpResponse<BatchConsumerUsersWithRulesResult>> getConsumerUsers(
+            String batchId, BatchGetConsumerUsersRequest request, RequestOptions requestOptions) {
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+                .newBuilder()
+                .addPathSegments("batch/consumer/users")
+                .addPathSegment(batchId);
+        if (request.getPageSize().isPresent()) {
+            QueryStringMapper.addQueryParameter(
+                    httpUrl, "pageSize", request.getPageSize().get().toString(), false);
+        }
+        if (request.getPage().isPresent()) {
+            QueryStringMapper.addQueryParameter(
+                    httpUrl, "page", request.getPage().get().toString(), false);
+        }
+        Request.Builder _requestBuilder = new Request.Builder()
+                .url(httpUrl.build())
+                .method("GET", null)
+                .headers(Headers.of(clientOptions.headers(requestOptions)))
+                .addHeader("Content-Type", "application/json")
+                .addHeader("Accept", "application/json");
+        Request okhttpRequest = _requestBuilder.build();
+        OkHttpClient client = clientOptions.httpClient();
+        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
+            client = clientOptions.httpClientWithTimeout(requestOptions);
+        }
+        CompletableFuture<FlagrightHttpResponse<BatchConsumerUsersWithRulesResult>> future = new CompletableFuture<>();
+        client.newCall(okhttpRequest).enqueue(new Callback() {
+            @Override
+            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+                try (ResponseBody responseBody = response.body()) {
+                    if (response.isSuccessful()) {
+                        future.complete(new FlagrightHttpResponse<>(
+                                ObjectMappers.JSON_MAPPER.readValue(
+                                        responseBody.string(), BatchConsumerUsersWithRulesResult.class),
+                                response));
+                        return;
+                    }
+                    String responseBodyString = responseBody != null ? responseBody.string() : "{}";
+                    try {
+                        switch (response.code()) {
+                            case 401:
+                                future.completeExceptionally(new UnauthorizedError(
+                                        ObjectMappers.JSON_MAPPER.readValue(responseBodyString, ApiErrorResponse.class),
+                                        response));
+                                return;
+                            case 404:
+                                future.completeExceptionally(new NotFoundError(
+                                        ObjectMappers.JSON_MAPPER.readValue(responseBodyString, ApiErrorResponse.class),
+                                        response));
+                                return;
+                            case 429:
+                                future.completeExceptionally(new TooManyRequestsError(
+                                        ObjectMappers.JSON_MAPPER.readValue(responseBodyString, ApiErrorResponse.class),
+                                        response));
+                                return;
+                        }
+                    } catch (JsonProcessingException ignored) {
+                        // unable to map error response, throwing generic error
+                    }
+                    future.completeExceptionally(new FlagrightApiException(
+                            "Error with status code " + response.code(),
+                            response.code(),
+                            ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class),
+                            response));
+                    return;
+                } catch (IOException e) {
+                    future.completeExceptionally(new FlagrightException("Network error executing HTTP request", e));
+                }
+            }
+
+            @Override
+            public void onFailure(@NotNull Call call, @NotNull IOException e) {
+                future.completeExceptionally(new FlagrightException("Network error executing HTTP request", e));
+            }
+        });
+        return future;
+    }
+
+    public CompletableFuture<FlagrightHttpResponse<BatchBusinessUsersWithRulesResults>> getBusinessUsers(
+            String batchId) {
+        return getBusinessUsers(batchId, BatchGetBusinessUsersRequest.builder().build());
+    }
+
+    public CompletableFuture<FlagrightHttpResponse<BatchBusinessUsersWithRulesResults>> getBusinessUsers(
+            String batchId, BatchGetBusinessUsersRequest request) {
+        return getBusinessUsers(batchId, request, null);
+    }
+
+    public CompletableFuture<FlagrightHttpResponse<BatchBusinessUsersWithRulesResults>> getBusinessUsers(
+            String batchId, BatchGetBusinessUsersRequest request, RequestOptions requestOptions) {
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+                .newBuilder()
+                .addPathSegments("batch/business/users")
+                .addPathSegment(batchId);
+        if (request.getPageSize().isPresent()) {
+            QueryStringMapper.addQueryParameter(
+                    httpUrl, "pageSize", request.getPageSize().get().toString(), false);
+        }
+        if (request.getPage().isPresent()) {
+            QueryStringMapper.addQueryParameter(
+                    httpUrl, "page", request.getPage().get().toString(), false);
+        }
+        Request.Builder _requestBuilder = new Request.Builder()
+                .url(httpUrl.build())
+                .method("GET", null)
+                .headers(Headers.of(clientOptions.headers(requestOptions)))
+                .addHeader("Content-Type", "application/json")
+                .addHeader("Accept", "application/json");
+        Request okhttpRequest = _requestBuilder.build();
+        OkHttpClient client = clientOptions.httpClient();
+        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
+            client = clientOptions.httpClientWithTimeout(requestOptions);
+        }
+        CompletableFuture<FlagrightHttpResponse<BatchBusinessUsersWithRulesResults>> future = new CompletableFuture<>();
+        client.newCall(okhttpRequest).enqueue(new Callback() {
+            @Override
+            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+                try (ResponseBody responseBody = response.body()) {
+                    if (response.isSuccessful()) {
+                        future.complete(new FlagrightHttpResponse<>(
+                                ObjectMappers.JSON_MAPPER.readValue(
+                                        responseBody.string(), BatchBusinessUsersWithRulesResults.class),
+                                response));
+                        return;
+                    }
+                    String responseBodyString = responseBody != null ? responseBody.string() : "{}";
+                    try {
+                        switch (response.code()) {
+                            case 401:
+                                future.completeExceptionally(new UnauthorizedError(
+                                        ObjectMappers.JSON_MAPPER.readValue(responseBodyString, ApiErrorResponse.class),
+                                        response));
+                                return;
+                            case 404:
+                                future.completeExceptionally(new NotFoundError(
+                                        ObjectMappers.JSON_MAPPER.readValue(responseBodyString, ApiErrorResponse.class),
+                                        response));
+                                return;
+                            case 429:
+                                future.completeExceptionally(new TooManyRequestsError(
+                                        ObjectMappers.JSON_MAPPER.readValue(responseBodyString, ApiErrorResponse.class),
+                                        response));
+                                return;
+                        }
+                    } catch (JsonProcessingException ignored) {
+                        // unable to map error response, throwing generic error
+                    }
+                    future.completeExceptionally(new FlagrightApiException(
+                            "Error with status code " + response.code(),
+                            response.code(),
+                            ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class),
+                            response));
+                    return;
+                } catch (IOException e) {
+                    future.completeExceptionally(new FlagrightException("Network error executing HTTP request", e));
+                }
+            }
+
+            @Override
+            public void onFailure(@NotNull Call call, @NotNull IOException e) {
+                future.completeExceptionally(new FlagrightException("Network error executing HTTP request", e));
+            }
+        });
+        return future;
+    }
+
     public CompletableFuture<FlagrightHttpResponse<BatchResponse>> createBusinessUsers(BusinessBatchRequest request) {
         return createBusinessUsers(request, null);
     }
@@ -486,6 +761,185 @@ public class AsyncRawBatchClient {
                                 return;
                             case 401:
                                 future.completeExceptionally(new UnauthorizedError(
+                                        ObjectMappers.JSON_MAPPER.readValue(responseBodyString, ApiErrorResponse.class),
+                                        response));
+                                return;
+                            case 429:
+                                future.completeExceptionally(new TooManyRequestsError(
+                                        ObjectMappers.JSON_MAPPER.readValue(responseBodyString, ApiErrorResponse.class),
+                                        response));
+                                return;
+                        }
+                    } catch (JsonProcessingException ignored) {
+                        // unable to map error response, throwing generic error
+                    }
+                    future.completeExceptionally(new FlagrightApiException(
+                            "Error with status code " + response.code(),
+                            response.code(),
+                            ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class),
+                            response));
+                    return;
+                } catch (IOException e) {
+                    future.completeExceptionally(new FlagrightException("Network error executing HTTP request", e));
+                }
+            }
+
+            @Override
+            public void onFailure(@NotNull Call call, @NotNull IOException e) {
+                future.completeExceptionally(new FlagrightException("Network error executing HTTP request", e));
+            }
+        });
+        return future;
+    }
+
+    public CompletableFuture<FlagrightHttpResponse<BatchConsumerUserEventsRulesResult>> getConsumerUserEvents(
+            String batchId) {
+        return getConsumerUserEvents(
+                batchId, BatchGetConsumerUserEventsRequest.builder().build());
+    }
+
+    public CompletableFuture<FlagrightHttpResponse<BatchConsumerUserEventsRulesResult>> getConsumerUserEvents(
+            String batchId, BatchGetConsumerUserEventsRequest request) {
+        return getConsumerUserEvents(batchId, request, null);
+    }
+
+    public CompletableFuture<FlagrightHttpResponse<BatchConsumerUserEventsRulesResult>> getConsumerUserEvents(
+            String batchId, BatchGetConsumerUserEventsRequest request, RequestOptions requestOptions) {
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+                .newBuilder()
+                .addPathSegments("batch/events/consumer/user")
+                .addPathSegment(batchId);
+        if (request.getPageSize().isPresent()) {
+            QueryStringMapper.addQueryParameter(
+                    httpUrl, "pageSize", request.getPageSize().get().toString(), false);
+        }
+        if (request.getPage().isPresent()) {
+            QueryStringMapper.addQueryParameter(
+                    httpUrl, "page", request.getPage().get().toString(), false);
+        }
+        Request.Builder _requestBuilder = new Request.Builder()
+                .url(httpUrl.build())
+                .method("GET", null)
+                .headers(Headers.of(clientOptions.headers(requestOptions)))
+                .addHeader("Content-Type", "application/json")
+                .addHeader("Accept", "application/json");
+        Request okhttpRequest = _requestBuilder.build();
+        OkHttpClient client = clientOptions.httpClient();
+        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
+            client = clientOptions.httpClientWithTimeout(requestOptions);
+        }
+        CompletableFuture<FlagrightHttpResponse<BatchConsumerUserEventsRulesResult>> future = new CompletableFuture<>();
+        client.newCall(okhttpRequest).enqueue(new Callback() {
+            @Override
+            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+                try (ResponseBody responseBody = response.body()) {
+                    if (response.isSuccessful()) {
+                        future.complete(new FlagrightHttpResponse<>(
+                                ObjectMappers.JSON_MAPPER.readValue(
+                                        responseBody.string(), BatchConsumerUserEventsRulesResult.class),
+                                response));
+                        return;
+                    }
+                    String responseBodyString = responseBody != null ? responseBody.string() : "{}";
+                    try {
+                        switch (response.code()) {
+                            case 401:
+                                future.completeExceptionally(new UnauthorizedError(
+                                        ObjectMappers.JSON_MAPPER.readValue(responseBodyString, ApiErrorResponse.class),
+                                        response));
+                                return;
+                            case 404:
+                                future.completeExceptionally(new NotFoundError(
+                                        ObjectMappers.JSON_MAPPER.readValue(responseBodyString, ApiErrorResponse.class),
+                                        response));
+                                return;
+                            case 429:
+                                future.completeExceptionally(new TooManyRequestsError(
+                                        ObjectMappers.JSON_MAPPER.readValue(responseBodyString, ApiErrorResponse.class),
+                                        response));
+                                return;
+                        }
+                    } catch (JsonProcessingException ignored) {
+                        // unable to map error response, throwing generic error
+                    }
+                    future.completeExceptionally(new FlagrightApiException(
+                            "Error with status code " + response.code(),
+                            response.code(),
+                            ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class),
+                            response));
+                    return;
+                } catch (IOException e) {
+                    future.completeExceptionally(new FlagrightException("Network error executing HTTP request", e));
+                }
+            }
+
+            @Override
+            public void onFailure(@NotNull Call call, @NotNull IOException e) {
+                future.completeExceptionally(new FlagrightException("Network error executing HTTP request", e));
+            }
+        });
+        return future;
+    }
+
+    public CompletableFuture<FlagrightHttpResponse<BatchBusinessUserEventsWithRulesResult>> getBusinessUserEvents(
+            String batchId) {
+        return getBusinessUserEvents(
+                batchId, BatchGetBusinessUserEventsRequest.builder().build());
+    }
+
+    public CompletableFuture<FlagrightHttpResponse<BatchBusinessUserEventsWithRulesResult>> getBusinessUserEvents(
+            String batchId, BatchGetBusinessUserEventsRequest request) {
+        return getBusinessUserEvents(batchId, request, null);
+    }
+
+    public CompletableFuture<FlagrightHttpResponse<BatchBusinessUserEventsWithRulesResult>> getBusinessUserEvents(
+            String batchId, BatchGetBusinessUserEventsRequest request, RequestOptions requestOptions) {
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+                .newBuilder()
+                .addPathSegments("batch/events/business/user")
+                .addPathSegment(batchId);
+        if (request.getPageSize().isPresent()) {
+            QueryStringMapper.addQueryParameter(
+                    httpUrl, "pageSize", request.getPageSize().get().toString(), false);
+        }
+        if (request.getPage().isPresent()) {
+            QueryStringMapper.addQueryParameter(
+                    httpUrl, "page", request.getPage().get().toString(), false);
+        }
+        Request.Builder _requestBuilder = new Request.Builder()
+                .url(httpUrl.build())
+                .method("GET", null)
+                .headers(Headers.of(clientOptions.headers(requestOptions)))
+                .addHeader("Content-Type", "application/json")
+                .addHeader("Accept", "application/json");
+        Request okhttpRequest = _requestBuilder.build();
+        OkHttpClient client = clientOptions.httpClient();
+        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
+            client = clientOptions.httpClientWithTimeout(requestOptions);
+        }
+        CompletableFuture<FlagrightHttpResponse<BatchBusinessUserEventsWithRulesResult>> future =
+                new CompletableFuture<>();
+        client.newCall(okhttpRequest).enqueue(new Callback() {
+            @Override
+            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+                try (ResponseBody responseBody = response.body()) {
+                    if (response.isSuccessful()) {
+                        future.complete(new FlagrightHttpResponse<>(
+                                ObjectMappers.JSON_MAPPER.readValue(
+                                        responseBody.string(), BatchBusinessUserEventsWithRulesResult.class),
+                                response));
+                        return;
+                    }
+                    String responseBodyString = responseBody != null ? responseBody.string() : "{}";
+                    try {
+                        switch (response.code()) {
+                            case 401:
+                                future.completeExceptionally(new UnauthorizedError(
+                                        ObjectMappers.JSON_MAPPER.readValue(responseBodyString, ApiErrorResponse.class),
+                                        response));
+                                return;
+                            case 404:
+                                future.completeExceptionally(new NotFoundError(
                                         ObjectMappers.JSON_MAPPER.readValue(responseBodyString, ApiErrorResponse.class),
                                         response));
                                 return;

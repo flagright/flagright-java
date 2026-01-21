@@ -21,6 +21,8 @@ import java.util.Optional;
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
 @JsonDeserialize(builder = CheckDetails.Builder.class)
 public final class CheckDetails {
+    private final Optional<CounterpartyType> counterpartyType;
+
     private final Optional<String> checkNumber;
 
     private final Optional<String> checkIdentifier;
@@ -52,6 +54,7 @@ public final class CheckDetails {
     private final Map<String, Object> additionalProperties;
 
     private CheckDetails(
+            Optional<CounterpartyType> counterpartyType,
             Optional<String> checkNumber,
             Optional<String> checkIdentifier,
             Optional<String> routingNumber,
@@ -67,6 +70,7 @@ public final class CheckDetails {
             Optional<Address> bankAddress,
             Optional<List<Tag>> tags,
             Map<String, Object> additionalProperties) {
+        this.counterpartyType = counterpartyType;
         this.checkNumber = checkNumber;
         this.checkIdentifier = checkIdentifier;
         this.routingNumber = routingNumber;
@@ -82,6 +86,11 @@ public final class CheckDetails {
         this.bankAddress = bankAddress;
         this.tags = tags;
         this.additionalProperties = additionalProperties;
+    }
+
+    @JsonProperty("counterpartyType")
+    public Optional<CounterpartyType> getCounterpartyType() {
+        return counterpartyType;
     }
 
     @JsonProperty("checkNumber")
@@ -178,7 +187,8 @@ public final class CheckDetails {
     }
 
     private boolean equalTo(CheckDetails other) {
-        return checkNumber.equals(other.checkNumber)
+        return counterpartyType.equals(other.counterpartyType)
+                && checkNumber.equals(other.checkNumber)
                 && checkIdentifier.equals(other.checkIdentifier)
                 && routingNumber.equals(other.routingNumber)
                 && name.equals(other.name)
@@ -197,6 +207,7 @@ public final class CheckDetails {
     @java.lang.Override
     public int hashCode() {
         return Objects.hash(
+                this.counterpartyType,
                 this.checkNumber,
                 this.checkIdentifier,
                 this.routingNumber,
@@ -224,6 +235,8 @@ public final class CheckDetails {
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static final class Builder {
+        private Optional<CounterpartyType> counterpartyType = Optional.empty();
+
         private Optional<String> checkNumber = Optional.empty();
 
         private Optional<String> checkIdentifier = Optional.empty();
@@ -258,6 +271,7 @@ public final class CheckDetails {
         private Builder() {}
 
         public Builder from(CheckDetails other) {
+            counterpartyType(other.getCounterpartyType());
             checkNumber(other.getCheckNumber());
             checkIdentifier(other.getCheckIdentifier());
             routingNumber(other.getRoutingNumber());
@@ -272,6 +286,17 @@ public final class CheckDetails {
             countryOfResidence(other.getCountryOfResidence());
             bankAddress(other.getBankAddress());
             tags(other.getTags());
+            return this;
+        }
+
+        @JsonSetter(value = "counterpartyType", nulls = Nulls.SKIP)
+        public Builder counterpartyType(Optional<CounterpartyType> counterpartyType) {
+            this.counterpartyType = counterpartyType;
+            return this;
+        }
+
+        public Builder counterpartyType(CounterpartyType counterpartyType) {
+            this.counterpartyType = Optional.ofNullable(counterpartyType);
             return this;
         }
 
@@ -431,6 +456,7 @@ public final class CheckDetails {
 
         public CheckDetails build() {
             return new CheckDetails(
+                    counterpartyType,
                     checkNumber,
                     checkIdentifier,
                     routingNumber,

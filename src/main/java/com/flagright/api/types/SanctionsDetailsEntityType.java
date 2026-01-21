@@ -26,7 +26,9 @@ public enum SanctionsDetailsEntityType {
 
     BUSINESS_PARTNER("BUSINESS_PARTNER"),
 
-    ASSOCIATED_PARTY("ASSOCIATED_PARTY");
+    ASSOCIATED_PARTY("ASSOCIATED_PARTY"),
+
+    TRANSACTION_REFERENCE("TRANSACTION_REFERENCE");
 
     private final String value;
 

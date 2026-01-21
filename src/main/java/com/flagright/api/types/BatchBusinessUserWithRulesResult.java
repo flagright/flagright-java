@@ -40,7 +40,7 @@ public final class BatchBusinessUserWithRulesResult {
 
     private final Optional<List<BatchBusinessUserWithRulesResultShareHoldersItem>> shareHolders;
 
-    private final Optional<List<Person>> directors;
+    private final Optional<List<BatchBusinessUserWithRulesResultDirectorsItem>> directors;
 
     private final Optional<List<BatchBusinessUserWithRulesResultAssociatedPartiesItem>> associatedParties;
 
@@ -98,7 +98,7 @@ public final class BatchBusinessUserWithRulesResult {
             Optional<Double> eoddDate,
             Optional<List<CorporateEntityDetails>> corporateEntities,
             Optional<List<BatchBusinessUserWithRulesResultShareHoldersItem>> shareHolders,
-            Optional<List<Person>> directors,
+            Optional<List<BatchBusinessUserWithRulesResultDirectorsItem>> directors,
             Optional<List<BatchBusinessUserWithRulesResultAssociatedPartiesItem>> associatedParties,
             Optional<List<LegalEntity>> businessPartners,
             Optional<TransactionLimits> transactionLimits,
@@ -221,7 +221,7 @@ public final class BatchBusinessUserWithRulesResult {
      * @return Director(s) of the company. Must be at least one
      */
     @JsonProperty("directors")
-    public Optional<List<Person>> getDirectors() {
+    public Optional<List<BatchBusinessUserWithRulesResultDirectorsItem>> getDirectors() {
         return directors;
     }
 
@@ -492,9 +492,9 @@ public final class BatchBusinessUserWithRulesResult {
 
         _FinalStage shareHolders(List<BatchBusinessUserWithRulesResultShareHoldersItem> shareHolders);
 
-        _FinalStage directors(Optional<List<Person>> directors);
+        _FinalStage directors(Optional<List<BatchBusinessUserWithRulesResultDirectorsItem>> directors);
 
-        _FinalStage directors(List<Person> directors);
+        _FinalStage directors(List<BatchBusinessUserWithRulesResultDirectorsItem> directors);
 
         _FinalStage associatedParties(
                 Optional<List<BatchBusinessUserWithRulesResultAssociatedPartiesItem>> associatedParties);
@@ -642,7 +642,7 @@ public final class BatchBusinessUserWithRulesResult {
         private Optional<List<BatchBusinessUserWithRulesResultAssociatedPartiesItem>> associatedParties =
                 Optional.empty();
 
-        private Optional<List<Person>> directors = Optional.empty();
+        private Optional<List<BatchBusinessUserWithRulesResultDirectorsItem>> directors = Optional.empty();
 
         private Optional<List<BatchBusinessUserWithRulesResultShareHoldersItem>> shareHolders = Optional.empty();
 
@@ -1054,14 +1054,14 @@ public final class BatchBusinessUserWithRulesResult {
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
-        public _FinalStage directors(List<Person> directors) {
+        public _FinalStage directors(List<BatchBusinessUserWithRulesResultDirectorsItem> directors) {
             this.directors = Optional.ofNullable(directors);
             return this;
         }
 
         @java.lang.Override
         @JsonSetter(value = "directors", nulls = Nulls.SKIP)
-        public _FinalStage directors(Optional<List<Person>> directors) {
+        public _FinalStage directors(Optional<List<BatchBusinessUserWithRulesResultDirectorsItem>> directors) {
             this.directors = directors;
             return this;
         }

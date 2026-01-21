@@ -5,7 +5,12 @@ package com.flagright.api.resources.batch;
 
 import com.flagright.api.core.ClientOptions;
 import com.flagright.api.core.RequestOptions;
-import com.flagright.api.resources.batch.requests.BatchGetRequest;
+import com.flagright.api.resources.batch.requests.BatchGetBusinessUserEventsRequest;
+import com.flagright.api.resources.batch.requests.BatchGetBusinessUsersRequest;
+import com.flagright.api.resources.batch.requests.BatchGetConsumerUserEventsRequest;
+import com.flagright.api.resources.batch.requests.BatchGetConsumerUsersRequest;
+import com.flagright.api.resources.batch.requests.BatchGetTransactionEventsRequest;
+import com.flagright.api.resources.batch.requests.BatchGetTransactionsRequest;
 import com.flagright.api.resources.batch.requests.BusinessBatchRequest;
 import com.flagright.api.resources.batch.requests.BusinessUserEventBatchRequest;
 import com.flagright.api.resources.batch.requests.ConsumerUserEventBatchRequest;
@@ -13,7 +18,12 @@ import com.flagright.api.resources.batch.requests.TransactionBatchRequest;
 import com.flagright.api.resources.batch.requests.TransactionEventBatchRequest;
 import com.flagright.api.resources.batch.requests.UserBatchRequest;
 import com.flagright.api.types.BatchBusinessUserEventsWithRulesResult;
+import com.flagright.api.types.BatchBusinessUsersWithRulesResults;
+import com.flagright.api.types.BatchConsumerUserEventsRulesResult;
+import com.flagright.api.types.BatchConsumerUsersWithRulesResult;
 import com.flagright.api.types.BatchResponse;
+import com.flagright.api.types.BatchTransactionEventMonitoringResults;
+import com.flagright.api.types.BatchTransactionMonitoringResults;
 import java.util.concurrent.CompletableFuture;
 
 public class AsyncBatchClient {
@@ -42,17 +52,18 @@ public class AsyncBatchClient {
         return this.rawClient.verifyTransaction(request, requestOptions).thenApply(response -> response.body());
     }
 
-    public CompletableFuture<BatchBusinessUserEventsWithRulesResult> get(String batchId) {
-        return this.rawClient.get(batchId).thenApply(response -> response.body());
+    public CompletableFuture<BatchTransactionMonitoringResults> getTransactions(String batchId) {
+        return this.rawClient.getTransactions(batchId).thenApply(response -> response.body());
     }
 
-    public CompletableFuture<BatchBusinessUserEventsWithRulesResult> get(String batchId, BatchGetRequest request) {
-        return this.rawClient.get(batchId, request).thenApply(response -> response.body());
+    public CompletableFuture<BatchTransactionMonitoringResults> getTransactions(
+            String batchId, BatchGetTransactionsRequest request) {
+        return this.rawClient.getTransactions(batchId, request).thenApply(response -> response.body());
     }
 
-    public CompletableFuture<BatchBusinessUserEventsWithRulesResult> get(
-            String batchId, BatchGetRequest request, RequestOptions requestOptions) {
-        return this.rawClient.get(batchId, request, requestOptions).thenApply(response -> response.body());
+    public CompletableFuture<BatchTransactionMonitoringResults> getTransactions(
+            String batchId, BatchGetTransactionsRequest request, RequestOptions requestOptions) {
+        return this.rawClient.getTransactions(batchId, request, requestOptions).thenApply(response -> response.body());
     }
 
     public CompletableFuture<BatchResponse> createTransactionEvents(TransactionEventBatchRequest request) {
@@ -64,6 +75,22 @@ public class AsyncBatchClient {
         return this.rawClient.createTransactionEvents(request, requestOptions).thenApply(response -> response.body());
     }
 
+    public CompletableFuture<BatchTransactionEventMonitoringResults> getTransactionEvents(String batchId) {
+        return this.rawClient.getTransactionEvents(batchId).thenApply(response -> response.body());
+    }
+
+    public CompletableFuture<BatchTransactionEventMonitoringResults> getTransactionEvents(
+            String batchId, BatchGetTransactionEventsRequest request) {
+        return this.rawClient.getTransactionEvents(batchId, request).thenApply(response -> response.body());
+    }
+
+    public CompletableFuture<BatchTransactionEventMonitoringResults> getTransactionEvents(
+            String batchId, BatchGetTransactionEventsRequest request, RequestOptions requestOptions) {
+        return this.rawClient
+                .getTransactionEvents(batchId, request, requestOptions)
+                .thenApply(response -> response.body());
+    }
+
     public CompletableFuture<BatchResponse> createConsumerUsers(UserBatchRequest request) {
         return this.rawClient.createConsumerUsers(request).thenApply(response -> response.body());
     }
@@ -73,6 +100,34 @@ public class AsyncBatchClient {
         return this.rawClient.createConsumerUsers(request, requestOptions).thenApply(response -> response.body());
     }
 
+    public CompletableFuture<BatchConsumerUsersWithRulesResult> getConsumerUsers(String batchId) {
+        return this.rawClient.getConsumerUsers(batchId).thenApply(response -> response.body());
+    }
+
+    public CompletableFuture<BatchConsumerUsersWithRulesResult> getConsumerUsers(
+            String batchId, BatchGetConsumerUsersRequest request) {
+        return this.rawClient.getConsumerUsers(batchId, request).thenApply(response -> response.body());
+    }
+
+    public CompletableFuture<BatchConsumerUsersWithRulesResult> getConsumerUsers(
+            String batchId, BatchGetConsumerUsersRequest request, RequestOptions requestOptions) {
+        return this.rawClient.getConsumerUsers(batchId, request, requestOptions).thenApply(response -> response.body());
+    }
+
+    public CompletableFuture<BatchBusinessUsersWithRulesResults> getBusinessUsers(String batchId) {
+        return this.rawClient.getBusinessUsers(batchId).thenApply(response -> response.body());
+    }
+
+    public CompletableFuture<BatchBusinessUsersWithRulesResults> getBusinessUsers(
+            String batchId, BatchGetBusinessUsersRequest request) {
+        return this.rawClient.getBusinessUsers(batchId, request).thenApply(response -> response.body());
+    }
+
+    public CompletableFuture<BatchBusinessUsersWithRulesResults> getBusinessUsers(
+            String batchId, BatchGetBusinessUsersRequest request, RequestOptions requestOptions) {
+        return this.rawClient.getBusinessUsers(batchId, request, requestOptions).thenApply(response -> response.body());
+    }
+
     public CompletableFuture<BatchResponse> createBusinessUsers(BusinessBatchRequest request) {
         return this.rawClient.createBusinessUsers(request).thenApply(response -> response.body());
     }
@@ -80,6 +135,38 @@ public class AsyncBatchClient {
     public CompletableFuture<BatchResponse> createBusinessUsers(
             BusinessBatchRequest request, RequestOptions requestOptions) {
         return this.rawClient.createBusinessUsers(request, requestOptions).thenApply(response -> response.body());
+    }
+
+    public CompletableFuture<BatchConsumerUserEventsRulesResult> getConsumerUserEvents(String batchId) {
+        return this.rawClient.getConsumerUserEvents(batchId).thenApply(response -> response.body());
+    }
+
+    public CompletableFuture<BatchConsumerUserEventsRulesResult> getConsumerUserEvents(
+            String batchId, BatchGetConsumerUserEventsRequest request) {
+        return this.rawClient.getConsumerUserEvents(batchId, request).thenApply(response -> response.body());
+    }
+
+    public CompletableFuture<BatchConsumerUserEventsRulesResult> getConsumerUserEvents(
+            String batchId, BatchGetConsumerUserEventsRequest request, RequestOptions requestOptions) {
+        return this.rawClient
+                .getConsumerUserEvents(batchId, request, requestOptions)
+                .thenApply(response -> response.body());
+    }
+
+    public CompletableFuture<BatchBusinessUserEventsWithRulesResult> getBusinessUserEvents(String batchId) {
+        return this.rawClient.getBusinessUserEvents(batchId).thenApply(response -> response.body());
+    }
+
+    public CompletableFuture<BatchBusinessUserEventsWithRulesResult> getBusinessUserEvents(
+            String batchId, BatchGetBusinessUserEventsRequest request) {
+        return this.rawClient.getBusinessUserEvents(batchId, request).thenApply(response -> response.body());
+    }
+
+    public CompletableFuture<BatchBusinessUserEventsWithRulesResult> getBusinessUserEvents(
+            String batchId, BatchGetBusinessUserEventsRequest request, RequestOptions requestOptions) {
+        return this.rawClient
+                .getBusinessUserEvents(batchId, request, requestOptions)
+                .thenApply(response -> response.body());
     }
 
     public CompletableFuture<BatchResponse> createConsumerUserEvents(ConsumerUserEventBatchRequest request) {

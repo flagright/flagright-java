@@ -18,15 +18,15 @@ import java.util.Objects;
 import java.util.Optional;
 
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
-@JsonDeserialize(builder = BatchGetRequest.Builder.class)
-public final class BatchGetRequest {
+@JsonDeserialize(builder = BatchGetConsumerUserEventsRequest.Builder.class)
+public final class BatchGetConsumerUserEventsRequest {
     private final Optional<Double> pageSize;
 
     private final Optional<Double> page;
 
     private final Map<String, Object> additionalProperties;
 
-    private BatchGetRequest(
+    private BatchGetConsumerUserEventsRequest(
             Optional<Double> pageSize, Optional<Double> page, Map<String, Object> additionalProperties) {
         this.pageSize = pageSize;
         this.page = page;
@@ -52,7 +52,7 @@ public final class BatchGetRequest {
     @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
-        return other instanceof BatchGetRequest && equalTo((BatchGetRequest) other);
+        return other instanceof BatchGetConsumerUserEventsRequest && equalTo((BatchGetConsumerUserEventsRequest) other);
     }
 
     @JsonAnyGetter
@@ -60,7 +60,7 @@ public final class BatchGetRequest {
         return this.additionalProperties;
     }
 
-    private boolean equalTo(BatchGetRequest other) {
+    private boolean equalTo(BatchGetConsumerUserEventsRequest other) {
         return pageSize.equals(other.pageSize) && page.equals(other.page);
     }
 
@@ -89,7 +89,7 @@ public final class BatchGetRequest {
 
         private Builder() {}
 
-        public Builder from(BatchGetRequest other) {
+        public Builder from(BatchGetConsumerUserEventsRequest other) {
             pageSize(other.getPageSize());
             page(other.getPage());
             return this;
@@ -117,8 +117,8 @@ public final class BatchGetRequest {
             return this;
         }
 
-        public BatchGetRequest build() {
-            return new BatchGetRequest(pageSize, page, additionalProperties);
+        public BatchGetConsumerUserEventsRequest build() {
+            return new BatchGetConsumerUserEventsRequest(pageSize, page, additionalProperties);
         }
     }
 }

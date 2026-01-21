@@ -21,6 +21,8 @@ import java.util.Optional;
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
 @JsonDeserialize(builder = AchDetails.Builder.class)
 public final class AchDetails {
+    private final Optional<CounterpartyType> counterpartyType;
+
     private final Optional<String> routingNumber;
 
     private final Optional<String> accountNumber;
@@ -48,6 +50,7 @@ public final class AchDetails {
     private final Map<String, Object> additionalProperties;
 
     private AchDetails(
+            Optional<CounterpartyType> counterpartyType,
             Optional<String> routingNumber,
             Optional<String> accountNumber,
             Optional<Amount> accountBalance,
@@ -61,6 +64,7 @@ public final class AchDetails {
             Optional<String> emailId,
             Optional<List<Tag>> tags,
             Map<String, Object> additionalProperties) {
+        this.counterpartyType = counterpartyType;
         this.routingNumber = routingNumber;
         this.accountNumber = accountNumber;
         this.accountBalance = accountBalance;
@@ -74,6 +78,11 @@ public final class AchDetails {
         this.emailId = emailId;
         this.tags = tags;
         this.additionalProperties = additionalProperties;
+    }
+
+    @JsonProperty("counterpartyType")
+    public Optional<CounterpartyType> getCounterpartyType() {
+        return counterpartyType;
     }
 
     /**
@@ -169,7 +178,8 @@ public final class AchDetails {
     }
 
     private boolean equalTo(AchDetails other) {
-        return routingNumber.equals(other.routingNumber)
+        return counterpartyType.equals(other.counterpartyType)
+                && routingNumber.equals(other.routingNumber)
                 && accountNumber.equals(other.accountNumber)
                 && accountBalance.equals(other.accountBalance)
                 && bankName.equals(other.bankName)
@@ -186,6 +196,7 @@ public final class AchDetails {
     @java.lang.Override
     public int hashCode() {
         return Objects.hash(
+                this.counterpartyType,
                 this.routingNumber,
                 this.accountNumber,
                 this.accountBalance,
@@ -211,6 +222,8 @@ public final class AchDetails {
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static final class Builder {
+        private Optional<CounterpartyType> counterpartyType = Optional.empty();
+
         private Optional<String> routingNumber = Optional.empty();
 
         private Optional<String> accountNumber = Optional.empty();
@@ -241,6 +254,7 @@ public final class AchDetails {
         private Builder() {}
 
         public Builder from(AchDetails other) {
+            counterpartyType(other.getCounterpartyType());
             routingNumber(other.getRoutingNumber());
             accountNumber(other.getAccountNumber());
             accountBalance(other.getAccountBalance());
@@ -253,6 +267,17 @@ public final class AchDetails {
             beneficiaryName(other.getBeneficiaryName());
             emailId(other.getEmailId());
             tags(other.getTags());
+            return this;
+        }
+
+        @JsonSetter(value = "counterpartyType", nulls = Nulls.SKIP)
+        public Builder counterpartyType(Optional<CounterpartyType> counterpartyType) {
+            this.counterpartyType = counterpartyType;
+            return this;
+        }
+
+        public Builder counterpartyType(CounterpartyType counterpartyType) {
+            this.counterpartyType = Optional.ofNullable(counterpartyType);
             return this;
         }
 
@@ -390,6 +415,7 @@ public final class AchDetails {
 
         public AchDetails build() {
             return new AchDetails(
+                    counterpartyType,
                     routingNumber,
                     accountNumber,
                     accountBalance,

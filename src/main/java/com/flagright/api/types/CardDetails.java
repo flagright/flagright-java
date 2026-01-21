@@ -21,6 +21,8 @@ import java.util.Optional;
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
 @JsonDeserialize(builder = CardDetails.Builder.class)
 public final class CardDetails {
+    private final Optional<CounterpartyType> counterpartyType;
+
     private final Optional<String> cardFingerprint;
 
     private final Optional<String> emailId;
@@ -74,6 +76,7 @@ public final class CardDetails {
     private final Map<String, Object> additionalProperties;
 
     private CardDetails(
+            Optional<CounterpartyType> counterpartyType,
             Optional<String> cardFingerprint,
             Optional<String> emailId,
             Optional<CardStatus> cardStatus,
@@ -100,6 +103,7 @@ public final class CardDetails {
             Optional<Address> bankAddress,
             Optional<List<Tag>> tags,
             Map<String, Object> additionalProperties) {
+        this.counterpartyType = counterpartyType;
         this.cardFingerprint = cardFingerprint;
         this.emailId = emailId;
         this.cardStatus = cardStatus;
@@ -126,6 +130,11 @@ public final class CardDetails {
         this.bankAddress = bankAddress;
         this.tags = tags;
         this.additionalProperties = additionalProperties;
+    }
+
+    @JsonProperty("counterpartyType")
+    public Optional<CounterpartyType> getCounterpartyType() {
+        return counterpartyType;
     }
 
     /**
@@ -292,7 +301,8 @@ public final class CardDetails {
     }
 
     private boolean equalTo(CardDetails other) {
-        return cardFingerprint.equals(other.cardFingerprint)
+        return counterpartyType.equals(other.counterpartyType)
+                && cardFingerprint.equals(other.cardFingerprint)
                 && emailId.equals(other.emailId)
                 && cardStatus.equals(other.cardStatus)
                 && cardIssuedCountry.equals(other.cardIssuedCountry)
@@ -322,6 +332,7 @@ public final class CardDetails {
     @java.lang.Override
     public int hashCode() {
         return Objects.hash(
+                this.counterpartyType,
                 this.cardFingerprint,
                 this.emailId,
                 this.cardStatus,
@@ -360,6 +371,8 @@ public final class CardDetails {
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static final class Builder {
+        private Optional<CounterpartyType> counterpartyType = Optional.empty();
+
         private Optional<String> cardFingerprint = Optional.empty();
 
         private Optional<String> emailId = Optional.empty();
@@ -416,6 +429,7 @@ public final class CardDetails {
         private Builder() {}
 
         public Builder from(CardDetails other) {
+            counterpartyType(other.getCounterpartyType());
             cardFingerprint(other.getCardFingerprint());
             emailId(other.getEmailId());
             cardStatus(other.getCardStatus());
@@ -441,6 +455,17 @@ public final class CardDetails {
             countryOfResidence(other.getCountryOfResidence());
             bankAddress(other.getBankAddress());
             tags(other.getTags());
+            return this;
+        }
+
+        @JsonSetter(value = "counterpartyType", nulls = Nulls.SKIP)
+        public Builder counterpartyType(Optional<CounterpartyType> counterpartyType) {
+            this.counterpartyType = counterpartyType;
+            return this;
+        }
+
+        public Builder counterpartyType(CounterpartyType counterpartyType) {
+            this.counterpartyType = Optional.ofNullable(counterpartyType);
             return this;
         }
 
@@ -721,6 +746,7 @@ public final class CardDetails {
 
         public CardDetails build() {
             return new CardDetails(
+                    counterpartyType,
                     cardFingerprint,
                     emailId,
                     cardStatus,

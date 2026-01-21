@@ -56,7 +56,9 @@ public enum WalletNetwork {
 
     ALGORAND("ALGORAND"),
 
-    CELESTIA("CELESTIA");
+    CELESTIA("CELESTIA"),
+
+    BASE("BASE");
 
     private final String value;
 

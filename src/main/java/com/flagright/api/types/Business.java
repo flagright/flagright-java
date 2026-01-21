@@ -40,7 +40,7 @@ public final class Business {
 
     private final Optional<List<BusinessShareHoldersItem>> shareHolders;
 
-    private final Optional<List<Person>> directors;
+    private final Optional<List<BusinessDirectorsItem>> directors;
 
     private final Optional<List<BusinessAssociatedPartiesItem>> associatedParties;
 
@@ -94,7 +94,7 @@ public final class Business {
             Optional<Double> eoddDate,
             Optional<List<CorporateEntityDetails>> corporateEntities,
             Optional<List<BusinessShareHoldersItem>> shareHolders,
-            Optional<List<Person>> directors,
+            Optional<List<BusinessDirectorsItem>> directors,
             Optional<List<BusinessAssociatedPartiesItem>> associatedParties,
             Optional<List<LegalEntity>> businessPartners,
             Optional<TransactionLimits> transactionLimits,
@@ -213,7 +213,7 @@ public final class Business {
      * @return Director(s) of the company. Must be at least one
      */
     @JsonProperty("directors")
-    public Optional<List<Person>> getDirectors() {
+    public Optional<List<BusinessDirectorsItem>> getDirectors() {
         return directors;
     }
 
@@ -470,9 +470,9 @@ public final class Business {
 
         _FinalStage shareHolders(List<BusinessShareHoldersItem> shareHolders);
 
-        _FinalStage directors(Optional<List<Person>> directors);
+        _FinalStage directors(Optional<List<BusinessDirectorsItem>> directors);
 
-        _FinalStage directors(List<Person> directors);
+        _FinalStage directors(List<BusinessDirectorsItem> directors);
 
         _FinalStage associatedParties(Optional<List<BusinessAssociatedPartiesItem>> associatedParties);
 
@@ -603,7 +603,7 @@ public final class Business {
 
         private Optional<List<BusinessAssociatedPartiesItem>> associatedParties = Optional.empty();
 
-        private Optional<List<Person>> directors = Optional.empty();
+        private Optional<List<BusinessDirectorsItem>> directors = Optional.empty();
 
         private Optional<List<BusinessShareHoldersItem>> shareHolders = Optional.empty();
 
@@ -983,14 +983,14 @@ public final class Business {
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
-        public _FinalStage directors(List<Person> directors) {
+        public _FinalStage directors(List<BusinessDirectorsItem> directors) {
             this.directors = Optional.ofNullable(directors);
             return this;
         }
 
         @java.lang.Override
         @JsonSetter(value = "directors", nulls = Nulls.SKIP)
-        public _FinalStage directors(Optional<List<Person>> directors) {
+        public _FinalStage directors(Optional<List<BusinessDirectorsItem>> directors) {
             this.directors = directors;
             return this;
         }

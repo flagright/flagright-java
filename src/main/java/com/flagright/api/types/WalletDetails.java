@@ -21,6 +21,8 @@ import java.util.Optional;
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
 @JsonDeserialize(builder = WalletDetails.Builder.class)
 public final class WalletDetails {
+    private final Optional<CounterpartyType> counterpartyType;
+
     private final Optional<String> walletType;
 
     private final Optional<String> walletId;
@@ -56,6 +58,7 @@ public final class WalletDetails {
     private final Map<String, Object> additionalProperties;
 
     private WalletDetails(
+            Optional<CounterpartyType> counterpartyType,
             Optional<String> walletType,
             Optional<String> walletId,
             Optional<String> paymentChannel,
@@ -73,6 +76,7 @@ public final class WalletDetails {
             Optional<String> dateOfBirth,
             Optional<String> transactionHash,
             Map<String, Object> additionalProperties) {
+        this.counterpartyType = counterpartyType;
         this.walletType = walletType;
         this.walletId = walletId;
         this.paymentChannel = paymentChannel;
@@ -90,6 +94,11 @@ public final class WalletDetails {
         this.dateOfBirth = dateOfBirth;
         this.transactionHash = transactionHash;
         this.additionalProperties = additionalProperties;
+    }
+
+    @JsonProperty("counterpartyType")
+    public Optional<CounterpartyType> getCounterpartyType() {
+        return counterpartyType;
     }
 
     /**
@@ -208,7 +217,8 @@ public final class WalletDetails {
     }
 
     private boolean equalTo(WalletDetails other) {
-        return walletType.equals(other.walletType)
+        return counterpartyType.equals(other.counterpartyType)
+                && walletType.equals(other.walletType)
                 && walletId.equals(other.walletId)
                 && paymentChannel.equals(other.paymentChannel)
                 && name.equals(other.name)
@@ -229,6 +239,7 @@ public final class WalletDetails {
     @java.lang.Override
     public int hashCode() {
         return Objects.hash(
+                this.counterpartyType,
                 this.walletType,
                 this.walletId,
                 this.paymentChannel,
@@ -258,6 +269,8 @@ public final class WalletDetails {
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static final class Builder {
+        private Optional<CounterpartyType> counterpartyType = Optional.empty();
+
         private Optional<String> walletType = Optional.empty();
 
         private Optional<String> walletId = Optional.empty();
@@ -296,6 +309,7 @@ public final class WalletDetails {
         private Builder() {}
 
         public Builder from(WalletDetails other) {
+            counterpartyType(other.getCounterpartyType());
             walletType(other.getWalletType());
             walletId(other.getWalletId());
             paymentChannel(other.getPaymentChannel());
@@ -312,6 +326,17 @@ public final class WalletDetails {
             authorizedRepresentative(other.getAuthorizedRepresentative());
             dateOfBirth(other.getDateOfBirth());
             transactionHash(other.getTransactionHash());
+            return this;
+        }
+
+        @JsonSetter(value = "counterpartyType", nulls = Nulls.SKIP)
+        public Builder counterpartyType(Optional<CounterpartyType> counterpartyType) {
+            this.counterpartyType = counterpartyType;
+            return this;
+        }
+
+        public Builder counterpartyType(CounterpartyType counterpartyType) {
+            this.counterpartyType = Optional.ofNullable(counterpartyType);
             return this;
         }
 
@@ -493,6 +518,7 @@ public final class WalletDetails {
 
         public WalletDetails build() {
             return new WalletDetails(
+                    counterpartyType,
                     walletType,
                     walletId,
                     paymentChannel,

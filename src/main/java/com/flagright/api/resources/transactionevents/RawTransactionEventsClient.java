@@ -12,6 +12,7 @@ import com.flagright.api.core.MediaTypes;
 import com.flagright.api.core.ObjectMappers;
 import com.flagright.api.core.RequestOptions;
 import com.flagright.api.errors.BadRequestError;
+import com.flagright.api.errors.ConflictError;
 import com.flagright.api.errors.TooManyRequestsError;
 import com.flagright.api.errors.UnauthorizedError;
 import com.flagright.api.types.ApiErrorResponse;
@@ -119,6 +120,10 @@ public class RawTransactionEventsClient {
                                 response);
                     case 401:
                         throw new UnauthorizedError(
+                                ObjectMappers.JSON_MAPPER.readValue(responseBodyString, ApiErrorResponse.class),
+                                response);
+                    case 409:
+                        throw new ConflictError(
                                 ObjectMappers.JSON_MAPPER.readValue(responseBodyString, ApiErrorResponse.class),
                                 response);
                     case 429:

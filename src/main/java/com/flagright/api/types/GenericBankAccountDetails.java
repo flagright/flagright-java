@@ -21,6 +21,8 @@ import java.util.Optional;
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
 @JsonDeserialize(builder = GenericBankAccountDetails.Builder.class)
 public final class GenericBankAccountDetails {
+    private final Optional<CounterpartyType> counterpartyType;
+
     private final Optional<String> accountNumber;
 
     private final Optional<String> accountType;
@@ -60,6 +62,7 @@ public final class GenericBankAccountDetails {
     private final Map<String, Object> additionalProperties;
 
     private GenericBankAccountDetails(
+            Optional<CounterpartyType> counterpartyType,
             Optional<String> accountNumber,
             Optional<String> accountType,
             Optional<Amount> accountBalance,
@@ -79,6 +82,7 @@ public final class GenericBankAccountDetails {
             Optional<Address> address,
             Optional<String> routingNumber,
             Map<String, Object> additionalProperties) {
+        this.counterpartyType = counterpartyType;
         this.accountNumber = accountNumber;
         this.accountType = accountType;
         this.accountBalance = accountBalance;
@@ -98,6 +102,11 @@ public final class GenericBankAccountDetails {
         this.address = address;
         this.routingNumber = routingNumber;
         this.additionalProperties = additionalProperties;
+    }
+
+    @JsonProperty("counterpartyType")
+    public Optional<CounterpartyType> getCounterpartyType() {
+        return counterpartyType;
     }
 
     /**
@@ -238,7 +247,8 @@ public final class GenericBankAccountDetails {
     }
 
     private boolean equalTo(GenericBankAccountDetails other) {
-        return accountNumber.equals(other.accountNumber)
+        return counterpartyType.equals(other.counterpartyType)
+                && accountNumber.equals(other.accountNumber)
                 && accountType.equals(other.accountType)
                 && accountBalance.equals(other.accountBalance)
                 && bankName.equals(other.bankName)
@@ -261,6 +271,7 @@ public final class GenericBankAccountDetails {
     @java.lang.Override
     public int hashCode() {
         return Objects.hash(
+                this.counterpartyType,
                 this.accountNumber,
                 this.accountType,
                 this.accountBalance,
@@ -292,6 +303,8 @@ public final class GenericBankAccountDetails {
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static final class Builder {
+        private Optional<CounterpartyType> counterpartyType = Optional.empty();
+
         private Optional<String> accountNumber = Optional.empty();
 
         private Optional<String> accountType = Optional.empty();
@@ -334,6 +347,7 @@ public final class GenericBankAccountDetails {
         private Builder() {}
 
         public Builder from(GenericBankAccountDetails other) {
+            counterpartyType(other.getCounterpartyType());
             accountNumber(other.getAccountNumber());
             accountType(other.getAccountType());
             accountBalance(other.getAccountBalance());
@@ -352,6 +366,17 @@ public final class GenericBankAccountDetails {
             transitNumber(other.getTransitNumber());
             address(other.getAddress());
             routingNumber(other.getRoutingNumber());
+            return this;
+        }
+
+        @JsonSetter(value = "counterpartyType", nulls = Nulls.SKIP)
+        public Builder counterpartyType(Optional<CounterpartyType> counterpartyType) {
+            this.counterpartyType = counterpartyType;
+            return this;
+        }
+
+        public Builder counterpartyType(CounterpartyType counterpartyType) {
+            this.counterpartyType = Optional.ofNullable(counterpartyType);
             return this;
         }
 
@@ -555,6 +580,7 @@ public final class GenericBankAccountDetails {
 
         public GenericBankAccountDetails build() {
             return new GenericBankAccountDetails(
+                    counterpartyType,
                     accountNumber,
                     accountType,
                     accountBalance,

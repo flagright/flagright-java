@@ -21,6 +21,8 @@ import java.util.Optional;
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
 @JsonDeserialize(builder = NppDetails.Builder.class)
 public final class NppDetails {
+    private final Optional<CounterpartyType> counterpartyType;
+
     private final Optional<String> accountNumber;
 
     private final Optional<ConsumerName> name;
@@ -64,6 +66,7 @@ public final class NppDetails {
     private final Map<String, Object> additionalProperties;
 
     private NppDetails(
+            Optional<CounterpartyType> counterpartyType,
             Optional<String> accountNumber,
             Optional<ConsumerName> name,
             Optional<String> emailId,
@@ -85,6 +88,7 @@ public final class NppDetails {
             Optional<String> bankName,
             Optional<Address> address,
             Map<String, Object> additionalProperties) {
+        this.counterpartyType = counterpartyType;
         this.accountNumber = accountNumber;
         this.name = name;
         this.emailId = emailId;
@@ -106,6 +110,11 @@ public final class NppDetails {
         this.bankName = bankName;
         this.address = address;
         this.additionalProperties = additionalProperties;
+    }
+
+    @JsonProperty("counterpartyType")
+    public Optional<CounterpartyType> getCounterpartyType() {
+        return counterpartyType;
     }
 
     /**
@@ -271,7 +280,8 @@ public final class NppDetails {
     }
 
     private boolean equalTo(NppDetails other) {
-        return accountNumber.equals(other.accountNumber)
+        return counterpartyType.equals(other.counterpartyType)
+                && accountNumber.equals(other.accountNumber)
                 && name.equals(other.name)
                 && emailId.equals(other.emailId)
                 && contactNumber.equals(other.contactNumber)
@@ -296,6 +306,7 @@ public final class NppDetails {
     @java.lang.Override
     public int hashCode() {
         return Objects.hash(
+                this.counterpartyType,
                 this.accountNumber,
                 this.name,
                 this.emailId,
@@ -329,6 +340,8 @@ public final class NppDetails {
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static final class Builder {
+        private Optional<CounterpartyType> counterpartyType = Optional.empty();
+
         private Optional<String> accountNumber = Optional.empty();
 
         private Optional<ConsumerName> name = Optional.empty();
@@ -375,6 +388,7 @@ public final class NppDetails {
         private Builder() {}
 
         public Builder from(NppDetails other) {
+            counterpartyType(other.getCounterpartyType());
             accountNumber(other.getAccountNumber());
             name(other.getName());
             emailId(other.getEmailId());
@@ -395,6 +409,17 @@ public final class NppDetails {
             messageFormat(other.getMessageFormat());
             bankName(other.getBankName());
             address(other.getAddress());
+            return this;
+        }
+
+        @JsonSetter(value = "counterpartyType", nulls = Nulls.SKIP)
+        public Builder counterpartyType(Optional<CounterpartyType> counterpartyType) {
+            this.counterpartyType = counterpartyType;
+            return this;
+        }
+
+        public Builder counterpartyType(CounterpartyType counterpartyType) {
+            this.counterpartyType = Optional.ofNullable(counterpartyType);
             return this;
         }
 
@@ -620,6 +645,7 @@ public final class NppDetails {
 
         public NppDetails build() {
             return new NppDetails(
+                    counterpartyType,
                     accountNumber,
                     name,
                     emailId,

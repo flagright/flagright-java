@@ -21,6 +21,8 @@ import java.util.Optional;
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
 @JsonDeserialize(builder = IbanDetails.Builder.class)
 public final class IbanDetails {
+    private final Optional<CounterpartyType> counterpartyType;
+
     private final Optional<String> bic;
 
     private final Optional<String> bankName;
@@ -52,6 +54,7 @@ public final class IbanDetails {
     private final Map<String, Object> additionalProperties;
 
     private IbanDetails(
+            Optional<CounterpartyType> counterpartyType,
             Optional<String> bic,
             Optional<String> bankName,
             Optional<Address> bankAddress,
@@ -67,6 +70,7 @@ public final class IbanDetails {
             Optional<CountryCode> countryOfResidence,
             Optional<List<Tag>> tags,
             Map<String, Object> additionalProperties) {
+        this.counterpartyType = counterpartyType;
         this.bic = bic;
         this.bankName = bankName;
         this.bankAddress = bankAddress;
@@ -82,6 +86,11 @@ public final class IbanDetails {
         this.countryOfResidence = countryOfResidence;
         this.tags = tags;
         this.additionalProperties = additionalProperties;
+    }
+
+    @JsonProperty("counterpartyType")
+    public Optional<CounterpartyType> getCounterpartyType() {
+        return counterpartyType;
     }
 
     /**
@@ -187,7 +196,8 @@ public final class IbanDetails {
     }
 
     private boolean equalTo(IbanDetails other) {
-        return bic.equals(other.bic)
+        return counterpartyType.equals(other.counterpartyType)
+                && bic.equals(other.bic)
                 && bankName.equals(other.bankName)
                 && bankAddress.equals(other.bankAddress)
                 && address.equals(other.address)
@@ -206,6 +216,7 @@ public final class IbanDetails {
     @java.lang.Override
     public int hashCode() {
         return Objects.hash(
+                this.counterpartyType,
                 this.bic,
                 this.bankName,
                 this.bankAddress,
@@ -233,6 +244,8 @@ public final class IbanDetails {
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static final class Builder {
+        private Optional<CounterpartyType> counterpartyType = Optional.empty();
+
         private Optional<String> bic = Optional.empty();
 
         private Optional<String> bankName = Optional.empty();
@@ -267,6 +280,7 @@ public final class IbanDetails {
         private Builder() {}
 
         public Builder from(IbanDetails other) {
+            counterpartyType(other.getCounterpartyType());
             bic(other.getBic());
             bankName(other.getBankName());
             bankAddress(other.getBankAddress());
@@ -281,6 +295,17 @@ public final class IbanDetails {
             countryOfNationality(other.getCountryOfNationality());
             countryOfResidence(other.getCountryOfResidence());
             tags(other.getTags());
+            return this;
+        }
+
+        @JsonSetter(value = "counterpartyType", nulls = Nulls.SKIP)
+        public Builder counterpartyType(Optional<CounterpartyType> counterpartyType) {
+            this.counterpartyType = counterpartyType;
+            return this;
+        }
+
+        public Builder counterpartyType(CounterpartyType counterpartyType) {
+            this.counterpartyType = Optional.ofNullable(counterpartyType);
             return this;
         }
 
@@ -440,6 +465,7 @@ public final class IbanDetails {
 
         public IbanDetails build() {
             return new IbanDetails(
+                    counterpartyType,
                     bic,
                     bankName,
                     bankAddress,

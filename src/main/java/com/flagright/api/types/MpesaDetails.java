@@ -22,6 +22,8 @@ import org.jetbrains.annotations.NotNull;
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
 @JsonDeserialize(builder = MpesaDetails.Builder.class)
 public final class MpesaDetails {
+    private final Optional<CounterpartyType> counterpartyType;
+
     private final String businessShortCode;
 
     private final MpesaTransactionType transactionType;
@@ -39,6 +41,7 @@ public final class MpesaDetails {
     private final Map<String, Object> additionalProperties;
 
     private MpesaDetails(
+            Optional<CounterpartyType> counterpartyType,
             String businessShortCode,
             MpesaTransactionType transactionType,
             String phoneNumber,
@@ -47,6 +50,7 @@ public final class MpesaDetails {
             Optional<Address> address,
             Optional<List<Tag>> tags,
             Map<String, Object> additionalProperties) {
+        this.counterpartyType = counterpartyType;
         this.businessShortCode = businessShortCode;
         this.transactionType = transactionType;
         this.phoneNumber = phoneNumber;
@@ -55,6 +59,11 @@ public final class MpesaDetails {
         this.address = address;
         this.tags = tags;
         this.additionalProperties = additionalProperties;
+    }
+
+    @JsonProperty("counterpartyType")
+    public Optional<CounterpartyType> getCounterpartyType() {
+        return counterpartyType;
     }
 
     /**
@@ -116,7 +125,8 @@ public final class MpesaDetails {
     }
 
     private boolean equalTo(MpesaDetails other) {
-        return businessShortCode.equals(other.businessShortCode)
+        return counterpartyType.equals(other.counterpartyType)
+                && businessShortCode.equals(other.businessShortCode)
                 && transactionType.equals(other.transactionType)
                 && phoneNumber.equals(other.phoneNumber)
                 && emailId.equals(other.emailId)
@@ -128,6 +138,7 @@ public final class MpesaDetails {
     @java.lang.Override
     public int hashCode() {
         return Objects.hash(
+                this.counterpartyType,
                 this.businessShortCode,
                 this.transactionType,
                 this.phoneNumber,
@@ -163,6 +174,10 @@ public final class MpesaDetails {
     public interface _FinalStage {
         MpesaDetails build();
 
+        _FinalStage counterpartyType(Optional<CounterpartyType> counterpartyType);
+
+        _FinalStage counterpartyType(CounterpartyType counterpartyType);
+
         _FinalStage emailId(Optional<String> emailId);
 
         _FinalStage emailId(String emailId);
@@ -197,6 +212,8 @@ public final class MpesaDetails {
 
         private Optional<String> emailId = Optional.empty();
 
+        private Optional<CounterpartyType> counterpartyType = Optional.empty();
+
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
 
@@ -204,6 +221,7 @@ public final class MpesaDetails {
 
         @java.lang.Override
         public Builder from(MpesaDetails other) {
+            counterpartyType(other.getCounterpartyType());
             businessShortCode(other.getBusinessShortCode());
             transactionType(other.getTransactionType());
             phoneNumber(other.getPhoneNumber());
@@ -304,8 +322,22 @@ public final class MpesaDetails {
         }
 
         @java.lang.Override
+        public _FinalStage counterpartyType(CounterpartyType counterpartyType) {
+            this.counterpartyType = Optional.ofNullable(counterpartyType);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "counterpartyType", nulls = Nulls.SKIP)
+        public _FinalStage counterpartyType(Optional<CounterpartyType> counterpartyType) {
+            this.counterpartyType = counterpartyType;
+            return this;
+        }
+
+        @java.lang.Override
         public MpesaDetails build() {
             return new MpesaDetails(
+                    counterpartyType,
                     businessShortCode,
                     transactionType,
                     phoneNumber,

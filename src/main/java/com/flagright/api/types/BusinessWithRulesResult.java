@@ -40,7 +40,7 @@ public final class BusinessWithRulesResult {
 
     private final Optional<List<BusinessWithRulesResultShareHoldersItem>> shareHolders;
 
-    private final Optional<List<Person>> directors;
+    private final Optional<List<BusinessWithRulesResultDirectorsItem>> directors;
 
     private final Optional<List<BusinessWithRulesResultAssociatedPartiesItem>> associatedParties;
 
@@ -100,7 +100,7 @@ public final class BusinessWithRulesResult {
             Optional<Double> eoddDate,
             Optional<List<CorporateEntityDetails>> corporateEntities,
             Optional<List<BusinessWithRulesResultShareHoldersItem>> shareHolders,
-            Optional<List<Person>> directors,
+            Optional<List<BusinessWithRulesResultDirectorsItem>> directors,
             Optional<List<BusinessWithRulesResultAssociatedPartiesItem>> associatedParties,
             Optional<List<LegalEntity>> businessPartners,
             Optional<TransactionLimits> transactionLimits,
@@ -225,7 +225,7 @@ public final class BusinessWithRulesResult {
      * @return Director(s) of the company. Must be at least one
      */
     @JsonProperty("directors")
-    public Optional<List<Person>> getDirectors() {
+    public Optional<List<BusinessWithRulesResultDirectorsItem>> getDirectors() {
         return directors;
     }
 
@@ -503,9 +503,9 @@ public final class BusinessWithRulesResult {
 
         _FinalStage shareHolders(List<BusinessWithRulesResultShareHoldersItem> shareHolders);
 
-        _FinalStage directors(Optional<List<Person>> directors);
+        _FinalStage directors(Optional<List<BusinessWithRulesResultDirectorsItem>> directors);
 
-        _FinalStage directors(List<Person> directors);
+        _FinalStage directors(List<BusinessWithRulesResultDirectorsItem> directors);
 
         _FinalStage associatedParties(Optional<List<BusinessWithRulesResultAssociatedPartiesItem>> associatedParties);
 
@@ -655,7 +655,7 @@ public final class BusinessWithRulesResult {
 
         private Optional<List<BusinessWithRulesResultAssociatedPartiesItem>> associatedParties = Optional.empty();
 
-        private Optional<List<Person>> directors = Optional.empty();
+        private Optional<List<BusinessWithRulesResultDirectorsItem>> directors = Optional.empty();
 
         private Optional<List<BusinessWithRulesResultShareHoldersItem>> shareHolders = Optional.empty();
 
@@ -1080,14 +1080,14 @@ public final class BusinessWithRulesResult {
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
-        public _FinalStage directors(List<Person> directors) {
+        public _FinalStage directors(List<BusinessWithRulesResultDirectorsItem> directors) {
             this.directors = Optional.ofNullable(directors);
             return this;
         }
 
         @java.lang.Override
         @JsonSetter(value = "directors", nulls = Nulls.SKIP)
-        public _FinalStage directors(Optional<List<Person>> directors) {
+        public _FinalStage directors(Optional<List<BusinessWithRulesResultDirectorsItem>> directors) {
             this.directors = directors;
             return this;
         }

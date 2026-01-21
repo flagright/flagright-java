@@ -34,6 +34,8 @@ public final class ExecutedRulesResult {
 
     private final boolean ruleHit;
 
+    private final Optional<String> versionId;
+
     private final Optional<Double> executedAt;
 
     private final Optional<RuleHitMeta> ruleHitMeta;
@@ -57,6 +59,7 @@ public final class ExecutedRulesResult {
             String ruleDescription,
             RuleAction ruleAction,
             boolean ruleHit,
+            Optional<String> versionId,
             Optional<Double> executedAt,
             Optional<RuleHitMeta> ruleHitMeta,
             Optional<List<ExecutedLogicVars>> vars,
@@ -71,6 +74,7 @@ public final class ExecutedRulesResult {
         this.ruleDescription = ruleDescription;
         this.ruleAction = ruleAction;
         this.ruleHit = ruleHit;
+        this.versionId = versionId;
         this.executedAt = executedAt;
         this.ruleHitMeta = ruleHitMeta;
         this.vars = vars;
@@ -118,6 +122,11 @@ public final class ExecutedRulesResult {
     @JsonProperty("ruleHit")
     public boolean getRuleHit() {
         return ruleHit;
+    }
+
+    @JsonProperty("versionId")
+    public Optional<String> getVersionId() {
+        return versionId;
     }
 
     /**
@@ -176,6 +185,7 @@ public final class ExecutedRulesResult {
                 && ruleDescription.equals(other.ruleDescription)
                 && ruleAction.equals(other.ruleAction)
                 && ruleHit == other.ruleHit
+                && versionId.equals(other.versionId)
                 && executedAt.equals(other.executedAt)
                 && ruleHitMeta.equals(other.ruleHitMeta)
                 && vars.equals(other.vars)
@@ -194,6 +204,7 @@ public final class ExecutedRulesResult {
                 this.ruleDescription,
                 this.ruleAction,
                 this.ruleHit,
+                this.versionId,
                 this.executedAt,
                 this.ruleHitMeta,
                 this.vars,
@@ -240,6 +251,10 @@ public final class ExecutedRulesResult {
         _FinalStage ruleId(Optional<String> ruleId);
 
         _FinalStage ruleId(String ruleId);
+
+        _FinalStage versionId(Optional<String> versionId);
+
+        _FinalStage versionId(String versionId);
 
         _FinalStage executedAt(Optional<Double> executedAt);
 
@@ -302,6 +317,8 @@ public final class ExecutedRulesResult {
 
         private Optional<Double> executedAt = Optional.empty();
 
+        private Optional<String> versionId = Optional.empty();
+
         private Optional<String> ruleId = Optional.empty();
 
         @JsonAnySetter
@@ -317,6 +334,7 @@ public final class ExecutedRulesResult {
             ruleDescription(other.getRuleDescription());
             ruleAction(other.getRuleAction());
             ruleHit(other.getRuleHit());
+            versionId(other.getVersionId());
             executedAt(other.getExecutedAt());
             ruleHitMeta(other.getRuleHitMeta());
             vars(other.getVars());
@@ -465,6 +483,19 @@ public final class ExecutedRulesResult {
             return this;
         }
 
+        @java.lang.Override
+        public _FinalStage versionId(String versionId) {
+            this.versionId = Optional.ofNullable(versionId);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "versionId", nulls = Nulls.SKIP)
+        public _FinalStage versionId(Optional<String> versionId) {
+            this.versionId = versionId;
+            return this;
+        }
+
         /**
          * <p>Unique rule identifier</p>
          * @return Reference to {@code this} so that method calls can be chained together.
@@ -491,6 +522,7 @@ public final class ExecutedRulesResult {
                     ruleDescription,
                     ruleAction,
                     ruleHit,
+                    versionId,
                     executedAt,
                     ruleHitMeta,
                     vars,

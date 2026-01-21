@@ -30,6 +30,8 @@ public final class HitRulesDetails {
 
     private final String ruleDescription;
 
+    private final Optional<String> versionId;
+
     private final Optional<Double> executedAt;
 
     private final RuleAction ruleAction;
@@ -49,6 +51,7 @@ public final class HitRulesDetails {
             String ruleInstanceId,
             String ruleName,
             String ruleDescription,
+            Optional<String> versionId,
             Optional<Double> executedAt,
             RuleAction ruleAction,
             Optional<RuleHitMeta> ruleHitMeta,
@@ -60,6 +63,7 @@ public final class HitRulesDetails {
         this.ruleInstanceId = ruleInstanceId;
         this.ruleName = ruleName;
         this.ruleDescription = ruleDescription;
+        this.versionId = versionId;
         this.executedAt = executedAt;
         this.ruleAction = ruleAction;
         this.ruleHitMeta = ruleHitMeta;
@@ -96,6 +100,11 @@ public final class HitRulesDetails {
     @JsonProperty("ruleDescription")
     public String getRuleDescription() {
         return ruleDescription;
+    }
+
+    @JsonProperty("versionId")
+    public Optional<String> getVersionId() {
+        return versionId;
     }
 
     /**
@@ -147,6 +156,7 @@ public final class HitRulesDetails {
                 && ruleInstanceId.equals(other.ruleInstanceId)
                 && ruleName.equals(other.ruleName)
                 && ruleDescription.equals(other.ruleDescription)
+                && versionId.equals(other.versionId)
                 && executedAt.equals(other.executedAt)
                 && ruleAction.equals(other.ruleAction)
                 && ruleHitMeta.equals(other.ruleHitMeta)
@@ -162,6 +172,7 @@ public final class HitRulesDetails {
                 this.ruleInstanceId,
                 this.ruleName,
                 this.ruleDescription,
+                this.versionId,
                 this.executedAt,
                 this.ruleAction,
                 this.ruleHitMeta,
@@ -203,6 +214,10 @@ public final class HitRulesDetails {
         _FinalStage ruleId(Optional<String> ruleId);
 
         _FinalStage ruleId(String ruleId);
+
+        _FinalStage versionId(Optional<String> versionId);
+
+        _FinalStage versionId(String versionId);
 
         _FinalStage executedAt(Optional<Double> executedAt);
 
@@ -246,6 +261,8 @@ public final class HitRulesDetails {
 
         private Optional<Double> executedAt = Optional.empty();
 
+        private Optional<String> versionId = Optional.empty();
+
         private Optional<String> ruleId = Optional.empty();
 
         @JsonAnySetter
@@ -259,6 +276,7 @@ public final class HitRulesDetails {
             ruleInstanceId(other.getRuleInstanceId());
             ruleName(other.getRuleName());
             ruleDescription(other.getRuleDescription());
+            versionId(other.getVersionId());
             executedAt(other.getExecutedAt());
             ruleAction(other.getRuleAction());
             ruleHitMeta(other.getRuleHitMeta());
@@ -373,6 +391,19 @@ public final class HitRulesDetails {
             return this;
         }
 
+        @java.lang.Override
+        public _FinalStage versionId(String versionId) {
+            this.versionId = Optional.ofNullable(versionId);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "versionId", nulls = Nulls.SKIP)
+        public _FinalStage versionId(Optional<String> versionId) {
+            this.versionId = versionId;
+            return this;
+        }
+
         /**
          * <p>Unique rule identifier</p>
          * @return Reference to {@code this} so that method calls can be chained together.
@@ -397,6 +428,7 @@ public final class HitRulesDetails {
                     ruleInstanceId,
                     ruleName,
                     ruleDescription,
+                    versionId,
                     executedAt,
                     ruleAction,
                     ruleHitMeta,

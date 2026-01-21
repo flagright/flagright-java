@@ -21,6 +21,8 @@ import java.util.Optional;
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
 @JsonDeserialize(builder = SwiftDetails.Builder.class)
 public final class SwiftDetails {
+    private final Optional<CounterpartyType> counterpartyType;
+
     private final Optional<String> swiftCode;
 
     private final Optional<String> accountNumber;
@@ -54,6 +56,7 @@ public final class SwiftDetails {
     private final Map<String, Object> additionalProperties;
 
     private SwiftDetails(
+            Optional<CounterpartyType> counterpartyType,
             Optional<String> swiftCode,
             Optional<String> accountNumber,
             Optional<String> routingNumber,
@@ -70,6 +73,7 @@ public final class SwiftDetails {
             Optional<List<CorrespondentBankDetails>> correspondentBankDetails,
             Optional<List<Tag>> tags,
             Map<String, Object> additionalProperties) {
+        this.counterpartyType = counterpartyType;
         this.swiftCode = swiftCode;
         this.accountNumber = accountNumber;
         this.routingNumber = routingNumber;
@@ -86,6 +90,11 @@ public final class SwiftDetails {
         this.correspondentBankDetails = correspondentBankDetails;
         this.tags = tags;
         this.additionalProperties = additionalProperties;
+    }
+
+    @JsonProperty("counterpartyType")
+    public Optional<CounterpartyType> getCounterpartyType() {
+        return counterpartyType;
     }
 
     /**
@@ -199,7 +208,8 @@ public final class SwiftDetails {
     }
 
     private boolean equalTo(SwiftDetails other) {
-        return swiftCode.equals(other.swiftCode)
+        return counterpartyType.equals(other.counterpartyType)
+                && swiftCode.equals(other.swiftCode)
                 && accountNumber.equals(other.accountNumber)
                 && routingNumber.equals(other.routingNumber)
                 && accountBalance.equals(other.accountBalance)
@@ -219,6 +229,7 @@ public final class SwiftDetails {
     @java.lang.Override
     public int hashCode() {
         return Objects.hash(
+                this.counterpartyType,
                 this.swiftCode,
                 this.accountNumber,
                 this.routingNumber,
@@ -247,6 +258,8 @@ public final class SwiftDetails {
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static final class Builder {
+        private Optional<CounterpartyType> counterpartyType = Optional.empty();
+
         private Optional<String> swiftCode = Optional.empty();
 
         private Optional<String> accountNumber = Optional.empty();
@@ -283,6 +296,7 @@ public final class SwiftDetails {
         private Builder() {}
 
         public Builder from(SwiftDetails other) {
+            counterpartyType(other.getCounterpartyType());
             swiftCode(other.getSwiftCode());
             accountNumber(other.getAccountNumber());
             routingNumber(other.getRoutingNumber());
@@ -298,6 +312,17 @@ public final class SwiftDetails {
             address(other.getAddress());
             correspondentBankDetails(other.getCorrespondentBankDetails());
             tags(other.getTags());
+            return this;
+        }
+
+        @JsonSetter(value = "counterpartyType", nulls = Nulls.SKIP)
+        public Builder counterpartyType(Optional<CounterpartyType> counterpartyType) {
+            this.counterpartyType = counterpartyType;
+            return this;
+        }
+
+        public Builder counterpartyType(CounterpartyType counterpartyType) {
+            this.counterpartyType = Optional.ofNullable(counterpartyType);
             return this;
         }
 
@@ -468,6 +493,7 @@ public final class SwiftDetails {
 
         public SwiftDetails build() {
             return new SwiftDetails(
+                    counterpartyType,
                     swiftCode,
                     accountNumber,
                     routingNumber,

@@ -22,6 +22,8 @@ import org.jetbrains.annotations.NotNull;
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
 @JsonDeserialize(builder = UpiDetails.Builder.class)
 public final class UpiDetails {
+    private final Optional<CounterpartyType> counterpartyType;
+
     private final String upiId;
 
     private final Optional<String> bankProvider;
@@ -39,6 +41,7 @@ public final class UpiDetails {
     private final Map<String, Object> additionalProperties;
 
     private UpiDetails(
+            Optional<CounterpartyType> counterpartyType,
             String upiId,
             Optional<String> bankProvider,
             Optional<String> interfaceProvider,
@@ -47,6 +50,7 @@ public final class UpiDetails {
             Optional<String> emailId,
             Optional<List<Tag>> tags,
             Map<String, Object> additionalProperties) {
+        this.counterpartyType = counterpartyType;
         this.upiId = upiId;
         this.bankProvider = bankProvider;
         this.interfaceProvider = interfaceProvider;
@@ -55,6 +59,11 @@ public final class UpiDetails {
         this.emailId = emailId;
         this.tags = tags;
         this.additionalProperties = additionalProperties;
+    }
+
+    @JsonProperty("counterpartyType")
+    public Optional<CounterpartyType> getCounterpartyType() {
+        return counterpartyType;
     }
 
     /**
@@ -119,7 +128,8 @@ public final class UpiDetails {
     }
 
     private boolean equalTo(UpiDetails other) {
-        return upiId.equals(other.upiId)
+        return counterpartyType.equals(other.counterpartyType)
+                && upiId.equals(other.upiId)
                 && bankProvider.equals(other.bankProvider)
                 && interfaceProvider.equals(other.interfaceProvider)
                 && name.equals(other.name)
@@ -131,6 +141,7 @@ public final class UpiDetails {
     @java.lang.Override
     public int hashCode() {
         return Objects.hash(
+                this.counterpartyType,
                 this.upiId,
                 this.bankProvider,
                 this.interfaceProvider,
@@ -157,6 +168,10 @@ public final class UpiDetails {
 
     public interface _FinalStage {
         UpiDetails build();
+
+        _FinalStage counterpartyType(Optional<CounterpartyType> counterpartyType);
+
+        _FinalStage counterpartyType(CounterpartyType counterpartyType);
 
         _FinalStage bankProvider(Optional<String> bankProvider);
 
@@ -199,6 +214,8 @@ public final class UpiDetails {
 
         private Optional<String> bankProvider = Optional.empty();
 
+        private Optional<CounterpartyType> counterpartyType = Optional.empty();
+
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
 
@@ -206,6 +223,7 @@ public final class UpiDetails {
 
         @java.lang.Override
         public Builder from(UpiDetails other) {
+            counterpartyType(other.getCounterpartyType());
             upiId(other.getUpiId());
             bankProvider(other.getBankProvider());
             interfaceProvider(other.getInterfaceProvider());
@@ -322,9 +340,30 @@ public final class UpiDetails {
         }
 
         @java.lang.Override
+        public _FinalStage counterpartyType(CounterpartyType counterpartyType) {
+            this.counterpartyType = Optional.ofNullable(counterpartyType);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "counterpartyType", nulls = Nulls.SKIP)
+        public _FinalStage counterpartyType(Optional<CounterpartyType> counterpartyType) {
+            this.counterpartyType = counterpartyType;
+            return this;
+        }
+
+        @java.lang.Override
         public UpiDetails build() {
             return new UpiDetails(
-                    upiId, bankProvider, interfaceProvider, name, address, emailId, tags, additionalProperties);
+                    counterpartyType,
+                    upiId,
+                    bankProvider,
+                    interfaceProvider,
+                    name,
+                    address,
+                    emailId,
+                    tags,
+                    additionalProperties);
         }
     }
 }
