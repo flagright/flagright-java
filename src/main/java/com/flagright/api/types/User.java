@@ -50,6 +50,8 @@ public final class User {
 
     private final Optional<ExpectedIncome> expectedIncome;
 
+    private final Optional<ExpectedTransactionCountries> expectedTransactionCountries;
+
     private final Optional<RiskLevel> riskLevel;
 
     private final Optional<RiskLevel> kycRiskLevel;
@@ -105,6 +107,7 @@ public final class User {
             Optional<EmploymentDetails> employmentDetails,
             Optional<TransactionLimits> transactionLimits,
             Optional<ExpectedIncome> expectedIncome,
+            Optional<ExpectedTransactionCountries> expectedTransactionCountries,
             Optional<RiskLevel> riskLevel,
             Optional<RiskLevel> kycRiskLevel,
             Optional<AcquisitionChannel> acquisitionChannel,
@@ -139,6 +142,7 @@ public final class User {
         this.employmentDetails = employmentDetails;
         this.transactionLimits = transactionLimits;
         this.expectedIncome = expectedIncome;
+        this.expectedTransactionCountries = expectedTransactionCountries;
         this.riskLevel = riskLevel;
         this.kycRiskLevel = kycRiskLevel;
         this.acquisitionChannel = acquisitionChannel;
@@ -241,6 +245,11 @@ public final class User {
     @JsonProperty("expectedIncome")
     public Optional<ExpectedIncome> getExpectedIncome() {
         return expectedIncome;
+    }
+
+    @JsonProperty("expectedTransactionCountries")
+    public Optional<ExpectedTransactionCountries> getExpectedTransactionCountries() {
+        return expectedTransactionCountries;
     }
 
     @JsonProperty("riskLevel")
@@ -379,6 +388,7 @@ public final class User {
                 && employmentDetails.equals(other.employmentDetails)
                 && transactionLimits.equals(other.transactionLimits)
                 && expectedIncome.equals(other.expectedIncome)
+                && expectedTransactionCountries.equals(other.expectedTransactionCountries)
                 && riskLevel.equals(other.riskLevel)
                 && kycRiskLevel.equals(other.kycRiskLevel)
                 && acquisitionChannel.equals(other.acquisitionChannel)
@@ -417,6 +427,7 @@ public final class User {
                 this.employmentDetails,
                 this.transactionLimits,
                 this.expectedIncome,
+                this.expectedTransactionCountries,
                 this.riskLevel,
                 this.kycRiskLevel,
                 this.acquisitionChannel,
@@ -507,6 +518,10 @@ public final class User {
         _FinalStage expectedIncome(Optional<ExpectedIncome> expectedIncome);
 
         _FinalStage expectedIncome(ExpectedIncome expectedIncome);
+
+        _FinalStage expectedTransactionCountries(Optional<ExpectedTransactionCountries> expectedTransactionCountries);
+
+        _FinalStage expectedTransactionCountries(ExpectedTransactionCountries expectedTransactionCountries);
 
         _FinalStage riskLevel(Optional<RiskLevel> riskLevel);
 
@@ -629,6 +644,8 @@ public final class User {
 
         private Optional<RiskLevel> riskLevel = Optional.empty();
 
+        private Optional<ExpectedTransactionCountries> expectedTransactionCountries = Optional.empty();
+
         private Optional<ExpectedIncome> expectedIncome = Optional.empty();
 
         private Optional<TransactionLimits> transactionLimits = Optional.empty();
@@ -674,6 +691,7 @@ public final class User {
             employmentDetails(other.getEmploymentDetails());
             transactionLimits(other.getTransactionLimits());
             expectedIncome(other.getExpectedIncome());
+            expectedTransactionCountries(other.getExpectedTransactionCountries());
             riskLevel(other.getRiskLevel());
             kycRiskLevel(other.getKycRiskLevel());
             acquisitionChannel(other.getAcquisitionChannel());
@@ -986,6 +1004,20 @@ public final class User {
         }
 
         @java.lang.Override
+        public _FinalStage expectedTransactionCountries(ExpectedTransactionCountries expectedTransactionCountries) {
+            this.expectedTransactionCountries = Optional.ofNullable(expectedTransactionCountries);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "expectedTransactionCountries", nulls = Nulls.SKIP)
+        public _FinalStage expectedTransactionCountries(
+                Optional<ExpectedTransactionCountries> expectedTransactionCountries) {
+            this.expectedTransactionCountries = expectedTransactionCountries;
+            return this;
+        }
+
+        @java.lang.Override
         public _FinalStage expectedIncome(ExpectedIncome expectedIncome) {
             this.expectedIncome = Optional.ofNullable(expectedIncome);
             return this;
@@ -1166,6 +1198,7 @@ public final class User {
                     employmentDetails,
                     transactionLimits,
                     expectedIncome,
+                    expectedTransactionCountries,
                     riskLevel,
                     kycRiskLevel,
                     acquisitionChannel,

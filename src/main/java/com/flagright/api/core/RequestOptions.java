@@ -12,6 +12,8 @@ import java.util.function.Supplier;
 public final class RequestOptions {
     private final String apiKey;
 
+    private final String authorization;
+
     private final Optional<Integer> timeout;
 
     private final TimeUnit timeoutTimeUnit;
@@ -22,11 +24,13 @@ public final class RequestOptions {
 
     private RequestOptions(
             String apiKey,
+            String authorization,
             Optional<Integer> timeout,
             TimeUnit timeoutTimeUnit,
             Map<String, String> headers,
             Map<String, Supplier<String>> headerSuppliers) {
         this.apiKey = apiKey;
+        this.authorization = authorization;
         this.timeout = timeout;
         this.timeoutTimeUnit = timeoutTimeUnit;
         this.headers = headers;
@@ -46,6 +50,9 @@ public final class RequestOptions {
         if (this.apiKey != null) {
             headers.put("x-api-key", this.apiKey);
         }
+        if (this.authorization != null) {
+            headers.put("Authorization", this.authorization);
+        }
         headers.putAll(this.headers);
         this.headerSuppliers.forEach((key, supplier) -> {
             headers.put(key, supplier.get());
@@ -60,6 +67,8 @@ public final class RequestOptions {
     public static final class Builder {
         private String apiKey = null;
 
+        private String authorization = null;
+
         private Optional<Integer> timeout = Optional.empty();
 
         private TimeUnit timeoutTimeUnit = TimeUnit.SECONDS;
@@ -70,6 +79,11 @@ public final class RequestOptions {
 
         public Builder apiKey(String apiKey) {
             this.apiKey = apiKey;
+            return this;
+        }
+
+        public Builder authorization(String authorization) {
+            this.authorization = authorization;
             return this;
         }
 
@@ -95,7 +109,7 @@ public final class RequestOptions {
         }
 
         public RequestOptions build() {
-            return new RequestOptions(apiKey, timeout, timeoutTimeUnit, headers, headerSuppliers);
+            return new RequestOptions(apiKey, authorization, timeout, timeoutTimeUnit, headers, headerSuppliers);
         }
     }
 }

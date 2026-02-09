@@ -36,6 +36,8 @@ public final class SanctionsDetails {
 
     private final Optional<RuleHitDirection> hitDirection;
 
+    private final Optional<Boolean> isRuleHit;
+
     private final Map<String, Object> additionalProperties;
 
     private SanctionsDetails(
@@ -46,6 +48,7 @@ public final class SanctionsDetails {
             Optional<List<String>> sanctionHitIds,
             Optional<SanctionsHitContext> hitContext,
             Optional<RuleHitDirection> hitDirection,
+            Optional<Boolean> isRuleHit,
             Map<String, Object> additionalProperties) {
         this.name = name;
         this.searchId = searchId;
@@ -54,6 +57,7 @@ public final class SanctionsDetails {
         this.sanctionHitIds = sanctionHitIds;
         this.hitContext = hitContext;
         this.hitDirection = hitDirection;
+        this.isRuleHit = isRuleHit;
         this.additionalProperties = additionalProperties;
     }
 
@@ -92,6 +96,11 @@ public final class SanctionsDetails {
         return hitDirection;
     }
 
+    @JsonProperty("isRuleHit")
+    public Optional<Boolean> getIsRuleHit() {
+        return isRuleHit;
+    }
+
     @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
@@ -110,7 +119,8 @@ public final class SanctionsDetails {
                 && entityType.equals(other.entityType)
                 && sanctionHitIds.equals(other.sanctionHitIds)
                 && hitContext.equals(other.hitContext)
-                && hitDirection.equals(other.hitDirection);
+                && hitDirection.equals(other.hitDirection)
+                && isRuleHit.equals(other.isRuleHit);
     }
 
     @java.lang.Override
@@ -122,7 +132,8 @@ public final class SanctionsDetails {
                 this.entityType,
                 this.sanctionHitIds,
                 this.hitContext,
-                this.hitDirection);
+                this.hitDirection,
+                this.isRuleHit);
     }
 
     @java.lang.Override
@@ -166,6 +177,10 @@ public final class SanctionsDetails {
         _FinalStage hitDirection(Optional<RuleHitDirection> hitDirection);
 
         _FinalStage hitDirection(RuleHitDirection hitDirection);
+
+        _FinalStage isRuleHit(Optional<Boolean> isRuleHit);
+
+        _FinalStage isRuleHit(Boolean isRuleHit);
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
@@ -173,6 +188,8 @@ public final class SanctionsDetails {
         private String name;
 
         private String searchId;
+
+        private Optional<Boolean> isRuleHit = Optional.empty();
 
         private Optional<RuleHitDirection> hitDirection = Optional.empty();
 
@@ -198,6 +215,7 @@ public final class SanctionsDetails {
             sanctionHitIds(other.getSanctionHitIds());
             hitContext(other.getHitContext());
             hitDirection(other.getHitDirection());
+            isRuleHit(other.getIsRuleHit());
             return this;
         }
 
@@ -212,6 +230,19 @@ public final class SanctionsDetails {
         @JsonSetter("searchId")
         public _FinalStage searchId(@NotNull String searchId) {
             this.searchId = Objects.requireNonNull(searchId, "searchId must not be null");
+            return this;
+        }
+
+        @java.lang.Override
+        public _FinalStage isRuleHit(Boolean isRuleHit) {
+            this.isRuleHit = Optional.ofNullable(isRuleHit);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "isRuleHit", nulls = Nulls.SKIP)
+        public _FinalStage isRuleHit(Optional<Boolean> isRuleHit) {
+            this.isRuleHit = isRuleHit;
             return this;
         }
 
@@ -283,7 +314,15 @@ public final class SanctionsDetails {
         @java.lang.Override
         public SanctionsDetails build() {
             return new SanctionsDetails(
-                    name, searchId, iban, entityType, sanctionHitIds, hitContext, hitDirection, additionalProperties);
+                    name,
+                    searchId,
+                    iban,
+                    entityType,
+                    sanctionHitIds,
+                    hitContext,
+                    hitDirection,
+                    isRuleHit,
+                    additionalProperties);
         }
     }
 }

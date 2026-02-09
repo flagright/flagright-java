@@ -48,6 +48,8 @@ public final class BusinessWithRulesResult {
 
     private final Optional<TransactionLimits> transactionLimits;
 
+    private final Optional<ExpectedTransactionCountries> expectedTransactionCountries;
+
     private final Optional<RiskLevel> riskLevel;
 
     private final Optional<RiskLevel> kycRiskLevel;
@@ -104,6 +106,7 @@ public final class BusinessWithRulesResult {
             Optional<List<BusinessWithRulesResultAssociatedPartiesItem>> associatedParties,
             Optional<List<LegalEntity>> businessPartners,
             Optional<TransactionLimits> transactionLimits,
+            Optional<ExpectedTransactionCountries> expectedTransactionCountries,
             Optional<RiskLevel> riskLevel,
             Optional<RiskLevel> kycRiskLevel,
             Optional<List<PaymentMethod>> allowedPaymentMethods,
@@ -138,6 +141,7 @@ public final class BusinessWithRulesResult {
         this.associatedParties = associatedParties;
         this.businessPartners = businessPartners;
         this.transactionLimits = transactionLimits;
+        this.expectedTransactionCountries = expectedTransactionCountries;
         this.riskLevel = riskLevel;
         this.kycRiskLevel = kycRiskLevel;
         this.allowedPaymentMethods = allowedPaymentMethods;
@@ -248,6 +252,11 @@ public final class BusinessWithRulesResult {
     @JsonProperty("transactionLimits")
     public Optional<TransactionLimits> getTransactionLimits() {
         return transactionLimits;
+    }
+
+    @JsonProperty("expectedTransactionCountries")
+    public Optional<ExpectedTransactionCountries> getExpectedTransactionCountries() {
+        return expectedTransactionCountries;
     }
 
     @JsonProperty("riskLevel")
@@ -393,6 +402,7 @@ public final class BusinessWithRulesResult {
                 && associatedParties.equals(other.associatedParties)
                 && businessPartners.equals(other.businessPartners)
                 && transactionLimits.equals(other.transactionLimits)
+                && expectedTransactionCountries.equals(other.expectedTransactionCountries)
                 && riskLevel.equals(other.riskLevel)
                 && kycRiskLevel.equals(other.kycRiskLevel)
                 && allowedPaymentMethods.equals(other.allowedPaymentMethods)
@@ -431,6 +441,7 @@ public final class BusinessWithRulesResult {
                 this.associatedParties,
                 this.businessPartners,
                 this.transactionLimits,
+                this.expectedTransactionCountries,
                 this.riskLevel,
                 this.kycRiskLevel,
                 this.allowedPaymentMethods,
@@ -518,6 +529,10 @@ public final class BusinessWithRulesResult {
         _FinalStage transactionLimits(Optional<TransactionLimits> transactionLimits);
 
         _FinalStage transactionLimits(TransactionLimits transactionLimits);
+
+        _FinalStage expectedTransactionCountries(Optional<ExpectedTransactionCountries> expectedTransactionCountries);
+
+        _FinalStage expectedTransactionCountries(ExpectedTransactionCountries expectedTransactionCountries);
 
         _FinalStage riskLevel(Optional<RiskLevel> riskLevel);
 
@@ -649,6 +664,8 @@ public final class BusinessWithRulesResult {
 
         private Optional<RiskLevel> riskLevel = Optional.empty();
 
+        private Optional<ExpectedTransactionCountries> expectedTransactionCountries = Optional.empty();
+
         private Optional<TransactionLimits> transactionLimits = Optional.empty();
 
         private Optional<List<LegalEntity>> businessPartners = Optional.empty();
@@ -689,6 +706,7 @@ public final class BusinessWithRulesResult {
             associatedParties(other.getAssociatedParties());
             businessPartners(other.getBusinessPartners());
             transactionLimits(other.getTransactionLimits());
+            expectedTransactionCountries(other.getExpectedTransactionCountries());
             riskLevel(other.getRiskLevel());
             kycRiskLevel(other.getKycRiskLevel());
             allowedPaymentMethods(other.getAllowedPaymentMethods());
@@ -1028,6 +1046,20 @@ public final class BusinessWithRulesResult {
         }
 
         @java.lang.Override
+        public _FinalStage expectedTransactionCountries(ExpectedTransactionCountries expectedTransactionCountries) {
+            this.expectedTransactionCountries = Optional.ofNullable(expectedTransactionCountries);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "expectedTransactionCountries", nulls = Nulls.SKIP)
+        public _FinalStage expectedTransactionCountries(
+                Optional<ExpectedTransactionCountries> expectedTransactionCountries) {
+            this.expectedTransactionCountries = expectedTransactionCountries;
+            return this;
+        }
+
+        @java.lang.Override
         public _FinalStage transactionLimits(TransactionLimits transactionLimits) {
             this.transactionLimits = Optional.ofNullable(transactionLimits);
             return this;
@@ -1198,6 +1230,7 @@ public final class BusinessWithRulesResult {
                     associatedParties,
                     businessPartners,
                     transactionLimits,
+                    expectedTransactionCountries,
                     riskLevel,
                     kycRiskLevel,
                     allowedPaymentMethods,

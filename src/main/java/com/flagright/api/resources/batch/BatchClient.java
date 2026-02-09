@@ -108,6 +108,14 @@ public class BatchClient {
         return this.rawClient.getConsumerUsers(batchId, request, requestOptions).body();
     }
 
+    public BatchResponse createBusinessUsers(BusinessBatchRequest request) {
+        return this.rawClient.createBusinessUsers(request).body();
+    }
+
+    public BatchResponse createBusinessUsers(BusinessBatchRequest request, RequestOptions requestOptions) {
+        return this.rawClient.createBusinessUsers(request, requestOptions).body();
+    }
+
     public BatchBusinessUsersWithRulesResults getBusinessUsers(String batchId) {
         return this.rawClient.getBusinessUsers(batchId).body();
     }
@@ -121,12 +129,13 @@ public class BatchClient {
         return this.rawClient.getBusinessUsers(batchId, request, requestOptions).body();
     }
 
-    public BatchResponse createBusinessUsers(BusinessBatchRequest request) {
-        return this.rawClient.createBusinessUsers(request).body();
+    public BatchResponse createConsumerUserEvents(ConsumerUserEventBatchRequest request) {
+        return this.rawClient.createConsumerUserEvents(request).body();
     }
 
-    public BatchResponse createBusinessUsers(BusinessBatchRequest request, RequestOptions requestOptions) {
-        return this.rawClient.createBusinessUsers(request, requestOptions).body();
+    public BatchResponse createConsumerUserEvents(
+            ConsumerUserEventBatchRequest request, RequestOptions requestOptions) {
+        return this.rawClient.createConsumerUserEvents(request, requestOptions).body();
     }
 
     public BatchConsumerUserEventsRulesResult getConsumerUserEvents(String batchId) {
@@ -145,6 +154,15 @@ public class BatchClient {
                 .body();
     }
 
+    public BatchResponse createBusinessUserEvents(BusinessUserEventBatchRequest request) {
+        return this.rawClient.createBusinessUserEvents(request).body();
+    }
+
+    public BatchResponse createBusinessUserEvents(
+            BusinessUserEventBatchRequest request, RequestOptions requestOptions) {
+        return this.rawClient.createBusinessUserEvents(request, requestOptions).body();
+    }
+
     public BatchBusinessUserEventsWithRulesResult getBusinessUserEvents(String batchId) {
         return this.rawClient.getBusinessUserEvents(batchId).body();
     }
@@ -159,23 +177,5 @@ public class BatchClient {
         return this.rawClient
                 .getBusinessUserEvents(batchId, request, requestOptions)
                 .body();
-    }
-
-    public BatchResponse createConsumerUserEvents(ConsumerUserEventBatchRequest request) {
-        return this.rawClient.createConsumerUserEvents(request).body();
-    }
-
-    public BatchResponse createConsumerUserEvents(
-            ConsumerUserEventBatchRequest request, RequestOptions requestOptions) {
-        return this.rawClient.createConsumerUserEvents(request, requestOptions).body();
-    }
-
-    public BatchResponse createBusinessUserEvents(BusinessUserEventBatchRequest request) {
-        return this.rawClient.createBusinessUserEvents(request).body();
-    }
-
-    public BatchResponse createBusinessUserEvents(
-            BusinessUserEventBatchRequest request, RequestOptions requestOptions) {
-        return this.rawClient.createBusinessUserEvents(request, requestOptions).body();
     }
 }

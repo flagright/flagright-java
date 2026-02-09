@@ -114,6 +114,15 @@ public class AsyncBatchClient {
         return this.rawClient.getConsumerUsers(batchId, request, requestOptions).thenApply(response -> response.body());
     }
 
+    public CompletableFuture<BatchResponse> createBusinessUsers(BusinessBatchRequest request) {
+        return this.rawClient.createBusinessUsers(request).thenApply(response -> response.body());
+    }
+
+    public CompletableFuture<BatchResponse> createBusinessUsers(
+            BusinessBatchRequest request, RequestOptions requestOptions) {
+        return this.rawClient.createBusinessUsers(request, requestOptions).thenApply(response -> response.body());
+    }
+
     public CompletableFuture<BatchBusinessUsersWithRulesResults> getBusinessUsers(String batchId) {
         return this.rawClient.getBusinessUsers(batchId).thenApply(response -> response.body());
     }
@@ -128,13 +137,13 @@ public class AsyncBatchClient {
         return this.rawClient.getBusinessUsers(batchId, request, requestOptions).thenApply(response -> response.body());
     }
 
-    public CompletableFuture<BatchResponse> createBusinessUsers(BusinessBatchRequest request) {
-        return this.rawClient.createBusinessUsers(request).thenApply(response -> response.body());
+    public CompletableFuture<BatchResponse> createConsumerUserEvents(ConsumerUserEventBatchRequest request) {
+        return this.rawClient.createConsumerUserEvents(request).thenApply(response -> response.body());
     }
 
-    public CompletableFuture<BatchResponse> createBusinessUsers(
-            BusinessBatchRequest request, RequestOptions requestOptions) {
-        return this.rawClient.createBusinessUsers(request, requestOptions).thenApply(response -> response.body());
+    public CompletableFuture<BatchResponse> createConsumerUserEvents(
+            ConsumerUserEventBatchRequest request, RequestOptions requestOptions) {
+        return this.rawClient.createConsumerUserEvents(request, requestOptions).thenApply(response -> response.body());
     }
 
     public CompletableFuture<BatchConsumerUserEventsRulesResult> getConsumerUserEvents(String batchId) {
@@ -153,6 +162,15 @@ public class AsyncBatchClient {
                 .thenApply(response -> response.body());
     }
 
+    public CompletableFuture<BatchResponse> createBusinessUserEvents(BusinessUserEventBatchRequest request) {
+        return this.rawClient.createBusinessUserEvents(request).thenApply(response -> response.body());
+    }
+
+    public CompletableFuture<BatchResponse> createBusinessUserEvents(
+            BusinessUserEventBatchRequest request, RequestOptions requestOptions) {
+        return this.rawClient.createBusinessUserEvents(request, requestOptions).thenApply(response -> response.body());
+    }
+
     public CompletableFuture<BatchBusinessUserEventsWithRulesResult> getBusinessUserEvents(String batchId) {
         return this.rawClient.getBusinessUserEvents(batchId).thenApply(response -> response.body());
     }
@@ -167,23 +185,5 @@ public class AsyncBatchClient {
         return this.rawClient
                 .getBusinessUserEvents(batchId, request, requestOptions)
                 .thenApply(response -> response.body());
-    }
-
-    public CompletableFuture<BatchResponse> createConsumerUserEvents(ConsumerUserEventBatchRequest request) {
-        return this.rawClient.createConsumerUserEvents(request).thenApply(response -> response.body());
-    }
-
-    public CompletableFuture<BatchResponse> createConsumerUserEvents(
-            ConsumerUserEventBatchRequest request, RequestOptions requestOptions) {
-        return this.rawClient.createConsumerUserEvents(request, requestOptions).thenApply(response -> response.body());
-    }
-
-    public CompletableFuture<BatchResponse> createBusinessUserEvents(BusinessUserEventBatchRequest request) {
-        return this.rawClient.createBusinessUserEvents(request).thenApply(response -> response.body());
-    }
-
-    public CompletableFuture<BatchResponse> createBusinessUserEvents(
-            BusinessUserEventBatchRequest request, RequestOptions requestOptions) {
-        return this.rawClient.createBusinessUserEvents(request, requestOptions).thenApply(response -> response.body());
     }
 }

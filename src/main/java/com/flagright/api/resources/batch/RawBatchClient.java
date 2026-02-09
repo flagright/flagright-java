@@ -498,6 +498,87 @@ public class RawBatchClient {
         }
     }
 
+    public FlagrightHttpResponse<BatchResponse> createBusinessUsers(BusinessBatchRequest request) {
+        return createBusinessUsers(request, null);
+    }
+
+    public FlagrightHttpResponse<BatchResponse> createBusinessUsers(
+            BusinessBatchRequest request, RequestOptions requestOptions) {
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+                .newBuilder()
+                .addPathSegments("batch/business/users");
+        if (request.getLockCraRiskLevel().isPresent()) {
+            QueryStringMapper.addQueryParameter(
+                    httpUrl,
+                    "lockCraRiskLevel",
+                    request.getLockCraRiskLevel().get().toString(),
+                    false);
+        }
+        if (request.getLockKycRiskLevel().isPresent()) {
+            QueryStringMapper.addQueryParameter(
+                    httpUrl,
+                    "lockKycRiskLevel",
+                    request.getLockKycRiskLevel().get().toString(),
+                    false);
+        }
+        Map<String, Object> properties = new HashMap<>();
+        if (request.getBatchId().isPresent()) {
+            properties.put("batchId", request.getBatchId());
+        }
+        properties.put("data", request.getData());
+        RequestBody body;
+        try {
+            body = RequestBody.create(
+                    ObjectMappers.JSON_MAPPER.writeValueAsBytes(properties), MediaTypes.APPLICATION_JSON);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        Request.Builder _requestBuilder = new Request.Builder()
+                .url(httpUrl.build())
+                .method("POST", body)
+                .headers(Headers.of(clientOptions.headers(requestOptions)))
+                .addHeader("Content-Type", "application/json")
+                .addHeader("Accept", "application/json");
+        Request okhttpRequest = _requestBuilder.build();
+        OkHttpClient client = clientOptions.httpClient();
+        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
+            client = clientOptions.httpClientWithTimeout(requestOptions);
+        }
+        try (Response response = client.newCall(okhttpRequest).execute()) {
+            ResponseBody responseBody = response.body();
+            if (response.isSuccessful()) {
+                return new FlagrightHttpResponse<>(
+                        ObjectMappers.JSON_MAPPER.readValue(responseBody.string(), BatchResponse.class), response);
+            }
+            String responseBodyString = responseBody != null ? responseBody.string() : "{}";
+            try {
+                switch (response.code()) {
+                    case 400:
+                        throw new BadRequestError(
+                                ObjectMappers.JSON_MAPPER.readValue(responseBodyString, ApiErrorResponse.class),
+                                response);
+                    case 401:
+                        throw new UnauthorizedError(
+                                ObjectMappers.JSON_MAPPER.readValue(responseBodyString, ApiErrorResponse.class),
+                                response);
+                    case 429:
+                        throw new TooManyRequestsError(
+                                ObjectMappers.JSON_MAPPER.readValue(responseBodyString, ApiErrorResponse.class),
+                                response);
+                }
+            } catch (JsonProcessingException ignored) {
+                // unable to map error response, throwing generic error
+            }
+            throw new FlagrightApiException(
+                    "Error with status code " + response.code(),
+                    response.code(),
+                    ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class),
+                    response);
+        } catch (IOException e) {
+            throw new FlagrightException("Network error executing HTTP request", e);
+        }
+    }
+
     public FlagrightHttpResponse<BatchBusinessUsersWithRulesResults> getBusinessUsers(String batchId) {
         return getBusinessUsers(batchId, BatchGetBusinessUsersRequest.builder().build());
     }
@@ -569,15 +650,15 @@ public class RawBatchClient {
         }
     }
 
-    public FlagrightHttpResponse<BatchResponse> createBusinessUsers(BusinessBatchRequest request) {
-        return createBusinessUsers(request, null);
+    public FlagrightHttpResponse<BatchResponse> createConsumerUserEvents(ConsumerUserEventBatchRequest request) {
+        return createConsumerUserEvents(request, null);
     }
 
-    public FlagrightHttpResponse<BatchResponse> createBusinessUsers(
-            BusinessBatchRequest request, RequestOptions requestOptions) {
+    public FlagrightHttpResponse<BatchResponse> createConsumerUserEvents(
+            ConsumerUserEventBatchRequest request, RequestOptions requestOptions) {
         HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("batch/business/users");
+                .addPathSegments("batch/events/consumer/user");
         if (request.getLockCraRiskLevel().isPresent()) {
             QueryStringMapper.addQueryParameter(
                     httpUrl,
@@ -722,159 +803,6 @@ public class RawBatchClient {
         }
     }
 
-    public FlagrightHttpResponse<BatchBusinessUserEventsWithRulesResult> getBusinessUserEvents(String batchId) {
-        return getBusinessUserEvents(
-                batchId, BatchGetBusinessUserEventsRequest.builder().build());
-    }
-
-    public FlagrightHttpResponse<BatchBusinessUserEventsWithRulesResult> getBusinessUserEvents(
-            String batchId, BatchGetBusinessUserEventsRequest request) {
-        return getBusinessUserEvents(batchId, request, null);
-    }
-
-    public FlagrightHttpResponse<BatchBusinessUserEventsWithRulesResult> getBusinessUserEvents(
-            String batchId, BatchGetBusinessUserEventsRequest request, RequestOptions requestOptions) {
-        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
-                .newBuilder()
-                .addPathSegments("batch/events/business/user")
-                .addPathSegment(batchId);
-        if (request.getPageSize().isPresent()) {
-            QueryStringMapper.addQueryParameter(
-                    httpUrl, "pageSize", request.getPageSize().get().toString(), false);
-        }
-        if (request.getPage().isPresent()) {
-            QueryStringMapper.addQueryParameter(
-                    httpUrl, "page", request.getPage().get().toString(), false);
-        }
-        Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl.build())
-                .method("GET", null)
-                .headers(Headers.of(clientOptions.headers(requestOptions)))
-                .addHeader("Content-Type", "application/json")
-                .addHeader("Accept", "application/json");
-        Request okhttpRequest = _requestBuilder.build();
-        OkHttpClient client = clientOptions.httpClient();
-        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
-            client = clientOptions.httpClientWithTimeout(requestOptions);
-        }
-        try (Response response = client.newCall(okhttpRequest).execute()) {
-            ResponseBody responseBody = response.body();
-            if (response.isSuccessful()) {
-                return new FlagrightHttpResponse<>(
-                        ObjectMappers.JSON_MAPPER.readValue(
-                                responseBody.string(), BatchBusinessUserEventsWithRulesResult.class),
-                        response);
-            }
-            String responseBodyString = responseBody != null ? responseBody.string() : "{}";
-            try {
-                switch (response.code()) {
-                    case 401:
-                        throw new UnauthorizedError(
-                                ObjectMappers.JSON_MAPPER.readValue(responseBodyString, ApiErrorResponse.class),
-                                response);
-                    case 404:
-                        throw new NotFoundError(
-                                ObjectMappers.JSON_MAPPER.readValue(responseBodyString, ApiErrorResponse.class),
-                                response);
-                    case 429:
-                        throw new TooManyRequestsError(
-                                ObjectMappers.JSON_MAPPER.readValue(responseBodyString, ApiErrorResponse.class),
-                                response);
-                }
-            } catch (JsonProcessingException ignored) {
-                // unable to map error response, throwing generic error
-            }
-            throw new FlagrightApiException(
-                    "Error with status code " + response.code(),
-                    response.code(),
-                    ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class),
-                    response);
-        } catch (IOException e) {
-            throw new FlagrightException("Network error executing HTTP request", e);
-        }
-    }
-
-    public FlagrightHttpResponse<BatchResponse> createConsumerUserEvents(ConsumerUserEventBatchRequest request) {
-        return createConsumerUserEvents(request, null);
-    }
-
-    public FlagrightHttpResponse<BatchResponse> createConsumerUserEvents(
-            ConsumerUserEventBatchRequest request, RequestOptions requestOptions) {
-        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
-                .newBuilder()
-                .addPathSegments("batch/events/consumer/user");
-        if (request.getLockCraRiskLevel().isPresent()) {
-            QueryStringMapper.addQueryParameter(
-                    httpUrl,
-                    "lockCraRiskLevel",
-                    request.getLockCraRiskLevel().get().toString(),
-                    false);
-        }
-        if (request.getLockKycRiskLevel().isPresent()) {
-            QueryStringMapper.addQueryParameter(
-                    httpUrl,
-                    "lockKycRiskLevel",
-                    request.getLockKycRiskLevel().get().toString(),
-                    false);
-        }
-        Map<String, Object> properties = new HashMap<>();
-        if (request.getBatchId().isPresent()) {
-            properties.put("batchId", request.getBatchId());
-        }
-        properties.put("data", request.getData());
-        RequestBody body;
-        try {
-            body = RequestBody.create(
-                    ObjectMappers.JSON_MAPPER.writeValueAsBytes(properties), MediaTypes.APPLICATION_JSON);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-        Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl.build())
-                .method("POST", body)
-                .headers(Headers.of(clientOptions.headers(requestOptions)))
-                .addHeader("Content-Type", "application/json")
-                .addHeader("Accept", "application/json");
-        Request okhttpRequest = _requestBuilder.build();
-        OkHttpClient client = clientOptions.httpClient();
-        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
-            client = clientOptions.httpClientWithTimeout(requestOptions);
-        }
-        try (Response response = client.newCall(okhttpRequest).execute()) {
-            ResponseBody responseBody = response.body();
-            if (response.isSuccessful()) {
-                return new FlagrightHttpResponse<>(
-                        ObjectMappers.JSON_MAPPER.readValue(responseBody.string(), BatchResponse.class), response);
-            }
-            String responseBodyString = responseBody != null ? responseBody.string() : "{}";
-            try {
-                switch (response.code()) {
-                    case 400:
-                        throw new BadRequestError(
-                                ObjectMappers.JSON_MAPPER.readValue(responseBodyString, ApiErrorResponse.class),
-                                response);
-                    case 401:
-                        throw new UnauthorizedError(
-                                ObjectMappers.JSON_MAPPER.readValue(responseBodyString, ApiErrorResponse.class),
-                                response);
-                    case 429:
-                        throw new TooManyRequestsError(
-                                ObjectMappers.JSON_MAPPER.readValue(responseBodyString, ApiErrorResponse.class),
-                                response);
-                }
-            } catch (JsonProcessingException ignored) {
-                // unable to map error response, throwing generic error
-            }
-            throw new FlagrightApiException(
-                    "Error with status code " + response.code(),
-                    response.code(),
-                    ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class),
-                    response);
-        } catch (IOException e) {
-            throw new FlagrightException("Network error executing HTTP request", e);
-        }
-    }
-
     public FlagrightHttpResponse<BatchResponse> createBusinessUserEvents(BusinessUserEventBatchRequest request) {
         return createBusinessUserEvents(request, null);
     }
@@ -936,6 +864,78 @@ public class RawBatchClient {
                                 response);
                     case 401:
                         throw new UnauthorizedError(
+                                ObjectMappers.JSON_MAPPER.readValue(responseBodyString, ApiErrorResponse.class),
+                                response);
+                    case 429:
+                        throw new TooManyRequestsError(
+                                ObjectMappers.JSON_MAPPER.readValue(responseBodyString, ApiErrorResponse.class),
+                                response);
+                }
+            } catch (JsonProcessingException ignored) {
+                // unable to map error response, throwing generic error
+            }
+            throw new FlagrightApiException(
+                    "Error with status code " + response.code(),
+                    response.code(),
+                    ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class),
+                    response);
+        } catch (IOException e) {
+            throw new FlagrightException("Network error executing HTTP request", e);
+        }
+    }
+
+    public FlagrightHttpResponse<BatchBusinessUserEventsWithRulesResult> getBusinessUserEvents(String batchId) {
+        return getBusinessUserEvents(
+                batchId, BatchGetBusinessUserEventsRequest.builder().build());
+    }
+
+    public FlagrightHttpResponse<BatchBusinessUserEventsWithRulesResult> getBusinessUserEvents(
+            String batchId, BatchGetBusinessUserEventsRequest request) {
+        return getBusinessUserEvents(batchId, request, null);
+    }
+
+    public FlagrightHttpResponse<BatchBusinessUserEventsWithRulesResult> getBusinessUserEvents(
+            String batchId, BatchGetBusinessUserEventsRequest request, RequestOptions requestOptions) {
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+                .newBuilder()
+                .addPathSegments("batch/events/business/user")
+                .addPathSegment(batchId);
+        if (request.getPageSize().isPresent()) {
+            QueryStringMapper.addQueryParameter(
+                    httpUrl, "pageSize", request.getPageSize().get().toString(), false);
+        }
+        if (request.getPage().isPresent()) {
+            QueryStringMapper.addQueryParameter(
+                    httpUrl, "page", request.getPage().get().toString(), false);
+        }
+        Request.Builder _requestBuilder = new Request.Builder()
+                .url(httpUrl.build())
+                .method("GET", null)
+                .headers(Headers.of(clientOptions.headers(requestOptions)))
+                .addHeader("Content-Type", "application/json")
+                .addHeader("Accept", "application/json");
+        Request okhttpRequest = _requestBuilder.build();
+        OkHttpClient client = clientOptions.httpClient();
+        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
+            client = clientOptions.httpClientWithTimeout(requestOptions);
+        }
+        try (Response response = client.newCall(okhttpRequest).execute()) {
+            ResponseBody responseBody = response.body();
+            if (response.isSuccessful()) {
+                return new FlagrightHttpResponse<>(
+                        ObjectMappers.JSON_MAPPER.readValue(
+                                responseBody.string(), BatchBusinessUserEventsWithRulesResult.class),
+                        response);
+            }
+            String responseBodyString = responseBody != null ? responseBody.string() : "{}";
+            try {
+                switch (response.code()) {
+                    case 401:
+                        throw new UnauthorizedError(
+                                ObjectMappers.JSON_MAPPER.readValue(responseBodyString, ApiErrorResponse.class),
+                                response);
+                    case 404:
+                        throw new NotFoundError(
                                 ObjectMappers.JSON_MAPPER.readValue(responseBodyString, ApiErrorResponse.class),
                                 response);
                     case 429:

@@ -12,6 +12,8 @@ public final class FlagrightBuilder {
 
     private String apiKey = null;
 
+    private String authorization = null;
+
     private Environment environment = Environment.SANDBOX_API_SERVER_EU_1;
 
     /**
@@ -19,6 +21,14 @@ public final class FlagrightBuilder {
      */
     public FlagrightBuilder apiKey(String apiKey) {
         this.apiKey = apiKey;
+        return this;
+    }
+
+    /**
+     * Sets authorization
+     */
+    public FlagrightBuilder authorization(String authorization) {
+        this.authorization = authorization;
         return this;
     }
 
@@ -61,6 +71,10 @@ public final class FlagrightBuilder {
             throw new RuntimeException("Please provide apiKey");
         }
         this.clientOptionsBuilder.addHeader("x-api-key", this.apiKey);
+        if (authorization == null) {
+            throw new RuntimeException("Please provide authorization");
+        }
+        this.clientOptionsBuilder.addHeader("Authorization", this.authorization);
         clientOptionsBuilder.environment(this.environment);
         return new Flagright(clientOptionsBuilder.build());
     }
