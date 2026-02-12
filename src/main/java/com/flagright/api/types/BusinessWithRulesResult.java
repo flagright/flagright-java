@@ -56,8 +56,6 @@ public final class BusinessWithRulesResult {
 
     private final Optional<List<PaymentMethod>> allowedPaymentMethods;
 
-    private final Optional<Double> lastTransactionTimestamp;
-
     private final Optional<UserEntityLink> linkedEntities;
 
     private final Optional<AcquisitionChannel> acquisitionChannel;
@@ -73,8 +71,6 @@ public final class BusinessWithRulesResult {
     private final Optional<DeviceData> metaData;
 
     private final Optional<String> jurisdiction;
-
-    private final Optional<Double> updateCount;
 
     private final Optional<List<ProductsEnabled>> productsEnabled;
 
@@ -110,7 +106,6 @@ public final class BusinessWithRulesResult {
             Optional<RiskLevel> riskLevel,
             Optional<RiskLevel> kycRiskLevel,
             Optional<List<PaymentMethod>> allowedPaymentMethods,
-            Optional<Double> lastTransactionTimestamp,
             Optional<UserEntityLink> linkedEntities,
             Optional<AcquisitionChannel> acquisitionChannel,
             Optional<List<BusinessWithRulesResultSavedPaymentDetailsItem>> savedPaymentDetails,
@@ -119,7 +114,6 @@ public final class BusinessWithRulesResult {
             Optional<List<PersonAttachment>> attachments,
             Optional<DeviceData> metaData,
             Optional<String> jurisdiction,
-            Optional<Double> updateCount,
             Optional<List<ProductsEnabled>> productsEnabled,
             Optional<List<PepStatus>> pepStatus,
             Optional<Boolean> sanctionsStatus,
@@ -145,7 +139,6 @@ public final class BusinessWithRulesResult {
         this.riskLevel = riskLevel;
         this.kycRiskLevel = kycRiskLevel;
         this.allowedPaymentMethods = allowedPaymentMethods;
-        this.lastTransactionTimestamp = lastTransactionTimestamp;
         this.linkedEntities = linkedEntities;
         this.acquisitionChannel = acquisitionChannel;
         this.savedPaymentDetails = savedPaymentDetails;
@@ -154,7 +147,6 @@ public final class BusinessWithRulesResult {
         this.attachments = attachments;
         this.metaData = metaData;
         this.jurisdiction = jurisdiction;
-        this.updateCount = updateCount;
         this.productsEnabled = productsEnabled;
         this.pepStatus = pepStatus;
         this.sanctionsStatus = sanctionsStatus;
@@ -274,14 +266,6 @@ public final class BusinessWithRulesResult {
         return allowedPaymentMethods;
     }
 
-    /**
-     * @return Timestamp of the last successful transaction of the user
-     */
-    @JsonProperty("lastTransactionTimestamp")
-    public Optional<Double> getLastTransactionTimestamp() {
-        return lastTransactionTimestamp;
-    }
-
     @JsonProperty("linkedEntities")
     public Optional<UserEntityLink> getLinkedEntities() {
         return linkedEntities;
@@ -329,11 +313,6 @@ public final class BusinessWithRulesResult {
     @JsonProperty("jurisdiction")
     public Optional<String> getJurisdiction() {
         return jurisdiction;
-    }
-
-    @JsonProperty("updateCount")
-    public Optional<Double> getUpdateCount() {
-        return updateCount;
     }
 
     @JsonProperty("productsEnabled")
@@ -406,7 +385,6 @@ public final class BusinessWithRulesResult {
                 && riskLevel.equals(other.riskLevel)
                 && kycRiskLevel.equals(other.kycRiskLevel)
                 && allowedPaymentMethods.equals(other.allowedPaymentMethods)
-                && lastTransactionTimestamp.equals(other.lastTransactionTimestamp)
                 && linkedEntities.equals(other.linkedEntities)
                 && acquisitionChannel.equals(other.acquisitionChannel)
                 && savedPaymentDetails.equals(other.savedPaymentDetails)
@@ -415,7 +393,6 @@ public final class BusinessWithRulesResult {
                 && attachments.equals(other.attachments)
                 && metaData.equals(other.metaData)
                 && jurisdiction.equals(other.jurisdiction)
-                && updateCount.equals(other.updateCount)
                 && productsEnabled.equals(other.productsEnabled)
                 && pepStatus.equals(other.pepStatus)
                 && sanctionsStatus.equals(other.sanctionsStatus)
@@ -445,7 +422,6 @@ public final class BusinessWithRulesResult {
                 this.riskLevel,
                 this.kycRiskLevel,
                 this.allowedPaymentMethods,
-                this.lastTransactionTimestamp,
                 this.linkedEntities,
                 this.acquisitionChannel,
                 this.savedPaymentDetails,
@@ -454,7 +430,6 @@ public final class BusinessWithRulesResult {
                 this.attachments,
                 this.metaData,
                 this.jurisdiction,
-                this.updateCount,
                 this.productsEnabled,
                 this.pepStatus,
                 this.sanctionsStatus,
@@ -546,10 +521,6 @@ public final class BusinessWithRulesResult {
 
         _FinalStage allowedPaymentMethods(List<PaymentMethod> allowedPaymentMethods);
 
-        _FinalStage lastTransactionTimestamp(Optional<Double> lastTransactionTimestamp);
-
-        _FinalStage lastTransactionTimestamp(Double lastTransactionTimestamp);
-
         _FinalStage linkedEntities(Optional<UserEntityLink> linkedEntities);
 
         _FinalStage linkedEntities(UserEntityLink linkedEntities);
@@ -582,10 +553,6 @@ public final class BusinessWithRulesResult {
         _FinalStage jurisdiction(Optional<String> jurisdiction);
 
         _FinalStage jurisdiction(String jurisdiction);
-
-        _FinalStage updateCount(Optional<Double> updateCount);
-
-        _FinalStage updateCount(Double updateCount);
 
         _FinalStage productsEnabled(Optional<List<ProductsEnabled>> productsEnabled);
 
@@ -638,8 +605,6 @@ public final class BusinessWithRulesResult {
 
         private Optional<List<ProductsEnabled>> productsEnabled = Optional.empty();
 
-        private Optional<Double> updateCount = Optional.empty();
-
         private Optional<String> jurisdiction = Optional.empty();
 
         private Optional<DeviceData> metaData = Optional.empty();
@@ -655,8 +620,6 @@ public final class BusinessWithRulesResult {
         private Optional<AcquisitionChannel> acquisitionChannel = Optional.empty();
 
         private Optional<UserEntityLink> linkedEntities = Optional.empty();
-
-        private Optional<Double> lastTransactionTimestamp = Optional.empty();
 
         private Optional<List<PaymentMethod>> allowedPaymentMethods = Optional.empty();
 
@@ -710,7 +673,6 @@ public final class BusinessWithRulesResult {
             riskLevel(other.getRiskLevel());
             kycRiskLevel(other.getKycRiskLevel());
             allowedPaymentMethods(other.getAllowedPaymentMethods());
-            lastTransactionTimestamp(other.getLastTransactionTimestamp());
             linkedEntities(other.getLinkedEntities());
             acquisitionChannel(other.getAcquisitionChannel());
             savedPaymentDetails(other.getSavedPaymentDetails());
@@ -719,7 +681,6 @@ public final class BusinessWithRulesResult {
             attachments(other.getAttachments());
             metaData(other.getMetaData());
             jurisdiction(other.getJurisdiction());
-            updateCount(other.getUpdateCount());
             productsEnabled(other.getProductsEnabled());
             pepStatus(other.getPepStatus());
             sanctionsStatus(other.getSanctionsStatus());
@@ -858,19 +819,6 @@ public final class BusinessWithRulesResult {
             return this;
         }
 
-        @java.lang.Override
-        public _FinalStage updateCount(Double updateCount) {
-            this.updateCount = Optional.ofNullable(updateCount);
-            return this;
-        }
-
-        @java.lang.Override
-        @JsonSetter(value = "updateCount", nulls = Nulls.SKIP)
-        public _FinalStage updateCount(Optional<Double> updateCount) {
-            this.updateCount = updateCount;
-            return this;
-        }
-
         /**
          * <p>Legal authority or region governing the transaction</p>
          * @return Reference to {@code this} so that method calls can be chained together.
@@ -986,23 +934,6 @@ public final class BusinessWithRulesResult {
         @JsonSetter(value = "linkedEntities", nulls = Nulls.SKIP)
         public _FinalStage linkedEntities(Optional<UserEntityLink> linkedEntities) {
             this.linkedEntities = linkedEntities;
-            return this;
-        }
-
-        /**
-         * <p>Timestamp of the last successful transaction of the user</p>
-         * @return Reference to {@code this} so that method calls can be chained together.
-         */
-        @java.lang.Override
-        public _FinalStage lastTransactionTimestamp(Double lastTransactionTimestamp) {
-            this.lastTransactionTimestamp = Optional.ofNullable(lastTransactionTimestamp);
-            return this;
-        }
-
-        @java.lang.Override
-        @JsonSetter(value = "lastTransactionTimestamp", nulls = Nulls.SKIP)
-        public _FinalStage lastTransactionTimestamp(Optional<Double> lastTransactionTimestamp) {
-            this.lastTransactionTimestamp = lastTransactionTimestamp;
             return this;
         }
 
@@ -1234,7 +1165,6 @@ public final class BusinessWithRulesResult {
                     riskLevel,
                     kycRiskLevel,
                     allowedPaymentMethods,
-                    lastTransactionTimestamp,
                     linkedEntities,
                     acquisitionChannel,
                     savedPaymentDetails,
@@ -1243,7 +1173,6 @@ public final class BusinessWithRulesResult {
                     attachments,
                     metaData,
                     jurisdiction,
-                    updateCount,
                     productsEnabled,
                     pepStatus,
                     sanctionsStatus,

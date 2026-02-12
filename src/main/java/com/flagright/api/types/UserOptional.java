@@ -65,8 +65,6 @@ public final class UserOptional {
 
     private final Optional<Boolean> adverseMediaStatus;
 
-    private final Optional<Double> lastTransactionTimestamp;
-
     private final Optional<List<CorporateEntityDetails>> corporateEntities;
 
     private final Optional<UserEntityLink> linkedEntities;
@@ -80,8 +78,6 @@ public final class UserOptional {
     private final Optional<DeviceData> metaData;
 
     private final Optional<String> jurisdiction;
-
-    private final Optional<Double> updateCount;
 
     private final Optional<List<ProductsEnabled>> productsEnabled;
 
@@ -110,7 +106,6 @@ public final class UserOptional {
             Optional<List<PepStatus>> pepStatus,
             Optional<Boolean> sanctionsStatus,
             Optional<Boolean> adverseMediaStatus,
-            Optional<Double> lastTransactionTimestamp,
             Optional<List<CorporateEntityDetails>> corporateEntities,
             Optional<UserEntityLink> linkedEntities,
             Optional<List<UserOptionalSavedPaymentDetailsItem>> savedPaymentDetails,
@@ -118,7 +113,6 @@ public final class UserOptional {
             Optional<List<PersonAttachment>> attachments,
             Optional<DeviceData> metaData,
             Optional<String> jurisdiction,
-            Optional<Double> updateCount,
             Optional<List<ProductsEnabled>> productsEnabled,
             Map<String, Object> additionalProperties) {
         this.activatedTimestamp = activatedTimestamp;
@@ -143,7 +137,6 @@ public final class UserOptional {
         this.pepStatus = pepStatus;
         this.sanctionsStatus = sanctionsStatus;
         this.adverseMediaStatus = adverseMediaStatus;
-        this.lastTransactionTimestamp = lastTransactionTimestamp;
         this.corporateEntities = corporateEntities;
         this.linkedEntities = linkedEntities;
         this.savedPaymentDetails = savedPaymentDetails;
@@ -151,7 +144,6 @@ public final class UserOptional {
         this.attachments = attachments;
         this.metaData = metaData;
         this.jurisdiction = jurisdiction;
-        this.updateCount = updateCount;
         this.productsEnabled = productsEnabled;
         this.additionalProperties = additionalProperties;
     }
@@ -273,14 +265,6 @@ public final class UserOptional {
     }
 
     /**
-     * @return Timestamp of the last successful transaction of the user
-     */
-    @JsonProperty("lastTransactionTimestamp")
-    public Optional<Double> getLastTransactionTimestamp() {
-        return lastTransactionTimestamp;
-    }
-
-    /**
      * @return Corporate entities of the user
      */
     @JsonProperty("corporateEntities")
@@ -327,11 +311,6 @@ public final class UserOptional {
         return jurisdiction;
     }
 
-    @JsonProperty("updateCount")
-    public Optional<Double> getUpdateCount() {
-        return updateCount;
-    }
-
     @JsonProperty("productsEnabled")
     public Optional<List<ProductsEnabled>> getProductsEnabled() {
         return productsEnabled;
@@ -371,7 +350,6 @@ public final class UserOptional {
                 && pepStatus.equals(other.pepStatus)
                 && sanctionsStatus.equals(other.sanctionsStatus)
                 && adverseMediaStatus.equals(other.adverseMediaStatus)
-                && lastTransactionTimestamp.equals(other.lastTransactionTimestamp)
                 && corporateEntities.equals(other.corporateEntities)
                 && linkedEntities.equals(other.linkedEntities)
                 && savedPaymentDetails.equals(other.savedPaymentDetails)
@@ -379,7 +357,6 @@ public final class UserOptional {
                 && attachments.equals(other.attachments)
                 && metaData.equals(other.metaData)
                 && jurisdiction.equals(other.jurisdiction)
-                && updateCount.equals(other.updateCount)
                 && productsEnabled.equals(other.productsEnabled);
     }
 
@@ -408,7 +385,6 @@ public final class UserOptional {
                 this.pepStatus,
                 this.sanctionsStatus,
                 this.adverseMediaStatus,
-                this.lastTransactionTimestamp,
                 this.corporateEntities,
                 this.linkedEntities,
                 this.savedPaymentDetails,
@@ -416,7 +392,6 @@ public final class UserOptional {
                 this.attachments,
                 this.metaData,
                 this.jurisdiction,
-                this.updateCount,
                 this.productsEnabled);
     }
 
@@ -475,8 +450,6 @@ public final class UserOptional {
 
         private Optional<Boolean> adverseMediaStatus = Optional.empty();
 
-        private Optional<Double> lastTransactionTimestamp = Optional.empty();
-
         private Optional<List<CorporateEntityDetails>> corporateEntities = Optional.empty();
 
         private Optional<UserEntityLink> linkedEntities = Optional.empty();
@@ -490,8 +463,6 @@ public final class UserOptional {
         private Optional<DeviceData> metaData = Optional.empty();
 
         private Optional<String> jurisdiction = Optional.empty();
-
-        private Optional<Double> updateCount = Optional.empty();
 
         private Optional<List<ProductsEnabled>> productsEnabled = Optional.empty();
 
@@ -523,7 +494,6 @@ public final class UserOptional {
             pepStatus(other.getPepStatus());
             sanctionsStatus(other.getSanctionsStatus());
             adverseMediaStatus(other.getAdverseMediaStatus());
-            lastTransactionTimestamp(other.getLastTransactionTimestamp());
             corporateEntities(other.getCorporateEntities());
             linkedEntities(other.getLinkedEntities());
             savedPaymentDetails(other.getSavedPaymentDetails());
@@ -531,7 +501,6 @@ public final class UserOptional {
             attachments(other.getAttachments());
             metaData(other.getMetaData());
             jurisdiction(other.getJurisdiction());
-            updateCount(other.getUpdateCount());
             productsEnabled(other.getProductsEnabled());
             return this;
         }
@@ -779,17 +748,6 @@ public final class UserOptional {
             return this;
         }
 
-        @JsonSetter(value = "lastTransactionTimestamp", nulls = Nulls.SKIP)
-        public Builder lastTransactionTimestamp(Optional<Double> lastTransactionTimestamp) {
-            this.lastTransactionTimestamp = lastTransactionTimestamp;
-            return this;
-        }
-
-        public Builder lastTransactionTimestamp(Double lastTransactionTimestamp) {
-            this.lastTransactionTimestamp = Optional.ofNullable(lastTransactionTimestamp);
-            return this;
-        }
-
         @JsonSetter(value = "corporateEntities", nulls = Nulls.SKIP)
         public Builder corporateEntities(Optional<List<CorporateEntityDetails>> corporateEntities) {
             this.corporateEntities = corporateEntities;
@@ -867,17 +825,6 @@ public final class UserOptional {
             return this;
         }
 
-        @JsonSetter(value = "updateCount", nulls = Nulls.SKIP)
-        public Builder updateCount(Optional<Double> updateCount) {
-            this.updateCount = updateCount;
-            return this;
-        }
-
-        public Builder updateCount(Double updateCount) {
-            this.updateCount = Optional.ofNullable(updateCount);
-            return this;
-        }
-
         @JsonSetter(value = "productsEnabled", nulls = Nulls.SKIP)
         public Builder productsEnabled(Optional<List<ProductsEnabled>> productsEnabled) {
             this.productsEnabled = productsEnabled;
@@ -913,7 +860,6 @@ public final class UserOptional {
                     pepStatus,
                     sanctionsStatus,
                     adverseMediaStatus,
-                    lastTransactionTimestamp,
                     corporateEntities,
                     linkedEntities,
                     savedPaymentDetails,
@@ -921,7 +867,6 @@ public final class UserOptional {
                     attachments,
                     metaData,
                     jurisdiction,
-                    updateCount,
                     productsEnabled,
                     additionalProperties);
         }

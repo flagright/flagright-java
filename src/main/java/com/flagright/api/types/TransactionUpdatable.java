@@ -51,10 +51,6 @@ public final class TransactionUpdatable {
 
     private final Optional<String> jurisdiction;
 
-    private final Optional<Double> updateCount;
-
-    private final Optional<Double> paymentApprovalTimestamp;
-
     private final Map<String, Object> additionalProperties;
 
     private TransactionUpdatable(
@@ -73,8 +69,6 @@ public final class TransactionUpdatable {
             Optional<TransactionMetadata> metadata,
             Optional<List<Tag>> tags,
             Optional<String> jurisdiction,
-            Optional<Double> updateCount,
-            Optional<Double> paymentApprovalTimestamp,
             Map<String, Object> additionalProperties) {
         this.originAmountDetails = originAmountDetails;
         this.destinationAmountDetails = destinationAmountDetails;
@@ -91,8 +85,6 @@ public final class TransactionUpdatable {
         this.metadata = metadata;
         this.tags = tags;
         this.jurisdiction = jurisdiction;
-        this.updateCount = updateCount;
-        this.paymentApprovalTimestamp = paymentApprovalTimestamp;
         this.additionalProperties = additionalProperties;
     }
 
@@ -192,16 +184,6 @@ public final class TransactionUpdatable {
         return jurisdiction;
     }
 
-    @JsonProperty("updateCount")
-    public Optional<Double> getUpdateCount() {
-        return updateCount;
-    }
-
-    @JsonProperty("paymentApprovalTimestamp")
-    public Optional<Double> getPaymentApprovalTimestamp() {
-        return paymentApprovalTimestamp;
-    }
-
     @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
@@ -228,9 +210,7 @@ public final class TransactionUpdatable {
                 && destinationDeviceData.equals(other.destinationDeviceData)
                 && metadata.equals(other.metadata)
                 && tags.equals(other.tags)
-                && jurisdiction.equals(other.jurisdiction)
-                && updateCount.equals(other.updateCount)
-                && paymentApprovalTimestamp.equals(other.paymentApprovalTimestamp);
+                && jurisdiction.equals(other.jurisdiction);
     }
 
     @java.lang.Override
@@ -250,9 +230,7 @@ public final class TransactionUpdatable {
                 this.destinationDeviceData,
                 this.metadata,
                 this.tags,
-                this.jurisdiction,
-                this.updateCount,
-                this.paymentApprovalTimestamp);
+                this.jurisdiction);
     }
 
     @java.lang.Override
@@ -296,10 +274,6 @@ public final class TransactionUpdatable {
 
         private Optional<String> jurisdiction = Optional.empty();
 
-        private Optional<Double> updateCount = Optional.empty();
-
-        private Optional<Double> paymentApprovalTimestamp = Optional.empty();
-
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
 
@@ -321,8 +295,6 @@ public final class TransactionUpdatable {
             metadata(other.getMetadata());
             tags(other.getTags());
             jurisdiction(other.getJurisdiction());
-            updateCount(other.getUpdateCount());
-            paymentApprovalTimestamp(other.getPaymentApprovalTimestamp());
             return this;
         }
 
@@ -493,28 +465,6 @@ public final class TransactionUpdatable {
             return this;
         }
 
-        @JsonSetter(value = "updateCount", nulls = Nulls.SKIP)
-        public Builder updateCount(Optional<Double> updateCount) {
-            this.updateCount = updateCount;
-            return this;
-        }
-
-        public Builder updateCount(Double updateCount) {
-            this.updateCount = Optional.ofNullable(updateCount);
-            return this;
-        }
-
-        @JsonSetter(value = "paymentApprovalTimestamp", nulls = Nulls.SKIP)
-        public Builder paymentApprovalTimestamp(Optional<Double> paymentApprovalTimestamp) {
-            this.paymentApprovalTimestamp = paymentApprovalTimestamp;
-            return this;
-        }
-
-        public Builder paymentApprovalTimestamp(Double paymentApprovalTimestamp) {
-            this.paymentApprovalTimestamp = Optional.ofNullable(paymentApprovalTimestamp);
-            return this;
-        }
-
         public TransactionUpdatable build() {
             return new TransactionUpdatable(
                     originAmountDetails,
@@ -532,8 +482,6 @@ public final class TransactionUpdatable {
                     metadata,
                     tags,
                     jurisdiction,
-                    updateCount,
-                    paymentApprovalTimestamp,
                     additionalProperties);
         }
     }

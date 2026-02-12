@@ -65,10 +65,6 @@ public final class TransactionWithRulesResult {
 
     private final Optional<String> jurisdiction;
 
-    private final Optional<Double> updateCount;
-
-    private final Optional<Double> paymentApprovalTimestamp;
-
     private final List<ExecutedRulesResult> executedRules;
 
     private final List<HitRulesDetails> hitRules;
@@ -101,8 +97,6 @@ public final class TransactionWithRulesResult {
             Optional<TransactionMetadata> metadata,
             Optional<List<Tag>> tags,
             Optional<String> jurisdiction,
-            Optional<Double> updateCount,
-            Optional<Double> paymentApprovalTimestamp,
             List<ExecutedRulesResult> executedRules,
             List<HitRulesDetails> hitRules,
             RuleAction status,
@@ -129,8 +123,6 @@ public final class TransactionWithRulesResult {
         this.metadata = metadata;
         this.tags = tags;
         this.jurisdiction = jurisdiction;
-        this.updateCount = updateCount;
-        this.paymentApprovalTimestamp = paymentApprovalTimestamp;
         this.executedRules = executedRules;
         this.hitRules = hitRules;
         this.status = status;
@@ -279,16 +271,6 @@ public final class TransactionWithRulesResult {
         return jurisdiction;
     }
 
-    @JsonProperty("updateCount")
-    public Optional<Double> getUpdateCount() {
-        return updateCount;
-    }
-
-    @JsonProperty("paymentApprovalTimestamp")
-    public Optional<Double> getPaymentApprovalTimestamp() {
-        return paymentApprovalTimestamp;
-    }
-
     @JsonProperty("executedRules")
     public List<ExecutedRulesResult> getExecutedRules() {
         return executedRules;
@@ -342,8 +324,6 @@ public final class TransactionWithRulesResult {
                 && metadata.equals(other.metadata)
                 && tags.equals(other.tags)
                 && jurisdiction.equals(other.jurisdiction)
-                && updateCount.equals(other.updateCount)
-                && paymentApprovalTimestamp.equals(other.paymentApprovalTimestamp)
                 && executedRules.equals(other.executedRules)
                 && hitRules.equals(other.hitRules)
                 && status.equals(other.status)
@@ -374,8 +354,6 @@ public final class TransactionWithRulesResult {
                 this.metadata,
                 this.tags,
                 this.jurisdiction,
-                this.updateCount,
-                this.paymentApprovalTimestamp,
                 this.executedRules,
                 this.hitRules,
                 this.status,
@@ -486,14 +464,6 @@ public final class TransactionWithRulesResult {
 
         _FinalStage jurisdiction(String jurisdiction);
 
-        _FinalStage updateCount(Optional<Double> updateCount);
-
-        _FinalStage updateCount(Double updateCount);
-
-        _FinalStage paymentApprovalTimestamp(Optional<Double> paymentApprovalTimestamp);
-
-        _FinalStage paymentApprovalTimestamp(Double paymentApprovalTimestamp);
-
         _FinalStage executedRules(List<ExecutedRulesResult> executedRules);
 
         _FinalStage addExecutedRules(ExecutedRulesResult executedRules);
@@ -527,10 +497,6 @@ public final class TransactionWithRulesResult {
         private List<HitRulesDetails> hitRules = new ArrayList<>();
 
         private List<ExecutedRulesResult> executedRules = new ArrayList<>();
-
-        private Optional<Double> paymentApprovalTimestamp = Optional.empty();
-
-        private Optional<Double> updateCount = Optional.empty();
 
         private Optional<String> jurisdiction = Optional.empty();
 
@@ -597,8 +563,6 @@ public final class TransactionWithRulesResult {
             metadata(other.getMetadata());
             tags(other.getTags());
             jurisdiction(other.getJurisdiction());
-            updateCount(other.getUpdateCount());
-            paymentApprovalTimestamp(other.getPaymentApprovalTimestamp());
             executedRules(other.getExecutedRules());
             hitRules(other.getHitRules());
             status(other.getStatus());
@@ -696,32 +660,6 @@ public final class TransactionWithRulesResult {
         public _FinalStage executedRules(List<ExecutedRulesResult> executedRules) {
             this.executedRules.clear();
             this.executedRules.addAll(executedRules);
-            return this;
-        }
-
-        @java.lang.Override
-        public _FinalStage paymentApprovalTimestamp(Double paymentApprovalTimestamp) {
-            this.paymentApprovalTimestamp = Optional.ofNullable(paymentApprovalTimestamp);
-            return this;
-        }
-
-        @java.lang.Override
-        @JsonSetter(value = "paymentApprovalTimestamp", nulls = Nulls.SKIP)
-        public _FinalStage paymentApprovalTimestamp(Optional<Double> paymentApprovalTimestamp) {
-            this.paymentApprovalTimestamp = paymentApprovalTimestamp;
-            return this;
-        }
-
-        @java.lang.Override
-        public _FinalStage updateCount(Double updateCount) {
-            this.updateCount = Optional.ofNullable(updateCount);
-            return this;
-        }
-
-        @java.lang.Override
-        @JsonSetter(value = "updateCount", nulls = Nulls.SKIP)
-        public _FinalStage updateCount(Optional<Double> updateCount) {
-            this.updateCount = updateCount;
             return this;
         }
 
@@ -1022,8 +960,6 @@ public final class TransactionWithRulesResult {
                     metadata,
                     tags,
                     jurisdiction,
-                    updateCount,
-                    paymentApprovalTimestamp,
                     executedRules,
                     hitRules,
                     status,

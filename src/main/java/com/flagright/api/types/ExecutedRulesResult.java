@@ -48,8 +48,6 @@ public final class ExecutedRulesResult {
 
     private final Optional<Boolean> isShadow;
 
-    private final Optional<List<RuleExecutionSanctionsDetails>> sanctionsDetails;
-
     private final Map<String, Object> additionalProperties;
 
     private ExecutedRulesResult(
@@ -66,7 +64,6 @@ public final class ExecutedRulesResult {
             Optional<List<RuleLabels>> labels,
             Optional<RuleNature> nature,
             Optional<Boolean> isShadow,
-            Optional<List<RuleExecutionSanctionsDetails>> sanctionsDetails,
             Map<String, Object> additionalProperties) {
         this.ruleId = ruleId;
         this.ruleInstanceId = ruleInstanceId;
@@ -81,7 +78,6 @@ public final class ExecutedRulesResult {
         this.labels = labels;
         this.nature = nature;
         this.isShadow = isShadow;
-        this.sanctionsDetails = sanctionsDetails;
         this.additionalProperties = additionalProperties;
     }
 
@@ -162,11 +158,6 @@ public final class ExecutedRulesResult {
         return isShadow;
     }
 
-    @JsonProperty("sanctionsDetails")
-    public Optional<List<RuleExecutionSanctionsDetails>> getSanctionsDetails() {
-        return sanctionsDetails;
-    }
-
     @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
@@ -191,8 +182,7 @@ public final class ExecutedRulesResult {
                 && vars.equals(other.vars)
                 && labels.equals(other.labels)
                 && nature.equals(other.nature)
-                && isShadow.equals(other.isShadow)
-                && sanctionsDetails.equals(other.sanctionsDetails);
+                && isShadow.equals(other.isShadow);
     }
 
     @java.lang.Override
@@ -210,8 +200,7 @@ public final class ExecutedRulesResult {
                 this.vars,
                 this.labels,
                 this.nature,
-                this.isShadow,
-                this.sanctionsDetails);
+                this.isShadow);
     }
 
     @java.lang.Override
@@ -279,10 +268,6 @@ public final class ExecutedRulesResult {
         _FinalStage isShadow(Optional<Boolean> isShadow);
 
         _FinalStage isShadow(Boolean isShadow);
-
-        _FinalStage sanctionsDetails(Optional<List<RuleExecutionSanctionsDetails>> sanctionsDetails);
-
-        _FinalStage sanctionsDetails(List<RuleExecutionSanctionsDetails> sanctionsDetails);
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
@@ -302,8 +287,6 @@ public final class ExecutedRulesResult {
         private RuleAction ruleAction;
 
         private boolean ruleHit;
-
-        private Optional<List<RuleExecutionSanctionsDetails>> sanctionsDetails = Optional.empty();
 
         private Optional<Boolean> isShadow = Optional.empty();
 
@@ -341,7 +324,6 @@ public final class ExecutedRulesResult {
             labels(other.getLabels());
             nature(other.getNature());
             isShadow(other.getIsShadow());
-            sanctionsDetails(other.getSanctionsDetails());
             return this;
         }
 
@@ -385,19 +367,6 @@ public final class ExecutedRulesResult {
         @JsonSetter("ruleHit")
         public _FinalStage ruleHit(boolean ruleHit) {
             this.ruleHit = ruleHit;
-            return this;
-        }
-
-        @java.lang.Override
-        public _FinalStage sanctionsDetails(List<RuleExecutionSanctionsDetails> sanctionsDetails) {
-            this.sanctionsDetails = Optional.ofNullable(sanctionsDetails);
-            return this;
-        }
-
-        @java.lang.Override
-        @JsonSetter(value = "sanctionsDetails", nulls = Nulls.SKIP)
-        public _FinalStage sanctionsDetails(Optional<List<RuleExecutionSanctionsDetails>> sanctionsDetails) {
-            this.sanctionsDetails = sanctionsDetails;
             return this;
         }
 
@@ -529,7 +498,6 @@ public final class ExecutedRulesResult {
                     labels,
                     nature,
                     isShadow,
-                    sanctionsDetails,
                     additionalProperties);
         }
     }

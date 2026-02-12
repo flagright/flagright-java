@@ -34,8 +34,6 @@ public final class BatchConsumerUserEventWithRulesResult {
 
     private final Optional<UserOptional> updatedConsumerUserAttributes;
 
-    private final Optional<Double> updateCount;
-
     private final Optional<List<ExecutedRulesResult>> executedRules;
 
     private final Optional<UserRiskScoreDetails> riskScoreDetails;
@@ -49,7 +47,6 @@ public final class BatchConsumerUserEventWithRulesResult {
             Optional<String> reason,
             Optional<String> eventDescription,
             Optional<UserOptional> updatedConsumerUserAttributes,
-            Optional<Double> updateCount,
             Optional<List<ExecutedRulesResult>> executedRules,
             Optional<UserRiskScoreDetails> riskScoreDetails,
             Map<String, Object> additionalProperties) {
@@ -59,7 +56,6 @@ public final class BatchConsumerUserEventWithRulesResult {
         this.reason = reason;
         this.eventDescription = eventDescription;
         this.updatedConsumerUserAttributes = updatedConsumerUserAttributes;
-        this.updateCount = updateCount;
         this.executedRules = executedRules;
         this.riskScoreDetails = riskScoreDetails;
         this.additionalProperties = additionalProperties;
@@ -110,11 +106,6 @@ public final class BatchConsumerUserEventWithRulesResult {
         return updatedConsumerUserAttributes;
     }
 
-    @JsonProperty("updateCount")
-    public Optional<Double> getUpdateCount() {
-        return updateCount;
-    }
-
     @JsonProperty("executedRules")
     public Optional<List<ExecutedRulesResult>> getExecutedRules() {
         return executedRules;
@@ -144,7 +135,6 @@ public final class BatchConsumerUserEventWithRulesResult {
                 && reason.equals(other.reason)
                 && eventDescription.equals(other.eventDescription)
                 && updatedConsumerUserAttributes.equals(other.updatedConsumerUserAttributes)
-                && updateCount.equals(other.updateCount)
                 && executedRules.equals(other.executedRules)
                 && riskScoreDetails.equals(other.riskScoreDetails);
     }
@@ -158,7 +148,6 @@ public final class BatchConsumerUserEventWithRulesResult {
                 this.reason,
                 this.eventDescription,
                 this.updatedConsumerUserAttributes,
-                this.updateCount,
                 this.executedRules,
                 this.riskScoreDetails);
     }
@@ -201,10 +190,6 @@ public final class BatchConsumerUserEventWithRulesResult {
 
         _FinalStage updatedConsumerUserAttributes(UserOptional updatedConsumerUserAttributes);
 
-        _FinalStage updateCount(Optional<Double> updateCount);
-
-        _FinalStage updateCount(Double updateCount);
-
         _FinalStage executedRules(Optional<List<ExecutedRulesResult>> executedRules);
 
         _FinalStage executedRules(List<ExecutedRulesResult> executedRules);
@@ -223,8 +208,6 @@ public final class BatchConsumerUserEventWithRulesResult {
         private Optional<UserRiskScoreDetails> riskScoreDetails = Optional.empty();
 
         private Optional<List<ExecutedRulesResult>> executedRules = Optional.empty();
-
-        private Optional<Double> updateCount = Optional.empty();
 
         private Optional<UserOptional> updatedConsumerUserAttributes = Optional.empty();
 
@@ -247,7 +230,6 @@ public final class BatchConsumerUserEventWithRulesResult {
             reason(other.getReason());
             eventDescription(other.getEventDescription());
             updatedConsumerUserAttributes(other.getUpdatedConsumerUserAttributes());
-            updateCount(other.getUpdateCount());
             executedRules(other.getExecutedRules());
             riskScoreDetails(other.getRiskScoreDetails());
             return this;
@@ -298,19 +280,6 @@ public final class BatchConsumerUserEventWithRulesResult {
         @JsonSetter(value = "executedRules", nulls = Nulls.SKIP)
         public _FinalStage executedRules(Optional<List<ExecutedRulesResult>> executedRules) {
             this.executedRules = executedRules;
-            return this;
-        }
-
-        @java.lang.Override
-        public _FinalStage updateCount(Double updateCount) {
-            this.updateCount = Optional.ofNullable(updateCount);
-            return this;
-        }
-
-        @java.lang.Override
-        @JsonSetter(value = "updateCount", nulls = Nulls.SKIP)
-        public _FinalStage updateCount(Optional<Double> updateCount) {
-            this.updateCount = updateCount;
             return this;
         }
 
@@ -387,7 +356,6 @@ public final class BatchConsumerUserEventWithRulesResult {
                     reason,
                     eventDescription,
                     updatedConsumerUserAttributes,
-                    updateCount,
                     executedRules,
                     riskScoreDetails,
                     additionalProperties);

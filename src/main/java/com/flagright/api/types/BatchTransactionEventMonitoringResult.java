@@ -38,8 +38,6 @@ public final class BatchTransactionEventMonitoringResult {
 
     private final Optional<DeviceData> metaData;
 
-    private final Optional<Double> updateCount;
-
     private final Optional<List<HitRulesDetails>> hitRules;
 
     private final Optional<RuleAction> status;
@@ -57,7 +55,6 @@ public final class BatchTransactionEventMonitoringResult {
             Optional<String> eventDescription,
             Optional<TransactionUpdatable> updatedTransactionAttributes,
             Optional<DeviceData> metaData,
-            Optional<Double> updateCount,
             Optional<List<HitRulesDetails>> hitRules,
             Optional<RuleAction> status,
             Optional<TransactionRiskScoringResult> riskScoreDetails,
@@ -70,7 +67,6 @@ public final class BatchTransactionEventMonitoringResult {
         this.eventDescription = eventDescription;
         this.updatedTransactionAttributes = updatedTransactionAttributes;
         this.metaData = metaData;
-        this.updateCount = updateCount;
         this.hitRules = hitRules;
         this.status = status;
         this.riskScoreDetails = riskScoreDetails;
@@ -132,11 +128,6 @@ public final class BatchTransactionEventMonitoringResult {
         return metaData;
     }
 
-    @JsonProperty("updateCount")
-    public Optional<Double> getUpdateCount() {
-        return updateCount;
-    }
-
     @JsonProperty("hitRules")
     public Optional<List<HitRulesDetails>> getHitRules() {
         return hitRules;
@@ -173,7 +164,6 @@ public final class BatchTransactionEventMonitoringResult {
                 && eventDescription.equals(other.eventDescription)
                 && updatedTransactionAttributes.equals(other.updatedTransactionAttributes)
                 && metaData.equals(other.metaData)
-                && updateCount.equals(other.updateCount)
                 && hitRules.equals(other.hitRules)
                 && status.equals(other.status)
                 && riskScoreDetails.equals(other.riskScoreDetails);
@@ -190,7 +180,6 @@ public final class BatchTransactionEventMonitoringResult {
                 this.eventDescription,
                 this.updatedTransactionAttributes,
                 this.metaData,
-                this.updateCount,
                 this.hitRules,
                 this.status,
                 this.riskScoreDetails);
@@ -242,10 +231,6 @@ public final class BatchTransactionEventMonitoringResult {
 
         _FinalStage metaData(DeviceData metaData);
 
-        _FinalStage updateCount(Optional<Double> updateCount);
-
-        _FinalStage updateCount(Double updateCount);
-
         _FinalStage hitRules(Optional<List<HitRulesDetails>> hitRules);
 
         _FinalStage hitRules(List<HitRulesDetails> hitRules);
@@ -274,8 +259,6 @@ public final class BatchTransactionEventMonitoringResult {
 
         private Optional<List<HitRulesDetails>> hitRules = Optional.empty();
 
-        private Optional<Double> updateCount = Optional.empty();
-
         private Optional<DeviceData> metaData = Optional.empty();
 
         private Optional<TransactionUpdatable> updatedTransactionAttributes = Optional.empty();
@@ -301,7 +284,6 @@ public final class BatchTransactionEventMonitoringResult {
             eventDescription(other.getEventDescription());
             updatedTransactionAttributes(other.getUpdatedTransactionAttributes());
             metaData(other.getMetaData());
-            updateCount(other.getUpdateCount());
             hitRules(other.getHitRules());
             status(other.getStatus());
             riskScoreDetails(other.getRiskScoreDetails());
@@ -373,19 +355,6 @@ public final class BatchTransactionEventMonitoringResult {
         @JsonSetter(value = "hitRules", nulls = Nulls.SKIP)
         public _FinalStage hitRules(Optional<List<HitRulesDetails>> hitRules) {
             this.hitRules = hitRules;
-            return this;
-        }
-
-        @java.lang.Override
-        public _FinalStage updateCount(Double updateCount) {
-            this.updateCount = Optional.ofNullable(updateCount);
-            return this;
-        }
-
-        @java.lang.Override
-        @JsonSetter(value = "updateCount", nulls = Nulls.SKIP)
-        public _FinalStage updateCount(Optional<Double> updateCount) {
-            this.updateCount = updateCount;
             return this;
         }
 
@@ -477,7 +446,6 @@ public final class BatchTransactionEventMonitoringResult {
                     eventDescription,
                     updatedTransactionAttributes,
                     metaData,
-                    updateCount,
                     hitRules,
                     status,
                     riskScoreDetails,

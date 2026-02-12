@@ -33,8 +33,6 @@ public final class ConsumerUserEvent {
 
     private final Optional<UserOptional> updatedConsumerUserAttributes;
 
-    private final Optional<Double> updateCount;
-
     private final Map<String, Object> additionalProperties;
 
     private ConsumerUserEvent(
@@ -44,7 +42,6 @@ public final class ConsumerUserEvent {
             Optional<String> reason,
             Optional<String> eventDescription,
             Optional<UserOptional> updatedConsumerUserAttributes,
-            Optional<Double> updateCount,
             Map<String, Object> additionalProperties) {
         this.timestamp = timestamp;
         this.userId = userId;
@@ -52,7 +49,6 @@ public final class ConsumerUserEvent {
         this.reason = reason;
         this.eventDescription = eventDescription;
         this.updatedConsumerUserAttributes = updatedConsumerUserAttributes;
-        this.updateCount = updateCount;
         this.additionalProperties = additionalProperties;
     }
 
@@ -101,11 +97,6 @@ public final class ConsumerUserEvent {
         return updatedConsumerUserAttributes;
     }
 
-    @JsonProperty("updateCount")
-    public Optional<Double> getUpdateCount() {
-        return updateCount;
-    }
-
     @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
@@ -123,8 +114,7 @@ public final class ConsumerUserEvent {
                 && eventId.equals(other.eventId)
                 && reason.equals(other.reason)
                 && eventDescription.equals(other.eventDescription)
-                && updatedConsumerUserAttributes.equals(other.updatedConsumerUserAttributes)
-                && updateCount.equals(other.updateCount);
+                && updatedConsumerUserAttributes.equals(other.updatedConsumerUserAttributes);
     }
 
     @java.lang.Override
@@ -135,8 +125,7 @@ public final class ConsumerUserEvent {
                 this.eventId,
                 this.reason,
                 this.eventDescription,
-                this.updatedConsumerUserAttributes,
-                this.updateCount);
+                this.updatedConsumerUserAttributes);
     }
 
     @java.lang.Override
@@ -176,10 +165,6 @@ public final class ConsumerUserEvent {
         _FinalStage updatedConsumerUserAttributes(Optional<UserOptional> updatedConsumerUserAttributes);
 
         _FinalStage updatedConsumerUserAttributes(UserOptional updatedConsumerUserAttributes);
-
-        _FinalStage updateCount(Optional<Double> updateCount);
-
-        _FinalStage updateCount(Double updateCount);
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
@@ -187,8 +172,6 @@ public final class ConsumerUserEvent {
         private double timestamp;
 
         private String userId;
-
-        private Optional<Double> updateCount = Optional.empty();
 
         private Optional<UserOptional> updatedConsumerUserAttributes = Optional.empty();
 
@@ -211,7 +194,6 @@ public final class ConsumerUserEvent {
             reason(other.getReason());
             eventDescription(other.getEventDescription());
             updatedConsumerUserAttributes(other.getUpdatedConsumerUserAttributes());
-            updateCount(other.getUpdateCount());
             return this;
         }
 
@@ -234,19 +216,6 @@ public final class ConsumerUserEvent {
         @JsonSetter("userId")
         public _FinalStage userId(@NotNull String userId) {
             this.userId = Objects.requireNonNull(userId, "userId must not be null");
-            return this;
-        }
-
-        @java.lang.Override
-        public _FinalStage updateCount(Double updateCount) {
-            this.updateCount = Optional.ofNullable(updateCount);
-            return this;
-        }
-
-        @java.lang.Override
-        @JsonSetter(value = "updateCount", nulls = Nulls.SKIP)
-        public _FinalStage updateCount(Optional<Double> updateCount) {
-            this.updateCount = updateCount;
             return this;
         }
 
@@ -323,7 +292,6 @@ public final class ConsumerUserEvent {
                     reason,
                     eventDescription,
                     updatedConsumerUserAttributes,
-                    updateCount,
                     additionalProperties);
         }
     }

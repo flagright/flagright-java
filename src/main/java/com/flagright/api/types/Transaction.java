@@ -64,10 +64,6 @@ public final class Transaction {
 
     private final Optional<String> jurisdiction;
 
-    private final Optional<Double> updateCount;
-
-    private final Optional<Double> paymentApprovalTimestamp;
-
     private final Map<String, Object> additionalProperties;
 
     private Transaction(
@@ -92,8 +88,6 @@ public final class Transaction {
             Optional<TransactionMetadata> metadata,
             Optional<List<Tag>> tags,
             Optional<String> jurisdiction,
-            Optional<Double> updateCount,
-            Optional<Double> paymentApprovalTimestamp,
             Map<String, Object> additionalProperties) {
         this.type = type;
         this.transactionId = transactionId;
@@ -116,8 +110,6 @@ public final class Transaction {
         this.metadata = metadata;
         this.tags = tags;
         this.jurisdiction = jurisdiction;
-        this.updateCount = updateCount;
-        this.paymentApprovalTimestamp = paymentApprovalTimestamp;
         this.additionalProperties = additionalProperties;
     }
 
@@ -262,16 +254,6 @@ public final class Transaction {
         return jurisdiction;
     }
 
-    @JsonProperty("updateCount")
-    public Optional<Double> getUpdateCount() {
-        return updateCount;
-    }
-
-    @JsonProperty("paymentApprovalTimestamp")
-    public Optional<Double> getPaymentApprovalTimestamp() {
-        return paymentApprovalTimestamp;
-    }
-
     @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
@@ -304,9 +286,7 @@ public final class Transaction {
                 && destinationDeviceData.equals(other.destinationDeviceData)
                 && metadata.equals(other.metadata)
                 && tags.equals(other.tags)
-                && jurisdiction.equals(other.jurisdiction)
-                && updateCount.equals(other.updateCount)
-                && paymentApprovalTimestamp.equals(other.paymentApprovalTimestamp);
+                && jurisdiction.equals(other.jurisdiction);
     }
 
     @java.lang.Override
@@ -332,9 +312,7 @@ public final class Transaction {
                 this.destinationDeviceData,
                 this.metadata,
                 this.tags,
-                this.jurisdiction,
-                this.updateCount,
-                this.paymentApprovalTimestamp);
+                this.jurisdiction);
     }
 
     @java.lang.Override
@@ -434,14 +412,6 @@ public final class Transaction {
         _FinalStage jurisdiction(Optional<String> jurisdiction);
 
         _FinalStage jurisdiction(String jurisdiction);
-
-        _FinalStage updateCount(Optional<Double> updateCount);
-
-        _FinalStage updateCount(Double updateCount);
-
-        _FinalStage paymentApprovalTimestamp(Optional<Double> paymentApprovalTimestamp);
-
-        _FinalStage paymentApprovalTimestamp(Double paymentApprovalTimestamp);
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
@@ -451,10 +421,6 @@ public final class Transaction {
         private String transactionId;
 
         private double timestamp;
-
-        private Optional<Double> paymentApprovalTimestamp = Optional.empty();
-
-        private Optional<Double> updateCount = Optional.empty();
 
         private Optional<String> jurisdiction = Optional.empty();
 
@@ -520,8 +486,6 @@ public final class Transaction {
             metadata(other.getMetadata());
             tags(other.getTags());
             jurisdiction(other.getJurisdiction());
-            updateCount(other.getUpdateCount());
-            paymentApprovalTimestamp(other.getPaymentApprovalTimestamp());
             return this;
         }
 
@@ -555,32 +519,6 @@ public final class Transaction {
         @JsonSetter("timestamp")
         public _FinalStage timestamp(double timestamp) {
             this.timestamp = timestamp;
-            return this;
-        }
-
-        @java.lang.Override
-        public _FinalStage paymentApprovalTimestamp(Double paymentApprovalTimestamp) {
-            this.paymentApprovalTimestamp = Optional.ofNullable(paymentApprovalTimestamp);
-            return this;
-        }
-
-        @java.lang.Override
-        @JsonSetter(value = "paymentApprovalTimestamp", nulls = Nulls.SKIP)
-        public _FinalStage paymentApprovalTimestamp(Optional<Double> paymentApprovalTimestamp) {
-            this.paymentApprovalTimestamp = paymentApprovalTimestamp;
-            return this;
-        }
-
-        @java.lang.Override
-        public _FinalStage updateCount(Double updateCount) {
-            this.updateCount = Optional.ofNullable(updateCount);
-            return this;
-        }
-
-        @java.lang.Override
-        @JsonSetter(value = "updateCount", nulls = Nulls.SKIP)
-        public _FinalStage updateCount(Optional<Double> updateCount) {
-            this.updateCount = updateCount;
             return this;
         }
 
@@ -879,8 +817,6 @@ public final class Transaction {
                     metadata,
                     tags,
                     jurisdiction,
-                    updateCount,
-                    paymentApprovalTimestamp,
                     additionalProperties);
         }
     }

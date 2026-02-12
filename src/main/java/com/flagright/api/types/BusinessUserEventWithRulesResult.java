@@ -34,8 +34,6 @@ public final class BusinessUserEventWithRulesResult {
 
     private final Optional<BusinessOptional> updatedBusinessUserAttributes;
 
-    private final Optional<Double> updateCount;
-
     private final Optional<List<ExecutedRulesResult>> executedRules;
 
     private final Optional<List<HitRulesDetails>> hitRules;
@@ -51,7 +49,6 @@ public final class BusinessUserEventWithRulesResult {
             Optional<String> reason,
             Optional<String> eventDescription,
             Optional<BusinessOptional> updatedBusinessUserAttributes,
-            Optional<Double> updateCount,
             Optional<List<ExecutedRulesResult>> executedRules,
             Optional<List<HitRulesDetails>> hitRules,
             Optional<UserRiskScoreDetails> riskScoreDetails,
@@ -62,7 +59,6 @@ public final class BusinessUserEventWithRulesResult {
         this.reason = reason;
         this.eventDescription = eventDescription;
         this.updatedBusinessUserAttributes = updatedBusinessUserAttributes;
-        this.updateCount = updateCount;
         this.executedRules = executedRules;
         this.hitRules = hitRules;
         this.riskScoreDetails = riskScoreDetails;
@@ -114,11 +110,6 @@ public final class BusinessUserEventWithRulesResult {
         return updatedBusinessUserAttributes;
     }
 
-    @JsonProperty("updateCount")
-    public Optional<Double> getUpdateCount() {
-        return updateCount;
-    }
-
     @JsonProperty("executedRules")
     public Optional<List<ExecutedRulesResult>> getExecutedRules() {
         return executedRules;
@@ -152,7 +143,6 @@ public final class BusinessUserEventWithRulesResult {
                 && reason.equals(other.reason)
                 && eventDescription.equals(other.eventDescription)
                 && updatedBusinessUserAttributes.equals(other.updatedBusinessUserAttributes)
-                && updateCount.equals(other.updateCount)
                 && executedRules.equals(other.executedRules)
                 && hitRules.equals(other.hitRules)
                 && riskScoreDetails.equals(other.riskScoreDetails);
@@ -167,7 +157,6 @@ public final class BusinessUserEventWithRulesResult {
                 this.reason,
                 this.eventDescription,
                 this.updatedBusinessUserAttributes,
-                this.updateCount,
                 this.executedRules,
                 this.hitRules,
                 this.riskScoreDetails);
@@ -211,10 +200,6 @@ public final class BusinessUserEventWithRulesResult {
 
         _FinalStage updatedBusinessUserAttributes(BusinessOptional updatedBusinessUserAttributes);
 
-        _FinalStage updateCount(Optional<Double> updateCount);
-
-        _FinalStage updateCount(Double updateCount);
-
         _FinalStage executedRules(Optional<List<ExecutedRulesResult>> executedRules);
 
         _FinalStage executedRules(List<ExecutedRulesResult> executedRules);
@@ -240,8 +225,6 @@ public final class BusinessUserEventWithRulesResult {
 
         private Optional<List<ExecutedRulesResult>> executedRules = Optional.empty();
 
-        private Optional<Double> updateCount = Optional.empty();
-
         private Optional<BusinessOptional> updatedBusinessUserAttributes = Optional.empty();
 
         private Optional<String> eventDescription = Optional.empty();
@@ -263,7 +246,6 @@ public final class BusinessUserEventWithRulesResult {
             reason(other.getReason());
             eventDescription(other.getEventDescription());
             updatedBusinessUserAttributes(other.getUpdatedBusinessUserAttributes());
-            updateCount(other.getUpdateCount());
             executedRules(other.getExecutedRules());
             hitRules(other.getHitRules());
             riskScoreDetails(other.getRiskScoreDetails());
@@ -328,19 +310,6 @@ public final class BusinessUserEventWithRulesResult {
         @JsonSetter(value = "executedRules", nulls = Nulls.SKIP)
         public _FinalStage executedRules(Optional<List<ExecutedRulesResult>> executedRules) {
             this.executedRules = executedRules;
-            return this;
-        }
-
-        @java.lang.Override
-        public _FinalStage updateCount(Double updateCount) {
-            this.updateCount = Optional.ofNullable(updateCount);
-            return this;
-        }
-
-        @java.lang.Override
-        @JsonSetter(value = "updateCount", nulls = Nulls.SKIP)
-        public _FinalStage updateCount(Optional<Double> updateCount) {
-            this.updateCount = updateCount;
             return this;
         }
 
@@ -417,7 +386,6 @@ public final class BusinessUserEventWithRulesResult {
                     reason,
                     eventDescription,
                     updatedBusinessUserAttributes,
-                    updateCount,
                     executedRules,
                     hitRules,
                     riskScoreDetails,

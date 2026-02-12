@@ -386,6 +386,8 @@ public enum CurrencyCode {
 
     HUF("HUF"),
 
+    HYPE("HYPE"),
+
     ICP("ICP"),
 
     IDEX("IDEX"),

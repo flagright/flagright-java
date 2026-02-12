@@ -70,8 +70,6 @@ public final class UserWithRulesResult {
 
     private final Optional<Boolean> adverseMediaStatus;
 
-    private final Optional<Double> lastTransactionTimestamp;
-
     private final Optional<List<CorporateEntityDetails>> corporateEntities;
 
     private final Optional<UserEntityLink> linkedEntities;
@@ -85,8 +83,6 @@ public final class UserWithRulesResult {
     private final Optional<DeviceData> metaData;
 
     private final Optional<String> jurisdiction;
-
-    private final Optional<Double> updateCount;
 
     private final Optional<List<ProductsEnabled>> productsEnabled;
 
@@ -123,7 +119,6 @@ public final class UserWithRulesResult {
             Optional<List<PepStatus>> pepStatus,
             Optional<Boolean> sanctionsStatus,
             Optional<Boolean> adverseMediaStatus,
-            Optional<Double> lastTransactionTimestamp,
             Optional<List<CorporateEntityDetails>> corporateEntities,
             Optional<UserEntityLink> linkedEntities,
             Optional<List<UserWithRulesResultSavedPaymentDetailsItem>> savedPaymentDetails,
@@ -131,7 +126,6 @@ public final class UserWithRulesResult {
             Optional<List<PersonAttachment>> attachments,
             Optional<DeviceData> metaData,
             Optional<String> jurisdiction,
-            Optional<Double> updateCount,
             Optional<List<ProductsEnabled>> productsEnabled,
             Optional<List<ExecutedRulesResult>> executedRules,
             Optional<List<HitRulesDetails>> hitRules,
@@ -161,7 +155,6 @@ public final class UserWithRulesResult {
         this.pepStatus = pepStatus;
         this.sanctionsStatus = sanctionsStatus;
         this.adverseMediaStatus = adverseMediaStatus;
-        this.lastTransactionTimestamp = lastTransactionTimestamp;
         this.corporateEntities = corporateEntities;
         this.linkedEntities = linkedEntities;
         this.savedPaymentDetails = savedPaymentDetails;
@@ -169,7 +162,6 @@ public final class UserWithRulesResult {
         this.attachments = attachments;
         this.metaData = metaData;
         this.jurisdiction = jurisdiction;
-        this.updateCount = updateCount;
         this.productsEnabled = productsEnabled;
         this.executedRules = executedRules;
         this.hitRules = hitRules;
@@ -310,14 +302,6 @@ public final class UserWithRulesResult {
     }
 
     /**
-     * @return Timestamp of the last successful transaction of the user
-     */
-    @JsonProperty("lastTransactionTimestamp")
-    public Optional<Double> getLastTransactionTimestamp() {
-        return lastTransactionTimestamp;
-    }
-
-    /**
      * @return Corporate entities of the user
      */
     @JsonProperty("corporateEntities")
@@ -362,11 +346,6 @@ public final class UserWithRulesResult {
     @JsonProperty("jurisdiction")
     public Optional<String> getJurisdiction() {
         return jurisdiction;
-    }
-
-    @JsonProperty("updateCount")
-    public Optional<Double> getUpdateCount() {
-        return updateCount;
     }
 
     @JsonProperty("productsEnabled")
@@ -425,7 +404,6 @@ public final class UserWithRulesResult {
                 && pepStatus.equals(other.pepStatus)
                 && sanctionsStatus.equals(other.sanctionsStatus)
                 && adverseMediaStatus.equals(other.adverseMediaStatus)
-                && lastTransactionTimestamp.equals(other.lastTransactionTimestamp)
                 && corporateEntities.equals(other.corporateEntities)
                 && linkedEntities.equals(other.linkedEntities)
                 && savedPaymentDetails.equals(other.savedPaymentDetails)
@@ -433,7 +411,6 @@ public final class UserWithRulesResult {
                 && attachments.equals(other.attachments)
                 && metaData.equals(other.metaData)
                 && jurisdiction.equals(other.jurisdiction)
-                && updateCount.equals(other.updateCount)
                 && productsEnabled.equals(other.productsEnabled)
                 && executedRules.equals(other.executedRules)
                 && hitRules.equals(other.hitRules)
@@ -467,7 +444,6 @@ public final class UserWithRulesResult {
                 this.pepStatus,
                 this.sanctionsStatus,
                 this.adverseMediaStatus,
-                this.lastTransactionTimestamp,
                 this.corporateEntities,
                 this.linkedEntities,
                 this.savedPaymentDetails,
@@ -475,7 +451,6 @@ public final class UserWithRulesResult {
                 this.attachments,
                 this.metaData,
                 this.jurisdiction,
-                this.updateCount,
                 this.productsEnabled,
                 this.executedRules,
                 this.hitRules,
@@ -592,10 +567,6 @@ public final class UserWithRulesResult {
 
         _FinalStage adverseMediaStatus(Boolean adverseMediaStatus);
 
-        _FinalStage lastTransactionTimestamp(Optional<Double> lastTransactionTimestamp);
-
-        _FinalStage lastTransactionTimestamp(Double lastTransactionTimestamp);
-
         _FinalStage corporateEntities(Optional<List<CorporateEntityDetails>> corporateEntities);
 
         _FinalStage corporateEntities(List<CorporateEntityDetails> corporateEntities);
@@ -623,10 +594,6 @@ public final class UserWithRulesResult {
         _FinalStage jurisdiction(Optional<String> jurisdiction);
 
         _FinalStage jurisdiction(String jurisdiction);
-
-        _FinalStage updateCount(Optional<Double> updateCount);
-
-        _FinalStage updateCount(Double updateCount);
 
         _FinalStage productsEnabled(Optional<List<ProductsEnabled>> productsEnabled);
 
@@ -659,8 +626,6 @@ public final class UserWithRulesResult {
 
         private Optional<List<ProductsEnabled>> productsEnabled = Optional.empty();
 
-        private Optional<Double> updateCount = Optional.empty();
-
         private Optional<String> jurisdiction = Optional.empty();
 
         private Optional<DeviceData> metaData = Optional.empty();
@@ -674,8 +639,6 @@ public final class UserWithRulesResult {
         private Optional<UserEntityLink> linkedEntities = Optional.empty();
 
         private Optional<List<CorporateEntityDetails>> corporateEntities = Optional.empty();
-
-        private Optional<Double> lastTransactionTimestamp = Optional.empty();
 
         private Optional<Boolean> adverseMediaStatus = Optional.empty();
 
@@ -752,7 +715,6 @@ public final class UserWithRulesResult {
             pepStatus(other.getPepStatus());
             sanctionsStatus(other.getSanctionsStatus());
             adverseMediaStatus(other.getAdverseMediaStatus());
-            lastTransactionTimestamp(other.getLastTransactionTimestamp());
             corporateEntities(other.getCorporateEntities());
             linkedEntities(other.getLinkedEntities());
             savedPaymentDetails(other.getSavedPaymentDetails());
@@ -760,7 +722,6 @@ public final class UserWithRulesResult {
             attachments(other.getAttachments());
             metaData(other.getMetaData());
             jurisdiction(other.getJurisdiction());
-            updateCount(other.getUpdateCount());
             productsEnabled(other.getProductsEnabled());
             executedRules(other.getExecutedRules());
             hitRules(other.getHitRules());
@@ -839,19 +800,6 @@ public final class UserWithRulesResult {
         @JsonSetter(value = "productsEnabled", nulls = Nulls.SKIP)
         public _FinalStage productsEnabled(Optional<List<ProductsEnabled>> productsEnabled) {
             this.productsEnabled = productsEnabled;
-            return this;
-        }
-
-        @java.lang.Override
-        public _FinalStage updateCount(Double updateCount) {
-            this.updateCount = Optional.ofNullable(updateCount);
-            return this;
-        }
-
-        @java.lang.Override
-        @JsonSetter(value = "updateCount", nulls = Nulls.SKIP)
-        public _FinalStage updateCount(Optional<Double> updateCount) {
-            this.updateCount = updateCount;
             return this;
         }
 
@@ -960,23 +908,6 @@ public final class UserWithRulesResult {
         @JsonSetter(value = "corporateEntities", nulls = Nulls.SKIP)
         public _FinalStage corporateEntities(Optional<List<CorporateEntityDetails>> corporateEntities) {
             this.corporateEntities = corporateEntities;
-            return this;
-        }
-
-        /**
-         * <p>Timestamp of the last successful transaction of the user</p>
-         * @return Reference to {@code this} so that method calls can be chained together.
-         */
-        @java.lang.Override
-        public _FinalStage lastTransactionTimestamp(Double lastTransactionTimestamp) {
-            this.lastTransactionTimestamp = Optional.ofNullable(lastTransactionTimestamp);
-            return this;
-        }
-
-        @java.lang.Override
-        @JsonSetter(value = "lastTransactionTimestamp", nulls = Nulls.SKIP)
-        public _FinalStage lastTransactionTimestamp(Optional<Double> lastTransactionTimestamp) {
-            this.lastTransactionTimestamp = lastTransactionTimestamp;
             return this;
         }
 
@@ -1302,7 +1233,6 @@ public final class UserWithRulesResult {
                     pepStatus,
                     sanctionsStatus,
                     adverseMediaStatus,
-                    lastTransactionTimestamp,
                     corporateEntities,
                     linkedEntities,
                     savedPaymentDetails,
@@ -1310,7 +1240,6 @@ public final class UserWithRulesResult {
                     attachments,
                     metaData,
                     jurisdiction,
-                    updateCount,
                     productsEnabled,
                     executedRules,
                     hitRules,

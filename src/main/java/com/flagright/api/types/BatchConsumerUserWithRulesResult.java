@@ -70,8 +70,6 @@ public final class BatchConsumerUserWithRulesResult {
 
     private final Optional<Boolean> adverseMediaStatus;
 
-    private final Optional<Double> lastTransactionTimestamp;
-
     private final Optional<List<CorporateEntityDetails>> corporateEntities;
 
     private final Optional<UserEntityLink> linkedEntities;
@@ -85,8 +83,6 @@ public final class BatchConsumerUserWithRulesResult {
     private final Optional<DeviceData> metaData;
 
     private final Optional<String> jurisdiction;
-
-    private final Optional<Double> updateCount;
 
     private final Optional<List<ProductsEnabled>> productsEnabled;
 
@@ -121,7 +117,6 @@ public final class BatchConsumerUserWithRulesResult {
             Optional<List<PepStatus>> pepStatus,
             Optional<Boolean> sanctionsStatus,
             Optional<Boolean> adverseMediaStatus,
-            Optional<Double> lastTransactionTimestamp,
             Optional<List<CorporateEntityDetails>> corporateEntities,
             Optional<UserEntityLink> linkedEntities,
             Optional<List<BatchConsumerUserWithRulesResultSavedPaymentDetailsItem>> savedPaymentDetails,
@@ -129,7 +124,6 @@ public final class BatchConsumerUserWithRulesResult {
             Optional<List<PersonAttachment>> attachments,
             Optional<DeviceData> metaData,
             Optional<String> jurisdiction,
-            Optional<Double> updateCount,
             Optional<List<ProductsEnabled>> productsEnabled,
             Optional<List<ExecutedRulesResult>> executedRules,
             Optional<UserRiskScoreDetails> riskScoreDetails,
@@ -158,7 +152,6 @@ public final class BatchConsumerUserWithRulesResult {
         this.pepStatus = pepStatus;
         this.sanctionsStatus = sanctionsStatus;
         this.adverseMediaStatus = adverseMediaStatus;
-        this.lastTransactionTimestamp = lastTransactionTimestamp;
         this.corporateEntities = corporateEntities;
         this.linkedEntities = linkedEntities;
         this.savedPaymentDetails = savedPaymentDetails;
@@ -166,7 +159,6 @@ public final class BatchConsumerUserWithRulesResult {
         this.attachments = attachments;
         this.metaData = metaData;
         this.jurisdiction = jurisdiction;
-        this.updateCount = updateCount;
         this.productsEnabled = productsEnabled;
         this.executedRules = executedRules;
         this.riskScoreDetails = riskScoreDetails;
@@ -306,14 +298,6 @@ public final class BatchConsumerUserWithRulesResult {
     }
 
     /**
-     * @return Timestamp of the last successful transaction of the user
-     */
-    @JsonProperty("lastTransactionTimestamp")
-    public Optional<Double> getLastTransactionTimestamp() {
-        return lastTransactionTimestamp;
-    }
-
-    /**
      * @return Corporate entities of the user
      */
     @JsonProperty("corporateEntities")
@@ -358,11 +342,6 @@ public final class BatchConsumerUserWithRulesResult {
     @JsonProperty("jurisdiction")
     public Optional<String> getJurisdiction() {
         return jurisdiction;
-    }
-
-    @JsonProperty("updateCount")
-    public Optional<Double> getUpdateCount() {
-        return updateCount;
     }
 
     @JsonProperty("productsEnabled")
@@ -416,7 +395,6 @@ public final class BatchConsumerUserWithRulesResult {
                 && pepStatus.equals(other.pepStatus)
                 && sanctionsStatus.equals(other.sanctionsStatus)
                 && adverseMediaStatus.equals(other.adverseMediaStatus)
-                && lastTransactionTimestamp.equals(other.lastTransactionTimestamp)
                 && corporateEntities.equals(other.corporateEntities)
                 && linkedEntities.equals(other.linkedEntities)
                 && savedPaymentDetails.equals(other.savedPaymentDetails)
@@ -424,7 +402,6 @@ public final class BatchConsumerUserWithRulesResult {
                 && attachments.equals(other.attachments)
                 && metaData.equals(other.metaData)
                 && jurisdiction.equals(other.jurisdiction)
-                && updateCount.equals(other.updateCount)
                 && productsEnabled.equals(other.productsEnabled)
                 && executedRules.equals(other.executedRules)
                 && riskScoreDetails.equals(other.riskScoreDetails);
@@ -457,7 +434,6 @@ public final class BatchConsumerUserWithRulesResult {
                 this.pepStatus,
                 this.sanctionsStatus,
                 this.adverseMediaStatus,
-                this.lastTransactionTimestamp,
                 this.corporateEntities,
                 this.linkedEntities,
                 this.savedPaymentDetails,
@@ -465,7 +441,6 @@ public final class BatchConsumerUserWithRulesResult {
                 this.attachments,
                 this.metaData,
                 this.jurisdiction,
-                this.updateCount,
                 this.productsEnabled,
                 this.executedRules,
                 this.riskScoreDetails);
@@ -581,10 +556,6 @@ public final class BatchConsumerUserWithRulesResult {
 
         _FinalStage adverseMediaStatus(Boolean adverseMediaStatus);
 
-        _FinalStage lastTransactionTimestamp(Optional<Double> lastTransactionTimestamp);
-
-        _FinalStage lastTransactionTimestamp(Double lastTransactionTimestamp);
-
         _FinalStage corporateEntities(Optional<List<CorporateEntityDetails>> corporateEntities);
 
         _FinalStage corporateEntities(List<CorporateEntityDetails> corporateEntities);
@@ -615,10 +586,6 @@ public final class BatchConsumerUserWithRulesResult {
 
         _FinalStage jurisdiction(String jurisdiction);
 
-        _FinalStage updateCount(Optional<Double> updateCount);
-
-        _FinalStage updateCount(Double updateCount);
-
         _FinalStage productsEnabled(Optional<List<ProductsEnabled>> productsEnabled);
 
         _FinalStage productsEnabled(List<ProductsEnabled> productsEnabled);
@@ -644,8 +611,6 @@ public final class BatchConsumerUserWithRulesResult {
 
         private Optional<List<ProductsEnabled>> productsEnabled = Optional.empty();
 
-        private Optional<Double> updateCount = Optional.empty();
-
         private Optional<String> jurisdiction = Optional.empty();
 
         private Optional<DeviceData> metaData = Optional.empty();
@@ -660,8 +625,6 @@ public final class BatchConsumerUserWithRulesResult {
         private Optional<UserEntityLink> linkedEntities = Optional.empty();
 
         private Optional<List<CorporateEntityDetails>> corporateEntities = Optional.empty();
-
-        private Optional<Double> lastTransactionTimestamp = Optional.empty();
 
         private Optional<Boolean> adverseMediaStatus = Optional.empty();
 
@@ -738,7 +701,6 @@ public final class BatchConsumerUserWithRulesResult {
             pepStatus(other.getPepStatus());
             sanctionsStatus(other.getSanctionsStatus());
             adverseMediaStatus(other.getAdverseMediaStatus());
-            lastTransactionTimestamp(other.getLastTransactionTimestamp());
             corporateEntities(other.getCorporateEntities());
             linkedEntities(other.getLinkedEntities());
             savedPaymentDetails(other.getSavedPaymentDetails());
@@ -746,7 +708,6 @@ public final class BatchConsumerUserWithRulesResult {
             attachments(other.getAttachments());
             metaData(other.getMetaData());
             jurisdiction(other.getJurisdiction());
-            updateCount(other.getUpdateCount());
             productsEnabled(other.getProductsEnabled());
             executedRules(other.getExecutedRules());
             riskScoreDetails(other.getRiskScoreDetails());
@@ -811,19 +772,6 @@ public final class BatchConsumerUserWithRulesResult {
         @JsonSetter(value = "productsEnabled", nulls = Nulls.SKIP)
         public _FinalStage productsEnabled(Optional<List<ProductsEnabled>> productsEnabled) {
             this.productsEnabled = productsEnabled;
-            return this;
-        }
-
-        @java.lang.Override
-        public _FinalStage updateCount(Double updateCount) {
-            this.updateCount = Optional.ofNullable(updateCount);
-            return this;
-        }
-
-        @java.lang.Override
-        @JsonSetter(value = "updateCount", nulls = Nulls.SKIP)
-        public _FinalStage updateCount(Optional<Double> updateCount) {
-            this.updateCount = updateCount;
             return this;
         }
 
@@ -933,23 +881,6 @@ public final class BatchConsumerUserWithRulesResult {
         @JsonSetter(value = "corporateEntities", nulls = Nulls.SKIP)
         public _FinalStage corporateEntities(Optional<List<CorporateEntityDetails>> corporateEntities) {
             this.corporateEntities = corporateEntities;
-            return this;
-        }
-
-        /**
-         * <p>Timestamp of the last successful transaction of the user</p>
-         * @return Reference to {@code this} so that method calls can be chained together.
-         */
-        @java.lang.Override
-        public _FinalStage lastTransactionTimestamp(Double lastTransactionTimestamp) {
-            this.lastTransactionTimestamp = Optional.ofNullable(lastTransactionTimestamp);
-            return this;
-        }
-
-        @java.lang.Override
-        @JsonSetter(value = "lastTransactionTimestamp", nulls = Nulls.SKIP)
-        public _FinalStage lastTransactionTimestamp(Optional<Double> lastTransactionTimestamp) {
-            this.lastTransactionTimestamp = lastTransactionTimestamp;
             return this;
         }
 
@@ -1275,7 +1206,6 @@ public final class BatchConsumerUserWithRulesResult {
                     pepStatus,
                     sanctionsStatus,
                     adverseMediaStatus,
-                    lastTransactionTimestamp,
                     corporateEntities,
                     linkedEntities,
                     savedPaymentDetails,
@@ -1283,7 +1213,6 @@ public final class BatchConsumerUserWithRulesResult {
                     attachments,
                     metaData,
                     jurisdiction,
-                    updateCount,
                     productsEnabled,
                     executedRules,
                     riskScoreDetails,

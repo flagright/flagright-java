@@ -32,6 +32,8 @@ public enum WalletNetwork {
 
     RIPPLE("RIPPLE"),
 
+    HYPERLIQUID("HYPERLIQUID"),
+
     STELLAR("STELLAR"),
 
     EOS_PUBLIC("EOS_PUBLIC"),
