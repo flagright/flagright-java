@@ -22,13 +22,19 @@ import java.util.Optional;
 public final class CraRiskLevelUpdatedDetails {
     private final Optional<String> riskLevel;
 
+    private final Optional<Double> riskScore;
+
     private final Optional<String> userId;
 
     private final Map<String, Object> additionalProperties;
 
     private CraRiskLevelUpdatedDetails(
-            Optional<String> riskLevel, Optional<String> userId, Map<String, Object> additionalProperties) {
+            Optional<String> riskLevel,
+            Optional<Double> riskScore,
+            Optional<String> userId,
+            Map<String, Object> additionalProperties) {
         this.riskLevel = riskLevel;
+        this.riskScore = riskScore;
         this.userId = userId;
         this.additionalProperties = additionalProperties;
     }
@@ -36,6 +42,11 @@ public final class CraRiskLevelUpdatedDetails {
     @JsonProperty("riskLevel")
     public Optional<String> getRiskLevel() {
         return riskLevel;
+    }
+
+    @JsonProperty("riskScore")
+    public Optional<Double> getRiskScore() {
+        return riskScore;
     }
 
     @JsonProperty("userId")
@@ -55,12 +66,12 @@ public final class CraRiskLevelUpdatedDetails {
     }
 
     private boolean equalTo(CraRiskLevelUpdatedDetails other) {
-        return riskLevel.equals(other.riskLevel) && userId.equals(other.userId);
+        return riskLevel.equals(other.riskLevel) && riskScore.equals(other.riskScore) && userId.equals(other.userId);
     }
 
     @java.lang.Override
     public int hashCode() {
-        return Objects.hash(this.riskLevel, this.userId);
+        return Objects.hash(this.riskLevel, this.riskScore, this.userId);
     }
 
     @java.lang.Override
@@ -76,6 +87,8 @@ public final class CraRiskLevelUpdatedDetails {
     public static final class Builder {
         private Optional<String> riskLevel = Optional.empty();
 
+        private Optional<Double> riskScore = Optional.empty();
+
         private Optional<String> userId = Optional.empty();
 
         @JsonAnySetter
@@ -85,6 +98,7 @@ public final class CraRiskLevelUpdatedDetails {
 
         public Builder from(CraRiskLevelUpdatedDetails other) {
             riskLevel(other.getRiskLevel());
+            riskScore(other.getRiskScore());
             userId(other.getUserId());
             return this;
         }
@@ -100,6 +114,17 @@ public final class CraRiskLevelUpdatedDetails {
             return this;
         }
 
+        @JsonSetter(value = "riskScore", nulls = Nulls.SKIP)
+        public Builder riskScore(Optional<Double> riskScore) {
+            this.riskScore = riskScore;
+            return this;
+        }
+
+        public Builder riskScore(Double riskScore) {
+            this.riskScore = Optional.ofNullable(riskScore);
+            return this;
+        }
+
         @JsonSetter(value = "userId", nulls = Nulls.SKIP)
         public Builder userId(Optional<String> userId) {
             this.userId = userId;
@@ -112,7 +137,7 @@ public final class CraRiskLevelUpdatedDetails {
         }
 
         public CraRiskLevelUpdatedDetails build() {
-            return new CraRiskLevelUpdatedDetails(riskLevel, userId, additionalProperties);
+            return new CraRiskLevelUpdatedDetails(riskLevel, riskScore, userId, additionalProperties);
         }
     }
 }
