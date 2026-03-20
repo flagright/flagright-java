@@ -324,6 +324,8 @@ public enum CurrencyCode {
 
     GBP("GBP"),
 
+    GBPA("GBPA"),
+
     GEL("GEL"),
 
     GFI("GFI"),
