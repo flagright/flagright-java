@@ -51,6 +51,8 @@ public final class GenericBankAccountDetails {
 
     private final Optional<String> paymentChannel;
 
+    private final Optional<String> beneficiaryName;
+
     private final Optional<List<Tag>> tags;
 
     private final Optional<String> transitNumber;
@@ -77,6 +79,7 @@ public final class GenericBankAccountDetails {
             Optional<String> emailId,
             Optional<String> specialInstructions,
             Optional<String> paymentChannel,
+            Optional<String> beneficiaryName,
             Optional<List<Tag>> tags,
             Optional<String> transitNumber,
             Optional<Address> address,
@@ -97,6 +100,7 @@ public final class GenericBankAccountDetails {
         this.emailId = emailId;
         this.specialInstructions = specialInstructions;
         this.paymentChannel = paymentChannel;
+        this.beneficiaryName = beneficiaryName;
         this.tags = tags;
         this.transitNumber = transitNumber;
         this.address = address;
@@ -207,6 +211,14 @@ public final class GenericBankAccountDetails {
     }
 
     /**
+     * @return Beneficiary name of the account
+     */
+    @JsonProperty("beneficiaryName")
+    public Optional<String> getBeneficiaryName() {
+        return beneficiaryName;
+    }
+
+    /**
      * @return Additional information that can be added via tags
      */
     @JsonProperty("tags")
@@ -262,6 +274,7 @@ public final class GenericBankAccountDetails {
                 && emailId.equals(other.emailId)
                 && specialInstructions.equals(other.specialInstructions)
                 && paymentChannel.equals(other.paymentChannel)
+                && beneficiaryName.equals(other.beneficiaryName)
                 && tags.equals(other.tags)
                 && transitNumber.equals(other.transitNumber)
                 && address.equals(other.address)
@@ -286,6 +299,7 @@ public final class GenericBankAccountDetails {
                 this.emailId,
                 this.specialInstructions,
                 this.paymentChannel,
+                this.beneficiaryName,
                 this.tags,
                 this.transitNumber,
                 this.address,
@@ -333,6 +347,8 @@ public final class GenericBankAccountDetails {
 
         private Optional<String> paymentChannel = Optional.empty();
 
+        private Optional<String> beneficiaryName = Optional.empty();
+
         private Optional<List<Tag>> tags = Optional.empty();
 
         private Optional<String> transitNumber = Optional.empty();
@@ -362,6 +378,7 @@ public final class GenericBankAccountDetails {
             emailId(other.getEmailId());
             specialInstructions(other.getSpecialInstructions());
             paymentChannel(other.getPaymentChannel());
+            beneficiaryName(other.getBeneficiaryName());
             tags(other.getTags());
             transitNumber(other.getTransitNumber());
             address(other.getAddress());
@@ -534,6 +551,17 @@ public final class GenericBankAccountDetails {
             return this;
         }
 
+        @JsonSetter(value = "beneficiaryName", nulls = Nulls.SKIP)
+        public Builder beneficiaryName(Optional<String> beneficiaryName) {
+            this.beneficiaryName = beneficiaryName;
+            return this;
+        }
+
+        public Builder beneficiaryName(String beneficiaryName) {
+            this.beneficiaryName = Optional.ofNullable(beneficiaryName);
+            return this;
+        }
+
         @JsonSetter(value = "tags", nulls = Nulls.SKIP)
         public Builder tags(Optional<List<Tag>> tags) {
             this.tags = tags;
@@ -595,6 +623,7 @@ public final class GenericBankAccountDetails {
                     emailId,
                     specialInstructions,
                     paymentChannel,
+                    beneficiaryName,
                     tags,
                     transitNumber,
                     address,

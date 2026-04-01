@@ -43,6 +43,8 @@ public final class IbanDetails {
 
     private final Optional<String> bankBranchCode;
 
+    private final Optional<String> beneficiaryName;
+
     private final Optional<String> paymentChannel;
 
     private final Optional<CountryCode> countryOfNationality;
@@ -65,6 +67,7 @@ public final class IbanDetails {
             Optional<String> name,
             Optional<String> emailId,
             Optional<String> bankBranchCode,
+            Optional<String> beneficiaryName,
             Optional<String> paymentChannel,
             Optional<CountryCode> countryOfNationality,
             Optional<CountryCode> countryOfResidence,
@@ -81,6 +84,7 @@ public final class IbanDetails {
         this.name = name;
         this.emailId = emailId;
         this.bankBranchCode = bankBranchCode;
+        this.beneficiaryName = beneficiaryName;
         this.paymentChannel = paymentChannel;
         this.countryOfNationality = countryOfNationality;
         this.countryOfResidence = countryOfResidence;
@@ -161,6 +165,14 @@ public final class IbanDetails {
         return bankBranchCode;
     }
 
+    /**
+     * @return Beneficiary name of the account
+     */
+    @JsonProperty("beneficiaryName")
+    public Optional<String> getBeneficiaryName() {
+        return beneficiaryName;
+    }
+
     @JsonProperty("paymentChannel")
     public Optional<String> getPaymentChannel() {
         return paymentChannel;
@@ -207,6 +219,7 @@ public final class IbanDetails {
                 && name.equals(other.name)
                 && emailId.equals(other.emailId)
                 && bankBranchCode.equals(other.bankBranchCode)
+                && beneficiaryName.equals(other.beneficiaryName)
                 && paymentChannel.equals(other.paymentChannel)
                 && countryOfNationality.equals(other.countryOfNationality)
                 && countryOfResidence.equals(other.countryOfResidence)
@@ -227,6 +240,7 @@ public final class IbanDetails {
                 this.name,
                 this.emailId,
                 this.bankBranchCode,
+                this.beneficiaryName,
                 this.paymentChannel,
                 this.countryOfNationality,
                 this.countryOfResidence,
@@ -266,6 +280,8 @@ public final class IbanDetails {
 
         private Optional<String> bankBranchCode = Optional.empty();
 
+        private Optional<String> beneficiaryName = Optional.empty();
+
         private Optional<String> paymentChannel = Optional.empty();
 
         private Optional<CountryCode> countryOfNationality = Optional.empty();
@@ -291,6 +307,7 @@ public final class IbanDetails {
             name(other.getName());
             emailId(other.getEmailId());
             bankBranchCode(other.getBankBranchCode());
+            beneficiaryName(other.getBeneficiaryName());
             paymentChannel(other.getPaymentChannel());
             countryOfNationality(other.getCountryOfNationality());
             countryOfResidence(other.getCountryOfResidence());
@@ -419,6 +436,17 @@ public final class IbanDetails {
             return this;
         }
 
+        @JsonSetter(value = "beneficiaryName", nulls = Nulls.SKIP)
+        public Builder beneficiaryName(Optional<String> beneficiaryName) {
+            this.beneficiaryName = beneficiaryName;
+            return this;
+        }
+
+        public Builder beneficiaryName(String beneficiaryName) {
+            this.beneficiaryName = Optional.ofNullable(beneficiaryName);
+            return this;
+        }
+
         @JsonSetter(value = "paymentChannel", nulls = Nulls.SKIP)
         public Builder paymentChannel(Optional<String> paymentChannel) {
             this.paymentChannel = paymentChannel;
@@ -476,6 +504,7 @@ public final class IbanDetails {
                     name,
                     emailId,
                     bankBranchCode,
+                    beneficiaryName,
                     paymentChannel,
                     countryOfNationality,
                     countryOfResidence,

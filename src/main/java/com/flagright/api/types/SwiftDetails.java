@@ -45,6 +45,8 @@ public final class SwiftDetails {
 
     private final Optional<String> emailId;
 
+    private final Optional<String> beneficiaryName;
+
     private final Optional<String> specialInstructions;
 
     private final Optional<Address> address;
@@ -68,6 +70,7 @@ public final class SwiftDetails {
             Optional<CountryCode> countryOfNationality,
             Optional<CountryCode> countryOfResidence,
             Optional<String> emailId,
+            Optional<String> beneficiaryName,
             Optional<String> specialInstructions,
             Optional<Address> address,
             Optional<List<CorrespondentBankDetails>> correspondentBankDetails,
@@ -85,6 +88,7 @@ public final class SwiftDetails {
         this.countryOfNationality = countryOfNationality;
         this.countryOfResidence = countryOfResidence;
         this.emailId = emailId;
+        this.beneficiaryName = beneficiaryName;
         this.specialInstructions = specialInstructions;
         this.address = address;
         this.correspondentBankDetails = correspondentBankDetails;
@@ -171,6 +175,14 @@ public final class SwiftDetails {
     }
 
     /**
+     * @return Beneficiary name of the account
+     */
+    @JsonProperty("beneficiaryName")
+    public Optional<String> getBeneficiaryName() {
+        return beneficiaryName;
+    }
+
+    /**
      * @return Special instructions if any
      */
     @JsonProperty("specialInstructions")
@@ -220,6 +232,7 @@ public final class SwiftDetails {
                 && countryOfNationality.equals(other.countryOfNationality)
                 && countryOfResidence.equals(other.countryOfResidence)
                 && emailId.equals(other.emailId)
+                && beneficiaryName.equals(other.beneficiaryName)
                 && specialInstructions.equals(other.specialInstructions)
                 && address.equals(other.address)
                 && correspondentBankDetails.equals(other.correspondentBankDetails)
@@ -241,6 +254,7 @@ public final class SwiftDetails {
                 this.countryOfNationality,
                 this.countryOfResidence,
                 this.emailId,
+                this.beneficiaryName,
                 this.specialInstructions,
                 this.address,
                 this.correspondentBankDetails,
@@ -282,6 +296,8 @@ public final class SwiftDetails {
 
         private Optional<String> emailId = Optional.empty();
 
+        private Optional<String> beneficiaryName = Optional.empty();
+
         private Optional<String> specialInstructions = Optional.empty();
 
         private Optional<Address> address = Optional.empty();
@@ -308,6 +324,7 @@ public final class SwiftDetails {
             countryOfNationality(other.getCountryOfNationality());
             countryOfResidence(other.getCountryOfResidence());
             emailId(other.getEmailId());
+            beneficiaryName(other.getBeneficiaryName());
             specialInstructions(other.getSpecialInstructions());
             address(other.getAddress());
             correspondentBankDetails(other.getCorrespondentBankDetails());
@@ -447,6 +464,17 @@ public final class SwiftDetails {
             return this;
         }
 
+        @JsonSetter(value = "beneficiaryName", nulls = Nulls.SKIP)
+        public Builder beneficiaryName(Optional<String> beneficiaryName) {
+            this.beneficiaryName = beneficiaryName;
+            return this;
+        }
+
+        public Builder beneficiaryName(String beneficiaryName) {
+            this.beneficiaryName = Optional.ofNullable(beneficiaryName);
+            return this;
+        }
+
         @JsonSetter(value = "specialInstructions", nulls = Nulls.SKIP)
         public Builder specialInstructions(Optional<String> specialInstructions) {
             this.specialInstructions = specialInstructions;
@@ -505,6 +533,7 @@ public final class SwiftDetails {
                     countryOfNationality,
                     countryOfResidence,
                     emailId,
+                    beneficiaryName,
                     specialInstructions,
                     address,
                     correspondentBankDetails,

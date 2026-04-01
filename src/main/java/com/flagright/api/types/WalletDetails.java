@@ -47,6 +47,8 @@ public final class WalletDetails {
 
     private final Optional<CountryCode> countryOfResidence;
 
+    private final Optional<String> beneficiaryName;
+
     private final Optional<Address> bankAddress;
 
     private final Optional<List<UserDetails>> authorizedRepresentative;
@@ -71,6 +73,7 @@ public final class WalletDetails {
             Optional<Address> address,
             Optional<CountryCode> countryOfNationality,
             Optional<CountryCode> countryOfResidence,
+            Optional<String> beneficiaryName,
             Optional<Address> bankAddress,
             Optional<List<UserDetails>> authorizedRepresentative,
             Optional<String> dateOfBirth,
@@ -89,6 +92,7 @@ public final class WalletDetails {
         this.address = address;
         this.countryOfNationality = countryOfNationality;
         this.countryOfResidence = countryOfResidence;
+        this.beneficiaryName = beneficiaryName;
         this.bankAddress = bankAddress;
         this.authorizedRepresentative = authorizedRepresentative;
         this.dateOfBirth = dateOfBirth;
@@ -179,6 +183,14 @@ public final class WalletDetails {
         return countryOfResidence;
     }
 
+    /**
+     * @return Beneficiary name of the account
+     */
+    @JsonProperty("beneficiaryName")
+    public Optional<String> getBeneficiaryName() {
+        return beneficiaryName;
+    }
+
     @JsonProperty("bankAddress")
     public Optional<Address> getBankAddress() {
         return bankAddress;
@@ -230,6 +242,7 @@ public final class WalletDetails {
                 && address.equals(other.address)
                 && countryOfNationality.equals(other.countryOfNationality)
                 && countryOfResidence.equals(other.countryOfResidence)
+                && beneficiaryName.equals(other.beneficiaryName)
                 && bankAddress.equals(other.bankAddress)
                 && authorizedRepresentative.equals(other.authorizedRepresentative)
                 && dateOfBirth.equals(other.dateOfBirth)
@@ -252,6 +265,7 @@ public final class WalletDetails {
                 this.address,
                 this.countryOfNationality,
                 this.countryOfResidence,
+                this.beneficiaryName,
                 this.bankAddress,
                 this.authorizedRepresentative,
                 this.dateOfBirth,
@@ -295,6 +309,8 @@ public final class WalletDetails {
 
         private Optional<CountryCode> countryOfResidence = Optional.empty();
 
+        private Optional<String> beneficiaryName = Optional.empty();
+
         private Optional<Address> bankAddress = Optional.empty();
 
         private Optional<List<UserDetails>> authorizedRepresentative = Optional.empty();
@@ -322,6 +338,7 @@ public final class WalletDetails {
             address(other.getAddress());
             countryOfNationality(other.getCountryOfNationality());
             countryOfResidence(other.getCountryOfResidence());
+            beneficiaryName(other.getBeneficiaryName());
             bankAddress(other.getBankAddress());
             authorizedRepresentative(other.getAuthorizedRepresentative());
             dateOfBirth(other.getDateOfBirth());
@@ -472,6 +489,17 @@ public final class WalletDetails {
             return this;
         }
 
+        @JsonSetter(value = "beneficiaryName", nulls = Nulls.SKIP)
+        public Builder beneficiaryName(Optional<String> beneficiaryName) {
+            this.beneficiaryName = beneficiaryName;
+            return this;
+        }
+
+        public Builder beneficiaryName(String beneficiaryName) {
+            this.beneficiaryName = Optional.ofNullable(beneficiaryName);
+            return this;
+        }
+
         @JsonSetter(value = "bankAddress", nulls = Nulls.SKIP)
         public Builder bankAddress(Optional<Address> bankAddress) {
             this.bankAddress = bankAddress;
@@ -531,6 +559,7 @@ public final class WalletDetails {
                     address,
                     countryOfNationality,
                     countryOfResidence,
+                    beneficiaryName,
                     bankAddress,
                     authorizedRepresentative,
                     dateOfBirth,
