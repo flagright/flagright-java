@@ -100,6 +100,8 @@ public enum CurrencyCode {
 
     BAND("BAND"),
 
+    BASE("BASE"),
+
     BAT("BAT"),
 
     BBD("BBD"),
