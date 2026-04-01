@@ -47,6 +47,8 @@ public final class UserOptional {
 
     private final Optional<ExpectedTransactionCountries> expectedTransactionCountries;
 
+    private final Optional<ExpectedTransactionCurrencies> expectedTransactionCurrencies;
+
     private final Optional<RiskLevel> riskLevel;
 
     private final Optional<RiskLevel> kycRiskLevel;
@@ -97,6 +99,7 @@ public final class UserOptional {
             Optional<TransactionLimits> transactionLimits,
             Optional<ExpectedIncome> expectedIncome,
             Optional<ExpectedTransactionCountries> expectedTransactionCountries,
+            Optional<ExpectedTransactionCurrencies> expectedTransactionCurrencies,
             Optional<RiskLevel> riskLevel,
             Optional<RiskLevel> kycRiskLevel,
             Optional<AcquisitionChannel> acquisitionChannel,
@@ -128,6 +131,7 @@ public final class UserOptional {
         this.transactionLimits = transactionLimits;
         this.expectedIncome = expectedIncome;
         this.expectedTransactionCountries = expectedTransactionCountries;
+        this.expectedTransactionCurrencies = expectedTransactionCurrencies;
         this.riskLevel = riskLevel;
         this.kycRiskLevel = kycRiskLevel;
         this.acquisitionChannel = acquisitionChannel;
@@ -217,6 +221,11 @@ public final class UserOptional {
     @JsonProperty("expectedTransactionCountries")
     public Optional<ExpectedTransactionCountries> getExpectedTransactionCountries() {
         return expectedTransactionCountries;
+    }
+
+    @JsonProperty("expectedTransactionCurrencies")
+    public Optional<ExpectedTransactionCurrencies> getExpectedTransactionCurrencies() {
+        return expectedTransactionCurrencies;
     }
 
     @JsonProperty("riskLevel")
@@ -341,6 +350,7 @@ public final class UserOptional {
                 && transactionLimits.equals(other.transactionLimits)
                 && expectedIncome.equals(other.expectedIncome)
                 && expectedTransactionCountries.equals(other.expectedTransactionCountries)
+                && expectedTransactionCurrencies.equals(other.expectedTransactionCurrencies)
                 && riskLevel.equals(other.riskLevel)
                 && kycRiskLevel.equals(other.kycRiskLevel)
                 && acquisitionChannel.equals(other.acquisitionChannel)
@@ -376,6 +386,7 @@ public final class UserOptional {
                 this.transactionLimits,
                 this.expectedIncome,
                 this.expectedTransactionCountries,
+                this.expectedTransactionCurrencies,
                 this.riskLevel,
                 this.kycRiskLevel,
                 this.acquisitionChannel,
@@ -432,6 +443,8 @@ public final class UserOptional {
 
         private Optional<ExpectedTransactionCountries> expectedTransactionCountries = Optional.empty();
 
+        private Optional<ExpectedTransactionCurrencies> expectedTransactionCurrencies = Optional.empty();
+
         private Optional<RiskLevel> riskLevel = Optional.empty();
 
         private Optional<RiskLevel> kycRiskLevel = Optional.empty();
@@ -485,6 +498,7 @@ public final class UserOptional {
             transactionLimits(other.getTransactionLimits());
             expectedIncome(other.getExpectedIncome());
             expectedTransactionCountries(other.getExpectedTransactionCountries());
+            expectedTransactionCurrencies(other.getExpectedTransactionCurrencies());
             riskLevel(other.getRiskLevel());
             kycRiskLevel(other.getKycRiskLevel());
             acquisitionChannel(other.getAcquisitionChannel());
@@ -646,6 +660,18 @@ public final class UserOptional {
 
         public Builder expectedTransactionCountries(ExpectedTransactionCountries expectedTransactionCountries) {
             this.expectedTransactionCountries = Optional.ofNullable(expectedTransactionCountries);
+            return this;
+        }
+
+        @JsonSetter(value = "expectedTransactionCurrencies", nulls = Nulls.SKIP)
+        public Builder expectedTransactionCurrencies(
+                Optional<ExpectedTransactionCurrencies> expectedTransactionCurrencies) {
+            this.expectedTransactionCurrencies = expectedTransactionCurrencies;
+            return this;
+        }
+
+        public Builder expectedTransactionCurrencies(ExpectedTransactionCurrencies expectedTransactionCurrencies) {
+            this.expectedTransactionCurrencies = Optional.ofNullable(expectedTransactionCurrencies);
             return this;
         }
 
@@ -851,6 +877,7 @@ public final class UserOptional {
                     transactionLimits,
                     expectedIncome,
                     expectedTransactionCountries,
+                    expectedTransactionCurrencies,
                     riskLevel,
                     kycRiskLevel,
                     acquisitionChannel,

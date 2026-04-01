@@ -18,7 +18,9 @@ public enum CardBrand {
 
     RUPAY("RUPAY"),
 
-    JCB("JCB");
+    JCB("JCB"),
+
+    DINERS_CLUB("DINERS_CLUB");
 
     private final String value;
 

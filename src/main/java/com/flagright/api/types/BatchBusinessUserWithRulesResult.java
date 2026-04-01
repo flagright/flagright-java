@@ -50,6 +50,8 @@ public final class BatchBusinessUserWithRulesResult {
 
     private final Optional<ExpectedTransactionCountries> expectedTransactionCountries;
 
+    private final Optional<ExpectedTransactionCurrencies> expectedTransactionCurrencies;
+
     private final Optional<RiskLevel> riskLevel;
 
     private final Optional<RiskLevel> kycRiskLevel;
@@ -101,6 +103,7 @@ public final class BatchBusinessUserWithRulesResult {
             Optional<List<LegalEntity>> businessPartners,
             Optional<TransactionLimits> transactionLimits,
             Optional<ExpectedTransactionCountries> expectedTransactionCountries,
+            Optional<ExpectedTransactionCurrencies> expectedTransactionCurrencies,
             Optional<RiskLevel> riskLevel,
             Optional<RiskLevel> kycRiskLevel,
             Optional<List<PaymentMethod>> allowedPaymentMethods,
@@ -133,6 +136,7 @@ public final class BatchBusinessUserWithRulesResult {
         this.businessPartners = businessPartners;
         this.transactionLimits = transactionLimits;
         this.expectedTransactionCountries = expectedTransactionCountries;
+        this.expectedTransactionCurrencies = expectedTransactionCurrencies;
         this.riskLevel = riskLevel;
         this.kycRiskLevel = kycRiskLevel;
         this.allowedPaymentMethods = allowedPaymentMethods;
@@ -245,6 +249,11 @@ public final class BatchBusinessUserWithRulesResult {
     @JsonProperty("expectedTransactionCountries")
     public Optional<ExpectedTransactionCountries> getExpectedTransactionCountries() {
         return expectedTransactionCountries;
+    }
+
+    @JsonProperty("expectedTransactionCurrencies")
+    public Optional<ExpectedTransactionCurrencies> getExpectedTransactionCurrencies() {
+        return expectedTransactionCurrencies;
     }
 
     @JsonProperty("riskLevel")
@@ -373,6 +382,7 @@ public final class BatchBusinessUserWithRulesResult {
                 && businessPartners.equals(other.businessPartners)
                 && transactionLimits.equals(other.transactionLimits)
                 && expectedTransactionCountries.equals(other.expectedTransactionCountries)
+                && expectedTransactionCurrencies.equals(other.expectedTransactionCurrencies)
                 && riskLevel.equals(other.riskLevel)
                 && kycRiskLevel.equals(other.kycRiskLevel)
                 && allowedPaymentMethods.equals(other.allowedPaymentMethods)
@@ -409,6 +419,7 @@ public final class BatchBusinessUserWithRulesResult {
                 this.businessPartners,
                 this.transactionLimits,
                 this.expectedTransactionCountries,
+                this.expectedTransactionCurrencies,
                 this.riskLevel,
                 this.kycRiskLevel,
                 this.allowedPaymentMethods,
@@ -498,6 +509,11 @@ public final class BatchBusinessUserWithRulesResult {
         _FinalStage expectedTransactionCountries(Optional<ExpectedTransactionCountries> expectedTransactionCountries);
 
         _FinalStage expectedTransactionCountries(ExpectedTransactionCountries expectedTransactionCountries);
+
+        _FinalStage expectedTransactionCurrencies(
+                Optional<ExpectedTransactionCurrencies> expectedTransactionCurrencies);
+
+        _FinalStage expectedTransactionCurrencies(ExpectedTransactionCurrencies expectedTransactionCurrencies);
 
         _FinalStage riskLevel(Optional<RiskLevel> riskLevel);
 
@@ -613,6 +629,8 @@ public final class BatchBusinessUserWithRulesResult {
 
         private Optional<RiskLevel> riskLevel = Optional.empty();
 
+        private Optional<ExpectedTransactionCurrencies> expectedTransactionCurrencies = Optional.empty();
+
         private Optional<ExpectedTransactionCountries> expectedTransactionCountries = Optional.empty();
 
         private Optional<TransactionLimits> transactionLimits = Optional.empty();
@@ -657,6 +675,7 @@ public final class BatchBusinessUserWithRulesResult {
             businessPartners(other.getBusinessPartners());
             transactionLimits(other.getTransactionLimits());
             expectedTransactionCountries(other.getExpectedTransactionCountries());
+            expectedTransactionCurrencies(other.getExpectedTransactionCurrencies());
             riskLevel(other.getRiskLevel());
             kycRiskLevel(other.getKycRiskLevel());
             allowedPaymentMethods(other.getAllowedPaymentMethods());
@@ -950,6 +969,20 @@ public final class BatchBusinessUserWithRulesResult {
         }
 
         @java.lang.Override
+        public _FinalStage expectedTransactionCurrencies(ExpectedTransactionCurrencies expectedTransactionCurrencies) {
+            this.expectedTransactionCurrencies = Optional.ofNullable(expectedTransactionCurrencies);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "expectedTransactionCurrencies", nulls = Nulls.SKIP)
+        public _FinalStage expectedTransactionCurrencies(
+                Optional<ExpectedTransactionCurrencies> expectedTransactionCurrencies) {
+            this.expectedTransactionCurrencies = expectedTransactionCurrencies;
+            return this;
+        }
+
+        @java.lang.Override
         public _FinalStage expectedTransactionCountries(ExpectedTransactionCountries expectedTransactionCountries) {
             this.expectedTransactionCountries = Optional.ofNullable(expectedTransactionCountries);
             return this;
@@ -1136,6 +1169,7 @@ public final class BatchBusinessUserWithRulesResult {
                     businessPartners,
                     transactionLimits,
                     expectedTransactionCountries,
+                    expectedTransactionCurrencies,
                     riskLevel,
                     kycRiskLevel,
                     allowedPaymentMethods,
