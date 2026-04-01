@@ -43,6 +43,8 @@ public final class CardDetails {
 
     private final Optional<String> cardLast4Digits;
 
+    private final Optional<String> cardFirst6Digits;
+
     private final Optional<CardBrand> cardBrand;
 
     private final Optional<CardFunding> cardFunding;
@@ -87,6 +89,7 @@ public final class CardDetails {
             Optional<CardExpiry> cardExpiry,
             Optional<PosDetails> posDetails,
             Optional<String> cardLast4Digits,
+            Optional<String> cardFirst6Digits,
             Optional<CardBrand> cardBrand,
             Optional<CardFunding> cardFunding,
             Optional<Boolean> cardAuthenticated,
@@ -114,6 +117,7 @@ public final class CardDetails {
         this.cardExpiry = cardExpiry;
         this.posDetails = posDetails;
         this.cardLast4Digits = cardLast4Digits;
+        this.cardFirst6Digits = cardFirst6Digits;
         this.cardBrand = cardBrand;
         this.cardFunding = cardFunding;
         this.cardAuthenticated = cardAuthenticated;
@@ -197,6 +201,14 @@ public final class CardDetails {
     @JsonProperty("cardLast4Digits")
     public Optional<String> getCardLast4Digits() {
         return cardLast4Digits;
+    }
+
+    /**
+     * @return First 6 digits of Card
+     */
+    @JsonProperty("cardFirst6Digits")
+    public Optional<String> getCardFirst6Digits() {
+        return cardFirst6Digits;
     }
 
     @JsonProperty("cardBrand")
@@ -312,6 +324,7 @@ public final class CardDetails {
                 && cardExpiry.equals(other.cardExpiry)
                 && posDetails.equals(other.posDetails)
                 && cardLast4Digits.equals(other.cardLast4Digits)
+                && cardFirst6Digits.equals(other.cardFirst6Digits)
                 && cardBrand.equals(other.cardBrand)
                 && cardFunding.equals(other.cardFunding)
                 && cardAuthenticated.equals(other.cardAuthenticated)
@@ -343,6 +356,7 @@ public final class CardDetails {
                 this.cardExpiry,
                 this.posDetails,
                 this.cardLast4Digits,
+                this.cardFirst6Digits,
                 this.cardBrand,
                 this.cardFunding,
                 this.cardAuthenticated,
@@ -393,6 +407,8 @@ public final class CardDetails {
 
         private Optional<String> cardLast4Digits = Optional.empty();
 
+        private Optional<String> cardFirst6Digits = Optional.empty();
+
         private Optional<CardBrand> cardBrand = Optional.empty();
 
         private Optional<CardFunding> cardFunding = Optional.empty();
@@ -440,6 +456,7 @@ public final class CardDetails {
             cardExpiry(other.getCardExpiry());
             posDetails(other.getPosDetails());
             cardLast4Digits(other.getCardLast4Digits());
+            cardFirst6Digits(other.getCardFirst6Digits());
             cardBrand(other.getCardBrand());
             cardFunding(other.getCardFunding());
             cardAuthenticated(other.getCardAuthenticated());
@@ -576,6 +593,17 @@ public final class CardDetails {
 
         public Builder cardLast4Digits(String cardLast4Digits) {
             this.cardLast4Digits = Optional.ofNullable(cardLast4Digits);
+            return this;
+        }
+
+        @JsonSetter(value = "cardFirst6Digits", nulls = Nulls.SKIP)
+        public Builder cardFirst6Digits(Optional<String> cardFirst6Digits) {
+            this.cardFirst6Digits = cardFirst6Digits;
+            return this;
+        }
+
+        public Builder cardFirst6Digits(String cardFirst6Digits) {
+            this.cardFirst6Digits = Optional.ofNullable(cardFirst6Digits);
             return this;
         }
 
@@ -757,6 +785,7 @@ public final class CardDetails {
                     cardExpiry,
                     posDetails,
                     cardLast4Digits,
+                    cardFirst6Digits,
                     cardBrand,
                     cardFunding,
                     cardAuthenticated,

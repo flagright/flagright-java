@@ -30,7 +30,7 @@ public final class LegalDocument {
 
     private final Optional<Double> documentExpirationDate;
 
-    private final CountryCode documentIssuedCountry;
+    private final Optional<CountryCode> documentIssuedCountry;
 
     private final Optional<List<Tag>> tags;
 
@@ -43,7 +43,7 @@ public final class LegalDocument {
             String documentNumber,
             Optional<Double> documentIssuedDate,
             Optional<Double> documentExpirationDate,
-            CountryCode documentIssuedCountry,
+            Optional<CountryCode> documentIssuedCountry,
             Optional<List<Tag>> tags,
             Optional<ConsumerName> nameOnDocument,
             Map<String, Object> additionalProperties) {
@@ -90,7 +90,7 @@ public final class LegalDocument {
     }
 
     @JsonProperty("documentIssuedCountry")
-    public CountryCode getDocumentIssuedCountry() {
+    public Optional<CountryCode> getDocumentIssuedCountry() {
         return documentIssuedCountry;
     }
 
@@ -156,11 +156,7 @@ public final class LegalDocument {
     }
 
     public interface DocumentNumberStage {
-        DocumentIssuedCountryStage documentNumber(@NotNull String documentNumber);
-    }
-
-    public interface DocumentIssuedCountryStage {
-        _FinalStage documentIssuedCountry(@NotNull CountryCode documentIssuedCountry);
+        _FinalStage documentNumber(@NotNull String documentNumber);
     }
 
     public interface _FinalStage {
@@ -174,6 +170,10 @@ public final class LegalDocument {
 
         _FinalStage documentExpirationDate(Double documentExpirationDate);
 
+        _FinalStage documentIssuedCountry(Optional<CountryCode> documentIssuedCountry);
+
+        _FinalStage documentIssuedCountry(CountryCode documentIssuedCountry);
+
         _FinalStage tags(Optional<List<Tag>> tags);
 
         _FinalStage tags(List<Tag> tags);
@@ -184,17 +184,16 @@ public final class LegalDocument {
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
-    public static final class Builder
-            implements DocumentTypeStage, DocumentNumberStage, DocumentIssuedCountryStage, _FinalStage {
+    public static final class Builder implements DocumentTypeStage, DocumentNumberStage, _FinalStage {
         private String documentType;
 
         private String documentNumber;
 
-        private CountryCode documentIssuedCountry;
-
         private Optional<ConsumerName> nameOnDocument = Optional.empty();
 
         private Optional<List<Tag>> tags = Optional.empty();
+
+        private Optional<CountryCode> documentIssuedCountry = Optional.empty();
 
         private Optional<Double> documentExpirationDate = Optional.empty();
 
@@ -234,16 +233,8 @@ public final class LegalDocument {
          */
         @java.lang.Override
         @JsonSetter("documentNumber")
-        public DocumentIssuedCountryStage documentNumber(@NotNull String documentNumber) {
+        public _FinalStage documentNumber(@NotNull String documentNumber) {
             this.documentNumber = Objects.requireNonNull(documentNumber, "documentNumber must not be null");
-            return this;
-        }
-
-        @java.lang.Override
-        @JsonSetter("documentIssuedCountry")
-        public _FinalStage documentIssuedCountry(@NotNull CountryCode documentIssuedCountry) {
-            this.documentIssuedCountry =
-                    Objects.requireNonNull(documentIssuedCountry, "documentIssuedCountry must not be null");
             return this;
         }
 
@@ -274,6 +265,19 @@ public final class LegalDocument {
         @JsonSetter(value = "tags", nulls = Nulls.SKIP)
         public _FinalStage tags(Optional<List<Tag>> tags) {
             this.tags = tags;
+            return this;
+        }
+
+        @java.lang.Override
+        public _FinalStage documentIssuedCountry(CountryCode documentIssuedCountry) {
+            this.documentIssuedCountry = Optional.ofNullable(documentIssuedCountry);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "documentIssuedCountry", nulls = Nulls.SKIP)
+        public _FinalStage documentIssuedCountry(Optional<CountryCode> documentIssuedCountry) {
+            this.documentIssuedCountry = documentIssuedCountry;
             return this;
         }
 
