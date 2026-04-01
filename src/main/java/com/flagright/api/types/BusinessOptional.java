@@ -45,6 +45,8 @@ public final class BusinessOptional {
 
     private final Optional<ExpectedTransactionCountries> expectedTransactionCountries;
 
+    private final Optional<ExpectedTransactionCurrencies> expectedTransactionCurrencies;
+
     private final Optional<RiskLevel> riskLevel;
 
     private final Optional<RiskLevel> kycRiskLevel;
@@ -90,6 +92,7 @@ public final class BusinessOptional {
             Optional<List<LegalEntity>> businessPartners,
             Optional<TransactionLimits> transactionLimits,
             Optional<ExpectedTransactionCountries> expectedTransactionCountries,
+            Optional<ExpectedTransactionCurrencies> expectedTransactionCurrencies,
             Optional<RiskLevel> riskLevel,
             Optional<RiskLevel> kycRiskLevel,
             Optional<List<PaymentMethod>> allowedPaymentMethods,
@@ -118,6 +121,7 @@ public final class BusinessOptional {
         this.businessPartners = businessPartners;
         this.transactionLimits = transactionLimits;
         this.expectedTransactionCountries = expectedTransactionCountries;
+        this.expectedTransactionCurrencies = expectedTransactionCurrencies;
         this.riskLevel = riskLevel;
         this.kycRiskLevel = kycRiskLevel;
         this.allowedPaymentMethods = allowedPaymentMethods;
@@ -212,6 +216,11 @@ public final class BusinessOptional {
     @JsonProperty("expectedTransactionCountries")
     public Optional<ExpectedTransactionCountries> getExpectedTransactionCountries() {
         return expectedTransactionCountries;
+    }
+
+    @JsonProperty("expectedTransactionCurrencies")
+    public Optional<ExpectedTransactionCurrencies> getExpectedTransactionCurrencies() {
+        return expectedTransactionCurrencies;
     }
 
     @JsonProperty("riskLevel")
@@ -328,6 +337,7 @@ public final class BusinessOptional {
                 && businessPartners.equals(other.businessPartners)
                 && transactionLimits.equals(other.transactionLimits)
                 && expectedTransactionCountries.equals(other.expectedTransactionCountries)
+                && expectedTransactionCurrencies.equals(other.expectedTransactionCurrencies)
                 && riskLevel.equals(other.riskLevel)
                 && kycRiskLevel.equals(other.kycRiskLevel)
                 && allowedPaymentMethods.equals(other.allowedPaymentMethods)
@@ -360,6 +370,7 @@ public final class BusinessOptional {
                 this.businessPartners,
                 this.transactionLimits,
                 this.expectedTransactionCountries,
+                this.expectedTransactionCurrencies,
                 this.riskLevel,
                 this.kycRiskLevel,
                 this.allowedPaymentMethods,
@@ -412,6 +423,8 @@ public final class BusinessOptional {
 
         private Optional<ExpectedTransactionCountries> expectedTransactionCountries = Optional.empty();
 
+        private Optional<ExpectedTransactionCurrencies> expectedTransactionCurrencies = Optional.empty();
+
         private Optional<RiskLevel> riskLevel = Optional.empty();
 
         private Optional<RiskLevel> kycRiskLevel = Optional.empty();
@@ -460,6 +473,7 @@ public final class BusinessOptional {
             businessPartners(other.getBusinessPartners());
             transactionLimits(other.getTransactionLimits());
             expectedTransactionCountries(other.getExpectedTransactionCountries());
+            expectedTransactionCurrencies(other.getExpectedTransactionCurrencies());
             riskLevel(other.getRiskLevel());
             kycRiskLevel(other.getKycRiskLevel());
             allowedPaymentMethods(other.getAllowedPaymentMethods());
@@ -608,6 +622,18 @@ public final class BusinessOptional {
 
         public Builder expectedTransactionCountries(ExpectedTransactionCountries expectedTransactionCountries) {
             this.expectedTransactionCountries = Optional.ofNullable(expectedTransactionCountries);
+            return this;
+        }
+
+        @JsonSetter(value = "expectedTransactionCurrencies", nulls = Nulls.SKIP)
+        public Builder expectedTransactionCurrencies(
+                Optional<ExpectedTransactionCurrencies> expectedTransactionCurrencies) {
+            this.expectedTransactionCurrencies = expectedTransactionCurrencies;
+            return this;
+        }
+
+        public Builder expectedTransactionCurrencies(ExpectedTransactionCurrencies expectedTransactionCurrencies) {
+            this.expectedTransactionCurrencies = Optional.ofNullable(expectedTransactionCurrencies);
             return this;
         }
 
@@ -791,6 +817,7 @@ public final class BusinessOptional {
                     businessPartners,
                     transactionLimits,
                     expectedTransactionCountries,
+                    expectedTransactionCurrencies,
                     riskLevel,
                     kycRiskLevel,
                     allowedPaymentMethods,

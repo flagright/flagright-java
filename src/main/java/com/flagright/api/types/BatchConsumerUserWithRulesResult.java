@@ -52,6 +52,8 @@ public final class BatchConsumerUserWithRulesResult {
 
     private final Optional<ExpectedTransactionCountries> expectedTransactionCountries;
 
+    private final Optional<ExpectedTransactionCurrencies> expectedTransactionCurrencies;
+
     private final Optional<RiskLevel> riskLevel;
 
     private final Optional<RiskLevel> kycRiskLevel;
@@ -108,6 +110,7 @@ public final class BatchConsumerUserWithRulesResult {
             Optional<TransactionLimits> transactionLimits,
             Optional<ExpectedIncome> expectedIncome,
             Optional<ExpectedTransactionCountries> expectedTransactionCountries,
+            Optional<ExpectedTransactionCurrencies> expectedTransactionCurrencies,
             Optional<RiskLevel> riskLevel,
             Optional<RiskLevel> kycRiskLevel,
             Optional<AcquisitionChannel> acquisitionChannel,
@@ -143,6 +146,7 @@ public final class BatchConsumerUserWithRulesResult {
         this.transactionLimits = transactionLimits;
         this.expectedIncome = expectedIncome;
         this.expectedTransactionCountries = expectedTransactionCountries;
+        this.expectedTransactionCurrencies = expectedTransactionCurrencies;
         this.riskLevel = riskLevel;
         this.kycRiskLevel = kycRiskLevel;
         this.acquisitionChannel = acquisitionChannel;
@@ -250,6 +254,11 @@ public final class BatchConsumerUserWithRulesResult {
     @JsonProperty("expectedTransactionCountries")
     public Optional<ExpectedTransactionCountries> getExpectedTransactionCountries() {
         return expectedTransactionCountries;
+    }
+
+    @JsonProperty("expectedTransactionCurrencies")
+    public Optional<ExpectedTransactionCurrencies> getExpectedTransactionCurrencies() {
+        return expectedTransactionCurrencies;
     }
 
     @JsonProperty("riskLevel")
@@ -386,6 +395,7 @@ public final class BatchConsumerUserWithRulesResult {
                 && transactionLimits.equals(other.transactionLimits)
                 && expectedIncome.equals(other.expectedIncome)
                 && expectedTransactionCountries.equals(other.expectedTransactionCountries)
+                && expectedTransactionCurrencies.equals(other.expectedTransactionCurrencies)
                 && riskLevel.equals(other.riskLevel)
                 && kycRiskLevel.equals(other.kycRiskLevel)
                 && acquisitionChannel.equals(other.acquisitionChannel)
@@ -425,6 +435,7 @@ public final class BatchConsumerUserWithRulesResult {
                 this.transactionLimits,
                 this.expectedIncome,
                 this.expectedTransactionCountries,
+                this.expectedTransactionCurrencies,
                 this.riskLevel,
                 this.kycRiskLevel,
                 this.acquisitionChannel,
@@ -519,6 +530,11 @@ public final class BatchConsumerUserWithRulesResult {
         _FinalStage expectedTransactionCountries(Optional<ExpectedTransactionCountries> expectedTransactionCountries);
 
         _FinalStage expectedTransactionCountries(ExpectedTransactionCountries expectedTransactionCountries);
+
+        _FinalStage expectedTransactionCurrencies(
+                Optional<ExpectedTransactionCurrencies> expectedTransactionCurrencies);
+
+        _FinalStage expectedTransactionCurrencies(ExpectedTransactionCurrencies expectedTransactionCurrencies);
 
         _FinalStage riskLevel(Optional<RiskLevel> riskLevel);
 
@@ -644,6 +660,8 @@ public final class BatchConsumerUserWithRulesResult {
 
         private Optional<RiskLevel> riskLevel = Optional.empty();
 
+        private Optional<ExpectedTransactionCurrencies> expectedTransactionCurrencies = Optional.empty();
+
         private Optional<ExpectedTransactionCountries> expectedTransactionCountries = Optional.empty();
 
         private Optional<ExpectedIncome> expectedIncome = Optional.empty();
@@ -692,6 +710,7 @@ public final class BatchConsumerUserWithRulesResult {
             transactionLimits(other.getTransactionLimits());
             expectedIncome(other.getExpectedIncome());
             expectedTransactionCountries(other.getExpectedTransactionCountries());
+            expectedTransactionCurrencies(other.getExpectedTransactionCurrencies());
             riskLevel(other.getRiskLevel());
             kycRiskLevel(other.getKycRiskLevel());
             acquisitionChannel(other.getAcquisitionChannel());
@@ -1002,6 +1021,20 @@ public final class BatchConsumerUserWithRulesResult {
         }
 
         @java.lang.Override
+        public _FinalStage expectedTransactionCurrencies(ExpectedTransactionCurrencies expectedTransactionCurrencies) {
+            this.expectedTransactionCurrencies = Optional.ofNullable(expectedTransactionCurrencies);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "expectedTransactionCurrencies", nulls = Nulls.SKIP)
+        public _FinalStage expectedTransactionCurrencies(
+                Optional<ExpectedTransactionCurrencies> expectedTransactionCurrencies) {
+            this.expectedTransactionCurrencies = expectedTransactionCurrencies;
+            return this;
+        }
+
+        @java.lang.Override
         public _FinalStage expectedTransactionCountries(ExpectedTransactionCountries expectedTransactionCountries) {
             this.expectedTransactionCountries = Optional.ofNullable(expectedTransactionCountries);
             return this;
@@ -1197,6 +1230,7 @@ public final class BatchConsumerUserWithRulesResult {
                     transactionLimits,
                     expectedIncome,
                     expectedTransactionCountries,
+                    expectedTransactionCurrencies,
                     riskLevel,
                     kycRiskLevel,
                     acquisitionChannel,

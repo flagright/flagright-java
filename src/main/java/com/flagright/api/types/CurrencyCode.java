@@ -278,6 +278,8 @@ public enum CurrencyCode {
 
     ETH_2("ETH2"),
 
+    ETHB("ETHB"),
+
     EUR("EUR"),
 
     EURA("EURA"),
