@@ -13,6 +13,7 @@ import com.fasterxml.jackson.annotation.Nulls;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.flagright.api.core.ObjectMappers;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
@@ -37,6 +38,8 @@ public final class TransactionEvent {
 
     private final Optional<DeviceData> metaData;
 
+    private final Optional<List<String>> externalLinks;
+
     private final Map<String, Object> additionalProperties;
 
     private TransactionEvent(
@@ -48,6 +51,7 @@ public final class TransactionEvent {
             Optional<String> eventDescription,
             Optional<TransactionUpdatable> updatedTransactionAttributes,
             Optional<DeviceData> metaData,
+            Optional<List<String>> externalLinks,
             Map<String, Object> additionalProperties) {
         this.transactionState = transactionState;
         this.timestamp = timestamp;
@@ -57,6 +61,7 @@ public final class TransactionEvent {
         this.eventDescription = eventDescription;
         this.updatedTransactionAttributes = updatedTransactionAttributes;
         this.metaData = metaData;
+        this.externalLinks = externalLinks;
         this.additionalProperties = additionalProperties;
     }
 
@@ -115,6 +120,14 @@ public final class TransactionEvent {
         return metaData;
     }
 
+    /**
+     * @return External links related to the transaction
+     */
+    @JsonProperty("externalLinks")
+    public Optional<List<String>> getExternalLinks() {
+        return externalLinks;
+    }
+
     @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
@@ -134,7 +147,8 @@ public final class TransactionEvent {
                 && reason.equals(other.reason)
                 && eventDescription.equals(other.eventDescription)
                 && updatedTransactionAttributes.equals(other.updatedTransactionAttributes)
-                && metaData.equals(other.metaData);
+                && metaData.equals(other.metaData)
+                && externalLinks.equals(other.externalLinks);
     }
 
     @java.lang.Override
@@ -147,7 +161,8 @@ public final class TransactionEvent {
                 this.reason,
                 this.eventDescription,
                 this.updatedTransactionAttributes,
-                this.metaData);
+                this.metaData,
+                this.externalLinks);
     }
 
     @java.lang.Override
@@ -195,6 +210,10 @@ public final class TransactionEvent {
         _FinalStage metaData(Optional<DeviceData> metaData);
 
         _FinalStage metaData(DeviceData metaData);
+
+        _FinalStage externalLinks(Optional<List<String>> externalLinks);
+
+        _FinalStage externalLinks(List<String> externalLinks);
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
@@ -205,6 +224,8 @@ public final class TransactionEvent {
         private double timestamp;
 
         private String transactionId;
+
+        private Optional<List<String>> externalLinks = Optional.empty();
 
         private Optional<DeviceData> metaData = Optional.empty();
 
@@ -231,6 +252,7 @@ public final class TransactionEvent {
             eventDescription(other.getEventDescription());
             updatedTransactionAttributes(other.getUpdatedTransactionAttributes());
             metaData(other.getMetaData());
+            externalLinks(other.getExternalLinks());
             return this;
         }
 
@@ -260,6 +282,23 @@ public final class TransactionEvent {
         @JsonSetter("transactionId")
         public _FinalStage transactionId(@NotNull String transactionId) {
             this.transactionId = Objects.requireNonNull(transactionId, "transactionId must not be null");
+            return this;
+        }
+
+        /**
+         * <p>External links related to the transaction</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
+        @java.lang.Override
+        public _FinalStage externalLinks(List<String> externalLinks) {
+            this.externalLinks = Optional.ofNullable(externalLinks);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "externalLinks", nulls = Nulls.SKIP)
+        public _FinalStage externalLinks(Optional<List<String>> externalLinks) {
+            this.externalLinks = externalLinks;
             return this;
         }
 
@@ -351,6 +390,7 @@ public final class TransactionEvent {
                     eventDescription,
                     updatedTransactionAttributes,
                     metaData,
+                    externalLinks,
                     additionalProperties);
         }
     }

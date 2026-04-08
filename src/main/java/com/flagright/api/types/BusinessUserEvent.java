@@ -13,6 +13,7 @@ import com.fasterxml.jackson.annotation.Nulls;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.flagright.api.core.ObjectMappers;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
@@ -33,6 +34,8 @@ public final class BusinessUserEvent {
 
     private final Optional<BusinessOptional> updatedBusinessUserAttributes;
 
+    private final Optional<List<String>> externalLinks;
+
     private final Map<String, Object> additionalProperties;
 
     private BusinessUserEvent(
@@ -42,6 +45,7 @@ public final class BusinessUserEvent {
             Optional<String> reason,
             Optional<String> eventDescription,
             Optional<BusinessOptional> updatedBusinessUserAttributes,
+            Optional<List<String>> externalLinks,
             Map<String, Object> additionalProperties) {
         this.timestamp = timestamp;
         this.userId = userId;
@@ -49,6 +53,7 @@ public final class BusinessUserEvent {
         this.reason = reason;
         this.eventDescription = eventDescription;
         this.updatedBusinessUserAttributes = updatedBusinessUserAttributes;
+        this.externalLinks = externalLinks;
         this.additionalProperties = additionalProperties;
     }
 
@@ -97,6 +102,14 @@ public final class BusinessUserEvent {
         return updatedBusinessUserAttributes;
     }
 
+    /**
+     * @return External links related to the business user
+     */
+    @JsonProperty("externalLinks")
+    public Optional<List<String>> getExternalLinks() {
+        return externalLinks;
+    }
+
     @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
@@ -114,7 +127,8 @@ public final class BusinessUserEvent {
                 && eventId.equals(other.eventId)
                 && reason.equals(other.reason)
                 && eventDescription.equals(other.eventDescription)
-                && updatedBusinessUserAttributes.equals(other.updatedBusinessUserAttributes);
+                && updatedBusinessUserAttributes.equals(other.updatedBusinessUserAttributes)
+                && externalLinks.equals(other.externalLinks);
     }
 
     @java.lang.Override
@@ -125,7 +139,8 @@ public final class BusinessUserEvent {
                 this.eventId,
                 this.reason,
                 this.eventDescription,
-                this.updatedBusinessUserAttributes);
+                this.updatedBusinessUserAttributes,
+                this.externalLinks);
     }
 
     @java.lang.Override
@@ -165,6 +180,10 @@ public final class BusinessUserEvent {
         _FinalStage updatedBusinessUserAttributes(Optional<BusinessOptional> updatedBusinessUserAttributes);
 
         _FinalStage updatedBusinessUserAttributes(BusinessOptional updatedBusinessUserAttributes);
+
+        _FinalStage externalLinks(Optional<List<String>> externalLinks);
+
+        _FinalStage externalLinks(List<String> externalLinks);
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
@@ -172,6 +191,8 @@ public final class BusinessUserEvent {
         private double timestamp;
 
         private String userId;
+
+        private Optional<List<String>> externalLinks = Optional.empty();
 
         private Optional<BusinessOptional> updatedBusinessUserAttributes = Optional.empty();
 
@@ -194,6 +215,7 @@ public final class BusinessUserEvent {
             reason(other.getReason());
             eventDescription(other.getEventDescription());
             updatedBusinessUserAttributes(other.getUpdatedBusinessUserAttributes());
+            externalLinks(other.getExternalLinks());
             return this;
         }
 
@@ -216,6 +238,23 @@ public final class BusinessUserEvent {
         @JsonSetter("userId")
         public _FinalStage userId(@NotNull String userId) {
             this.userId = Objects.requireNonNull(userId, "userId must not be null");
+            return this;
+        }
+
+        /**
+         * <p>External links related to the business user</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
+        @java.lang.Override
+        public _FinalStage externalLinks(List<String> externalLinks) {
+            this.externalLinks = Optional.ofNullable(externalLinks);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "externalLinks", nulls = Nulls.SKIP)
+        public _FinalStage externalLinks(Optional<List<String>> externalLinks) {
+            this.externalLinks = externalLinks;
             return this;
         }
 
@@ -292,6 +331,7 @@ public final class BusinessUserEvent {
                     reason,
                     eventDescription,
                     updatedBusinessUserAttributes,
+                    externalLinks,
                     additionalProperties);
         }
     }

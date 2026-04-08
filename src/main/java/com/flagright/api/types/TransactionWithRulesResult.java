@@ -65,6 +65,8 @@ public final class TransactionWithRulesResult {
 
     private final Optional<String> jurisdiction;
 
+    private final Optional<List<String>> externalLinks;
+
     private final List<ExecutedRulesResult> executedRules;
 
     private final List<HitRulesDetails> hitRules;
@@ -97,6 +99,7 @@ public final class TransactionWithRulesResult {
             Optional<TransactionMetadata> metadata,
             Optional<List<Tag>> tags,
             Optional<String> jurisdiction,
+            Optional<List<String>> externalLinks,
             List<ExecutedRulesResult> executedRules,
             List<HitRulesDetails> hitRules,
             RuleAction status,
@@ -123,6 +126,7 @@ public final class TransactionWithRulesResult {
         this.metadata = metadata;
         this.tags = tags;
         this.jurisdiction = jurisdiction;
+        this.externalLinks = externalLinks;
         this.executedRules = executedRules;
         this.hitRules = hitRules;
         this.status = status;
@@ -271,6 +275,14 @@ public final class TransactionWithRulesResult {
         return jurisdiction;
     }
 
+    /**
+     * @return External links related to the transaction
+     */
+    @JsonProperty("externalLinks")
+    public Optional<List<String>> getExternalLinks() {
+        return externalLinks;
+    }
+
     @JsonProperty("executedRules")
     public List<ExecutedRulesResult> getExecutedRules() {
         return executedRules;
@@ -324,6 +336,7 @@ public final class TransactionWithRulesResult {
                 && metadata.equals(other.metadata)
                 && tags.equals(other.tags)
                 && jurisdiction.equals(other.jurisdiction)
+                && externalLinks.equals(other.externalLinks)
                 && executedRules.equals(other.executedRules)
                 && hitRules.equals(other.hitRules)
                 && status.equals(other.status)
@@ -354,6 +367,7 @@ public final class TransactionWithRulesResult {
                 this.metadata,
                 this.tags,
                 this.jurisdiction,
+                this.externalLinks,
                 this.executedRules,
                 this.hitRules,
                 this.status,
@@ -464,6 +478,10 @@ public final class TransactionWithRulesResult {
 
         _FinalStage jurisdiction(String jurisdiction);
 
+        _FinalStage externalLinks(Optional<List<String>> externalLinks);
+
+        _FinalStage externalLinks(List<String> externalLinks);
+
         _FinalStage executedRules(List<ExecutedRulesResult> executedRules);
 
         _FinalStage addExecutedRules(ExecutedRulesResult executedRules);
@@ -497,6 +515,8 @@ public final class TransactionWithRulesResult {
         private List<HitRulesDetails> hitRules = new ArrayList<>();
 
         private List<ExecutedRulesResult> executedRules = new ArrayList<>();
+
+        private Optional<List<String>> externalLinks = Optional.empty();
 
         private Optional<String> jurisdiction = Optional.empty();
 
@@ -563,6 +583,7 @@ public final class TransactionWithRulesResult {
             metadata(other.getMetadata());
             tags(other.getTags());
             jurisdiction(other.getJurisdiction());
+            externalLinks(other.getExternalLinks());
             executedRules(other.getExecutedRules());
             hitRules(other.getHitRules());
             status(other.getStatus());
@@ -660,6 +681,23 @@ public final class TransactionWithRulesResult {
         public _FinalStage executedRules(List<ExecutedRulesResult> executedRules) {
             this.executedRules.clear();
             this.executedRules.addAll(executedRules);
+            return this;
+        }
+
+        /**
+         * <p>External links related to the transaction</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
+        @java.lang.Override
+        public _FinalStage externalLinks(List<String> externalLinks) {
+            this.externalLinks = Optional.ofNullable(externalLinks);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "externalLinks", nulls = Nulls.SKIP)
+        public _FinalStage externalLinks(Optional<List<String>> externalLinks) {
+            this.externalLinks = externalLinks;
             return this;
         }
 
@@ -960,6 +998,7 @@ public final class TransactionWithRulesResult {
                     metadata,
                     tags,
                     jurisdiction,
+                    externalLinks,
                     executedRules,
                     hitRules,
                     status,

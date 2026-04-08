@@ -83,6 +83,8 @@ public final class UserOptional {
 
     private final Optional<List<ProductsEnabled>> productsEnabled;
 
+    private final Optional<List<String>> externalLinks;
+
     private final Map<String, Object> additionalProperties;
 
     private UserOptional(
@@ -117,6 +119,7 @@ public final class UserOptional {
             Optional<DeviceData> metaData,
             Optional<String> jurisdiction,
             Optional<List<ProductsEnabled>> productsEnabled,
+            Optional<List<String>> externalLinks,
             Map<String, Object> additionalProperties) {
         this.activatedTimestamp = activatedTimestamp;
         this.userDetails = userDetails;
@@ -149,6 +152,7 @@ public final class UserOptional {
         this.metaData = metaData;
         this.jurisdiction = jurisdiction;
         this.productsEnabled = productsEnabled;
+        this.externalLinks = externalLinks;
         this.additionalProperties = additionalProperties;
     }
 
@@ -325,6 +329,14 @@ public final class UserOptional {
         return productsEnabled;
     }
 
+    /**
+     * @return External links related to the consumer user
+     */
+    @JsonProperty("externalLinks")
+    public Optional<List<String>> getExternalLinks() {
+        return externalLinks;
+    }
+
     @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
@@ -367,7 +379,8 @@ public final class UserOptional {
                 && attachments.equals(other.attachments)
                 && metaData.equals(other.metaData)
                 && jurisdiction.equals(other.jurisdiction)
-                && productsEnabled.equals(other.productsEnabled);
+                && productsEnabled.equals(other.productsEnabled)
+                && externalLinks.equals(other.externalLinks);
     }
 
     @java.lang.Override
@@ -403,7 +416,8 @@ public final class UserOptional {
                 this.attachments,
                 this.metaData,
                 this.jurisdiction,
-                this.productsEnabled);
+                this.productsEnabled,
+                this.externalLinks);
     }
 
     @java.lang.Override
@@ -479,6 +493,8 @@ public final class UserOptional {
 
         private Optional<List<ProductsEnabled>> productsEnabled = Optional.empty();
 
+        private Optional<List<String>> externalLinks = Optional.empty();
+
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
 
@@ -516,6 +532,7 @@ public final class UserOptional {
             metaData(other.getMetaData());
             jurisdiction(other.getJurisdiction());
             productsEnabled(other.getProductsEnabled());
+            externalLinks(other.getExternalLinks());
             return this;
         }
 
@@ -862,6 +879,17 @@ public final class UserOptional {
             return this;
         }
 
+        @JsonSetter(value = "externalLinks", nulls = Nulls.SKIP)
+        public Builder externalLinks(Optional<List<String>> externalLinks) {
+            this.externalLinks = externalLinks;
+            return this;
+        }
+
+        public Builder externalLinks(List<String> externalLinks) {
+            this.externalLinks = Optional.ofNullable(externalLinks);
+            return this;
+        }
+
         public UserOptional build() {
             return new UserOptional(
                     activatedTimestamp,
@@ -895,6 +923,7 @@ public final class UserOptional {
                     metaData,
                     jurisdiction,
                     productsEnabled,
+                    externalLinks,
                     additionalProperties);
         }
     }

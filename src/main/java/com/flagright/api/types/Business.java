@@ -82,6 +82,8 @@ public final class Business {
 
     private final Optional<Boolean> adverseMediaStatus;
 
+    private final Optional<List<String>> externalLinks;
+
     private final Map<String, Object> additionalProperties;
 
     private Business(
@@ -115,6 +117,7 @@ public final class Business {
             Optional<List<PepStatus>> pepStatus,
             Optional<Boolean> sanctionsStatus,
             Optional<Boolean> adverseMediaStatus,
+            Optional<List<String>> externalLinks,
             Map<String, Object> additionalProperties) {
         this.userId = userId;
         this.createdTimestamp = createdTimestamp;
@@ -146,6 +149,7 @@ public final class Business {
         this.pepStatus = pepStatus;
         this.sanctionsStatus = sanctionsStatus;
         this.adverseMediaStatus = adverseMediaStatus;
+        this.externalLinks = externalLinks;
         this.additionalProperties = additionalProperties;
     }
 
@@ -338,6 +342,14 @@ public final class Business {
         return adverseMediaStatus;
     }
 
+    /**
+     * @return External links related to the business user
+     */
+    @JsonProperty("externalLinks")
+    public Optional<List<String>> getExternalLinks() {
+        return externalLinks;
+    }
+
     @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
@@ -379,7 +391,8 @@ public final class Business {
                 && productsEnabled.equals(other.productsEnabled)
                 && pepStatus.equals(other.pepStatus)
                 && sanctionsStatus.equals(other.sanctionsStatus)
-                && adverseMediaStatus.equals(other.adverseMediaStatus);
+                && adverseMediaStatus.equals(other.adverseMediaStatus)
+                && externalLinks.equals(other.externalLinks);
     }
 
     @java.lang.Override
@@ -414,7 +427,8 @@ public final class Business {
                 this.productsEnabled,
                 this.pepStatus,
                 this.sanctionsStatus,
-                this.adverseMediaStatus);
+                this.adverseMediaStatus,
+                this.externalLinks);
     }
 
     @java.lang.Override
@@ -551,6 +565,10 @@ public final class Business {
         _FinalStage adverseMediaStatus(Optional<Boolean> adverseMediaStatus);
 
         _FinalStage adverseMediaStatus(Boolean adverseMediaStatus);
+
+        _FinalStage externalLinks(Optional<List<String>> externalLinks);
+
+        _FinalStage externalLinks(List<String> externalLinks);
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
@@ -560,6 +578,8 @@ public final class Business {
         private double createdTimestamp;
 
         private LegalEntity legalEntity;
+
+        private Optional<List<String>> externalLinks = Optional.empty();
 
         private Optional<Boolean> adverseMediaStatus = Optional.empty();
 
@@ -652,6 +672,7 @@ public final class Business {
             pepStatus(other.getPepStatus());
             sanctionsStatus(other.getSanctionsStatus());
             adverseMediaStatus(other.getAdverseMediaStatus());
+            externalLinks(other.getExternalLinks());
             return this;
         }
 
@@ -681,6 +702,23 @@ public final class Business {
         @JsonSetter("legalEntity")
         public _FinalStage legalEntity(@NotNull LegalEntity legalEntity) {
             this.legalEntity = Objects.requireNonNull(legalEntity, "legalEntity must not be null");
+            return this;
+        }
+
+        /**
+         * <p>External links related to the business user</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
+        @java.lang.Override
+        public _FinalStage externalLinks(List<String> externalLinks) {
+            this.externalLinks = Optional.ofNullable(externalLinks);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "externalLinks", nulls = Nulls.SKIP)
+        public _FinalStage externalLinks(Optional<List<String>> externalLinks) {
+            this.externalLinks = externalLinks;
             return this;
         }
 
@@ -1114,6 +1152,7 @@ public final class Business {
                     pepStatus,
                     sanctionsStatus,
                     adverseMediaStatus,
+                    externalLinks,
                     additionalProperties);
         }
     }

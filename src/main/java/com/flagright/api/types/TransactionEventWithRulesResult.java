@@ -38,6 +38,8 @@ public final class TransactionEventWithRulesResult {
 
     private final Optional<DeviceData> metaData;
 
+    private final Optional<List<String>> externalLinks;
+
     private final Optional<List<ExecutedRulesResult>> executedRules;
 
     private final Optional<List<HitRulesDetails>> hitRules;
@@ -57,6 +59,7 @@ public final class TransactionEventWithRulesResult {
             Optional<String> eventDescription,
             Optional<TransactionUpdatable> updatedTransactionAttributes,
             Optional<DeviceData> metaData,
+            Optional<List<String>> externalLinks,
             Optional<List<ExecutedRulesResult>> executedRules,
             Optional<List<HitRulesDetails>> hitRules,
             Optional<RuleAction> status,
@@ -70,6 +73,7 @@ public final class TransactionEventWithRulesResult {
         this.eventDescription = eventDescription;
         this.updatedTransactionAttributes = updatedTransactionAttributes;
         this.metaData = metaData;
+        this.externalLinks = externalLinks;
         this.executedRules = executedRules;
         this.hitRules = hitRules;
         this.status = status;
@@ -132,6 +136,14 @@ public final class TransactionEventWithRulesResult {
         return metaData;
     }
 
+    /**
+     * @return External links related to the transaction
+     */
+    @JsonProperty("externalLinks")
+    public Optional<List<String>> getExternalLinks() {
+        return externalLinks;
+    }
+
     @JsonProperty("executedRules")
     public Optional<List<ExecutedRulesResult>> getExecutedRules() {
         return executedRules;
@@ -172,6 +184,7 @@ public final class TransactionEventWithRulesResult {
                 && eventDescription.equals(other.eventDescription)
                 && updatedTransactionAttributes.equals(other.updatedTransactionAttributes)
                 && metaData.equals(other.metaData)
+                && externalLinks.equals(other.externalLinks)
                 && executedRules.equals(other.executedRules)
                 && hitRules.equals(other.hitRules)
                 && status.equals(other.status)
@@ -189,6 +202,7 @@ public final class TransactionEventWithRulesResult {
                 this.eventDescription,
                 this.updatedTransactionAttributes,
                 this.metaData,
+                this.externalLinks,
                 this.executedRules,
                 this.hitRules,
                 this.status,
@@ -241,6 +255,10 @@ public final class TransactionEventWithRulesResult {
 
         _FinalStage metaData(DeviceData metaData);
 
+        _FinalStage externalLinks(Optional<List<String>> externalLinks);
+
+        _FinalStage externalLinks(List<String> externalLinks);
+
         _FinalStage executedRules(Optional<List<ExecutedRulesResult>> executedRules);
 
         _FinalStage executedRules(List<ExecutedRulesResult> executedRules);
@@ -275,6 +293,8 @@ public final class TransactionEventWithRulesResult {
 
         private Optional<List<ExecutedRulesResult>> executedRules = Optional.empty();
 
+        private Optional<List<String>> externalLinks = Optional.empty();
+
         private Optional<DeviceData> metaData = Optional.empty();
 
         private Optional<TransactionUpdatable> updatedTransactionAttributes = Optional.empty();
@@ -300,6 +320,7 @@ public final class TransactionEventWithRulesResult {
             eventDescription(other.getEventDescription());
             updatedTransactionAttributes(other.getUpdatedTransactionAttributes());
             metaData(other.getMetaData());
+            externalLinks(other.getExternalLinks());
             executedRules(other.getExecutedRules());
             hitRules(other.getHitRules());
             status(other.getStatus());
@@ -385,6 +406,23 @@ public final class TransactionEventWithRulesResult {
         @JsonSetter(value = "executedRules", nulls = Nulls.SKIP)
         public _FinalStage executedRules(Optional<List<ExecutedRulesResult>> executedRules) {
             this.executedRules = executedRules;
+            return this;
+        }
+
+        /**
+         * <p>External links related to the transaction</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
+        @java.lang.Override
+        public _FinalStage externalLinks(List<String> externalLinks) {
+            this.externalLinks = Optional.ofNullable(externalLinks);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "externalLinks", nulls = Nulls.SKIP)
+        public _FinalStage externalLinks(Optional<List<String>> externalLinks) {
+            this.externalLinks = externalLinks;
             return this;
         }
 
@@ -476,6 +514,7 @@ public final class TransactionEventWithRulesResult {
                     eventDescription,
                     updatedTransactionAttributes,
                     metaData,
+                    externalLinks,
                     executedRules,
                     hitRules,
                     status,

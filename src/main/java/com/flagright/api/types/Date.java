@@ -18,15 +18,15 @@ import java.util.Objects;
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
 @JsonDeserialize(builder = Date.Builder.class)
 public final class Date {
-    private final double day;
+    private final int day;
 
-    private final double month;
+    private final int month;
 
-    private final double year;
+    private final int year;
 
     private final Map<String, Object> additionalProperties;
 
-    private Date(double day, double month, double year, Map<String, Object> additionalProperties) {
+    private Date(int day, int month, int year, Map<String, Object> additionalProperties) {
         this.day = day;
         this.month = month;
         this.year = year;
@@ -37,7 +37,7 @@ public final class Date {
      * @return Day of date
      */
     @JsonProperty("day")
-    public double getDay() {
+    public int getDay() {
         return day;
     }
 
@@ -45,7 +45,7 @@ public final class Date {
      * @return Month of date
      */
     @JsonProperty("month")
-    public double getMonth() {
+    public int getMonth() {
         return month;
     }
 
@@ -53,7 +53,7 @@ public final class Date {
      * @return Year of date
      */
     @JsonProperty("year")
-    public double getYear() {
+    public int getYear() {
         return year;
     }
 
@@ -87,17 +87,17 @@ public final class Date {
     }
 
     public interface DayStage {
-        MonthStage day(double day);
+        MonthStage day(int day);
 
         Builder from(Date other);
     }
 
     public interface MonthStage {
-        YearStage month(double month);
+        YearStage month(int month);
     }
 
     public interface YearStage {
-        _FinalStage year(double year);
+        _FinalStage year(int year);
     }
 
     public interface _FinalStage {
@@ -106,11 +106,11 @@ public final class Date {
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static final class Builder implements DayStage, MonthStage, YearStage, _FinalStage {
-        private double day;
+        private int day;
 
-        private double month;
+        private int month;
 
-        private double year;
+        private int year;
 
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
@@ -131,7 +131,7 @@ public final class Date {
          */
         @java.lang.Override
         @JsonSetter("day")
-        public MonthStage day(double day) {
+        public MonthStage day(int day) {
             this.day = day;
             return this;
         }
@@ -142,7 +142,7 @@ public final class Date {
          */
         @java.lang.Override
         @JsonSetter("month")
-        public YearStage month(double month) {
+        public YearStage month(int month) {
             this.month = month;
             return this;
         }
@@ -153,7 +153,7 @@ public final class Date {
          */
         @java.lang.Override
         @JsonSetter("year")
-        public _FinalStage year(double year) {
+        public _FinalStage year(int year) {
             this.year = year;
             return this;
         }

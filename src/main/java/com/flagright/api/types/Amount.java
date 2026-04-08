@@ -32,7 +32,7 @@ public final class Amount {
     }
 
     /**
-     * @return Numerical value of the transaction
+     * @return Numerical value of the transaction in major currency units (within IEEE 754 safe integer range for exact JSON representation)
      */
     @JsonProperty("amountValue")
     public double getAmountValue() {
@@ -106,7 +106,7 @@ public final class Amount {
         }
 
         /**
-         * <p>Numerical value of the transaction</p>
+         * <p>Numerical value of the transaction in major currency units (within IEEE 754 safe integer range for exact JSON representation)</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override

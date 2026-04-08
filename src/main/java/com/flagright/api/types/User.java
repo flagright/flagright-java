@@ -88,6 +88,8 @@ public final class User {
 
     private final Optional<List<ProductsEnabled>> productsEnabled;
 
+    private final Optional<List<String>> externalLinks;
+
     private final Map<String, Object> additionalProperties;
 
     private User(
@@ -124,6 +126,7 @@ public final class User {
             Optional<DeviceData> metaData,
             Optional<String> jurisdiction,
             Optional<List<ProductsEnabled>> productsEnabled,
+            Optional<List<String>> externalLinks,
             Map<String, Object> additionalProperties) {
         this.userId = userId;
         this.createdTimestamp = createdTimestamp;
@@ -158,6 +161,7 @@ public final class User {
         this.metaData = metaData;
         this.jurisdiction = jurisdiction;
         this.productsEnabled = productsEnabled;
+        this.externalLinks = externalLinks;
         this.additionalProperties = additionalProperties;
     }
 
@@ -350,6 +354,14 @@ public final class User {
         return productsEnabled;
     }
 
+    /**
+     * @return External links related to the consumer user
+     */
+    @JsonProperty("externalLinks")
+    public Optional<List<String>> getExternalLinks() {
+        return externalLinks;
+    }
+
     @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
@@ -394,7 +406,8 @@ public final class User {
                 && attachments.equals(other.attachments)
                 && metaData.equals(other.metaData)
                 && jurisdiction.equals(other.jurisdiction)
-                && productsEnabled.equals(other.productsEnabled);
+                && productsEnabled.equals(other.productsEnabled)
+                && externalLinks.equals(other.externalLinks);
     }
 
     @java.lang.Override
@@ -432,7 +445,8 @@ public final class User {
                 this.attachments,
                 this.metaData,
                 this.jurisdiction,
-                this.productsEnabled);
+                this.productsEnabled,
+                this.externalLinks);
     }
 
     @java.lang.Override
@@ -581,6 +595,10 @@ public final class User {
         _FinalStage productsEnabled(Optional<List<ProductsEnabled>> productsEnabled);
 
         _FinalStage productsEnabled(List<ProductsEnabled> productsEnabled);
+
+        _FinalStage externalLinks(Optional<List<String>> externalLinks);
+
+        _FinalStage externalLinks(List<String> externalLinks);
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
@@ -588,6 +606,8 @@ public final class User {
         private String userId;
 
         private double createdTimestamp;
+
+        private Optional<List<String>> externalLinks = Optional.empty();
 
         private Optional<List<ProductsEnabled>> productsEnabled = Optional.empty();
 
@@ -691,6 +711,7 @@ public final class User {
             metaData(other.getMetaData());
             jurisdiction(other.getJurisdiction());
             productsEnabled(other.getProductsEnabled());
+            externalLinks(other.getExternalLinks());
             return this;
         }
 
@@ -713,6 +734,23 @@ public final class User {
         @JsonSetter("createdTimestamp")
         public _FinalStage createdTimestamp(double createdTimestamp) {
             this.createdTimestamp = createdTimestamp;
+            return this;
+        }
+
+        /**
+         * <p>External links related to the consumer user</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
+        @java.lang.Override
+        public _FinalStage externalLinks(List<String> externalLinks) {
+            this.externalLinks = Optional.ofNullable(externalLinks);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "externalLinks", nulls = Nulls.SKIP)
+        public _FinalStage externalLinks(Optional<List<String>> externalLinks) {
+            this.externalLinks = externalLinks;
             return this;
         }
 
@@ -1181,6 +1219,7 @@ public final class User {
                     metaData,
                     jurisdiction,
                     productsEnabled,
+                    externalLinks,
                     additionalProperties);
         }
     }

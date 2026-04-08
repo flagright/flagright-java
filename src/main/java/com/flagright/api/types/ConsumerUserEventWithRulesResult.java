@@ -34,6 +34,8 @@ public final class ConsumerUserEventWithRulesResult {
 
     private final Optional<UserOptional> updatedConsumerUserAttributes;
 
+    private final Optional<List<String>> externalLinks;
+
     private final Optional<List<ExecutedRulesResult>> executedRules;
 
     private final Optional<List<HitRulesDetails>> hitRules;
@@ -49,6 +51,7 @@ public final class ConsumerUserEventWithRulesResult {
             Optional<String> reason,
             Optional<String> eventDescription,
             Optional<UserOptional> updatedConsumerUserAttributes,
+            Optional<List<String>> externalLinks,
             Optional<List<ExecutedRulesResult>> executedRules,
             Optional<List<HitRulesDetails>> hitRules,
             Optional<UserRiskScoreDetails> riskScoreDetails,
@@ -59,6 +62,7 @@ public final class ConsumerUserEventWithRulesResult {
         this.reason = reason;
         this.eventDescription = eventDescription;
         this.updatedConsumerUserAttributes = updatedConsumerUserAttributes;
+        this.externalLinks = externalLinks;
         this.executedRules = executedRules;
         this.hitRules = hitRules;
         this.riskScoreDetails = riskScoreDetails;
@@ -110,6 +114,14 @@ public final class ConsumerUserEventWithRulesResult {
         return updatedConsumerUserAttributes;
     }
 
+    /**
+     * @return External links related to the consumer user
+     */
+    @JsonProperty("externalLinks")
+    public Optional<List<String>> getExternalLinks() {
+        return externalLinks;
+    }
+
     @JsonProperty("executedRules")
     public Optional<List<ExecutedRulesResult>> getExecutedRules() {
         return executedRules;
@@ -143,6 +155,7 @@ public final class ConsumerUserEventWithRulesResult {
                 && reason.equals(other.reason)
                 && eventDescription.equals(other.eventDescription)
                 && updatedConsumerUserAttributes.equals(other.updatedConsumerUserAttributes)
+                && externalLinks.equals(other.externalLinks)
                 && executedRules.equals(other.executedRules)
                 && hitRules.equals(other.hitRules)
                 && riskScoreDetails.equals(other.riskScoreDetails);
@@ -157,6 +170,7 @@ public final class ConsumerUserEventWithRulesResult {
                 this.reason,
                 this.eventDescription,
                 this.updatedConsumerUserAttributes,
+                this.externalLinks,
                 this.executedRules,
                 this.hitRules,
                 this.riskScoreDetails);
@@ -200,6 +214,10 @@ public final class ConsumerUserEventWithRulesResult {
 
         _FinalStage updatedConsumerUserAttributes(UserOptional updatedConsumerUserAttributes);
 
+        _FinalStage externalLinks(Optional<List<String>> externalLinks);
+
+        _FinalStage externalLinks(List<String> externalLinks);
+
         _FinalStage executedRules(Optional<List<ExecutedRulesResult>> executedRules);
 
         _FinalStage executedRules(List<ExecutedRulesResult> executedRules);
@@ -225,6 +243,8 @@ public final class ConsumerUserEventWithRulesResult {
 
         private Optional<List<ExecutedRulesResult>> executedRules = Optional.empty();
 
+        private Optional<List<String>> externalLinks = Optional.empty();
+
         private Optional<UserOptional> updatedConsumerUserAttributes = Optional.empty();
 
         private Optional<String> eventDescription = Optional.empty();
@@ -246,6 +266,7 @@ public final class ConsumerUserEventWithRulesResult {
             reason(other.getReason());
             eventDescription(other.getEventDescription());
             updatedConsumerUserAttributes(other.getUpdatedConsumerUserAttributes());
+            externalLinks(other.getExternalLinks());
             executedRules(other.getExecutedRules());
             hitRules(other.getHitRules());
             riskScoreDetails(other.getRiskScoreDetails());
@@ -310,6 +331,23 @@ public final class ConsumerUserEventWithRulesResult {
         @JsonSetter(value = "executedRules", nulls = Nulls.SKIP)
         public _FinalStage executedRules(Optional<List<ExecutedRulesResult>> executedRules) {
             this.executedRules = executedRules;
+            return this;
+        }
+
+        /**
+         * <p>External links related to the consumer user</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
+        @java.lang.Override
+        public _FinalStage externalLinks(List<String> externalLinks) {
+            this.externalLinks = Optional.ofNullable(externalLinks);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "externalLinks", nulls = Nulls.SKIP)
+        public _FinalStage externalLinks(Optional<List<String>> externalLinks) {
+            this.externalLinks = externalLinks;
             return this;
         }
 
@@ -386,6 +424,7 @@ public final class ConsumerUserEventWithRulesResult {
                     reason,
                     eventDescription,
                     updatedConsumerUserAttributes,
+                    externalLinks,
                     executedRules,
                     hitRules,
                     riskScoreDetails,

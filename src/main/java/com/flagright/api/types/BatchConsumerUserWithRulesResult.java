@@ -88,6 +88,8 @@ public final class BatchConsumerUserWithRulesResult {
 
     private final Optional<List<ProductsEnabled>> productsEnabled;
 
+    private final Optional<List<String>> externalLinks;
+
     private final Optional<List<ExecutedRulesResult>> executedRules;
 
     private final Optional<UserRiskScoreDetails> riskScoreDetails;
@@ -128,6 +130,7 @@ public final class BatchConsumerUserWithRulesResult {
             Optional<DeviceData> metaData,
             Optional<String> jurisdiction,
             Optional<List<ProductsEnabled>> productsEnabled,
+            Optional<List<String>> externalLinks,
             Optional<List<ExecutedRulesResult>> executedRules,
             Optional<UserRiskScoreDetails> riskScoreDetails,
             Map<String, Object> additionalProperties) {
@@ -164,6 +167,7 @@ public final class BatchConsumerUserWithRulesResult {
         this.metaData = metaData;
         this.jurisdiction = jurisdiction;
         this.productsEnabled = productsEnabled;
+        this.externalLinks = externalLinks;
         this.executedRules = executedRules;
         this.riskScoreDetails = riskScoreDetails;
         this.additionalProperties = additionalProperties;
@@ -358,6 +362,14 @@ public final class BatchConsumerUserWithRulesResult {
         return productsEnabled;
     }
 
+    /**
+     * @return External links related to the consumer user
+     */
+    @JsonProperty("externalLinks")
+    public Optional<List<String>> getExternalLinks() {
+        return externalLinks;
+    }
+
     @JsonProperty("executedRules")
     public Optional<List<ExecutedRulesResult>> getExecutedRules() {
         return executedRules;
@@ -413,6 +425,7 @@ public final class BatchConsumerUserWithRulesResult {
                 && metaData.equals(other.metaData)
                 && jurisdiction.equals(other.jurisdiction)
                 && productsEnabled.equals(other.productsEnabled)
+                && externalLinks.equals(other.externalLinks)
                 && executedRules.equals(other.executedRules)
                 && riskScoreDetails.equals(other.riskScoreDetails);
     }
@@ -453,6 +466,7 @@ public final class BatchConsumerUserWithRulesResult {
                 this.metaData,
                 this.jurisdiction,
                 this.productsEnabled,
+                this.externalLinks,
                 this.executedRules,
                 this.riskScoreDetails);
     }
@@ -606,6 +620,10 @@ public final class BatchConsumerUserWithRulesResult {
 
         _FinalStage productsEnabled(List<ProductsEnabled> productsEnabled);
 
+        _FinalStage externalLinks(Optional<List<String>> externalLinks);
+
+        _FinalStage externalLinks(List<String> externalLinks);
+
         _FinalStage executedRules(Optional<List<ExecutedRulesResult>> executedRules);
 
         _FinalStage executedRules(List<ExecutedRulesResult> executedRules);
@@ -624,6 +642,8 @@ public final class BatchConsumerUserWithRulesResult {
         private Optional<UserRiskScoreDetails> riskScoreDetails = Optional.empty();
 
         private Optional<List<ExecutedRulesResult>> executedRules = Optional.empty();
+
+        private Optional<List<String>> externalLinks = Optional.empty();
 
         private Optional<List<ProductsEnabled>> productsEnabled = Optional.empty();
 
@@ -728,6 +748,7 @@ public final class BatchConsumerUserWithRulesResult {
             metaData(other.getMetaData());
             jurisdiction(other.getJurisdiction());
             productsEnabled(other.getProductsEnabled());
+            externalLinks(other.getExternalLinks());
             executedRules(other.getExecutedRules());
             riskScoreDetails(other.getRiskScoreDetails());
             return this;
@@ -778,6 +799,23 @@ public final class BatchConsumerUserWithRulesResult {
         @JsonSetter(value = "executedRules", nulls = Nulls.SKIP)
         public _FinalStage executedRules(Optional<List<ExecutedRulesResult>> executedRules) {
             this.executedRules = executedRules;
+            return this;
+        }
+
+        /**
+         * <p>External links related to the consumer user</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
+        @java.lang.Override
+        public _FinalStage externalLinks(List<String> externalLinks) {
+            this.externalLinks = Optional.ofNullable(externalLinks);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "externalLinks", nulls = Nulls.SKIP)
+        public _FinalStage externalLinks(Optional<List<String>> externalLinks) {
+            this.externalLinks = externalLinks;
             return this;
         }
 
@@ -1248,6 +1286,7 @@ public final class BatchConsumerUserWithRulesResult {
                     metaData,
                     jurisdiction,
                     productsEnabled,
+                    externalLinks,
                     executedRules,
                     riskScoreDetails,
                     additionalProperties);

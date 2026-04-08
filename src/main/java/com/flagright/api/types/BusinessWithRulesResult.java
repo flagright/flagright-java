@@ -82,6 +82,8 @@ public final class BusinessWithRulesResult {
 
     private final Optional<Boolean> adverseMediaStatus;
 
+    private final Optional<List<String>> externalLinks;
+
     private final Optional<List<ExecutedRulesResult>> executedRules;
 
     private final Optional<List<HitRulesDetails>> hitRules;
@@ -121,6 +123,7 @@ public final class BusinessWithRulesResult {
             Optional<List<PepStatus>> pepStatus,
             Optional<Boolean> sanctionsStatus,
             Optional<Boolean> adverseMediaStatus,
+            Optional<List<String>> externalLinks,
             Optional<List<ExecutedRulesResult>> executedRules,
             Optional<List<HitRulesDetails>> hitRules,
             Optional<UserRiskScoreDetails> riskScoreDetails,
@@ -155,6 +158,7 @@ public final class BusinessWithRulesResult {
         this.pepStatus = pepStatus;
         this.sanctionsStatus = sanctionsStatus;
         this.adverseMediaStatus = adverseMediaStatus;
+        this.externalLinks = externalLinks;
         this.executedRules = executedRules;
         this.hitRules = hitRules;
         this.riskScoreDetails = riskScoreDetails;
@@ -350,6 +354,14 @@ public final class BusinessWithRulesResult {
         return adverseMediaStatus;
     }
 
+    /**
+     * @return External links related to the business user
+     */
+    @JsonProperty("externalLinks")
+    public Optional<List<String>> getExternalLinks() {
+        return externalLinks;
+    }
+
     @JsonProperty("executedRules")
     public Optional<List<ExecutedRulesResult>> getExecutedRules() {
         return executedRules;
@@ -407,6 +419,7 @@ public final class BusinessWithRulesResult {
                 && pepStatus.equals(other.pepStatus)
                 && sanctionsStatus.equals(other.sanctionsStatus)
                 && adverseMediaStatus.equals(other.adverseMediaStatus)
+                && externalLinks.equals(other.externalLinks)
                 && executedRules.equals(other.executedRules)
                 && hitRules.equals(other.hitRules)
                 && riskScoreDetails.equals(other.riskScoreDetails);
@@ -445,6 +458,7 @@ public final class BusinessWithRulesResult {
                 this.pepStatus,
                 this.sanctionsStatus,
                 this.adverseMediaStatus,
+                this.externalLinks,
                 this.executedRules,
                 this.hitRules,
                 this.riskScoreDetails);
@@ -586,6 +600,10 @@ public final class BusinessWithRulesResult {
 
         _FinalStage adverseMediaStatus(Boolean adverseMediaStatus);
 
+        _FinalStage externalLinks(Optional<List<String>> externalLinks);
+
+        _FinalStage externalLinks(List<String> externalLinks);
+
         _FinalStage executedRules(Optional<List<ExecutedRulesResult>> executedRules);
 
         _FinalStage executedRules(List<ExecutedRulesResult> executedRules);
@@ -612,6 +630,8 @@ public final class BusinessWithRulesResult {
         private Optional<List<HitRulesDetails>> hitRules = Optional.empty();
 
         private Optional<List<ExecutedRulesResult>> executedRules = Optional.empty();
+
+        private Optional<List<String>> externalLinks = Optional.empty();
 
         private Optional<Boolean> adverseMediaStatus = Optional.empty();
 
@@ -704,6 +724,7 @@ public final class BusinessWithRulesResult {
             pepStatus(other.getPepStatus());
             sanctionsStatus(other.getSanctionsStatus());
             adverseMediaStatus(other.getAdverseMediaStatus());
+            externalLinks(other.getExternalLinks());
             executedRules(other.getExecutedRules());
             hitRules(other.getHitRules());
             riskScoreDetails(other.getRiskScoreDetails());
@@ -775,6 +796,23 @@ public final class BusinessWithRulesResult {
         @JsonSetter(value = "executedRules", nulls = Nulls.SKIP)
         public _FinalStage executedRules(Optional<List<ExecutedRulesResult>> executedRules) {
             this.executedRules = executedRules;
+            return this;
+        }
+
+        /**
+         * <p>External links related to the business user</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
+        @java.lang.Override
+        public _FinalStage externalLinks(List<String> externalLinks) {
+            this.externalLinks = Optional.ofNullable(externalLinks);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "externalLinks", nulls = Nulls.SKIP)
+        public _FinalStage externalLinks(Optional<List<String>> externalLinks) {
+            this.externalLinks = externalLinks;
             return this;
         }
 
@@ -1211,6 +1249,7 @@ public final class BusinessWithRulesResult {
                     pepStatus,
                     sanctionsStatus,
                     adverseMediaStatus,
+                    externalLinks,
                     executedRules,
                     hitRules,
                     riskScoreDetails,

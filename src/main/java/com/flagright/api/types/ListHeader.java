@@ -81,6 +81,9 @@ public final class ListHeader {
         return createdTimestamp;
     }
 
+    /**
+     * @return Approximate number of entries in the list
+     */
     @JsonProperty("size")
     public Optional<Double> getSize() {
         return size;
@@ -242,6 +245,10 @@ public final class ListHeader {
             return this;
         }
 
+        /**
+         * <p>Approximate number of entries in the list</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
         @java.lang.Override
         public _FinalStage size(Double size) {
             this.size = Optional.ofNullable(size);

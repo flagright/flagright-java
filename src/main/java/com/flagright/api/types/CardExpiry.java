@@ -20,20 +20,20 @@ import java.util.Optional;
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
 @JsonDeserialize(builder = CardExpiry.Builder.class)
 public final class CardExpiry {
-    private final Optional<Double> month;
+    private final Optional<Integer> month;
 
     private final Optional<Double> year;
 
     private final Map<String, Object> additionalProperties;
 
-    private CardExpiry(Optional<Double> month, Optional<Double> year, Map<String, Object> additionalProperties) {
+    private CardExpiry(Optional<Integer> month, Optional<Double> year, Map<String, Object> additionalProperties) {
         this.month = month;
         this.year = year;
         this.additionalProperties = additionalProperties;
     }
 
     @JsonProperty("month")
-    public Optional<Double> getMonth() {
+    public Optional<Integer> getMonth() {
         return month;
     }
 
@@ -73,7 +73,7 @@ public final class CardExpiry {
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static final class Builder {
-        private Optional<Double> month = Optional.empty();
+        private Optional<Integer> month = Optional.empty();
 
         private Optional<Double> year = Optional.empty();
 
@@ -89,12 +89,12 @@ public final class CardExpiry {
         }
 
         @JsonSetter(value = "month", nulls = Nulls.SKIP)
-        public Builder month(Optional<Double> month) {
+        public Builder month(Optional<Integer> month) {
             this.month = month;
             return this;
         }
 
-        public Builder month(Double month) {
+        public Builder month(Integer month) {
             this.month = Optional.ofNullable(month);
             return this;
         }

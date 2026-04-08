@@ -35,7 +35,7 @@ public final class SanctionsHitContext {
 
     private final Optional<String> iban;
 
-    private final Optional<Double> yearOfBirth;
+    private final Optional<Integer> yearOfBirth;
 
     private final Optional<String> searchTerm;
 
@@ -51,7 +51,7 @@ public final class SanctionsHitContext {
             Optional<String> ruleInstanceId,
             Optional<String> ruleId,
             Optional<String> iban,
-            Optional<Double> yearOfBirth,
+            Optional<Integer> yearOfBirth,
             Optional<String> searchTerm,
             Optional<String> paymentMethodId,
             Map<String, Object> additionalProperties) {
@@ -104,7 +104,7 @@ public final class SanctionsHitContext {
     }
 
     @JsonProperty("yearOfBirth")
-    public Optional<Double> getYearOfBirth() {
+    public Optional<Integer> getYearOfBirth() {
         return yearOfBirth;
     }
 
@@ -199,9 +199,9 @@ public final class SanctionsHitContext {
 
         _FinalStage iban(String iban);
 
-        _FinalStage yearOfBirth(Optional<Double> yearOfBirth);
+        _FinalStage yearOfBirth(Optional<Integer> yearOfBirth);
 
-        _FinalStage yearOfBirth(Double yearOfBirth);
+        _FinalStage yearOfBirth(Integer yearOfBirth);
 
         _FinalStage searchTerm(Optional<String> searchTerm);
 
@@ -220,7 +220,7 @@ public final class SanctionsHitContext {
 
         private Optional<String> searchTerm = Optional.empty();
 
-        private Optional<Double> yearOfBirth = Optional.empty();
+        private Optional<Integer> yearOfBirth = Optional.empty();
 
         private Optional<String> iban = Optional.empty();
 
@@ -288,14 +288,14 @@ public final class SanctionsHitContext {
         }
 
         @java.lang.Override
-        public _FinalStage yearOfBirth(Double yearOfBirth) {
+        public _FinalStage yearOfBirth(Integer yearOfBirth) {
             this.yearOfBirth = Optional.ofNullable(yearOfBirth);
             return this;
         }
 
         @java.lang.Override
         @JsonSetter(value = "yearOfBirth", nulls = Nulls.SKIP)
-        public _FinalStage yearOfBirth(Optional<Double> yearOfBirth) {
+        public _FinalStage yearOfBirth(Optional<Integer> yearOfBirth) {
             this.yearOfBirth = yearOfBirth;
             return this;
         }

@@ -20,13 +20,13 @@ import java.util.Optional;
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
 @JsonDeserialize(builder = MccDetails.Builder.class)
 public final class MccDetails {
-    private final double code;
+    private final int code;
 
     private final Optional<String> description;
 
     private final Map<String, Object> additionalProperties;
 
-    private MccDetails(double code, Optional<String> description, Map<String, Object> additionalProperties) {
+    private MccDetails(int code, Optional<String> description, Map<String, Object> additionalProperties) {
         this.code = code;
         this.description = description;
         this.additionalProperties = additionalProperties;
@@ -36,7 +36,7 @@ public final class MccDetails {
      * @return Merchant code
      */
     @JsonProperty("code")
-    public double getCode() {
+    public int getCode() {
         return code;
     }
 
@@ -78,7 +78,7 @@ public final class MccDetails {
     }
 
     public interface CodeStage {
-        _FinalStage code(double code);
+        _FinalStage code(int code);
 
         Builder from(MccDetails other);
     }
@@ -93,7 +93,7 @@ public final class MccDetails {
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static final class Builder implements CodeStage, _FinalStage {
-        private double code;
+        private int code;
 
         private Optional<String> description = Optional.empty();
 
@@ -115,7 +115,7 @@ public final class MccDetails {
          */
         @java.lang.Override
         @JsonSetter("code")
-        public _FinalStage code(double code) {
+        public _FinalStage code(int code) {
             this.code = code;
             return this;
         }

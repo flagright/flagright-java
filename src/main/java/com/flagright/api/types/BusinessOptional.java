@@ -77,6 +77,8 @@ public final class BusinessOptional {
 
     private final Optional<Boolean> adverseMediaStatus;
 
+    private final Optional<List<String>> externalLinks;
+
     private final Map<String, Object> additionalProperties;
 
     private BusinessOptional(
@@ -108,6 +110,7 @@ public final class BusinessOptional {
             Optional<List<PepStatus>> pepStatus,
             Optional<Boolean> sanctionsStatus,
             Optional<Boolean> adverseMediaStatus,
+            Optional<List<String>> externalLinks,
             Map<String, Object> additionalProperties) {
         this.activatedTimestamp = activatedTimestamp;
         this.userStateDetails = userStateDetails;
@@ -137,6 +140,7 @@ public final class BusinessOptional {
         this.pepStatus = pepStatus;
         this.sanctionsStatus = sanctionsStatus;
         this.adverseMediaStatus = adverseMediaStatus;
+        this.externalLinks = externalLinks;
         this.additionalProperties = additionalProperties;
     }
 
@@ -313,6 +317,14 @@ public final class BusinessOptional {
         return adverseMediaStatus;
     }
 
+    /**
+     * @return External links related to the business user
+     */
+    @JsonProperty("externalLinks")
+    public Optional<List<String>> getExternalLinks() {
+        return externalLinks;
+    }
+
     @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
@@ -352,7 +364,8 @@ public final class BusinessOptional {
                 && productsEnabled.equals(other.productsEnabled)
                 && pepStatus.equals(other.pepStatus)
                 && sanctionsStatus.equals(other.sanctionsStatus)
-                && adverseMediaStatus.equals(other.adverseMediaStatus);
+                && adverseMediaStatus.equals(other.adverseMediaStatus)
+                && externalLinks.equals(other.externalLinks);
     }
 
     @java.lang.Override
@@ -385,7 +398,8 @@ public final class BusinessOptional {
                 this.productsEnabled,
                 this.pepStatus,
                 this.sanctionsStatus,
-                this.adverseMediaStatus);
+                this.adverseMediaStatus,
+                this.externalLinks);
     }
 
     @java.lang.Override
@@ -455,6 +469,8 @@ public final class BusinessOptional {
 
         private Optional<Boolean> adverseMediaStatus = Optional.empty();
 
+        private Optional<List<String>> externalLinks = Optional.empty();
+
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
 
@@ -489,6 +505,7 @@ public final class BusinessOptional {
             pepStatus(other.getPepStatus());
             sanctionsStatus(other.getSanctionsStatus());
             adverseMediaStatus(other.getAdverseMediaStatus());
+            externalLinks(other.getExternalLinks());
             return this;
         }
 
@@ -803,6 +820,17 @@ public final class BusinessOptional {
             return this;
         }
 
+        @JsonSetter(value = "externalLinks", nulls = Nulls.SKIP)
+        public Builder externalLinks(Optional<List<String>> externalLinks) {
+            this.externalLinks = externalLinks;
+            return this;
+        }
+
+        public Builder externalLinks(List<String> externalLinks) {
+            this.externalLinks = Optional.ofNullable(externalLinks);
+            return this;
+        }
+
         public BusinessOptional build() {
             return new BusinessOptional(
                     activatedTimestamp,
@@ -833,6 +861,7 @@ public final class BusinessOptional {
                     pepStatus,
                     sanctionsStatus,
                     adverseMediaStatus,
+                    externalLinks,
                     additionalProperties);
         }
     }

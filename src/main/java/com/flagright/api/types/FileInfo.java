@@ -67,6 +67,9 @@ public final class FileInfo {
         return filename;
     }
 
+    /**
+     * @return File size in bytes
+     */
     @JsonProperty("size")
     public double getSize() {
         return size;
@@ -190,6 +193,10 @@ public final class FileInfo {
             return this;
         }
 
+        /**
+         * <p>File size in bytes</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
         @java.lang.Override
         @JsonSetter("size")
         public _FinalStage size(double size) {

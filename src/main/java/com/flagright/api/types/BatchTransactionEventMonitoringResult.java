@@ -38,6 +38,8 @@ public final class BatchTransactionEventMonitoringResult {
 
     private final Optional<DeviceData> metaData;
 
+    private final Optional<List<String>> externalLinks;
+
     private final Optional<List<HitRulesDetails>> hitRules;
 
     private final Optional<RuleAction> status;
@@ -55,6 +57,7 @@ public final class BatchTransactionEventMonitoringResult {
             Optional<String> eventDescription,
             Optional<TransactionUpdatable> updatedTransactionAttributes,
             Optional<DeviceData> metaData,
+            Optional<List<String>> externalLinks,
             Optional<List<HitRulesDetails>> hitRules,
             Optional<RuleAction> status,
             Optional<TransactionRiskScoringResult> riskScoreDetails,
@@ -67,6 +70,7 @@ public final class BatchTransactionEventMonitoringResult {
         this.eventDescription = eventDescription;
         this.updatedTransactionAttributes = updatedTransactionAttributes;
         this.metaData = metaData;
+        this.externalLinks = externalLinks;
         this.hitRules = hitRules;
         this.status = status;
         this.riskScoreDetails = riskScoreDetails;
@@ -128,6 +132,14 @@ public final class BatchTransactionEventMonitoringResult {
         return metaData;
     }
 
+    /**
+     * @return External links related to the transaction
+     */
+    @JsonProperty("externalLinks")
+    public Optional<List<String>> getExternalLinks() {
+        return externalLinks;
+    }
+
     @JsonProperty("hitRules")
     public Optional<List<HitRulesDetails>> getHitRules() {
         return hitRules;
@@ -164,6 +176,7 @@ public final class BatchTransactionEventMonitoringResult {
                 && eventDescription.equals(other.eventDescription)
                 && updatedTransactionAttributes.equals(other.updatedTransactionAttributes)
                 && metaData.equals(other.metaData)
+                && externalLinks.equals(other.externalLinks)
                 && hitRules.equals(other.hitRules)
                 && status.equals(other.status)
                 && riskScoreDetails.equals(other.riskScoreDetails);
@@ -180,6 +193,7 @@ public final class BatchTransactionEventMonitoringResult {
                 this.eventDescription,
                 this.updatedTransactionAttributes,
                 this.metaData,
+                this.externalLinks,
                 this.hitRules,
                 this.status,
                 this.riskScoreDetails);
@@ -231,6 +245,10 @@ public final class BatchTransactionEventMonitoringResult {
 
         _FinalStage metaData(DeviceData metaData);
 
+        _FinalStage externalLinks(Optional<List<String>> externalLinks);
+
+        _FinalStage externalLinks(List<String> externalLinks);
+
         _FinalStage hitRules(Optional<List<HitRulesDetails>> hitRules);
 
         _FinalStage hitRules(List<HitRulesDetails> hitRules);
@@ -259,6 +277,8 @@ public final class BatchTransactionEventMonitoringResult {
 
         private Optional<List<HitRulesDetails>> hitRules = Optional.empty();
 
+        private Optional<List<String>> externalLinks = Optional.empty();
+
         private Optional<DeviceData> metaData = Optional.empty();
 
         private Optional<TransactionUpdatable> updatedTransactionAttributes = Optional.empty();
@@ -284,6 +304,7 @@ public final class BatchTransactionEventMonitoringResult {
             eventDescription(other.getEventDescription());
             updatedTransactionAttributes(other.getUpdatedTransactionAttributes());
             metaData(other.getMetaData());
+            externalLinks(other.getExternalLinks());
             hitRules(other.getHitRules());
             status(other.getStatus());
             riskScoreDetails(other.getRiskScoreDetails());
@@ -355,6 +376,23 @@ public final class BatchTransactionEventMonitoringResult {
         @JsonSetter(value = "hitRules", nulls = Nulls.SKIP)
         public _FinalStage hitRules(Optional<List<HitRulesDetails>> hitRules) {
             this.hitRules = hitRules;
+            return this;
+        }
+
+        /**
+         * <p>External links related to the transaction</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
+        @java.lang.Override
+        public _FinalStage externalLinks(List<String> externalLinks) {
+            this.externalLinks = Optional.ofNullable(externalLinks);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "externalLinks", nulls = Nulls.SKIP)
+        public _FinalStage externalLinks(Optional<List<String>> externalLinks) {
+            this.externalLinks = externalLinks;
             return this;
         }
 
@@ -446,6 +484,7 @@ public final class BatchTransactionEventMonitoringResult {
                     eventDescription,
                     updatedTransactionAttributes,
                     metaData,
+                    externalLinks,
                     hitRules,
                     status,
                     riskScoreDetails,

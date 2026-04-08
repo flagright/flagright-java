@@ -64,6 +64,8 @@ public final class Transaction {
 
     private final Optional<String> jurisdiction;
 
+    private final Optional<List<String>> externalLinks;
+
     private final Map<String, Object> additionalProperties;
 
     private Transaction(
@@ -88,6 +90,7 @@ public final class Transaction {
             Optional<TransactionMetadata> metadata,
             Optional<List<Tag>> tags,
             Optional<String> jurisdiction,
+            Optional<List<String>> externalLinks,
             Map<String, Object> additionalProperties) {
         this.type = type;
         this.transactionId = transactionId;
@@ -110,6 +113,7 @@ public final class Transaction {
         this.metadata = metadata;
         this.tags = tags;
         this.jurisdiction = jurisdiction;
+        this.externalLinks = externalLinks;
         this.additionalProperties = additionalProperties;
     }
 
@@ -254,6 +258,14 @@ public final class Transaction {
         return jurisdiction;
     }
 
+    /**
+     * @return External links related to the transaction
+     */
+    @JsonProperty("externalLinks")
+    public Optional<List<String>> getExternalLinks() {
+        return externalLinks;
+    }
+
     @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
@@ -286,7 +298,8 @@ public final class Transaction {
                 && destinationDeviceData.equals(other.destinationDeviceData)
                 && metadata.equals(other.metadata)
                 && tags.equals(other.tags)
-                && jurisdiction.equals(other.jurisdiction);
+                && jurisdiction.equals(other.jurisdiction)
+                && externalLinks.equals(other.externalLinks);
     }
 
     @java.lang.Override
@@ -312,7 +325,8 @@ public final class Transaction {
                 this.destinationDeviceData,
                 this.metadata,
                 this.tags,
-                this.jurisdiction);
+                this.jurisdiction,
+                this.externalLinks);
     }
 
     @java.lang.Override
@@ -412,6 +426,10 @@ public final class Transaction {
         _FinalStage jurisdiction(Optional<String> jurisdiction);
 
         _FinalStage jurisdiction(String jurisdiction);
+
+        _FinalStage externalLinks(Optional<List<String>> externalLinks);
+
+        _FinalStage externalLinks(List<String> externalLinks);
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
@@ -421,6 +439,8 @@ public final class Transaction {
         private String transactionId;
 
         private double timestamp;
+
+        private Optional<List<String>> externalLinks = Optional.empty();
 
         private Optional<String> jurisdiction = Optional.empty();
 
@@ -486,6 +506,7 @@ public final class Transaction {
             metadata(other.getMetadata());
             tags(other.getTags());
             jurisdiction(other.getJurisdiction());
+            externalLinks(other.getExternalLinks());
             return this;
         }
 
@@ -519,6 +540,23 @@ public final class Transaction {
         @JsonSetter("timestamp")
         public _FinalStage timestamp(double timestamp) {
             this.timestamp = timestamp;
+            return this;
+        }
+
+        /**
+         * <p>External links related to the transaction</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
+        @java.lang.Override
+        public _FinalStage externalLinks(List<String> externalLinks) {
+            this.externalLinks = Optional.ofNullable(externalLinks);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "externalLinks", nulls = Nulls.SKIP)
+        public _FinalStage externalLinks(Optional<List<String>> externalLinks) {
+            this.externalLinks = externalLinks;
             return this;
         }
 
@@ -817,6 +855,7 @@ public final class Transaction {
                     metadata,
                     tags,
                     jurisdiction,
+                    externalLinks,
                     additionalProperties);
         }
     }

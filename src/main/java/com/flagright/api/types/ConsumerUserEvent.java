@@ -13,6 +13,7 @@ import com.fasterxml.jackson.annotation.Nulls;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.flagright.api.core.ObjectMappers;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
@@ -33,6 +34,8 @@ public final class ConsumerUserEvent {
 
     private final Optional<UserOptional> updatedConsumerUserAttributes;
 
+    private final Optional<List<String>> externalLinks;
+
     private final Map<String, Object> additionalProperties;
 
     private ConsumerUserEvent(
@@ -42,6 +45,7 @@ public final class ConsumerUserEvent {
             Optional<String> reason,
             Optional<String> eventDescription,
             Optional<UserOptional> updatedConsumerUserAttributes,
+            Optional<List<String>> externalLinks,
             Map<String, Object> additionalProperties) {
         this.timestamp = timestamp;
         this.userId = userId;
@@ -49,6 +53,7 @@ public final class ConsumerUserEvent {
         this.reason = reason;
         this.eventDescription = eventDescription;
         this.updatedConsumerUserAttributes = updatedConsumerUserAttributes;
+        this.externalLinks = externalLinks;
         this.additionalProperties = additionalProperties;
     }
 
@@ -97,6 +102,14 @@ public final class ConsumerUserEvent {
         return updatedConsumerUserAttributes;
     }
 
+    /**
+     * @return External links related to the consumer user
+     */
+    @JsonProperty("externalLinks")
+    public Optional<List<String>> getExternalLinks() {
+        return externalLinks;
+    }
+
     @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
@@ -114,7 +127,8 @@ public final class ConsumerUserEvent {
                 && eventId.equals(other.eventId)
                 && reason.equals(other.reason)
                 && eventDescription.equals(other.eventDescription)
-                && updatedConsumerUserAttributes.equals(other.updatedConsumerUserAttributes);
+                && updatedConsumerUserAttributes.equals(other.updatedConsumerUserAttributes)
+                && externalLinks.equals(other.externalLinks);
     }
 
     @java.lang.Override
@@ -125,7 +139,8 @@ public final class ConsumerUserEvent {
                 this.eventId,
                 this.reason,
                 this.eventDescription,
-                this.updatedConsumerUserAttributes);
+                this.updatedConsumerUserAttributes,
+                this.externalLinks);
     }
 
     @java.lang.Override
@@ -165,6 +180,10 @@ public final class ConsumerUserEvent {
         _FinalStage updatedConsumerUserAttributes(Optional<UserOptional> updatedConsumerUserAttributes);
 
         _FinalStage updatedConsumerUserAttributes(UserOptional updatedConsumerUserAttributes);
+
+        _FinalStage externalLinks(Optional<List<String>> externalLinks);
+
+        _FinalStage externalLinks(List<String> externalLinks);
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
@@ -172,6 +191,8 @@ public final class ConsumerUserEvent {
         private double timestamp;
 
         private String userId;
+
+        private Optional<List<String>> externalLinks = Optional.empty();
 
         private Optional<UserOptional> updatedConsumerUserAttributes = Optional.empty();
 
@@ -194,6 +215,7 @@ public final class ConsumerUserEvent {
             reason(other.getReason());
             eventDescription(other.getEventDescription());
             updatedConsumerUserAttributes(other.getUpdatedConsumerUserAttributes());
+            externalLinks(other.getExternalLinks());
             return this;
         }
 
@@ -216,6 +238,23 @@ public final class ConsumerUserEvent {
         @JsonSetter("userId")
         public _FinalStage userId(@NotNull String userId) {
             this.userId = Objects.requireNonNull(userId, "userId must not be null");
+            return this;
+        }
+
+        /**
+         * <p>External links related to the consumer user</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
+        @java.lang.Override
+        public _FinalStage externalLinks(List<String> externalLinks) {
+            this.externalLinks = Optional.ofNullable(externalLinks);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "externalLinks", nulls = Nulls.SKIP)
+        public _FinalStage externalLinks(Optional<List<String>> externalLinks) {
+            this.externalLinks = externalLinks;
             return this;
         }
 
@@ -292,6 +331,7 @@ public final class ConsumerUserEvent {
                     reason,
                     eventDescription,
                     updatedConsumerUserAttributes,
+                    externalLinks,
                     additionalProperties);
         }
     }

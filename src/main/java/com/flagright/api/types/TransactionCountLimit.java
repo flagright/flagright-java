@@ -43,21 +43,33 @@ public final class TransactionCountLimit {
         this.additionalProperties = additionalProperties;
     }
 
+    /**
+     * @return Maximum transaction count allowed per calendar day
+     */
     @JsonProperty("day")
     public Optional<Double> getDay() {
         return day;
     }
 
+    /**
+     * @return Maximum transaction count allowed per calendar week
+     */
     @JsonProperty("week")
     public Optional<Double> getWeek() {
         return week;
     }
 
+    /**
+     * @return Maximum transaction count allowed per calendar month
+     */
     @JsonProperty("month")
     public Optional<Double> getMonth() {
         return month;
     }
 
+    /**
+     * @return Maximum transaction count allowed per calendar year
+     */
     @JsonProperty("year")
     public Optional<Double> getYear() {
         return year;
