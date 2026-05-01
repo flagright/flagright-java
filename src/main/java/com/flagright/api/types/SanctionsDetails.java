@@ -26,6 +26,8 @@ public final class SanctionsDetails {
 
     private final String searchId;
 
+    private final Optional<String> requestHash;
+
     private final Optional<String> iban;
 
     private final Optional<SanctionsDetailsEntityType> entityType;
@@ -43,6 +45,7 @@ public final class SanctionsDetails {
     private SanctionsDetails(
             String name,
             String searchId,
+            Optional<String> requestHash,
             Optional<String> iban,
             Optional<SanctionsDetailsEntityType> entityType,
             Optional<List<String>> sanctionHitIds,
@@ -52,6 +55,7 @@ public final class SanctionsDetails {
             Map<String, Object> additionalProperties) {
         this.name = name;
         this.searchId = searchId;
+        this.requestHash = requestHash;
         this.iban = iban;
         this.entityType = entityType;
         this.sanctionHitIds = sanctionHitIds;
@@ -69,6 +73,11 @@ public final class SanctionsDetails {
     @JsonProperty("searchId")
     public String getSearchId() {
         return searchId;
+    }
+
+    @JsonProperty("requestHash")
+    public Optional<String> getRequestHash() {
+        return requestHash;
     }
 
     @JsonProperty("iban")
@@ -115,6 +124,7 @@ public final class SanctionsDetails {
     private boolean equalTo(SanctionsDetails other) {
         return name.equals(other.name)
                 && searchId.equals(other.searchId)
+                && requestHash.equals(other.requestHash)
                 && iban.equals(other.iban)
                 && entityType.equals(other.entityType)
                 && sanctionHitIds.equals(other.sanctionHitIds)
@@ -128,6 +138,7 @@ public final class SanctionsDetails {
         return Objects.hash(
                 this.name,
                 this.searchId,
+                this.requestHash,
                 this.iban,
                 this.entityType,
                 this.sanctionHitIds,
@@ -157,6 +168,10 @@ public final class SanctionsDetails {
 
     public interface _FinalStage {
         SanctionsDetails build();
+
+        _FinalStage requestHash(Optional<String> requestHash);
+
+        _FinalStage requestHash(String requestHash);
 
         _FinalStage iban(Optional<String> iban);
 
@@ -201,6 +216,8 @@ public final class SanctionsDetails {
 
         private Optional<String> iban = Optional.empty();
 
+        private Optional<String> requestHash = Optional.empty();
+
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
 
@@ -210,6 +227,7 @@ public final class SanctionsDetails {
         public Builder from(SanctionsDetails other) {
             name(other.getName());
             searchId(other.getSearchId());
+            requestHash(other.getRequestHash());
             iban(other.getIban());
             entityType(other.getEntityType());
             sanctionHitIds(other.getSanctionHitIds());
@@ -312,10 +330,24 @@ public final class SanctionsDetails {
         }
 
         @java.lang.Override
+        public _FinalStage requestHash(String requestHash) {
+            this.requestHash = Optional.ofNullable(requestHash);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "requestHash", nulls = Nulls.SKIP)
+        public _FinalStage requestHash(Optional<String> requestHash) {
+            this.requestHash = requestHash;
+            return this;
+        }
+
+        @java.lang.Override
         public SanctionsDetails build() {
             return new SanctionsDetails(
                     name,
                     searchId,
+                    requestHash,
                     iban,
                     entityType,
                     sanctionHitIds,

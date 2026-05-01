@@ -13,6 +13,7 @@ import com.fasterxml.jackson.annotation.Nulls;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.flagright.api.core.ObjectMappers;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
@@ -24,12 +25,30 @@ public final class CraRiskLevelUpdatedDetails {
 
     private final Optional<String> userId;
 
+    private final Optional<Double> riskScore;
+
+    private final Optional<Double> kycRiskScore;
+
+    private final Optional<String> kycRiskLevel;
+
+    private final Optional<List<CraRiskLevelUpdatedRiskFactor>> riskFactors;
+
     private final Map<String, Object> additionalProperties;
 
     private CraRiskLevelUpdatedDetails(
-            Optional<String> riskLevel, Optional<String> userId, Map<String, Object> additionalProperties) {
+            Optional<String> riskLevel,
+            Optional<String> userId,
+            Optional<Double> riskScore,
+            Optional<Double> kycRiskScore,
+            Optional<String> kycRiskLevel,
+            Optional<List<CraRiskLevelUpdatedRiskFactor>> riskFactors,
+            Map<String, Object> additionalProperties) {
         this.riskLevel = riskLevel;
         this.userId = userId;
+        this.riskScore = riskScore;
+        this.kycRiskScore = kycRiskScore;
+        this.kycRiskLevel = kycRiskLevel;
+        this.riskFactors = riskFactors;
         this.additionalProperties = additionalProperties;
     }
 
@@ -41,6 +60,38 @@ public final class CraRiskLevelUpdatedDetails {
     @JsonProperty("userId")
     public Optional<String> getUserId() {
         return userId;
+    }
+
+    /**
+     * @return Current CRA (DRS) risk score for the user
+     */
+    @JsonProperty("riskScore")
+    public Optional<Double> getRiskScore() {
+        return riskScore;
+    }
+
+    /**
+     * @return KRS score when a KRS record exists for the user
+     */
+    @JsonProperty("kycRiskScore")
+    public Optional<Double> getKycRiskScore() {
+        return kycRiskScore;
+    }
+
+    /**
+     * @return Risk level derived from the KRS score
+     */
+    @JsonProperty("kycRiskLevel")
+    public Optional<String> getKycRiskLevel() {
+        return kycRiskLevel;
+    }
+
+    /**
+     * @return Per-factor or component breakdown from KRS when present; omitted when there is no KRS data or no breakdown rows
+     */
+    @JsonProperty("riskFactors")
+    public Optional<List<CraRiskLevelUpdatedRiskFactor>> getRiskFactors() {
+        return riskFactors;
     }
 
     @java.lang.Override
@@ -55,12 +106,18 @@ public final class CraRiskLevelUpdatedDetails {
     }
 
     private boolean equalTo(CraRiskLevelUpdatedDetails other) {
-        return riskLevel.equals(other.riskLevel) && userId.equals(other.userId);
+        return riskLevel.equals(other.riskLevel)
+                && userId.equals(other.userId)
+                && riskScore.equals(other.riskScore)
+                && kycRiskScore.equals(other.kycRiskScore)
+                && kycRiskLevel.equals(other.kycRiskLevel)
+                && riskFactors.equals(other.riskFactors);
     }
 
     @java.lang.Override
     public int hashCode() {
-        return Objects.hash(this.riskLevel, this.userId);
+        return Objects.hash(
+                this.riskLevel, this.userId, this.riskScore, this.kycRiskScore, this.kycRiskLevel, this.riskFactors);
     }
 
     @java.lang.Override
@@ -78,6 +135,14 @@ public final class CraRiskLevelUpdatedDetails {
 
         private Optional<String> userId = Optional.empty();
 
+        private Optional<Double> riskScore = Optional.empty();
+
+        private Optional<Double> kycRiskScore = Optional.empty();
+
+        private Optional<String> kycRiskLevel = Optional.empty();
+
+        private Optional<List<CraRiskLevelUpdatedRiskFactor>> riskFactors = Optional.empty();
+
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
 
@@ -86,6 +151,10 @@ public final class CraRiskLevelUpdatedDetails {
         public Builder from(CraRiskLevelUpdatedDetails other) {
             riskLevel(other.getRiskLevel());
             userId(other.getUserId());
+            riskScore(other.getRiskScore());
+            kycRiskScore(other.getKycRiskScore());
+            kycRiskLevel(other.getKycRiskLevel());
+            riskFactors(other.getRiskFactors());
             return this;
         }
 
@@ -111,8 +180,53 @@ public final class CraRiskLevelUpdatedDetails {
             return this;
         }
 
+        @JsonSetter(value = "riskScore", nulls = Nulls.SKIP)
+        public Builder riskScore(Optional<Double> riskScore) {
+            this.riskScore = riskScore;
+            return this;
+        }
+
+        public Builder riskScore(Double riskScore) {
+            this.riskScore = Optional.ofNullable(riskScore);
+            return this;
+        }
+
+        @JsonSetter(value = "kycRiskScore", nulls = Nulls.SKIP)
+        public Builder kycRiskScore(Optional<Double> kycRiskScore) {
+            this.kycRiskScore = kycRiskScore;
+            return this;
+        }
+
+        public Builder kycRiskScore(Double kycRiskScore) {
+            this.kycRiskScore = Optional.ofNullable(kycRiskScore);
+            return this;
+        }
+
+        @JsonSetter(value = "kycRiskLevel", nulls = Nulls.SKIP)
+        public Builder kycRiskLevel(Optional<String> kycRiskLevel) {
+            this.kycRiskLevel = kycRiskLevel;
+            return this;
+        }
+
+        public Builder kycRiskLevel(String kycRiskLevel) {
+            this.kycRiskLevel = Optional.ofNullable(kycRiskLevel);
+            return this;
+        }
+
+        @JsonSetter(value = "riskFactors", nulls = Nulls.SKIP)
+        public Builder riskFactors(Optional<List<CraRiskLevelUpdatedRiskFactor>> riskFactors) {
+            this.riskFactors = riskFactors;
+            return this;
+        }
+
+        public Builder riskFactors(List<CraRiskLevelUpdatedRiskFactor> riskFactors) {
+            this.riskFactors = Optional.ofNullable(riskFactors);
+            return this;
+        }
+
         public CraRiskLevelUpdatedDetails build() {
-            return new CraRiskLevelUpdatedDetails(riskLevel, userId, additionalProperties);
+            return new CraRiskLevelUpdatedDetails(
+                    riskLevel, userId, riskScore, kycRiskScore, kycRiskLevel, riskFactors, additionalProperties);
         }
     }
 }
