@@ -50,6 +50,10 @@ public final class WebhookEventData {
             return visitor.visit((CraRiskLevelUpdatedDetails) this.value);
         } else if (this.type == 9) {
             return visitor.visit((BatchCompletedDetails) this.value);
+        } else if (this.type == 10) {
+            return visitor.visit((SarWebhookDetails) this.value);
+        } else if (this.type == 11) {
+            return visitor.visit((SarMessageReceivedDetails) this.value);
         }
         throw new IllegalStateException("Failed to visit value. This should never happen.");
     }
@@ -114,6 +118,14 @@ public final class WebhookEventData {
         return new WebhookEventData(value, 9);
     }
 
+    public static WebhookEventData of(SarWebhookDetails value) {
+        return new WebhookEventData(value, 10);
+    }
+
+    public static WebhookEventData of(SarMessageReceivedDetails value) {
+        return new WebhookEventData(value, 11);
+    }
+
     public interface Visitor<T> {
         T visit(UserStateDetails value);
 
@@ -134,6 +146,10 @@ public final class WebhookEventData {
         T visit(CraRiskLevelUpdatedDetails value);
 
         T visit(BatchCompletedDetails value);
+
+        T visit(SarWebhookDetails value);
+
+        T visit(SarMessageReceivedDetails value);
     }
 
     static final class Deserializer extends StdDeserializer<WebhookEventData> {
@@ -182,6 +198,14 @@ public final class WebhookEventData {
             }
             try {
                 return of(ObjectMappers.JSON_MAPPER.convertValue(value, BatchCompletedDetails.class));
+            } catch (IllegalArgumentException e) {
+            }
+            try {
+                return of(ObjectMappers.JSON_MAPPER.convertValue(value, SarWebhookDetails.class));
+            } catch (IllegalArgumentException e) {
+            }
+            try {
+                return of(ObjectMappers.JSON_MAPPER.convertValue(value, SarMessageReceivedDetails.class));
             } catch (IllegalArgumentException e) {
             }
             throw new JsonParseException(p, "Failed to deserialize");
