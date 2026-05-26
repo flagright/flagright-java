@@ -25,12 +25,18 @@ public final class ExecutedLogicVars {
 
     private final Map<String, Object> value;
 
+    private final Optional<ListContext> listContext;
+
     private final Map<String, Object> additionalProperties;
 
     private ExecutedLogicVars(
-            Optional<RuleHitDirection> direction, Map<String, Object> value, Map<String, Object> additionalProperties) {
+            Optional<RuleHitDirection> direction,
+            Map<String, Object> value,
+            Optional<ListContext> listContext,
+            Map<String, Object> additionalProperties) {
         this.direction = direction;
         this.value = value;
+        this.listContext = listContext;
         this.additionalProperties = additionalProperties;
     }
 
@@ -42,6 +48,11 @@ public final class ExecutedLogicVars {
     @JsonProperty("value")
     public Map<String, Object> getValue() {
         return value;
+    }
+
+    @JsonProperty("listContext")
+    public Optional<ListContext> getListContext() {
+        return listContext;
     }
 
     @java.lang.Override
@@ -56,12 +67,12 @@ public final class ExecutedLogicVars {
     }
 
     private boolean equalTo(ExecutedLogicVars other) {
-        return direction.equals(other.direction) && value.equals(other.value);
+        return direction.equals(other.direction) && value.equals(other.value) && listContext.equals(other.listContext);
     }
 
     @java.lang.Override
     public int hashCode() {
-        return Objects.hash(this.direction, this.value);
+        return Objects.hash(this.direction, this.value, this.listContext);
     }
 
     @java.lang.Override
@@ -79,6 +90,8 @@ public final class ExecutedLogicVars {
 
         private Map<String, Object> value = new LinkedHashMap<>();
 
+        private Optional<ListContext> listContext = Optional.empty();
+
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
 
@@ -87,6 +100,7 @@ public final class ExecutedLogicVars {
         public Builder from(ExecutedLogicVars other) {
             direction(other.getDirection());
             value(other.getValue());
+            listContext(other.getListContext());
             return this;
         }
 
@@ -118,8 +132,19 @@ public final class ExecutedLogicVars {
             return this;
         }
 
+        @JsonSetter(value = "listContext", nulls = Nulls.SKIP)
+        public Builder listContext(Optional<ListContext> listContext) {
+            this.listContext = listContext;
+            return this;
+        }
+
+        public Builder listContext(ListContext listContext) {
+            this.listContext = Optional.ofNullable(listContext);
+            return this;
+        }
+
         public ExecutedLogicVars build() {
-            return new ExecutedLogicVars(direction, value, additionalProperties);
+            return new ExecutedLogicVars(direction, value, listContext, additionalProperties);
         }
     }
 }

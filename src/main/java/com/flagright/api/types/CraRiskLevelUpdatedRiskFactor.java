@@ -22,6 +22,8 @@ import java.util.Optional;
 public final class CraRiskLevelUpdatedRiskFactor {
     private final Optional<String> riskFactorId;
 
+    private final Optional<String> riskFactorName;
+
     private final Optional<String> riskFactorVersionId;
 
     private final Optional<String> value;
@@ -36,6 +38,7 @@ public final class CraRiskLevelUpdatedRiskFactor {
 
     private CraRiskLevelUpdatedRiskFactor(
             Optional<String> riskFactorId,
+            Optional<String> riskFactorName,
             Optional<String> riskFactorVersionId,
             Optional<String> value,
             Optional<Double> riskScore,
@@ -43,6 +46,7 @@ public final class CraRiskLevelUpdatedRiskFactor {
             Optional<Double> weight,
             Map<String, Object> additionalProperties) {
         this.riskFactorId = riskFactorId;
+        this.riskFactorName = riskFactorName;
         this.riskFactorVersionId = riskFactorVersionId;
         this.value = value;
         this.riskScore = riskScore;
@@ -54,6 +58,11 @@ public final class CraRiskLevelUpdatedRiskFactor {
     @JsonProperty("riskFactorId")
     public Optional<String> getRiskFactorId() {
         return riskFactorId;
+    }
+
+    @JsonProperty("riskFactorName")
+    public Optional<String> getRiskFactorName() {
+        return riskFactorName;
     }
 
     /**
@@ -97,6 +106,7 @@ public final class CraRiskLevelUpdatedRiskFactor {
 
     private boolean equalTo(CraRiskLevelUpdatedRiskFactor other) {
         return riskFactorId.equals(other.riskFactorId)
+                && riskFactorName.equals(other.riskFactorName)
                 && riskFactorVersionId.equals(other.riskFactorVersionId)
                 && value.equals(other.value)
                 && riskScore.equals(other.riskScore)
@@ -107,7 +117,13 @@ public final class CraRiskLevelUpdatedRiskFactor {
     @java.lang.Override
     public int hashCode() {
         return Objects.hash(
-                this.riskFactorId, this.riskFactorVersionId, this.value, this.riskScore, this.riskLevel, this.weight);
+                this.riskFactorId,
+                this.riskFactorName,
+                this.riskFactorVersionId,
+                this.value,
+                this.riskScore,
+                this.riskLevel,
+                this.weight);
     }
 
     @java.lang.Override
@@ -122,6 +138,8 @@ public final class CraRiskLevelUpdatedRiskFactor {
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static final class Builder {
         private Optional<String> riskFactorId = Optional.empty();
+
+        private Optional<String> riskFactorName = Optional.empty();
 
         private Optional<String> riskFactorVersionId = Optional.empty();
 
@@ -140,6 +158,7 @@ public final class CraRiskLevelUpdatedRiskFactor {
 
         public Builder from(CraRiskLevelUpdatedRiskFactor other) {
             riskFactorId(other.getRiskFactorId());
+            riskFactorName(other.getRiskFactorName());
             riskFactorVersionId(other.getRiskFactorVersionId());
             value(other.getValue());
             riskScore(other.getRiskScore());
@@ -156,6 +175,17 @@ public final class CraRiskLevelUpdatedRiskFactor {
 
         public Builder riskFactorId(String riskFactorId) {
             this.riskFactorId = Optional.ofNullable(riskFactorId);
+            return this;
+        }
+
+        @JsonSetter(value = "riskFactorName", nulls = Nulls.SKIP)
+        public Builder riskFactorName(Optional<String> riskFactorName) {
+            this.riskFactorName = riskFactorName;
+            return this;
+        }
+
+        public Builder riskFactorName(String riskFactorName) {
+            this.riskFactorName = Optional.ofNullable(riskFactorName);
             return this;
         }
 
@@ -216,7 +246,14 @@ public final class CraRiskLevelUpdatedRiskFactor {
 
         public CraRiskLevelUpdatedRiskFactor build() {
             return new CraRiskLevelUpdatedRiskFactor(
-                    riskFactorId, riskFactorVersionId, value, riskScore, riskLevel, weight, additionalProperties);
+                    riskFactorId,
+                    riskFactorName,
+                    riskFactorVersionId,
+                    value,
+                    riskScore,
+                    riskLevel,
+                    weight,
+                    additionalProperties);
         }
     }
 }

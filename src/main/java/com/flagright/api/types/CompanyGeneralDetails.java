@@ -25,6 +25,8 @@ public final class CompanyGeneralDetails {
 
     private final Optional<List<String>> businessIndustry;
 
+    private final Optional<List<String>> secondaryBusinessIndustry;
+
     private final Optional<List<String>> mainProductsServicesSold;
 
     private final Optional<BusinessUserSegment> userSegment;
@@ -42,6 +44,7 @@ public final class CompanyGeneralDetails {
     private CompanyGeneralDetails(
             Optional<String> legalName,
             Optional<List<String>> businessIndustry,
+            Optional<List<String>> secondaryBusinessIndustry,
             Optional<List<String>> mainProductsServicesSold,
             Optional<BusinessUserSegment> userSegment,
             Optional<UserRegistrationStatus> userRegistrationStatus,
@@ -51,6 +54,7 @@ public final class CompanyGeneralDetails {
             Map<String, Object> additionalProperties) {
         this.legalName = legalName;
         this.businessIndustry = businessIndustry;
+        this.secondaryBusinessIndustry = secondaryBusinessIndustry;
         this.mainProductsServicesSold = mainProductsServicesSold;
         this.userSegment = userSegment;
         this.userRegistrationStatus = userRegistrationStatus;
@@ -74,6 +78,14 @@ public final class CompanyGeneralDetails {
     @JsonProperty("businessIndustry")
     public Optional<List<String>> getBusinessIndustry() {
         return businessIndustry;
+    }
+
+    /**
+     * @return Additional industries in which the business operates for a business customer
+     */
+    @JsonProperty("secondaryBusinessIndustry")
+    public Optional<List<String>> getSecondaryBusinessIndustry() {
+        return secondaryBusinessIndustry;
     }
 
     /**
@@ -135,6 +147,7 @@ public final class CompanyGeneralDetails {
     private boolean equalTo(CompanyGeneralDetails other) {
         return legalName.equals(other.legalName)
                 && businessIndustry.equals(other.businessIndustry)
+                && secondaryBusinessIndustry.equals(other.secondaryBusinessIndustry)
                 && mainProductsServicesSold.equals(other.mainProductsServicesSold)
                 && userSegment.equals(other.userSegment)
                 && userRegistrationStatus.equals(other.userRegistrationStatus)
@@ -148,6 +161,7 @@ public final class CompanyGeneralDetails {
         return Objects.hash(
                 this.legalName,
                 this.businessIndustry,
+                this.secondaryBusinessIndustry,
                 this.mainProductsServicesSold,
                 this.userSegment,
                 this.userRegistrationStatus,
@@ -171,6 +185,8 @@ public final class CompanyGeneralDetails {
 
         private Optional<List<String>> businessIndustry = Optional.empty();
 
+        private Optional<List<String>> secondaryBusinessIndustry = Optional.empty();
+
         private Optional<List<String>> mainProductsServicesSold = Optional.empty();
 
         private Optional<BusinessUserSegment> userSegment = Optional.empty();
@@ -191,6 +207,7 @@ public final class CompanyGeneralDetails {
         public Builder from(CompanyGeneralDetails other) {
             legalName(other.getLegalName());
             businessIndustry(other.getBusinessIndustry());
+            secondaryBusinessIndustry(other.getSecondaryBusinessIndustry());
             mainProductsServicesSold(other.getMainProductsServicesSold());
             userSegment(other.getUserSegment());
             userRegistrationStatus(other.getUserRegistrationStatus());
@@ -219,6 +236,17 @@ public final class CompanyGeneralDetails {
 
         public Builder businessIndustry(List<String> businessIndustry) {
             this.businessIndustry = Optional.ofNullable(businessIndustry);
+            return this;
+        }
+
+        @JsonSetter(value = "secondaryBusinessIndustry", nulls = Nulls.SKIP)
+        public Builder secondaryBusinessIndustry(Optional<List<String>> secondaryBusinessIndustry) {
+            this.secondaryBusinessIndustry = secondaryBusinessIndustry;
+            return this;
+        }
+
+        public Builder secondaryBusinessIndustry(List<String> secondaryBusinessIndustry) {
+            this.secondaryBusinessIndustry = Optional.ofNullable(secondaryBusinessIndustry);
             return this;
         }
 
@@ -292,6 +320,7 @@ public final class CompanyGeneralDetails {
             return new CompanyGeneralDetails(
                     legalName,
                     businessIndustry,
+                    secondaryBusinessIndustry,
                     mainProductsServicesSold,
                     userSegment,
                     userRegistrationStatus,
