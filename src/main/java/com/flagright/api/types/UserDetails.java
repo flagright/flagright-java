@@ -33,6 +33,8 @@ public final class UserDetails {
 
     private final Optional<CountryCode> countryOfNationality;
 
+    private final Optional<List<CountryCode>> secondaryCountryOfNationality;
+
     private final Optional<Gender> gender;
 
     private final Optional<MaritalStatus> maritalStatus;
@@ -50,6 +52,7 @@ public final class UserDetails {
             Optional<CountryCode> countryOfResidence,
             Optional<CountryCode> countryOfTaxResidence,
             Optional<CountryCode> countryOfNationality,
+            Optional<List<CountryCode>> secondaryCountryOfNationality,
             Optional<Gender> gender,
             Optional<MaritalStatus> maritalStatus,
             Optional<PlaceOfBirth> placeOfBirth,
@@ -61,6 +64,7 @@ public final class UserDetails {
         this.countryOfResidence = countryOfResidence;
         this.countryOfTaxResidence = countryOfTaxResidence;
         this.countryOfNationality = countryOfNationality;
+        this.secondaryCountryOfNationality = secondaryCountryOfNationality;
         this.gender = gender;
         this.maritalStatus = maritalStatus;
         this.placeOfBirth = placeOfBirth;
@@ -104,6 +108,14 @@ public final class UserDetails {
         return countryOfNationality;
     }
 
+    /**
+     * @return Additional nationalities of the user
+     */
+    @JsonProperty("secondaryCountryOfNationality")
+    public Optional<List<CountryCode>> getSecondaryCountryOfNationality() {
+        return secondaryCountryOfNationality;
+    }
+
     @JsonProperty("gender")
     public Optional<Gender> getGender() {
         return gender;
@@ -145,6 +157,7 @@ public final class UserDetails {
                 && countryOfResidence.equals(other.countryOfResidence)
                 && countryOfTaxResidence.equals(other.countryOfTaxResidence)
                 && countryOfNationality.equals(other.countryOfNationality)
+                && secondaryCountryOfNationality.equals(other.secondaryCountryOfNationality)
                 && gender.equals(other.gender)
                 && maritalStatus.equals(other.maritalStatus)
                 && placeOfBirth.equals(other.placeOfBirth)
@@ -160,6 +173,7 @@ public final class UserDetails {
                 this.countryOfResidence,
                 this.countryOfTaxResidence,
                 this.countryOfNationality,
+                this.secondaryCountryOfNationality,
                 this.gender,
                 this.maritalStatus,
                 this.placeOfBirth,
@@ -189,6 +203,8 @@ public final class UserDetails {
 
         private Optional<CountryCode> countryOfNationality = Optional.empty();
 
+        private Optional<List<CountryCode>> secondaryCountryOfNationality = Optional.empty();
+
         private Optional<Gender> gender = Optional.empty();
 
         private Optional<MaritalStatus> maritalStatus = Optional.empty();
@@ -209,6 +225,7 @@ public final class UserDetails {
             countryOfResidence(other.getCountryOfResidence());
             countryOfTaxResidence(other.getCountryOfTaxResidence());
             countryOfNationality(other.getCountryOfNationality());
+            secondaryCountryOfNationality(other.getSecondaryCountryOfNationality());
             gender(other.getGender());
             maritalStatus(other.getMaritalStatus());
             placeOfBirth(other.getPlaceOfBirth());
@@ -282,6 +299,17 @@ public final class UserDetails {
             return this;
         }
 
+        @JsonSetter(value = "secondaryCountryOfNationality", nulls = Nulls.SKIP)
+        public Builder secondaryCountryOfNationality(Optional<List<CountryCode>> secondaryCountryOfNationality) {
+            this.secondaryCountryOfNationality = secondaryCountryOfNationality;
+            return this;
+        }
+
+        public Builder secondaryCountryOfNationality(List<CountryCode> secondaryCountryOfNationality) {
+            this.secondaryCountryOfNationality = Optional.ofNullable(secondaryCountryOfNationality);
+            return this;
+        }
+
         @JsonSetter(value = "gender", nulls = Nulls.SKIP)
         public Builder gender(Optional<Gender> gender) {
             this.gender = gender;
@@ -334,6 +362,7 @@ public final class UserDetails {
                     countryOfResidence,
                     countryOfTaxResidence,
                     countryOfNationality,
+                    secondaryCountryOfNationality,
                     gender,
                     maritalStatus,
                     placeOfBirth,

@@ -62,7 +62,11 @@ public enum WalletNetwork {
 
     BASE("BASE"),
 
-    SUI("SUI");
+    SUI("SUI"),
+
+    TEMPO("TEMPO"),
+
+    TEMPO_TESTNET("TEMPO_TESTNET");
 
     private final String value;
 

@@ -50,7 +50,13 @@ public enum SourceOfFunds {
 
     REAL_ESTATE_RENTAL("Real Estate Rental"),
 
-    COMPANY_EXIT("Company Exit");
+    COMPANY_EXIT("Company Exit"),
+
+    LOAN("Loan"),
+
+    OTHER("Other"),
+
+    DIVIDENDS("Dividends");
 
     private final String value;
 

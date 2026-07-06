@@ -25,7 +25,11 @@ public final class CompanyRegistrationDetails {
 
     private final Optional<CountryCode> registrationCountry;
 
+    private final Optional<List<CountryCode>> secondaryRegistrationCountry;
+
     private final Optional<CountryCode> taxResidenceCountry;
+
+    private final Optional<List<TaxIdentification>> secondaryTaxIdentifications;
 
     private final Optional<String> taxIdentifier;
 
@@ -40,7 +44,9 @@ public final class CompanyRegistrationDetails {
     private CompanyRegistrationDetails(
             Optional<String> registrationIdentifier,
             Optional<CountryCode> registrationCountry,
+            Optional<List<CountryCode>> secondaryRegistrationCountry,
             Optional<CountryCode> taxResidenceCountry,
+            Optional<List<TaxIdentification>> secondaryTaxIdentifications,
             Optional<String> taxIdentifier,
             Optional<String> legalEntityType,
             Optional<String> dateOfRegistration,
@@ -48,7 +54,9 @@ public final class CompanyRegistrationDetails {
             Map<String, Object> additionalProperties) {
         this.registrationIdentifier = registrationIdentifier;
         this.registrationCountry = registrationCountry;
+        this.secondaryRegistrationCountry = secondaryRegistrationCountry;
         this.taxResidenceCountry = taxResidenceCountry;
+        this.secondaryTaxIdentifications = secondaryTaxIdentifications;
         this.taxIdentifier = taxIdentifier;
         this.legalEntityType = legalEntityType;
         this.dateOfRegistration = dateOfRegistration;
@@ -69,9 +77,25 @@ public final class CompanyRegistrationDetails {
         return registrationCountry;
     }
 
+    /**
+     * @return Additional registration countries for the company
+     */
+    @JsonProperty("secondaryRegistrationCountry")
+    public Optional<List<CountryCode>> getSecondaryRegistrationCountry() {
+        return secondaryRegistrationCountry;
+    }
+
     @JsonProperty("taxResidenceCountry")
     public Optional<CountryCode> getTaxResidenceCountry() {
         return taxResidenceCountry;
+    }
+
+    /**
+     * @return Additional tax residence countries for the company with their tax identification details
+     */
+    @JsonProperty("secondaryTaxIdentifications")
+    public Optional<List<TaxIdentification>> getSecondaryTaxIdentifications() {
+        return secondaryTaxIdentifications;
     }
 
     /**
@@ -117,7 +141,9 @@ public final class CompanyRegistrationDetails {
     private boolean equalTo(CompanyRegistrationDetails other) {
         return registrationIdentifier.equals(other.registrationIdentifier)
                 && registrationCountry.equals(other.registrationCountry)
+                && secondaryRegistrationCountry.equals(other.secondaryRegistrationCountry)
                 && taxResidenceCountry.equals(other.taxResidenceCountry)
+                && secondaryTaxIdentifications.equals(other.secondaryTaxIdentifications)
                 && taxIdentifier.equals(other.taxIdentifier)
                 && legalEntityType.equals(other.legalEntityType)
                 && dateOfRegistration.equals(other.dateOfRegistration)
@@ -129,7 +155,9 @@ public final class CompanyRegistrationDetails {
         return Objects.hash(
                 this.registrationIdentifier,
                 this.registrationCountry,
+                this.secondaryRegistrationCountry,
                 this.taxResidenceCountry,
+                this.secondaryTaxIdentifications,
                 this.taxIdentifier,
                 this.legalEntityType,
                 this.dateOfRegistration,
@@ -151,7 +179,11 @@ public final class CompanyRegistrationDetails {
 
         private Optional<CountryCode> registrationCountry = Optional.empty();
 
+        private Optional<List<CountryCode>> secondaryRegistrationCountry = Optional.empty();
+
         private Optional<CountryCode> taxResidenceCountry = Optional.empty();
+
+        private Optional<List<TaxIdentification>> secondaryTaxIdentifications = Optional.empty();
 
         private Optional<String> taxIdentifier = Optional.empty();
 
@@ -169,7 +201,9 @@ public final class CompanyRegistrationDetails {
         public Builder from(CompanyRegistrationDetails other) {
             registrationIdentifier(other.getRegistrationIdentifier());
             registrationCountry(other.getRegistrationCountry());
+            secondaryRegistrationCountry(other.getSecondaryRegistrationCountry());
             taxResidenceCountry(other.getTaxResidenceCountry());
+            secondaryTaxIdentifications(other.getSecondaryTaxIdentifications());
             taxIdentifier(other.getTaxIdentifier());
             legalEntityType(other.getLegalEntityType());
             dateOfRegistration(other.getDateOfRegistration());
@@ -199,6 +233,17 @@ public final class CompanyRegistrationDetails {
             return this;
         }
 
+        @JsonSetter(value = "secondaryRegistrationCountry", nulls = Nulls.SKIP)
+        public Builder secondaryRegistrationCountry(Optional<List<CountryCode>> secondaryRegistrationCountry) {
+            this.secondaryRegistrationCountry = secondaryRegistrationCountry;
+            return this;
+        }
+
+        public Builder secondaryRegistrationCountry(List<CountryCode> secondaryRegistrationCountry) {
+            this.secondaryRegistrationCountry = Optional.ofNullable(secondaryRegistrationCountry);
+            return this;
+        }
+
         @JsonSetter(value = "taxResidenceCountry", nulls = Nulls.SKIP)
         public Builder taxResidenceCountry(Optional<CountryCode> taxResidenceCountry) {
             this.taxResidenceCountry = taxResidenceCountry;
@@ -207,6 +252,17 @@ public final class CompanyRegistrationDetails {
 
         public Builder taxResidenceCountry(CountryCode taxResidenceCountry) {
             this.taxResidenceCountry = Optional.ofNullable(taxResidenceCountry);
+            return this;
+        }
+
+        @JsonSetter(value = "secondaryTaxIdentifications", nulls = Nulls.SKIP)
+        public Builder secondaryTaxIdentifications(Optional<List<TaxIdentification>> secondaryTaxIdentifications) {
+            this.secondaryTaxIdentifications = secondaryTaxIdentifications;
+            return this;
+        }
+
+        public Builder secondaryTaxIdentifications(List<TaxIdentification> secondaryTaxIdentifications) {
+            this.secondaryTaxIdentifications = Optional.ofNullable(secondaryTaxIdentifications);
             return this;
         }
 
@@ -258,7 +314,9 @@ public final class CompanyRegistrationDetails {
             return new CompanyRegistrationDetails(
                     registrationIdentifier,
                     registrationCountry,
+                    secondaryRegistrationCountry,
                     taxResidenceCountry,
+                    secondaryTaxIdentifications,
                     taxIdentifier,
                     legalEntityType,
                     dateOfRegistration,
