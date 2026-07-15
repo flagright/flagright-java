@@ -3,11 +3,11 @@
 [![Maven Central](https://img.shields.io/maven-central/v/com.flagright.api/flagright-java)](https://central.sonatype.com/artifact/com.flagright.api/flagright-java)
 [![fern shield](https://img.shields.io/badge/%F0%9F%8C%BF-SDK%20generated%20by%20Fern-brightgreen)](https://github.com/fern-api/fern)
 
-The Merge Java SDK provides convenient access to the Merge API from Java or Kotlin.
+The Flagright Java SDK provides convenient access to the Flagright API from Java or Kotlin.
 
 ## Documentation
 
-API documentation is available at [here](https://central.sonatype.com/artifact/com.flagright.api/flagright-java).
+API documentation is available at <https://docs.flagright.com>.
 
 ## Installation
 
@@ -30,7 +30,7 @@ Add the dependency in your `pom.xml`:
     <groupId>com.flagright.api</groupId>
     <artifactId>flagright-java</artifactId>
     <version>x.x.x</version>
-</dependency
+</dependency>
 ```
 
 ## Usage
@@ -43,16 +43,17 @@ import com.flagright.api.types.TransactionsVerifyResponse;
 import com.flagright.api.resources.transactions.requests.TransactionsVerifyRequest;
 
 FlagrightApiClient flagright = FlagrightApiClient.builder()
-  .environment("https://sandbox.flagright.com")
+  .environment("https://sandbox.api.flagright.com")
   .apiKey("YOUR_API_KEY")
   .build();
 
-TransactionsVerifyResponse resposne = flagright.transactions.verify(TransactionsVerifyRequest.builder()
+TransactionsVerifyResponse response = flagright.transactions.verify(TransactionsVerifyRequest.builder()
   .body(Transaction.builder()
       .transactionId("my-transaction-id")
       .type(TransactionType.DEPOSIT)
       .timestamp(1692624734000.0)
       .build()
+  )
   .build());
 ```
 
