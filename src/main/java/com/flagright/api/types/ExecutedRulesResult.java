@@ -38,6 +38,8 @@ public final class ExecutedRulesResult {
 
     private final Optional<Double> executedAt;
 
+    private final Optional<RiskLevel> executedRiskLevel;
+
     private final Optional<RuleHitMeta> ruleHitMeta;
 
     private final Optional<List<ExecutedLogicVars>> vars;
@@ -59,6 +61,7 @@ public final class ExecutedRulesResult {
             boolean ruleHit,
             Optional<String> versionId,
             Optional<Double> executedAt,
+            Optional<RiskLevel> executedRiskLevel,
             Optional<RuleHitMeta> ruleHitMeta,
             Optional<List<ExecutedLogicVars>> vars,
             Optional<List<RuleLabels>> labels,
@@ -73,6 +76,7 @@ public final class ExecutedRulesResult {
         this.ruleHit = ruleHit;
         this.versionId = versionId;
         this.executedAt = executedAt;
+        this.executedRiskLevel = executedRiskLevel;
         this.ruleHitMeta = ruleHitMeta;
         this.vars = vars;
         this.labels = labels;
@@ -133,6 +137,14 @@ public final class ExecutedRulesResult {
         return executedAt;
     }
 
+    /**
+     * @return Risk level used to select the rule logic, parameters, and action.
+     */
+    @JsonProperty("executedRiskLevel")
+    public Optional<RiskLevel> getExecutedRiskLevel() {
+        return executedRiskLevel;
+    }
+
     @JsonProperty("ruleHitMeta")
     public Optional<RuleHitMeta> getRuleHitMeta() {
         return ruleHitMeta;
@@ -178,6 +190,7 @@ public final class ExecutedRulesResult {
                 && ruleHit == other.ruleHit
                 && versionId.equals(other.versionId)
                 && executedAt.equals(other.executedAt)
+                && executedRiskLevel.equals(other.executedRiskLevel)
                 && ruleHitMeta.equals(other.ruleHitMeta)
                 && vars.equals(other.vars)
                 && labels.equals(other.labels)
@@ -196,6 +209,7 @@ public final class ExecutedRulesResult {
                 this.ruleHit,
                 this.versionId,
                 this.executedAt,
+                this.executedRiskLevel,
                 this.ruleHitMeta,
                 this.vars,
                 this.labels,
@@ -249,6 +263,10 @@ public final class ExecutedRulesResult {
 
         _FinalStage executedAt(Double executedAt);
 
+        _FinalStage executedRiskLevel(Optional<RiskLevel> executedRiskLevel);
+
+        _FinalStage executedRiskLevel(RiskLevel executedRiskLevel);
+
         _FinalStage ruleHitMeta(Optional<RuleHitMeta> ruleHitMeta);
 
         _FinalStage ruleHitMeta(RuleHitMeta ruleHitMeta);
@@ -298,6 +316,8 @@ public final class ExecutedRulesResult {
 
         private Optional<RuleHitMeta> ruleHitMeta = Optional.empty();
 
+        private Optional<RiskLevel> executedRiskLevel = Optional.empty();
+
         private Optional<Double> executedAt = Optional.empty();
 
         private Optional<String> versionId = Optional.empty();
@@ -319,6 +339,7 @@ public final class ExecutedRulesResult {
             ruleHit(other.getRuleHit());
             versionId(other.getVersionId());
             executedAt(other.getExecutedAt());
+            executedRiskLevel(other.getExecutedRiskLevel());
             ruleHitMeta(other.getRuleHitMeta());
             vars(other.getVars());
             labels(other.getLabels());
@@ -436,6 +457,23 @@ public final class ExecutedRulesResult {
         }
 
         /**
+         * <p>Risk level used to select the rule logic, parameters, and action.</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
+        @java.lang.Override
+        public _FinalStage executedRiskLevel(RiskLevel executedRiskLevel) {
+            this.executedRiskLevel = Optional.ofNullable(executedRiskLevel);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "executedRiskLevel", nulls = Nulls.SKIP)
+        public _FinalStage executedRiskLevel(Optional<RiskLevel> executedRiskLevel) {
+            this.executedRiskLevel = executedRiskLevel;
+            return this;
+        }
+
+        /**
          * <p>Timestamp when the rule was executed</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
@@ -493,6 +531,7 @@ public final class ExecutedRulesResult {
                     ruleHit,
                     versionId,
                     executedAt,
+                    executedRiskLevel,
                     ruleHitMeta,
                     vars,
                     labels,
