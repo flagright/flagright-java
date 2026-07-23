@@ -6,8 +6,8 @@ package com.flagright.api.resources.businessuserevents;
 import com.flagright.api.core.ClientOptions;
 import com.flagright.api.core.RequestOptions;
 import com.flagright.api.resources.businessuserevents.requests.BusinessUserEventsCreateRequest;
+import com.flagright.api.resources.businessuserevents.types.BusinessUserEventsCreateResponse;
 import com.flagright.api.types.BusinessUserEventWithRulesResult;
-import com.flagright.api.types.BusinessWithRulesResult;
 import java.util.concurrent.CompletableFuture;
 
 public class AsyncBusinessUserEventsClient {
@@ -46,7 +46,7 @@ public class AsyncBusinessUserEventsClient {
      * </ul>
      * <p>In order to make individual events retrievable, you also need to pass in a unique <code>eventId</code> to the request body.</p>
      */
-    public CompletableFuture<BusinessWithRulesResult> create(BusinessUserEventsCreateRequest request) {
+    public CompletableFuture<BusinessUserEventsCreateResponse> create(BusinessUserEventsCreateRequest request) {
         return this.rawClient.create(request).thenApply(response -> response.body());
     }
 
@@ -69,7 +69,7 @@ public class AsyncBusinessUserEventsClient {
      * </ul>
      * <p>In order to make individual events retrievable, you also need to pass in a unique <code>eventId</code> to the request body.</p>
      */
-    public CompletableFuture<BusinessWithRulesResult> create(
+    public CompletableFuture<BusinessUserEventsCreateResponse> create(
             BusinessUserEventsCreateRequest request, RequestOptions requestOptions) {
         return this.rawClient.create(request, requestOptions).thenApply(response -> response.body());
     }

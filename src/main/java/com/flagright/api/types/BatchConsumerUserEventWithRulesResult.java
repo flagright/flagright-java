@@ -34,6 +34,8 @@ public final class BatchConsumerUserEventWithRulesResult {
 
     private final Optional<UserOptional> updatedConsumerUserAttributes;
 
+    private final Optional<String> newUserId;
+
     private final Optional<List<String>> externalLinks;
 
     private final Optional<List<ExecutedRulesResult>> executedRules;
@@ -49,6 +51,7 @@ public final class BatchConsumerUserEventWithRulesResult {
             Optional<String> reason,
             Optional<String> eventDescription,
             Optional<UserOptional> updatedConsumerUserAttributes,
+            Optional<String> newUserId,
             Optional<List<String>> externalLinks,
             Optional<List<ExecutedRulesResult>> executedRules,
             Optional<UserRiskScoreDetails> riskScoreDetails,
@@ -59,6 +62,7 @@ public final class BatchConsumerUserEventWithRulesResult {
         this.reason = reason;
         this.eventDescription = eventDescription;
         this.updatedConsumerUserAttributes = updatedConsumerUserAttributes;
+        this.newUserId = newUserId;
         this.externalLinks = externalLinks;
         this.executedRules = executedRules;
         this.riskScoreDetails = riskScoreDetails;
@@ -111,6 +115,14 @@ public final class BatchConsumerUserEventWithRulesResult {
     }
 
     /**
+     * @return New userId for the existing user (keep in mind all of the future requests for this user will now reference this userId). Requires the <code>changeUserId</code> queryparam to come in affect.
+     */
+    @JsonProperty("newUserId")
+    public Optional<String> getNewUserId() {
+        return newUserId;
+    }
+
+    /**
      * @return External links related to the consumer user
      */
     @JsonProperty("externalLinks")
@@ -147,6 +159,7 @@ public final class BatchConsumerUserEventWithRulesResult {
                 && reason.equals(other.reason)
                 && eventDescription.equals(other.eventDescription)
                 && updatedConsumerUserAttributes.equals(other.updatedConsumerUserAttributes)
+                && newUserId.equals(other.newUserId)
                 && externalLinks.equals(other.externalLinks)
                 && executedRules.equals(other.executedRules)
                 && riskScoreDetails.equals(other.riskScoreDetails);
@@ -161,6 +174,7 @@ public final class BatchConsumerUserEventWithRulesResult {
                 this.reason,
                 this.eventDescription,
                 this.updatedConsumerUserAttributes,
+                this.newUserId,
                 this.externalLinks,
                 this.executedRules,
                 this.riskScoreDetails);
@@ -204,6 +218,10 @@ public final class BatchConsumerUserEventWithRulesResult {
 
         _FinalStage updatedConsumerUserAttributes(UserOptional updatedConsumerUserAttributes);
 
+        _FinalStage newUserId(Optional<String> newUserId);
+
+        _FinalStage newUserId(String newUserId);
+
         _FinalStage externalLinks(Optional<List<String>> externalLinks);
 
         _FinalStage externalLinks(List<String> externalLinks);
@@ -229,6 +247,8 @@ public final class BatchConsumerUserEventWithRulesResult {
 
         private Optional<List<String>> externalLinks = Optional.empty();
 
+        private Optional<String> newUserId = Optional.empty();
+
         private Optional<UserOptional> updatedConsumerUserAttributes = Optional.empty();
 
         private Optional<String> eventDescription = Optional.empty();
@@ -250,6 +270,7 @@ public final class BatchConsumerUserEventWithRulesResult {
             reason(other.getReason());
             eventDescription(other.getEventDescription());
             updatedConsumerUserAttributes(other.getUpdatedConsumerUserAttributes());
+            newUserId(other.getNewUserId());
             externalLinks(other.getExternalLinks());
             executedRules(other.getExecutedRules());
             riskScoreDetails(other.getRiskScoreDetails());
@@ -318,6 +339,23 @@ public final class BatchConsumerUserEventWithRulesResult {
         @JsonSetter(value = "externalLinks", nulls = Nulls.SKIP)
         public _FinalStage externalLinks(Optional<List<String>> externalLinks) {
             this.externalLinks = externalLinks;
+            return this;
+        }
+
+        /**
+         * <p>New userId for the existing user (keep in mind all of the future requests for this user will now reference this userId). Requires the <code>changeUserId</code> queryparam to come in affect.</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
+        @java.lang.Override
+        public _FinalStage newUserId(String newUserId) {
+            this.newUserId = Optional.ofNullable(newUserId);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "newUserId", nulls = Nulls.SKIP)
+        public _FinalStage newUserId(Optional<String> newUserId) {
+            this.newUserId = newUserId;
             return this;
         }
 
@@ -394,6 +432,7 @@ public final class BatchConsumerUserEventWithRulesResult {
                     reason,
                     eventDescription,
                     updatedConsumerUserAttributes,
+                    newUserId,
                     externalLinks,
                     executedRules,
                     riskScoreDetails,

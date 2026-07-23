@@ -6,8 +6,8 @@ package com.flagright.api.resources.consumeruserevents;
 import com.flagright.api.core.ClientOptions;
 import com.flagright.api.core.RequestOptions;
 import com.flagright.api.resources.consumeruserevents.requests.ConsumerUserEventsCreateRequest;
+import com.flagright.api.resources.consumeruserevents.types.ConsumerUserEventsCreateResponse;
 import com.flagright.api.types.ConsumerUserEventWithRulesResult;
-import com.flagright.api.types.UserWithRulesResult;
 
 public class ConsumerUserEventsClient {
     protected final ClientOptions clientOptions;
@@ -45,7 +45,7 @@ public class ConsumerUserEventsClient {
      * </ul>
      * <p>In order to make individual events retrievable, you also need to pass in a unique <code>eventId</code> to the request body.</p>
      */
-    public UserWithRulesResult create(ConsumerUserEventsCreateRequest request) {
+    public ConsumerUserEventsCreateResponse create(ConsumerUserEventsCreateRequest request) {
         return this.rawClient.create(request).body();
     }
 
@@ -68,7 +68,8 @@ public class ConsumerUserEventsClient {
      * </ul>
      * <p>In order to make individual events retrievable, you also need to pass in a unique <code>eventId</code> to the request body.</p>
      */
-    public UserWithRulesResult create(ConsumerUserEventsCreateRequest request, RequestOptions requestOptions) {
+    public ConsumerUserEventsCreateResponse create(
+            ConsumerUserEventsCreateRequest request, RequestOptions requestOptions) {
         return this.rawClient.create(request, requestOptions).body();
     }
 

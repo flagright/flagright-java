@@ -6,8 +6,8 @@ package com.flagright.api.resources.businessuserevents;
 import com.flagright.api.core.ClientOptions;
 import com.flagright.api.core.RequestOptions;
 import com.flagright.api.resources.businessuserevents.requests.BusinessUserEventsCreateRequest;
+import com.flagright.api.resources.businessuserevents.types.BusinessUserEventsCreateResponse;
 import com.flagright.api.types.BusinessUserEventWithRulesResult;
-import com.flagright.api.types.BusinessWithRulesResult;
 
 public class BusinessUserEventsClient {
     protected final ClientOptions clientOptions;
@@ -45,7 +45,7 @@ public class BusinessUserEventsClient {
      * </ul>
      * <p>In order to make individual events retrievable, you also need to pass in a unique <code>eventId</code> to the request body.</p>
      */
-    public BusinessWithRulesResult create(BusinessUserEventsCreateRequest request) {
+    public BusinessUserEventsCreateResponse create(BusinessUserEventsCreateRequest request) {
         return this.rawClient.create(request).body();
     }
 
@@ -68,7 +68,8 @@ public class BusinessUserEventsClient {
      * </ul>
      * <p>In order to make individual events retrievable, you also need to pass in a unique <code>eventId</code> to the request body.</p>
      */
-    public BusinessWithRulesResult create(BusinessUserEventsCreateRequest request, RequestOptions requestOptions) {
+    public BusinessUserEventsCreateResponse create(
+            BusinessUserEventsCreateRequest request, RequestOptions requestOptions) {
         return this.rawClient.create(request, requestOptions).body();
     }
 

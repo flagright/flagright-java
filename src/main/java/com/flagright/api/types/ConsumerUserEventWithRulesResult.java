@@ -34,6 +34,8 @@ public final class ConsumerUserEventWithRulesResult {
 
     private final Optional<UserOptional> updatedConsumerUserAttributes;
 
+    private final Optional<String> newUserId;
+
     private final Optional<List<String>> externalLinks;
 
     private final Optional<List<ExecutedRulesResult>> executedRules;
@@ -51,6 +53,7 @@ public final class ConsumerUserEventWithRulesResult {
             Optional<String> reason,
             Optional<String> eventDescription,
             Optional<UserOptional> updatedConsumerUserAttributes,
+            Optional<String> newUserId,
             Optional<List<String>> externalLinks,
             Optional<List<ExecutedRulesResult>> executedRules,
             Optional<List<HitRulesDetails>> hitRules,
@@ -62,6 +65,7 @@ public final class ConsumerUserEventWithRulesResult {
         this.reason = reason;
         this.eventDescription = eventDescription;
         this.updatedConsumerUserAttributes = updatedConsumerUserAttributes;
+        this.newUserId = newUserId;
         this.externalLinks = externalLinks;
         this.executedRules = executedRules;
         this.hitRules = hitRules;
@@ -115,6 +119,14 @@ public final class ConsumerUserEventWithRulesResult {
     }
 
     /**
+     * @return New userId for the existing user (keep in mind all of the future requests for this user will now reference this userId). Requires the <code>changeUserId</code> queryparam to come in affect.
+     */
+    @JsonProperty("newUserId")
+    public Optional<String> getNewUserId() {
+        return newUserId;
+    }
+
+    /**
      * @return External links related to the consumer user
      */
     @JsonProperty("externalLinks")
@@ -155,6 +167,7 @@ public final class ConsumerUserEventWithRulesResult {
                 && reason.equals(other.reason)
                 && eventDescription.equals(other.eventDescription)
                 && updatedConsumerUserAttributes.equals(other.updatedConsumerUserAttributes)
+                && newUserId.equals(other.newUserId)
                 && externalLinks.equals(other.externalLinks)
                 && executedRules.equals(other.executedRules)
                 && hitRules.equals(other.hitRules)
@@ -170,6 +183,7 @@ public final class ConsumerUserEventWithRulesResult {
                 this.reason,
                 this.eventDescription,
                 this.updatedConsumerUserAttributes,
+                this.newUserId,
                 this.externalLinks,
                 this.executedRules,
                 this.hitRules,
@@ -214,6 +228,10 @@ public final class ConsumerUserEventWithRulesResult {
 
         _FinalStage updatedConsumerUserAttributes(UserOptional updatedConsumerUserAttributes);
 
+        _FinalStage newUserId(Optional<String> newUserId);
+
+        _FinalStage newUserId(String newUserId);
+
         _FinalStage externalLinks(Optional<List<String>> externalLinks);
 
         _FinalStage externalLinks(List<String> externalLinks);
@@ -245,6 +263,8 @@ public final class ConsumerUserEventWithRulesResult {
 
         private Optional<List<String>> externalLinks = Optional.empty();
 
+        private Optional<String> newUserId = Optional.empty();
+
         private Optional<UserOptional> updatedConsumerUserAttributes = Optional.empty();
 
         private Optional<String> eventDescription = Optional.empty();
@@ -266,6 +286,7 @@ public final class ConsumerUserEventWithRulesResult {
             reason(other.getReason());
             eventDescription(other.getEventDescription());
             updatedConsumerUserAttributes(other.getUpdatedConsumerUserAttributes());
+            newUserId(other.getNewUserId());
             externalLinks(other.getExternalLinks());
             executedRules(other.getExecutedRules());
             hitRules(other.getHitRules());
@@ -351,6 +372,23 @@ public final class ConsumerUserEventWithRulesResult {
             return this;
         }
 
+        /**
+         * <p>New userId for the existing user (keep in mind all of the future requests for this user will now reference this userId). Requires the <code>changeUserId</code> queryparam to come in affect.</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
+        @java.lang.Override
+        public _FinalStage newUserId(String newUserId) {
+            this.newUserId = Optional.ofNullable(newUserId);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "newUserId", nulls = Nulls.SKIP)
+        public _FinalStage newUserId(Optional<String> newUserId) {
+            this.newUserId = newUserId;
+            return this;
+        }
+
         @java.lang.Override
         public _FinalStage updatedConsumerUserAttributes(UserOptional updatedConsumerUserAttributes) {
             this.updatedConsumerUserAttributes = Optional.ofNullable(updatedConsumerUserAttributes);
@@ -424,6 +462,7 @@ public final class ConsumerUserEventWithRulesResult {
                     reason,
                     eventDescription,
                     updatedConsumerUserAttributes,
+                    newUserId,
                     externalLinks,
                     executedRules,
                     hitRules,

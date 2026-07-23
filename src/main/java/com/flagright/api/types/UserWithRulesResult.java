@@ -21,7 +21,7 @@ import org.jetbrains.annotations.NotNull;
 
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
 @JsonDeserialize(builder = UserWithRulesResult.Builder.class)
-public final class UserWithRulesResult {
+public final class UserWithRulesResult implements IUserWithRulesResult {
     private final String userId;
 
     private final double createdTimestamp;
@@ -181,6 +181,7 @@ public final class UserWithRulesResult {
      * @return Unique user ID
      */
     @JsonProperty("userId")
+    @java.lang.Override
     public String getUserId() {
         return userId;
     }
@@ -189,6 +190,7 @@ public final class UserWithRulesResult {
      * @return Timestamp when userId is created
      */
     @JsonProperty("createdTimestamp")
+    @java.lang.Override
     public double getCreatedTimestamp() {
         return createdTimestamp;
     }
@@ -197,36 +199,43 @@ public final class UserWithRulesResult {
      * @return Timestamp when user was activated
      */
     @JsonProperty("activatedTimestamp")
+    @java.lang.Override
     public Optional<Double> getActivatedTimestamp() {
         return activatedTimestamp;
     }
 
     @JsonProperty("userDetails")
+    @java.lang.Override
     public Optional<UserDetails> getUserDetails() {
         return userDetails;
     }
 
     @JsonProperty("userStateDetails")
+    @java.lang.Override
     public Optional<UserStateDetails> getUserStateDetails() {
         return userStateDetails;
     }
 
     @JsonProperty("kycStatusDetails")
+    @java.lang.Override
     public Optional<KycStatusDetails> getKycStatusDetails() {
         return kycStatusDetails;
     }
 
     @JsonProperty("eoddDate")
+    @java.lang.Override
     public Optional<Double> getEoddDate() {
         return eoddDate;
     }
 
     @JsonProperty("employmentStatus")
+    @java.lang.Override
     public Optional<EmploymentStatus> getEmploymentStatus() {
         return employmentStatus;
     }
 
     @JsonProperty("occupation")
+    @java.lang.Override
     public Optional<String> getOccupation() {
         return occupation;
     }
@@ -235,81 +244,97 @@ public final class UserWithRulesResult {
      * @return User's legal identity documents - See Document Model for details
      */
     @JsonProperty("legalDocuments")
+    @java.lang.Override
     public Optional<List<LegalDocument>> getLegalDocuments() {
         return legalDocuments;
     }
 
     @JsonProperty("contactDetails")
+    @java.lang.Override
     public Optional<ContactDetails> getContactDetails() {
         return contactDetails;
     }
 
     @JsonProperty("employmentDetails")
+    @java.lang.Override
     public Optional<EmploymentDetails> getEmploymentDetails() {
         return employmentDetails;
     }
 
     @JsonProperty("transactionLimits")
+    @java.lang.Override
     public Optional<TransactionLimits> getTransactionLimits() {
         return transactionLimits;
     }
 
     @JsonProperty("expectedIncome")
+    @java.lang.Override
     public Optional<ExpectedIncome> getExpectedIncome() {
         return expectedIncome;
     }
 
     @JsonProperty("expectedTransactionCountries")
+    @java.lang.Override
     public Optional<ExpectedTransactionCountries> getExpectedTransactionCountries() {
         return expectedTransactionCountries;
     }
 
     @JsonProperty("expectedTransactionCurrencies")
+    @java.lang.Override
     public Optional<ExpectedTransactionCurrencies> getExpectedTransactionCurrencies() {
         return expectedTransactionCurrencies;
     }
 
     @JsonProperty("riskLevel")
+    @java.lang.Override
     public Optional<RiskLevel> getRiskLevel() {
         return riskLevel;
     }
 
     @JsonProperty("kycRiskLevel")
+    @java.lang.Override
     public Optional<RiskLevel> getKycRiskLevel() {
         return kycRiskLevel;
     }
 
     @JsonProperty("acquisitionChannel")
+    @java.lang.Override
     public Optional<AcquisitionChannel> getAcquisitionChannel() {
         return acquisitionChannel;
     }
 
     @JsonProperty("reasonForAccountOpening")
+    @java.lang.Override
     public Optional<List<String>> getReasonForAccountOpening() {
         return reasonForAccountOpening;
     }
 
     @JsonProperty("sourceOfFunds")
+    @java.lang.Override
     public Optional<List<SourceOfFunds>> getSourceOfFunds() {
         return sourceOfFunds;
     }
 
     @JsonProperty("userSegment")
+    @java.lang.Override
     public Optional<ConsumerUserSegment> getUserSegment() {
         return userSegment;
     }
 
     @JsonProperty("pepStatus")
+    @java.lang.Override
     public Optional<List<PepStatus>> getPepStatus() {
         return pepStatus;
     }
 
     @JsonProperty("sanctionsStatus")
+    @java.lang.Override
     public Optional<Boolean> getSanctionsStatus() {
         return sanctionsStatus;
     }
 
     @JsonProperty("adverseMediaStatus")
+    @java.lang.Override
     public Optional<Boolean> getAdverseMediaStatus() {
         return adverseMediaStatus;
     }
@@ -318,16 +343,19 @@ public final class UserWithRulesResult {
      * @return Corporate entities of the user
      */
     @JsonProperty("corporateEntities")
+    @java.lang.Override
     public Optional<List<CorporateEntityDetails>> getCorporateEntities() {
         return corporateEntities;
     }
 
     @JsonProperty("linkedEntities")
+    @java.lang.Override
     public Optional<UserEntityLink> getLinkedEntities() {
         return linkedEntities;
     }
 
     @JsonProperty("savedPaymentDetails")
+    @java.lang.Override
     public Optional<List<UserWithRulesResultSavedPaymentDetailsItem>> getSavedPaymentDetails() {
         return savedPaymentDetails;
     }
@@ -336,6 +364,7 @@ public final class UserWithRulesResult {
      * @return Additional information that can be added via tags
      */
     @JsonProperty("tags")
+    @java.lang.Override
     public Optional<List<UserTag>> getTags() {
         return tags;
     }
@@ -344,11 +373,13 @@ public final class UserWithRulesResult {
      * @return Uploaded user's attachment
      */
     @JsonProperty("attachments")
+    @java.lang.Override
     public Optional<List<PersonAttachment>> getAttachments() {
         return attachments;
     }
 
     @JsonProperty("metaData")
+    @java.lang.Override
     public Optional<DeviceData> getMetaData() {
         return metaData;
     }
@@ -357,11 +388,13 @@ public final class UserWithRulesResult {
      * @return Legal authority or region governing the transaction
      */
     @JsonProperty("jurisdiction")
+    @java.lang.Override
     public Optional<String> getJurisdiction() {
         return jurisdiction;
     }
 
     @JsonProperty("productsEnabled")
+    @java.lang.Override
     public Optional<List<ProductsEnabled>> getProductsEnabled() {
         return productsEnabled;
     }
@@ -370,21 +403,25 @@ public final class UserWithRulesResult {
      * @return External links related to the consumer user
      */
     @JsonProperty("externalLinks")
+    @java.lang.Override
     public Optional<List<String>> getExternalLinks() {
         return externalLinks;
     }
 
     @JsonProperty("executedRules")
+    @java.lang.Override
     public Optional<List<ExecutedRulesResult>> getExecutedRules() {
         return executedRules;
     }
 
     @JsonProperty("hitRules")
+    @java.lang.Override
     public Optional<List<HitRulesDetails>> getHitRules() {
         return hitRules;
     }
 
     @JsonProperty("riskScoreDetails")
+    @java.lang.Override
     public Optional<UserRiskScoreDetails> getRiskScoreDetails() {
         return riskScoreDetails;
     }

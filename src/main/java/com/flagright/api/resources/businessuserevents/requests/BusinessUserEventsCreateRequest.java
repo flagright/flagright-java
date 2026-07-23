@@ -29,6 +29,8 @@ public final class BusinessUserEventsCreateRequest {
 
     private final Optional<BooleanString> lockCraRiskLevel;
 
+    private final Optional<BooleanString> changeUserId;
+
     private final BusinessUserEvent body;
 
     private final Map<String, Object> additionalProperties;
@@ -37,11 +39,13 @@ public final class BusinessUserEventsCreateRequest {
             Optional<BooleanString> allowUserTypeConversion,
             Optional<BooleanString> lockKycRiskLevel,
             Optional<BooleanString> lockCraRiskLevel,
+            Optional<BooleanString> changeUserId,
             BusinessUserEvent body,
             Map<String, Object> additionalProperties) {
         this.allowUserTypeConversion = allowUserTypeConversion;
         this.lockKycRiskLevel = lockKycRiskLevel;
         this.lockCraRiskLevel = lockCraRiskLevel;
+        this.changeUserId = changeUserId;
         this.body = body;
         this.additionalProperties = additionalProperties;
     }
@@ -70,6 +74,15 @@ public final class BusinessUserEventsCreateRequest {
         return lockCraRiskLevel;
     }
 
+    /**
+     * @return Boolean string whether Flagright should change userId of the user.
+     * (Note: Only allowed for users with no associated transactions).
+     */
+    @JsonProperty("changeUserId")
+    public Optional<BooleanString> getChangeUserId() {
+        return changeUserId;
+    }
+
     @JsonProperty("body")
     public BusinessUserEvent getBody() {
         return body;
@@ -90,12 +103,18 @@ public final class BusinessUserEventsCreateRequest {
         return allowUserTypeConversion.equals(other.allowUserTypeConversion)
                 && lockKycRiskLevel.equals(other.lockKycRiskLevel)
                 && lockCraRiskLevel.equals(other.lockCraRiskLevel)
+                && changeUserId.equals(other.changeUserId)
                 && body.equals(other.body);
     }
 
     @java.lang.Override
     public int hashCode() {
-        return Objects.hash(this.allowUserTypeConversion, this.lockKycRiskLevel, this.lockCraRiskLevel, this.body);
+        return Objects.hash(
+                this.allowUserTypeConversion,
+                this.lockKycRiskLevel,
+                this.lockCraRiskLevel,
+                this.changeUserId,
+                this.body);
     }
 
     @java.lang.Override
@@ -127,11 +146,17 @@ public final class BusinessUserEventsCreateRequest {
         _FinalStage lockCraRiskLevel(Optional<BooleanString> lockCraRiskLevel);
 
         _FinalStage lockCraRiskLevel(BooleanString lockCraRiskLevel);
+
+        _FinalStage changeUserId(Optional<BooleanString> changeUserId);
+
+        _FinalStage changeUserId(BooleanString changeUserId);
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static final class Builder implements BodyStage, _FinalStage {
         private BusinessUserEvent body;
+
+        private Optional<BooleanString> changeUserId = Optional.empty();
 
         private Optional<BooleanString> lockCraRiskLevel = Optional.empty();
 
@@ -149,6 +174,7 @@ public final class BusinessUserEventsCreateRequest {
             allowUserTypeConversion(other.getAllowUserTypeConversion());
             lockKycRiskLevel(other.getLockKycRiskLevel());
             lockCraRiskLevel(other.getLockCraRiskLevel());
+            changeUserId(other.getChangeUserId());
             body(other.getBody());
             return this;
         }
@@ -157,6 +183,24 @@ public final class BusinessUserEventsCreateRequest {
         @JsonSetter("body")
         public _FinalStage body(@NotNull BusinessUserEvent body) {
             this.body = Objects.requireNonNull(body, "body must not be null");
+            return this;
+        }
+
+        /**
+         * <p>Boolean string whether Flagright should change userId of the user.
+         * (Note: Only allowed for users with no associated transactions).</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
+        @java.lang.Override
+        public _FinalStage changeUserId(BooleanString changeUserId) {
+            this.changeUserId = Optional.ofNullable(changeUserId);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "changeUserId", nulls = Nulls.SKIP)
+        public _FinalStage changeUserId(Optional<BooleanString> changeUserId) {
+            this.changeUserId = changeUserId;
             return this;
         }
 
@@ -214,7 +258,12 @@ public final class BusinessUserEventsCreateRequest {
         @java.lang.Override
         public BusinessUserEventsCreateRequest build() {
             return new BusinessUserEventsCreateRequest(
-                    allowUserTypeConversion, lockKycRiskLevel, lockCraRiskLevel, body, additionalProperties);
+                    allowUserTypeConversion,
+                    lockKycRiskLevel,
+                    lockCraRiskLevel,
+                    changeUserId,
+                    body,
+                    additionalProperties);
         }
     }
 }

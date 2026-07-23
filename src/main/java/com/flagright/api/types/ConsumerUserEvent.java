@@ -34,6 +34,8 @@ public final class ConsumerUserEvent {
 
     private final Optional<UserOptional> updatedConsumerUserAttributes;
 
+    private final Optional<String> newUserId;
+
     private final Optional<List<String>> externalLinks;
 
     private final Map<String, Object> additionalProperties;
@@ -45,6 +47,7 @@ public final class ConsumerUserEvent {
             Optional<String> reason,
             Optional<String> eventDescription,
             Optional<UserOptional> updatedConsumerUserAttributes,
+            Optional<String> newUserId,
             Optional<List<String>> externalLinks,
             Map<String, Object> additionalProperties) {
         this.timestamp = timestamp;
@@ -53,6 +56,7 @@ public final class ConsumerUserEvent {
         this.reason = reason;
         this.eventDescription = eventDescription;
         this.updatedConsumerUserAttributes = updatedConsumerUserAttributes;
+        this.newUserId = newUserId;
         this.externalLinks = externalLinks;
         this.additionalProperties = additionalProperties;
     }
@@ -103,6 +107,14 @@ public final class ConsumerUserEvent {
     }
 
     /**
+     * @return New userId for the existing user (keep in mind all of the future requests for this user will now reference this userId). Requires the <code>changeUserId</code> queryparam to come in affect.
+     */
+    @JsonProperty("newUserId")
+    public Optional<String> getNewUserId() {
+        return newUserId;
+    }
+
+    /**
      * @return External links related to the consumer user
      */
     @JsonProperty("externalLinks")
@@ -128,6 +140,7 @@ public final class ConsumerUserEvent {
                 && reason.equals(other.reason)
                 && eventDescription.equals(other.eventDescription)
                 && updatedConsumerUserAttributes.equals(other.updatedConsumerUserAttributes)
+                && newUserId.equals(other.newUserId)
                 && externalLinks.equals(other.externalLinks);
     }
 
@@ -140,6 +153,7 @@ public final class ConsumerUserEvent {
                 this.reason,
                 this.eventDescription,
                 this.updatedConsumerUserAttributes,
+                this.newUserId,
                 this.externalLinks);
     }
 
@@ -181,6 +195,10 @@ public final class ConsumerUserEvent {
 
         _FinalStage updatedConsumerUserAttributes(UserOptional updatedConsumerUserAttributes);
 
+        _FinalStage newUserId(Optional<String> newUserId);
+
+        _FinalStage newUserId(String newUserId);
+
         _FinalStage externalLinks(Optional<List<String>> externalLinks);
 
         _FinalStage externalLinks(List<String> externalLinks);
@@ -193,6 +211,8 @@ public final class ConsumerUserEvent {
         private String userId;
 
         private Optional<List<String>> externalLinks = Optional.empty();
+
+        private Optional<String> newUserId = Optional.empty();
 
         private Optional<UserOptional> updatedConsumerUserAttributes = Optional.empty();
 
@@ -215,6 +235,7 @@ public final class ConsumerUserEvent {
             reason(other.getReason());
             eventDescription(other.getEventDescription());
             updatedConsumerUserAttributes(other.getUpdatedConsumerUserAttributes());
+            newUserId(other.getNewUserId());
             externalLinks(other.getExternalLinks());
             return this;
         }
@@ -255,6 +276,23 @@ public final class ConsumerUserEvent {
         @JsonSetter(value = "externalLinks", nulls = Nulls.SKIP)
         public _FinalStage externalLinks(Optional<List<String>> externalLinks) {
             this.externalLinks = externalLinks;
+            return this;
+        }
+
+        /**
+         * <p>New userId for the existing user (keep in mind all of the future requests for this user will now reference this userId). Requires the <code>changeUserId</code> queryparam to come in affect.</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
+        @java.lang.Override
+        public _FinalStage newUserId(String newUserId) {
+            this.newUserId = Optional.ofNullable(newUserId);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "newUserId", nulls = Nulls.SKIP)
+        public _FinalStage newUserId(Optional<String> newUserId) {
+            this.newUserId = newUserId;
             return this;
         }
 
@@ -331,6 +369,7 @@ public final class ConsumerUserEvent {
                     reason,
                     eventDescription,
                     updatedConsumerUserAttributes,
+                    newUserId,
                     externalLinks,
                     additionalProperties);
         }

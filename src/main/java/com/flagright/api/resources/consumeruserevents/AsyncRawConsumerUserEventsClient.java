@@ -14,12 +14,13 @@ import com.flagright.api.core.QueryStringMapper;
 import com.flagright.api.core.RequestOptions;
 import com.flagright.api.errors.BadRequestError;
 import com.flagright.api.errors.ConflictError;
+import com.flagright.api.errors.NotFoundError;
 import com.flagright.api.errors.TooManyRequestsError;
 import com.flagright.api.errors.UnauthorizedError;
 import com.flagright.api.resources.consumeruserevents.requests.ConsumerUserEventsCreateRequest;
+import com.flagright.api.resources.consumeruserevents.types.ConsumerUserEventsCreateResponse;
 import com.flagright.api.types.ApiErrorResponse;
 import com.flagright.api.types.ConsumerUserEventWithRulesResult;
-import com.flagright.api.types.UserWithRulesResult;
 import java.io.IOException;
 import java.util.concurrent.CompletableFuture;
 import okhttp3.Call;
@@ -59,7 +60,7 @@ public class AsyncRawConsumerUserEventsClient {
      * </ul>
      * <p>In order to make individual events retrievable, you also need to pass in a unique <code>eventId</code> to the request body.</p>
      */
-    public CompletableFuture<FlagrightHttpResponse<UserWithRulesResult>> create(
+    public CompletableFuture<FlagrightHttpResponse<ConsumerUserEventsCreateResponse>> create(
             ConsumerUserEventsCreateRequest request) {
         return create(request, null);
     }
@@ -83,7 +84,7 @@ public class AsyncRawConsumerUserEventsClient {
      * </ul>
      * <p>In order to make individual events retrievable, you also need to pass in a unique <code>eventId</code> to the request body.</p>
      */
-    public CompletableFuture<FlagrightHttpResponse<UserWithRulesResult>> create(
+    public CompletableFuture<FlagrightHttpResponse<ConsumerUserEventsCreateResponse>> create(
             ConsumerUserEventsCreateRequest request, RequestOptions requestOptions) {
         HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
@@ -109,6 +110,10 @@ public class AsyncRawConsumerUserEventsClient {
                     request.getLockCraRiskLevel().get().toString(),
                     false);
         }
+        if (request.getChangeUserId().isPresent()) {
+            QueryStringMapper.addQueryParameter(
+                    httpUrl, "changeUserId", request.getChangeUserId().get().toString(), false);
+        }
         RequestBody body;
         try {
             body = RequestBody.create(
@@ -127,14 +132,15 @@ public class AsyncRawConsumerUserEventsClient {
         if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
             client = clientOptions.httpClientWithTimeout(requestOptions);
         }
-        CompletableFuture<FlagrightHttpResponse<UserWithRulesResult>> future = new CompletableFuture<>();
+        CompletableFuture<FlagrightHttpResponse<ConsumerUserEventsCreateResponse>> future = new CompletableFuture<>();
         client.newCall(okhttpRequest).enqueue(new Callback() {
             @Override
             public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
                 try (ResponseBody responseBody = response.body()) {
                     if (response.isSuccessful()) {
                         future.complete(new FlagrightHttpResponse<>(
-                                ObjectMappers.JSON_MAPPER.readValue(responseBody.string(), UserWithRulesResult.class),
+                                ObjectMappers.JSON_MAPPER.readValue(
+                                        responseBody.string(), ConsumerUserEventsCreateResponse.class),
                                 response));
                         return;
                     }
@@ -148,6 +154,11 @@ public class AsyncRawConsumerUserEventsClient {
                                 return;
                             case 401:
                                 future.completeExceptionally(new UnauthorizedError(
+                                        ObjectMappers.JSON_MAPPER.readValue(responseBodyString, ApiErrorResponse.class),
+                                        response));
+                                return;
+                            case 404:
+                                future.completeExceptionally(new NotFoundError(
                                         ObjectMappers.JSON_MAPPER.readValue(responseBodyString, ApiErrorResponse.class),
                                         response));
                                 return;

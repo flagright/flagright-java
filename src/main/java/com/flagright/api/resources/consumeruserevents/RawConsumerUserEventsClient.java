@@ -14,12 +14,13 @@ import com.flagright.api.core.QueryStringMapper;
 import com.flagright.api.core.RequestOptions;
 import com.flagright.api.errors.BadRequestError;
 import com.flagright.api.errors.ConflictError;
+import com.flagright.api.errors.NotFoundError;
 import com.flagright.api.errors.TooManyRequestsError;
 import com.flagright.api.errors.UnauthorizedError;
 import com.flagright.api.resources.consumeruserevents.requests.ConsumerUserEventsCreateRequest;
+import com.flagright.api.resources.consumeruserevents.types.ConsumerUserEventsCreateResponse;
 import com.flagright.api.types.ApiErrorResponse;
 import com.flagright.api.types.ConsumerUserEventWithRulesResult;
-import com.flagright.api.types.UserWithRulesResult;
 import java.io.IOException;
 import okhttp3.Headers;
 import okhttp3.HttpUrl;
@@ -55,7 +56,7 @@ public class RawConsumerUserEventsClient {
      * </ul>
      * <p>In order to make individual events retrievable, you also need to pass in a unique <code>eventId</code> to the request body.</p>
      */
-    public FlagrightHttpResponse<UserWithRulesResult> create(ConsumerUserEventsCreateRequest request) {
+    public FlagrightHttpResponse<ConsumerUserEventsCreateResponse> create(ConsumerUserEventsCreateRequest request) {
         return create(request, null);
     }
 
@@ -78,7 +79,7 @@ public class RawConsumerUserEventsClient {
      * </ul>
      * <p>In order to make individual events retrievable, you also need to pass in a unique <code>eventId</code> to the request body.</p>
      */
-    public FlagrightHttpResponse<UserWithRulesResult> create(
+    public FlagrightHttpResponse<ConsumerUserEventsCreateResponse> create(
             ConsumerUserEventsCreateRequest request, RequestOptions requestOptions) {
         HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
@@ -104,6 +105,10 @@ public class RawConsumerUserEventsClient {
                     request.getLockCraRiskLevel().get().toString(),
                     false);
         }
+        if (request.getChangeUserId().isPresent()) {
+            QueryStringMapper.addQueryParameter(
+                    httpUrl, "changeUserId", request.getChangeUserId().get().toString(), false);
+        }
         RequestBody body;
         try {
             body = RequestBody.create(
@@ -126,7 +131,8 @@ public class RawConsumerUserEventsClient {
             ResponseBody responseBody = response.body();
             if (response.isSuccessful()) {
                 return new FlagrightHttpResponse<>(
-                        ObjectMappers.JSON_MAPPER.readValue(responseBody.string(), UserWithRulesResult.class),
+                        ObjectMappers.JSON_MAPPER.readValue(
+                                responseBody.string(), ConsumerUserEventsCreateResponse.class),
                         response);
             }
             String responseBodyString = responseBody != null ? responseBody.string() : "{}";
@@ -138,6 +144,10 @@ public class RawConsumerUserEventsClient {
                                 response);
                     case 401:
                         throw new UnauthorizedError(
+                                ObjectMappers.JSON_MAPPER.readValue(responseBodyString, ApiErrorResponse.class),
+                                response);
+                    case 404:
+                        throw new NotFoundError(
                                 ObjectMappers.JSON_MAPPER.readValue(responseBodyString, ApiErrorResponse.class),
                                 response);
                     case 409:

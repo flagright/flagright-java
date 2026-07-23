@@ -6,8 +6,8 @@ package com.flagright.api.resources.consumeruserevents;
 import com.flagright.api.core.ClientOptions;
 import com.flagright.api.core.RequestOptions;
 import com.flagright.api.resources.consumeruserevents.requests.ConsumerUserEventsCreateRequest;
+import com.flagright.api.resources.consumeruserevents.types.ConsumerUserEventsCreateResponse;
 import com.flagright.api.types.ConsumerUserEventWithRulesResult;
-import com.flagright.api.types.UserWithRulesResult;
 import java.util.concurrent.CompletableFuture;
 
 public class AsyncConsumerUserEventsClient {
@@ -46,7 +46,7 @@ public class AsyncConsumerUserEventsClient {
      * </ul>
      * <p>In order to make individual events retrievable, you also need to pass in a unique <code>eventId</code> to the request body.</p>
      */
-    public CompletableFuture<UserWithRulesResult> create(ConsumerUserEventsCreateRequest request) {
+    public CompletableFuture<ConsumerUserEventsCreateResponse> create(ConsumerUserEventsCreateRequest request) {
         return this.rawClient.create(request).thenApply(response -> response.body());
     }
 
@@ -69,7 +69,7 @@ public class AsyncConsumerUserEventsClient {
      * </ul>
      * <p>In order to make individual events retrievable, you also need to pass in a unique <code>eventId</code> to the request body.</p>
      */
-    public CompletableFuture<UserWithRulesResult> create(
+    public CompletableFuture<ConsumerUserEventsCreateResponse> create(
             ConsumerUserEventsCreateRequest request, RequestOptions requestOptions) {
         return this.rawClient.create(request, requestOptions).thenApply(response -> response.body());
     }
