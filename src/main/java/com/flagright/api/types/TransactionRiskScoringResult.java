@@ -13,6 +13,7 @@ import com.fasterxml.jackson.annotation.Nulls;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.flagright.api.core.ObjectMappers;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
@@ -32,6 +33,16 @@ public final class TransactionRiskScoringResult {
 
     private final Optional<RiskLevel> destinationUserCraRiskLevel;
 
+    private final Optional<List<RiskFactorBreakdown>> trsRiskFactors;
+
+    private final Optional<Double> originUserAvgTrsScore;
+
+    private final Optional<Double> destinationUserAvgTrsScore;
+
+    private final Optional<Double> krsWeight;
+
+    private final Optional<Double> avgTrsWeight;
+
     private final Map<String, Object> additionalProperties;
 
     private TransactionRiskScoringResult(
@@ -41,6 +52,11 @@ public final class TransactionRiskScoringResult {
             Optional<Double> destinationUserCraRiskScore,
             Optional<RiskLevel> originUserCraRiskLevel,
             Optional<RiskLevel> destinationUserCraRiskLevel,
+            Optional<List<RiskFactorBreakdown>> trsRiskFactors,
+            Optional<Double> originUserAvgTrsScore,
+            Optional<Double> destinationUserAvgTrsScore,
+            Optional<Double> krsWeight,
+            Optional<Double> avgTrsWeight,
             Map<String, Object> additionalProperties) {
         this.trsScore = trsScore;
         this.trsRiskLevel = trsRiskLevel;
@@ -48,6 +64,11 @@ public final class TransactionRiskScoringResult {
         this.destinationUserCraRiskScore = destinationUserCraRiskScore;
         this.originUserCraRiskLevel = originUserCraRiskLevel;
         this.destinationUserCraRiskLevel = destinationUserCraRiskLevel;
+        this.trsRiskFactors = trsRiskFactors;
+        this.originUserAvgTrsScore = originUserAvgTrsScore;
+        this.destinationUserAvgTrsScore = destinationUserAvgTrsScore;
+        this.krsWeight = krsWeight;
+        this.avgTrsWeight = avgTrsWeight;
         this.additionalProperties = additionalProperties;
     }
 
@@ -90,6 +111,46 @@ public final class TransactionRiskScoringResult {
         return destinationUserCraRiskLevel;
     }
 
+    /**
+     * @return Per-factor TRS breakdown; omitted unless the RISK_SCORE_BREAKDOWN feature is enabled
+     */
+    @JsonProperty("trsRiskFactors")
+    public Optional<List<RiskFactorBreakdown>> getTrsRiskFactors() {
+        return trsRiskFactors;
+    }
+
+    /**
+     * @return Origin user's average TRS after this transaction; omitted unless the RISK_SCORE_BREAKDOWN feature is enabled
+     */
+    @JsonProperty("originUserAvgTrsScore")
+    public Optional<Double> getOriginUserAvgTrsScore() {
+        return originUserAvgTrsScore;
+    }
+
+    /**
+     * @return Destination user's average TRS after this transaction; omitted unless the RISK_SCORE_BREAKDOWN feature is enabled
+     */
+    @JsonProperty("destinationUserAvgTrsScore")
+    public Optional<Double> getDestinationUserAvgTrsScore() {
+        return destinationUserAvgTrsScore;
+    }
+
+    /**
+     * @return KRS weight in the CRA formula when using custom weighting; omitted unless the RISK_SCORE_BREAKDOWN feature is enabled
+     */
+    @JsonProperty("krsWeight")
+    public Optional<Double> getKrsWeight() {
+        return krsWeight;
+    }
+
+    /**
+     * @return Average TRS weight in the CRA formula when using custom weighting; omitted unless the RISK_SCORE_BREAKDOWN feature is enabled
+     */
+    @JsonProperty("avgTrsWeight")
+    public Optional<Double> getAvgTrsWeight() {
+        return avgTrsWeight;
+    }
+
     @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
@@ -107,7 +168,12 @@ public final class TransactionRiskScoringResult {
                 && originUserCraRiskScore.equals(other.originUserCraRiskScore)
                 && destinationUserCraRiskScore.equals(other.destinationUserCraRiskScore)
                 && originUserCraRiskLevel.equals(other.originUserCraRiskLevel)
-                && destinationUserCraRiskLevel.equals(other.destinationUserCraRiskLevel);
+                && destinationUserCraRiskLevel.equals(other.destinationUserCraRiskLevel)
+                && trsRiskFactors.equals(other.trsRiskFactors)
+                && originUserAvgTrsScore.equals(other.originUserAvgTrsScore)
+                && destinationUserAvgTrsScore.equals(other.destinationUserAvgTrsScore)
+                && krsWeight.equals(other.krsWeight)
+                && avgTrsWeight.equals(other.avgTrsWeight);
     }
 
     @java.lang.Override
@@ -118,7 +184,12 @@ public final class TransactionRiskScoringResult {
                 this.originUserCraRiskScore,
                 this.destinationUserCraRiskScore,
                 this.originUserCraRiskLevel,
-                this.destinationUserCraRiskLevel);
+                this.destinationUserCraRiskLevel,
+                this.trsRiskFactors,
+                this.originUserAvgTrsScore,
+                this.destinationUserAvgTrsScore,
+                this.krsWeight,
+                this.avgTrsWeight);
     }
 
     @java.lang.Override
@@ -144,6 +215,16 @@ public final class TransactionRiskScoringResult {
 
         private Optional<RiskLevel> destinationUserCraRiskLevel = Optional.empty();
 
+        private Optional<List<RiskFactorBreakdown>> trsRiskFactors = Optional.empty();
+
+        private Optional<Double> originUserAvgTrsScore = Optional.empty();
+
+        private Optional<Double> destinationUserAvgTrsScore = Optional.empty();
+
+        private Optional<Double> krsWeight = Optional.empty();
+
+        private Optional<Double> avgTrsWeight = Optional.empty();
+
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
 
@@ -156,6 +237,11 @@ public final class TransactionRiskScoringResult {
             destinationUserCraRiskScore(other.getDestinationUserCraRiskScore());
             originUserCraRiskLevel(other.getOriginUserCraRiskLevel());
             destinationUserCraRiskLevel(other.getDestinationUserCraRiskLevel());
+            trsRiskFactors(other.getTrsRiskFactors());
+            originUserAvgTrsScore(other.getOriginUserAvgTrsScore());
+            destinationUserAvgTrsScore(other.getDestinationUserAvgTrsScore());
+            krsWeight(other.getKrsWeight());
+            avgTrsWeight(other.getAvgTrsWeight());
             return this;
         }
 
@@ -225,6 +311,61 @@ public final class TransactionRiskScoringResult {
             return this;
         }
 
+        @JsonSetter(value = "trsRiskFactors", nulls = Nulls.SKIP)
+        public Builder trsRiskFactors(Optional<List<RiskFactorBreakdown>> trsRiskFactors) {
+            this.trsRiskFactors = trsRiskFactors;
+            return this;
+        }
+
+        public Builder trsRiskFactors(List<RiskFactorBreakdown> trsRiskFactors) {
+            this.trsRiskFactors = Optional.ofNullable(trsRiskFactors);
+            return this;
+        }
+
+        @JsonSetter(value = "originUserAvgTrsScore", nulls = Nulls.SKIP)
+        public Builder originUserAvgTrsScore(Optional<Double> originUserAvgTrsScore) {
+            this.originUserAvgTrsScore = originUserAvgTrsScore;
+            return this;
+        }
+
+        public Builder originUserAvgTrsScore(Double originUserAvgTrsScore) {
+            this.originUserAvgTrsScore = Optional.ofNullable(originUserAvgTrsScore);
+            return this;
+        }
+
+        @JsonSetter(value = "destinationUserAvgTrsScore", nulls = Nulls.SKIP)
+        public Builder destinationUserAvgTrsScore(Optional<Double> destinationUserAvgTrsScore) {
+            this.destinationUserAvgTrsScore = destinationUserAvgTrsScore;
+            return this;
+        }
+
+        public Builder destinationUserAvgTrsScore(Double destinationUserAvgTrsScore) {
+            this.destinationUserAvgTrsScore = Optional.ofNullable(destinationUserAvgTrsScore);
+            return this;
+        }
+
+        @JsonSetter(value = "krsWeight", nulls = Nulls.SKIP)
+        public Builder krsWeight(Optional<Double> krsWeight) {
+            this.krsWeight = krsWeight;
+            return this;
+        }
+
+        public Builder krsWeight(Double krsWeight) {
+            this.krsWeight = Optional.ofNullable(krsWeight);
+            return this;
+        }
+
+        @JsonSetter(value = "avgTrsWeight", nulls = Nulls.SKIP)
+        public Builder avgTrsWeight(Optional<Double> avgTrsWeight) {
+            this.avgTrsWeight = avgTrsWeight;
+            return this;
+        }
+
+        public Builder avgTrsWeight(Double avgTrsWeight) {
+            this.avgTrsWeight = Optional.ofNullable(avgTrsWeight);
+            return this;
+        }
+
         public TransactionRiskScoringResult build() {
             return new TransactionRiskScoringResult(
                     trsScore,
@@ -233,6 +374,11 @@ public final class TransactionRiskScoringResult {
                     destinationUserCraRiskScore,
                     originUserCraRiskLevel,
                     destinationUserCraRiskLevel,
+                    trsRiskFactors,
+                    originUserAvgTrsScore,
+                    destinationUserAvgTrsScore,
+                    krsWeight,
+                    avgTrsWeight,
                     additionalProperties);
         }
     }

@@ -13,6 +13,7 @@ import com.fasterxml.jackson.annotation.Nulls;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.flagright.api.core.ObjectMappers;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
@@ -28,6 +29,14 @@ public final class UserRiskScoreDetails {
 
     private final Optional<RiskLevel> craRiskLevel;
 
+    private final Optional<List<RiskFactorBreakdown>> kycRiskFactors;
+
+    private final Optional<Double> avgTrsScore;
+
+    private final Optional<Double> krsWeight;
+
+    private final Optional<Double> avgTrsWeight;
+
     private final Map<String, Object> additionalProperties;
 
     private UserRiskScoreDetails(
@@ -35,11 +44,19 @@ public final class UserRiskScoreDetails {
             Optional<Double> craRiskScore,
             Optional<RiskLevel> kycRiskLevel,
             Optional<RiskLevel> craRiskLevel,
+            Optional<List<RiskFactorBreakdown>> kycRiskFactors,
+            Optional<Double> avgTrsScore,
+            Optional<Double> krsWeight,
+            Optional<Double> avgTrsWeight,
             Map<String, Object> additionalProperties) {
         this.kycRiskScore = kycRiskScore;
         this.craRiskScore = craRiskScore;
         this.kycRiskLevel = kycRiskLevel;
         this.craRiskLevel = craRiskLevel;
+        this.kycRiskFactors = kycRiskFactors;
+        this.avgTrsScore = avgTrsScore;
+        this.krsWeight = krsWeight;
+        this.avgTrsWeight = avgTrsWeight;
         this.additionalProperties = additionalProperties;
     }
 
@@ -63,6 +80,38 @@ public final class UserRiskScoreDetails {
         return craRiskLevel;
     }
 
+    /**
+     * @return Per-factor KRS breakdown; omitted unless the RISK_SCORE_BREAKDOWN feature is enabled
+     */
+    @JsonProperty("kycRiskFactors")
+    public Optional<List<RiskFactorBreakdown>> getKycRiskFactors() {
+        return kycRiskFactors;
+    }
+
+    /**
+     * @return User average transaction risk score; omitted unless the RISK_SCORE_BREAKDOWN feature is enabled
+     */
+    @JsonProperty("avgTrsScore")
+    public Optional<Double> getAvgTrsScore() {
+        return avgTrsScore;
+    }
+
+    /**
+     * @return KRS weight in the CRA formula when using custom weighting; omitted unless the RISK_SCORE_BREAKDOWN feature is enabled
+     */
+    @JsonProperty("krsWeight")
+    public Optional<Double> getKrsWeight() {
+        return krsWeight;
+    }
+
+    /**
+     * @return Average TRS weight in the CRA formula when using custom weighting; omitted unless the RISK_SCORE_BREAKDOWN feature is enabled
+     */
+    @JsonProperty("avgTrsWeight")
+    public Optional<Double> getAvgTrsWeight() {
+        return avgTrsWeight;
+    }
+
     @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
@@ -78,12 +127,24 @@ public final class UserRiskScoreDetails {
         return kycRiskScore.equals(other.kycRiskScore)
                 && craRiskScore.equals(other.craRiskScore)
                 && kycRiskLevel.equals(other.kycRiskLevel)
-                && craRiskLevel.equals(other.craRiskLevel);
+                && craRiskLevel.equals(other.craRiskLevel)
+                && kycRiskFactors.equals(other.kycRiskFactors)
+                && avgTrsScore.equals(other.avgTrsScore)
+                && krsWeight.equals(other.krsWeight)
+                && avgTrsWeight.equals(other.avgTrsWeight);
     }
 
     @java.lang.Override
     public int hashCode() {
-        return Objects.hash(this.kycRiskScore, this.craRiskScore, this.kycRiskLevel, this.craRiskLevel);
+        return Objects.hash(
+                this.kycRiskScore,
+                this.craRiskScore,
+                this.kycRiskLevel,
+                this.craRiskLevel,
+                this.kycRiskFactors,
+                this.avgTrsScore,
+                this.krsWeight,
+                this.avgTrsWeight);
     }
 
     @java.lang.Override
@@ -105,6 +166,14 @@ public final class UserRiskScoreDetails {
 
         private Optional<RiskLevel> craRiskLevel = Optional.empty();
 
+        private Optional<List<RiskFactorBreakdown>> kycRiskFactors = Optional.empty();
+
+        private Optional<Double> avgTrsScore = Optional.empty();
+
+        private Optional<Double> krsWeight = Optional.empty();
+
+        private Optional<Double> avgTrsWeight = Optional.empty();
+
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
 
@@ -115,6 +184,10 @@ public final class UserRiskScoreDetails {
             craRiskScore(other.getCraRiskScore());
             kycRiskLevel(other.getKycRiskLevel());
             craRiskLevel(other.getCraRiskLevel());
+            kycRiskFactors(other.getKycRiskFactors());
+            avgTrsScore(other.getAvgTrsScore());
+            krsWeight(other.getKrsWeight());
+            avgTrsWeight(other.getAvgTrsWeight());
             return this;
         }
 
@@ -162,9 +235,61 @@ public final class UserRiskScoreDetails {
             return this;
         }
 
+        @JsonSetter(value = "kycRiskFactors", nulls = Nulls.SKIP)
+        public Builder kycRiskFactors(Optional<List<RiskFactorBreakdown>> kycRiskFactors) {
+            this.kycRiskFactors = kycRiskFactors;
+            return this;
+        }
+
+        public Builder kycRiskFactors(List<RiskFactorBreakdown> kycRiskFactors) {
+            this.kycRiskFactors = Optional.ofNullable(kycRiskFactors);
+            return this;
+        }
+
+        @JsonSetter(value = "avgTrsScore", nulls = Nulls.SKIP)
+        public Builder avgTrsScore(Optional<Double> avgTrsScore) {
+            this.avgTrsScore = avgTrsScore;
+            return this;
+        }
+
+        public Builder avgTrsScore(Double avgTrsScore) {
+            this.avgTrsScore = Optional.ofNullable(avgTrsScore);
+            return this;
+        }
+
+        @JsonSetter(value = "krsWeight", nulls = Nulls.SKIP)
+        public Builder krsWeight(Optional<Double> krsWeight) {
+            this.krsWeight = krsWeight;
+            return this;
+        }
+
+        public Builder krsWeight(Double krsWeight) {
+            this.krsWeight = Optional.ofNullable(krsWeight);
+            return this;
+        }
+
+        @JsonSetter(value = "avgTrsWeight", nulls = Nulls.SKIP)
+        public Builder avgTrsWeight(Optional<Double> avgTrsWeight) {
+            this.avgTrsWeight = avgTrsWeight;
+            return this;
+        }
+
+        public Builder avgTrsWeight(Double avgTrsWeight) {
+            this.avgTrsWeight = Optional.ofNullable(avgTrsWeight);
+            return this;
+        }
+
         public UserRiskScoreDetails build() {
             return new UserRiskScoreDetails(
-                    kycRiskScore, craRiskScore, kycRiskLevel, craRiskLevel, additionalProperties);
+                    kycRiskScore,
+                    craRiskScore,
+                    kycRiskLevel,
+                    craRiskLevel,
+                    kycRiskFactors,
+                    avgTrsScore,
+                    krsWeight,
+                    avgTrsWeight,
+                    additionalProperties);
         }
     }
 }

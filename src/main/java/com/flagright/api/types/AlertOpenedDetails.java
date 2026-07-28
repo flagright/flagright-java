@@ -35,6 +35,8 @@ public final class AlertOpenedDetails {
 
     private final Optional<String> ruleInstanceId;
 
+    private final Optional<RuleNature> nature;
+
     private final Optional<String> caseId;
 
     private final Optional<String> userId;
@@ -49,6 +51,7 @@ public final class AlertOpenedDetails {
             Optional<String> ruleDescription,
             Optional<String> ruleId,
             Optional<String> ruleInstanceId,
+            Optional<RuleNature> nature,
             Optional<String> caseId,
             Optional<String> userId,
             Map<String, Object> additionalProperties) {
@@ -59,6 +62,7 @@ public final class AlertOpenedDetails {
         this.ruleDescription = ruleDescription;
         this.ruleId = ruleId;
         this.ruleInstanceId = ruleInstanceId;
+        this.nature = nature;
         this.caseId = caseId;
         this.userId = userId;
         this.additionalProperties = additionalProperties;
@@ -99,6 +103,11 @@ public final class AlertOpenedDetails {
         return ruleInstanceId;
     }
 
+    @JsonProperty("nature")
+    public Optional<RuleNature> getNature() {
+        return nature;
+    }
+
     @JsonProperty("caseId")
     public Optional<String> getCaseId() {
         return caseId;
@@ -128,6 +137,7 @@ public final class AlertOpenedDetails {
                 && ruleDescription.equals(other.ruleDescription)
                 && ruleId.equals(other.ruleId)
                 && ruleInstanceId.equals(other.ruleInstanceId)
+                && nature.equals(other.nature)
                 && caseId.equals(other.caseId)
                 && userId.equals(other.userId);
     }
@@ -142,6 +152,7 @@ public final class AlertOpenedDetails {
                 this.ruleDescription,
                 this.ruleId,
                 this.ruleInstanceId,
+                this.nature,
                 this.caseId,
                 this.userId);
     }
@@ -171,6 +182,8 @@ public final class AlertOpenedDetails {
 
         private Optional<String> ruleInstanceId = Optional.empty();
 
+        private Optional<RuleNature> nature = Optional.empty();
+
         private Optional<String> caseId = Optional.empty();
 
         private Optional<String> userId = Optional.empty();
@@ -188,6 +201,7 @@ public final class AlertOpenedDetails {
             ruleDescription(other.getRuleDescription());
             ruleId(other.getRuleId());
             ruleInstanceId(other.getRuleInstanceId());
+            nature(other.getNature());
             caseId(other.getCaseId());
             userId(other.getUserId());
             return this;
@@ -270,6 +284,17 @@ public final class AlertOpenedDetails {
             return this;
         }
 
+        @JsonSetter(value = "nature", nulls = Nulls.SKIP)
+        public Builder nature(Optional<RuleNature> nature) {
+            this.nature = nature;
+            return this;
+        }
+
+        public Builder nature(RuleNature nature) {
+            this.nature = Optional.ofNullable(nature);
+            return this;
+        }
+
         @JsonSetter(value = "caseId", nulls = Nulls.SKIP)
         public Builder caseId(Optional<String> caseId) {
             this.caseId = caseId;
@@ -301,6 +326,7 @@ public final class AlertOpenedDetails {
                     ruleDescription,
                     ruleId,
                     ruleInstanceId,
+                    nature,
                     caseId,
                     userId,
                     additionalProperties);
