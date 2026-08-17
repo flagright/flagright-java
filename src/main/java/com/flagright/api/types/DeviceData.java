@@ -44,6 +44,102 @@ public final class DeviceData {
 
     private final Optional<String> appVersion;
 
+    private final Optional<String> deviceIntelligenceSealedResult;
+
+    private final Optional<Boolean> tor;
+
+    private final Optional<Double> confidence;
+
+    private final Optional<Boolean> incognito;
+
+    private final Optional<Boolean> proxy;
+
+    private final Optional<Boolean> tampering;
+
+    private final Optional<BotDetectionResult> botDetection;
+
+    private final Optional<Boolean> privacySettings;
+
+    private final Optional<Integer> suspectScore;
+
+    private final Optional<Integer> velocity5MEvents;
+
+    private final Optional<Integer> velocity5MIps;
+
+    private final Optional<Integer> velocity5MCountries;
+
+    private final Optional<Integer> velocity1HEvents;
+
+    private final Optional<Integer> velocity1HIps;
+
+    private final Optional<Integer> velocity1HCountries;
+
+    private final Optional<Integer> velocity24HEvents;
+
+    private final Optional<Integer> velocity24HIps;
+
+    private final Optional<Integer> velocity24HCountries;
+
+    private final Optional<String> requestId;
+
+    private final Optional<String> osVersion;
+
+    private final Optional<String> browser;
+
+    private final Optional<String> browserVersion;
+
+    private final Optional<Boolean> rooted;
+
+    private final Optional<Boolean> jailbroken;
+
+    private final Optional<Boolean> frida;
+
+    private final Optional<Boolean> clonedApp;
+
+    private final Optional<Boolean> emulator;
+
+    private final Optional<Boolean> simulator;
+
+    private final Optional<Boolean> developerTools;
+
+    private final Optional<Boolean> mitmAttack;
+
+    private final Optional<Boolean> ipAttackSource;
+
+    private final Optional<Boolean> ipEmailSpam;
+
+    private final Optional<Boolean> replayed;
+
+    private final Optional<Boolean> virtualMachine;
+
+    private final Optional<Double> virtualMachineConfidenceScore;
+
+    private final Optional<Boolean> locationSpoofing;
+
+    private final Optional<Integer> factoryResetTimestamp;
+
+    private final Optional<Boolean> highActivityDevice;
+
+    private final Optional<Boolean> rareDevice;
+
+    private final Optional<String> rareDevicePercentileBucket;
+
+    private final Optional<String> vpnConfidence;
+
+    private final Optional<String> vpnOriginCountry;
+
+    private final Optional<String> vpnOriginTimezone;
+
+    private final Optional<String> botType;
+
+    private final Optional<String> proxyConfidence;
+
+    private final Optional<Double> proxyConfidenceScore;
+
+    private final Optional<String> tamperingConfidence;
+
+    private final Optional<Double> tamperingConfidenceScore;
+
     private final Map<String, Object> additionalProperties;
 
     private DeviceData(
@@ -59,6 +155,54 @@ public final class DeviceData {
             Optional<String> deviceModel,
             Optional<String> deviceYear,
             Optional<String> appVersion,
+            Optional<String> deviceIntelligenceSealedResult,
+            Optional<Boolean> tor,
+            Optional<Double> confidence,
+            Optional<Boolean> incognito,
+            Optional<Boolean> proxy,
+            Optional<Boolean> tampering,
+            Optional<BotDetectionResult> botDetection,
+            Optional<Boolean> privacySettings,
+            Optional<Integer> suspectScore,
+            Optional<Integer> velocity5MEvents,
+            Optional<Integer> velocity5MIps,
+            Optional<Integer> velocity5MCountries,
+            Optional<Integer> velocity1HEvents,
+            Optional<Integer> velocity1HIps,
+            Optional<Integer> velocity1HCountries,
+            Optional<Integer> velocity24HEvents,
+            Optional<Integer> velocity24HIps,
+            Optional<Integer> velocity24HCountries,
+            Optional<String> requestId,
+            Optional<String> osVersion,
+            Optional<String> browser,
+            Optional<String> browserVersion,
+            Optional<Boolean> rooted,
+            Optional<Boolean> jailbroken,
+            Optional<Boolean> frida,
+            Optional<Boolean> clonedApp,
+            Optional<Boolean> emulator,
+            Optional<Boolean> simulator,
+            Optional<Boolean> developerTools,
+            Optional<Boolean> mitmAttack,
+            Optional<Boolean> ipAttackSource,
+            Optional<Boolean> ipEmailSpam,
+            Optional<Boolean> replayed,
+            Optional<Boolean> virtualMachine,
+            Optional<Double> virtualMachineConfidenceScore,
+            Optional<Boolean> locationSpoofing,
+            Optional<Integer> factoryResetTimestamp,
+            Optional<Boolean> highActivityDevice,
+            Optional<Boolean> rareDevice,
+            Optional<String> rareDevicePercentileBucket,
+            Optional<String> vpnConfidence,
+            Optional<String> vpnOriginCountry,
+            Optional<String> vpnOriginTimezone,
+            Optional<String> botType,
+            Optional<String> proxyConfidence,
+            Optional<Double> proxyConfidenceScore,
+            Optional<String> tamperingConfidence,
+            Optional<Double> tamperingConfidenceScore,
             Map<String, Object> additionalProperties) {
         this.batteryLevel = batteryLevel;
         this.deviceLatitude = deviceLatitude;
@@ -72,6 +216,54 @@ public final class DeviceData {
         this.deviceModel = deviceModel;
         this.deviceYear = deviceYear;
         this.appVersion = appVersion;
+        this.deviceIntelligenceSealedResult = deviceIntelligenceSealedResult;
+        this.tor = tor;
+        this.confidence = confidence;
+        this.incognito = incognito;
+        this.proxy = proxy;
+        this.tampering = tampering;
+        this.botDetection = botDetection;
+        this.privacySettings = privacySettings;
+        this.suspectScore = suspectScore;
+        this.velocity5MEvents = velocity5MEvents;
+        this.velocity5MIps = velocity5MIps;
+        this.velocity5MCountries = velocity5MCountries;
+        this.velocity1HEvents = velocity1HEvents;
+        this.velocity1HIps = velocity1HIps;
+        this.velocity1HCountries = velocity1HCountries;
+        this.velocity24HEvents = velocity24HEvents;
+        this.velocity24HIps = velocity24HIps;
+        this.velocity24HCountries = velocity24HCountries;
+        this.requestId = requestId;
+        this.osVersion = osVersion;
+        this.browser = browser;
+        this.browserVersion = browserVersion;
+        this.rooted = rooted;
+        this.jailbroken = jailbroken;
+        this.frida = frida;
+        this.clonedApp = clonedApp;
+        this.emulator = emulator;
+        this.simulator = simulator;
+        this.developerTools = developerTools;
+        this.mitmAttack = mitmAttack;
+        this.ipAttackSource = ipAttackSource;
+        this.ipEmailSpam = ipEmailSpam;
+        this.replayed = replayed;
+        this.virtualMachine = virtualMachine;
+        this.virtualMachineConfidenceScore = virtualMachineConfidenceScore;
+        this.locationSpoofing = locationSpoofing;
+        this.factoryResetTimestamp = factoryResetTimestamp;
+        this.highActivityDevice = highActivityDevice;
+        this.rareDevice = rareDevice;
+        this.rareDevicePercentileBucket = rareDevicePercentileBucket;
+        this.vpnConfidence = vpnConfidence;
+        this.vpnOriginCountry = vpnOriginCountry;
+        this.vpnOriginTimezone = vpnOriginTimezone;
+        this.botType = botType;
+        this.proxyConfidence = proxyConfidence;
+        this.proxyConfidenceScore = proxyConfidenceScore;
+        this.tamperingConfidence = tamperingConfidence;
+        this.tamperingConfidenceScore = tamperingConfidenceScore;
         this.additionalProperties = additionalProperties;
     }
 
@@ -100,7 +292,7 @@ public final class DeviceData {
     }
 
     /**
-     * @return IP address of the device at a given timestamp for an event or transaction
+     * @return IP address of the device at a given timestamp for an event or transaction. Overwritten with a verified value when <code>deviceIntelligenceSealedResult</code> is provided and decrypts successfully
      */
     @JsonProperty("ipAddress")
     public Optional<String> getIpAddress() {
@@ -113,7 +305,7 @@ public final class DeviceData {
     }
 
     /**
-     * @return Device identifier number
+     * @return Device identifier number. Overwritten with a verified value when <code>deviceIntelligenceSealedResult</code> is provided and decrypts successfully
      */
     @JsonProperty("deviceIdentifier")
     public Optional<String> getDeviceIdentifier() {
@@ -121,7 +313,7 @@ public final class DeviceData {
     }
 
     /**
-     * @return Whether VPN was used at a given timestamp for an event or transaction
+     * @return Whether VPN was used at a given timestamp for an event or transaction. Overwritten when <code>deviceIntelligenceSealedResult</code> is provided and decrypts successfully, with the configured provider's own aggregate VPN detection verdict
      */
     @JsonProperty("vpnUsed")
     public Optional<Boolean> getVpnUsed() {
@@ -168,6 +360,387 @@ public final class DeviceData {
         return appVersion;
     }
 
+    /**
+     * @return Base64-encoded encrypted sealed result blob from your configured device intelligence provider. When provided, Flagright decrypts it server-side and populates the device intelligence fields below (and <code>deviceIdentifier</code>, <code>ipAddress</code>, <code>ipCountry</code>, <code>vpnUsed</code> above) with the resulting verified signals; any value passed directly in those fields is ignored when this field is present
+     */
+    @JsonProperty("deviceIntelligenceSealedResult")
+    public Optional<String> getDeviceIntelligenceSealedResult() {
+        return deviceIntelligenceSealedResult;
+    }
+
+    /**
+     * @return Whether the request originated from a known TOR exit node
+     */
+    @JsonProperty("tor")
+    public Optional<Boolean> getTor() {
+        return tor;
+    }
+
+    /**
+     * @return Confidence score (0 to 1) that the device identity is correctly identified
+     */
+    @JsonProperty("confidence")
+    public Optional<Double> getConfidence() {
+        return confidence;
+    }
+
+    /**
+     * @return Whether the browser was in incognito/private mode
+     */
+    @JsonProperty("incognito")
+    public Optional<Boolean> getIncognito() {
+        return incognito;
+    }
+
+    /**
+     * @return Whether the request originated from a known public or residential proxy
+     */
+    @JsonProperty("proxy")
+    public Optional<Boolean> getProxy() {
+        return proxy;
+    }
+
+    /**
+     * @return Whether browser tampering (e.g. anti-detect browser) was detected
+     */
+    @JsonProperty("tampering")
+    public Optional<Boolean> getTampering() {
+        return tampering;
+    }
+
+    @JsonProperty("botDetection")
+    public Optional<BotDetectionResult> getBotDetection() {
+        return botDetection;
+    }
+
+    /**
+     * @return Whether privacy-focused browser settings were detected
+     */
+    @JsonProperty("privacySettings")
+    public Optional<Boolean> getPrivacySettings() {
+        return privacySettings;
+    }
+
+    /**
+     * @return Weighted risk score (0 and up, no fixed upper bound)
+     */
+    @JsonProperty("suspectScore")
+    public Optional<Integer> getSuspectScore() {
+        return suspectScore;
+    }
+
+    /**
+     * @return Number of events from this device in the last 5 minutes
+     */
+    @JsonProperty("velocity5mEvents")
+    public Optional<Integer> getVelocity5MEvents() {
+        return velocity5MEvents;
+    }
+
+    /**
+     * @return Number of distinct IPs used by this device in the last 5 minutes
+     */
+    @JsonProperty("velocity5mIps")
+    public Optional<Integer> getVelocity5MIps() {
+        return velocity5MIps;
+    }
+
+    /**
+     * @return Number of distinct countries used by this device in the last 5 minutes
+     */
+    @JsonProperty("velocity5mCountries")
+    public Optional<Integer> getVelocity5MCountries() {
+        return velocity5MCountries;
+    }
+
+    /**
+     * @return Number of events from this device in the last 1 hour
+     */
+    @JsonProperty("velocity1hEvents")
+    public Optional<Integer> getVelocity1HEvents() {
+        return velocity1HEvents;
+    }
+
+    /**
+     * @return Number of distinct IPs used by this device in the last 1 hour
+     */
+    @JsonProperty("velocity1hIps")
+    public Optional<Integer> getVelocity1HIps() {
+        return velocity1HIps;
+    }
+
+    /**
+     * @return Number of distinct countries used by this device in the last 1 hour
+     */
+    @JsonProperty("velocity1hCountries")
+    public Optional<Integer> getVelocity1HCountries() {
+        return velocity1HCountries;
+    }
+
+    /**
+     * @return Number of events from this device in the last 24 hours
+     */
+    @JsonProperty("velocity24hEvents")
+    public Optional<Integer> getVelocity24HEvents() {
+        return velocity24HEvents;
+    }
+
+    /**
+     * @return Number of distinct IPs used by this device in the last 24 hours
+     */
+    @JsonProperty("velocity24hIps")
+    public Optional<Integer> getVelocity24HIps() {
+        return velocity24HIps;
+    }
+
+    /**
+     * @return Number of distinct countries used by this device in the last 24 hours
+     */
+    @JsonProperty("velocity24hCountries")
+    public Optional<Integer> getVelocity24HCountries() {
+        return velocity24HCountries;
+    }
+
+    /**
+     * @return Device intelligence provider's request identifier for the event, ties back to the provider's event for audit purposes
+     */
+    @JsonProperty("requestId")
+    public Optional<String> getRequestId() {
+        return requestId;
+    }
+
+    /**
+     * @return Operating system version of the device (e.g. &quot;10.15.7&quot;)
+     */
+    @JsonProperty("osVersion")
+    public Optional<String> getOsVersion() {
+        return osVersion;
+    }
+
+    /**
+     * @return Browser name (e.g. &quot;Chrome&quot;, &quot;Safari&quot;)
+     */
+    @JsonProperty("browser")
+    public Optional<String> getBrowser() {
+        return browser;
+    }
+
+    /**
+     * @return Browser version (e.g. &quot;148.0.0&quot;)
+     */
+    @JsonProperty("browserVersion")
+    public Optional<String> getBrowserVersion() {
+        return browserVersion;
+    }
+
+    /**
+     * @return Android-specific rooted device detection (root management apps). False when checked and clean; unset if not evaluated
+     */
+    @JsonProperty("rooted")
+    public Optional<Boolean> getRooted() {
+        return rooted;
+    }
+
+    /**
+     * @return iOS-specific jailbreak detection. False when checked and clean; unset if not evaluated
+     */
+    @JsonProperty("jailbroken")
+    public Optional<Boolean> getJailbroken() {
+        return jailbroken;
+    }
+
+    /**
+     * @return Frida instrumentation framework detection. False when checked and clean; unset if not evaluated
+     */
+    @JsonProperty("frida")
+    public Optional<Boolean> getFrida() {
+        return frida;
+    }
+
+    /**
+     * @return Android-specific cloned application detection. False when checked and clean; unset if not evaluated
+     */
+    @JsonProperty("clonedApp")
+    public Optional<Boolean> getClonedApp() {
+        return clonedApp;
+    }
+
+    /**
+     * @return Android-specific emulator detection. False when checked and clean; unset if not evaluated
+     */
+    @JsonProperty("emulator")
+    public Optional<Boolean> getEmulator() {
+        return emulator;
+    }
+
+    /**
+     * @return iOS-specific simulator detection. False when checked and clean; unset if not evaluated
+     */
+    @JsonProperty("simulator")
+    public Optional<Boolean> getSimulator() {
+        return simulator;
+    }
+
+    /**
+     * @return Whether the browser DevTools (or mobile Developer Tools) were open
+     */
+    @JsonProperty("developerTools")
+    public Optional<Boolean> getDeveloperTools() {
+        return developerTools;
+    }
+
+    /**
+     * @return Android-specific man-in-the-middle attack detection
+     */
+    @JsonProperty("mitmAttack")
+    public Optional<Boolean> getMitmAttack() {
+        return mitmAttack;
+    }
+
+    /**
+     * @return Whether the IP address was part of a known network attack (SSH/HTTPS)
+     */
+    @JsonProperty("ipAttackSource")
+    public Optional<Boolean> getIpAttackSource() {
+        return ipAttackSource;
+    }
+
+    /**
+     * @return Whether the IP address was part of a known email spam attack (SMTP)
+     */
+    @JsonProperty("ipEmailSpam")
+    public Optional<Boolean> getIpEmailSpam() {
+        return ipEmailSpam;
+    }
+
+    /**
+     * @return Whether the device intelligence provider determined this identification payload was replayed rather than freshly captured
+     */
+    @JsonProperty("replayed")
+    public Optional<Boolean> getReplayed() {
+        return replayed;
+    }
+
+    /**
+     * @return Whether the request came from a browser running inside a virtual machine (e.g. VMWare)
+     */
+    @JsonProperty("virtualMachine")
+    public Optional<Boolean> getVirtualMachine() {
+        return virtualMachine;
+    }
+
+    /**
+     * @return Confidence score (0 to 1) for the virtualMachine detection result
+     */
+    @JsonProperty("virtualMachineConfidenceScore")
+    public Optional<Double> getVirtualMachineConfidenceScore() {
+        return virtualMachineConfidenceScore;
+    }
+
+    /**
+     * @return Mobile-specific GPS location spoofing detection
+     */
+    @JsonProperty("locationSpoofing")
+    public Optional<Boolean> getLocationSpoofing() {
+        return locationSpoofing;
+    }
+
+    /**
+     * @return Unix epoch time of the most recent factory reset detected on a mobile device; 0 if not detected or not a mobile device
+     */
+    @JsonProperty("factoryResetTimestamp")
+    public Optional<Integer> getFactoryResetTimestamp() {
+        return factoryResetTimestamp;
+    }
+
+    /**
+     * @return Whether the request came from a device with unusually high identification activity
+     */
+    @JsonProperty("highActivityDevice")
+    public Optional<Boolean> getHighActivityDevice() {
+        return highActivityDevice;
+    }
+
+    /**
+     * @return Whether the device is considered rare based on its combination of hardware and software attributes
+     */
+    @JsonProperty("rareDevice")
+    public Optional<Boolean> getRareDevice() {
+        return rareDevice;
+    }
+
+    /**
+     * @return Rarity percentile bucket of the device (e.g. &quot;&lt;p95&quot;, &quot;p99.9+&quot;, &quot;not_seen&quot;)
+     */
+    @JsonProperty("rareDevicePercentileBucket")
+    public Optional<String> getRareDevicePercentileBucket() {
+        return rareDevicePercentileBucket;
+    }
+
+    /**
+     * @return Confidence level of the VPN detection result (e.g. &quot;low&quot;, &quot;medium&quot;, &quot;high&quot;)
+     */
+    @JsonProperty("vpnConfidence")
+    public Optional<String> getVpnConfidence() {
+        return vpnConfidence;
+    }
+
+    /**
+     * @return Country the request appears to originate from per VPN detection (ISO 3166 format, or &quot;unknown&quot;)
+     */
+    @JsonProperty("vpnOriginCountry")
+    public Optional<String> getVpnOriginCountry() {
+        return vpnOriginCountry;
+    }
+
+    /**
+     * @return Local timezone used by the VPN detection's timezone-mismatch method
+     */
+    @JsonProperty("vpnOriginTimezone")
+    public Optional<String> getVpnOriginTimezone() {
+        return vpnOriginTimezone;
+    }
+
+    /**
+     * @return Additional classification of the bot type, if botDetection found one
+     */
+    @JsonProperty("botType")
+    public Optional<String> getBotType() {
+        return botType;
+    }
+
+    /**
+     * @return Confidence level of the proxy detection result (e.g. &quot;low&quot;, &quot;medium&quot;, &quot;high&quot;)
+     */
+    @JsonProperty("proxyConfidence")
+    public Optional<String> getProxyConfidence() {
+        return proxyConfidence;
+    }
+
+    /**
+     * @return Confidence score (0 to 1) for the proxy detection result
+     */
+    @JsonProperty("proxyConfidenceScore")
+    public Optional<Double> getProxyConfidenceScore() {
+        return proxyConfidenceScore;
+    }
+
+    /**
+     * @return Confidence level of the tampering detection result (e.g. &quot;low&quot;, &quot;medium&quot;, &quot;high&quot;)
+     */
+    @JsonProperty("tamperingConfidence")
+    public Optional<String> getTamperingConfidence() {
+        return tamperingConfidence;
+    }
+
+    /**
+     * @return Confidence score (0 to 1) for the tampering detection result
+     */
+    @JsonProperty("tamperingConfidenceScore")
+    public Optional<Double> getTamperingConfidenceScore() {
+        return tamperingConfidenceScore;
+    }
+
     @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
@@ -191,7 +764,55 @@ public final class DeviceData {
                 && deviceMaker.equals(other.deviceMaker)
                 && deviceModel.equals(other.deviceModel)
                 && deviceYear.equals(other.deviceYear)
-                && appVersion.equals(other.appVersion);
+                && appVersion.equals(other.appVersion)
+                && deviceIntelligenceSealedResult.equals(other.deviceIntelligenceSealedResult)
+                && tor.equals(other.tor)
+                && confidence.equals(other.confidence)
+                && incognito.equals(other.incognito)
+                && proxy.equals(other.proxy)
+                && tampering.equals(other.tampering)
+                && botDetection.equals(other.botDetection)
+                && privacySettings.equals(other.privacySettings)
+                && suspectScore.equals(other.suspectScore)
+                && velocity5MEvents.equals(other.velocity5MEvents)
+                && velocity5MIps.equals(other.velocity5MIps)
+                && velocity5MCountries.equals(other.velocity5MCountries)
+                && velocity1HEvents.equals(other.velocity1HEvents)
+                && velocity1HIps.equals(other.velocity1HIps)
+                && velocity1HCountries.equals(other.velocity1HCountries)
+                && velocity24HEvents.equals(other.velocity24HEvents)
+                && velocity24HIps.equals(other.velocity24HIps)
+                && velocity24HCountries.equals(other.velocity24HCountries)
+                && requestId.equals(other.requestId)
+                && osVersion.equals(other.osVersion)
+                && browser.equals(other.browser)
+                && browserVersion.equals(other.browserVersion)
+                && rooted.equals(other.rooted)
+                && jailbroken.equals(other.jailbroken)
+                && frida.equals(other.frida)
+                && clonedApp.equals(other.clonedApp)
+                && emulator.equals(other.emulator)
+                && simulator.equals(other.simulator)
+                && developerTools.equals(other.developerTools)
+                && mitmAttack.equals(other.mitmAttack)
+                && ipAttackSource.equals(other.ipAttackSource)
+                && ipEmailSpam.equals(other.ipEmailSpam)
+                && replayed.equals(other.replayed)
+                && virtualMachine.equals(other.virtualMachine)
+                && virtualMachineConfidenceScore.equals(other.virtualMachineConfidenceScore)
+                && locationSpoofing.equals(other.locationSpoofing)
+                && factoryResetTimestamp.equals(other.factoryResetTimestamp)
+                && highActivityDevice.equals(other.highActivityDevice)
+                && rareDevice.equals(other.rareDevice)
+                && rareDevicePercentileBucket.equals(other.rareDevicePercentileBucket)
+                && vpnConfidence.equals(other.vpnConfidence)
+                && vpnOriginCountry.equals(other.vpnOriginCountry)
+                && vpnOriginTimezone.equals(other.vpnOriginTimezone)
+                && botType.equals(other.botType)
+                && proxyConfidence.equals(other.proxyConfidence)
+                && proxyConfidenceScore.equals(other.proxyConfidenceScore)
+                && tamperingConfidence.equals(other.tamperingConfidence)
+                && tamperingConfidenceScore.equals(other.tamperingConfidenceScore);
     }
 
     @java.lang.Override
@@ -208,7 +829,55 @@ public final class DeviceData {
                 this.deviceMaker,
                 this.deviceModel,
                 this.deviceYear,
-                this.appVersion);
+                this.appVersion,
+                this.deviceIntelligenceSealedResult,
+                this.tor,
+                this.confidence,
+                this.incognito,
+                this.proxy,
+                this.tampering,
+                this.botDetection,
+                this.privacySettings,
+                this.suspectScore,
+                this.velocity5MEvents,
+                this.velocity5MIps,
+                this.velocity5MCountries,
+                this.velocity1HEvents,
+                this.velocity1HIps,
+                this.velocity1HCountries,
+                this.velocity24HEvents,
+                this.velocity24HIps,
+                this.velocity24HCountries,
+                this.requestId,
+                this.osVersion,
+                this.browser,
+                this.browserVersion,
+                this.rooted,
+                this.jailbroken,
+                this.frida,
+                this.clonedApp,
+                this.emulator,
+                this.simulator,
+                this.developerTools,
+                this.mitmAttack,
+                this.ipAttackSource,
+                this.ipEmailSpam,
+                this.replayed,
+                this.virtualMachine,
+                this.virtualMachineConfidenceScore,
+                this.locationSpoofing,
+                this.factoryResetTimestamp,
+                this.highActivityDevice,
+                this.rareDevice,
+                this.rareDevicePercentileBucket,
+                this.vpnConfidence,
+                this.vpnOriginCountry,
+                this.vpnOriginTimezone,
+                this.botType,
+                this.proxyConfidence,
+                this.proxyConfidenceScore,
+                this.tamperingConfidence,
+                this.tamperingConfidenceScore);
     }
 
     @java.lang.Override
@@ -246,6 +915,102 @@ public final class DeviceData {
 
         private Optional<String> appVersion = Optional.empty();
 
+        private Optional<String> deviceIntelligenceSealedResult = Optional.empty();
+
+        private Optional<Boolean> tor = Optional.empty();
+
+        private Optional<Double> confidence = Optional.empty();
+
+        private Optional<Boolean> incognito = Optional.empty();
+
+        private Optional<Boolean> proxy = Optional.empty();
+
+        private Optional<Boolean> tampering = Optional.empty();
+
+        private Optional<BotDetectionResult> botDetection = Optional.empty();
+
+        private Optional<Boolean> privacySettings = Optional.empty();
+
+        private Optional<Integer> suspectScore = Optional.empty();
+
+        private Optional<Integer> velocity5MEvents = Optional.empty();
+
+        private Optional<Integer> velocity5MIps = Optional.empty();
+
+        private Optional<Integer> velocity5MCountries = Optional.empty();
+
+        private Optional<Integer> velocity1HEvents = Optional.empty();
+
+        private Optional<Integer> velocity1HIps = Optional.empty();
+
+        private Optional<Integer> velocity1HCountries = Optional.empty();
+
+        private Optional<Integer> velocity24HEvents = Optional.empty();
+
+        private Optional<Integer> velocity24HIps = Optional.empty();
+
+        private Optional<Integer> velocity24HCountries = Optional.empty();
+
+        private Optional<String> requestId = Optional.empty();
+
+        private Optional<String> osVersion = Optional.empty();
+
+        private Optional<String> browser = Optional.empty();
+
+        private Optional<String> browserVersion = Optional.empty();
+
+        private Optional<Boolean> rooted = Optional.empty();
+
+        private Optional<Boolean> jailbroken = Optional.empty();
+
+        private Optional<Boolean> frida = Optional.empty();
+
+        private Optional<Boolean> clonedApp = Optional.empty();
+
+        private Optional<Boolean> emulator = Optional.empty();
+
+        private Optional<Boolean> simulator = Optional.empty();
+
+        private Optional<Boolean> developerTools = Optional.empty();
+
+        private Optional<Boolean> mitmAttack = Optional.empty();
+
+        private Optional<Boolean> ipAttackSource = Optional.empty();
+
+        private Optional<Boolean> ipEmailSpam = Optional.empty();
+
+        private Optional<Boolean> replayed = Optional.empty();
+
+        private Optional<Boolean> virtualMachine = Optional.empty();
+
+        private Optional<Double> virtualMachineConfidenceScore = Optional.empty();
+
+        private Optional<Boolean> locationSpoofing = Optional.empty();
+
+        private Optional<Integer> factoryResetTimestamp = Optional.empty();
+
+        private Optional<Boolean> highActivityDevice = Optional.empty();
+
+        private Optional<Boolean> rareDevice = Optional.empty();
+
+        private Optional<String> rareDevicePercentileBucket = Optional.empty();
+
+        private Optional<String> vpnConfidence = Optional.empty();
+
+        private Optional<String> vpnOriginCountry = Optional.empty();
+
+        private Optional<String> vpnOriginTimezone = Optional.empty();
+
+        private Optional<String> botType = Optional.empty();
+
+        private Optional<String> proxyConfidence = Optional.empty();
+
+        private Optional<Double> proxyConfidenceScore = Optional.empty();
+
+        private Optional<String> tamperingConfidence = Optional.empty();
+
+        private Optional<Double> tamperingConfidenceScore = Optional.empty();
+
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
 
@@ -264,6 +1029,54 @@ public final class DeviceData {
             deviceModel(other.getDeviceModel());
             deviceYear(other.getDeviceYear());
             appVersion(other.getAppVersion());
+            deviceIntelligenceSealedResult(other.getDeviceIntelligenceSealedResult());
+            tor(other.getTor());
+            confidence(other.getConfidence());
+            incognito(other.getIncognito());
+            proxy(other.getProxy());
+            tampering(other.getTampering());
+            botDetection(other.getBotDetection());
+            privacySettings(other.getPrivacySettings());
+            suspectScore(other.getSuspectScore());
+            velocity5MEvents(other.getVelocity5MEvents());
+            velocity5MIps(other.getVelocity5MIps());
+            velocity5MCountries(other.getVelocity5MCountries());
+            velocity1HEvents(other.getVelocity1HEvents());
+            velocity1HIps(other.getVelocity1HIps());
+            velocity1HCountries(other.getVelocity1HCountries());
+            velocity24HEvents(other.getVelocity24HEvents());
+            velocity24HIps(other.getVelocity24HIps());
+            velocity24HCountries(other.getVelocity24HCountries());
+            requestId(other.getRequestId());
+            osVersion(other.getOsVersion());
+            browser(other.getBrowser());
+            browserVersion(other.getBrowserVersion());
+            rooted(other.getRooted());
+            jailbroken(other.getJailbroken());
+            frida(other.getFrida());
+            clonedApp(other.getClonedApp());
+            emulator(other.getEmulator());
+            simulator(other.getSimulator());
+            developerTools(other.getDeveloperTools());
+            mitmAttack(other.getMitmAttack());
+            ipAttackSource(other.getIpAttackSource());
+            ipEmailSpam(other.getIpEmailSpam());
+            replayed(other.getReplayed());
+            virtualMachine(other.getVirtualMachine());
+            virtualMachineConfidenceScore(other.getVirtualMachineConfidenceScore());
+            locationSpoofing(other.getLocationSpoofing());
+            factoryResetTimestamp(other.getFactoryResetTimestamp());
+            highActivityDevice(other.getHighActivityDevice());
+            rareDevice(other.getRareDevice());
+            rareDevicePercentileBucket(other.getRareDevicePercentileBucket());
+            vpnConfidence(other.getVpnConfidence());
+            vpnOriginCountry(other.getVpnOriginCountry());
+            vpnOriginTimezone(other.getVpnOriginTimezone());
+            botType(other.getBotType());
+            proxyConfidence(other.getProxyConfidence());
+            proxyConfidenceScore(other.getProxyConfidenceScore());
+            tamperingConfidence(other.getTamperingConfidence());
+            tamperingConfidenceScore(other.getTamperingConfidenceScore());
             return this;
         }
 
@@ -399,6 +1212,534 @@ public final class DeviceData {
             return this;
         }
 
+        @JsonSetter(value = "deviceIntelligenceSealedResult", nulls = Nulls.SKIP)
+        public Builder deviceIntelligenceSealedResult(Optional<String> deviceIntelligenceSealedResult) {
+            this.deviceIntelligenceSealedResult = deviceIntelligenceSealedResult;
+            return this;
+        }
+
+        public Builder deviceIntelligenceSealedResult(String deviceIntelligenceSealedResult) {
+            this.deviceIntelligenceSealedResult = Optional.ofNullable(deviceIntelligenceSealedResult);
+            return this;
+        }
+
+        @JsonSetter(value = "tor", nulls = Nulls.SKIP)
+        public Builder tor(Optional<Boolean> tor) {
+            this.tor = tor;
+            return this;
+        }
+
+        public Builder tor(Boolean tor) {
+            this.tor = Optional.ofNullable(tor);
+            return this;
+        }
+
+        @JsonSetter(value = "confidence", nulls = Nulls.SKIP)
+        public Builder confidence(Optional<Double> confidence) {
+            this.confidence = confidence;
+            return this;
+        }
+
+        public Builder confidence(Double confidence) {
+            this.confidence = Optional.ofNullable(confidence);
+            return this;
+        }
+
+        @JsonSetter(value = "incognito", nulls = Nulls.SKIP)
+        public Builder incognito(Optional<Boolean> incognito) {
+            this.incognito = incognito;
+            return this;
+        }
+
+        public Builder incognito(Boolean incognito) {
+            this.incognito = Optional.ofNullable(incognito);
+            return this;
+        }
+
+        @JsonSetter(value = "proxy", nulls = Nulls.SKIP)
+        public Builder proxy(Optional<Boolean> proxy) {
+            this.proxy = proxy;
+            return this;
+        }
+
+        public Builder proxy(Boolean proxy) {
+            this.proxy = Optional.ofNullable(proxy);
+            return this;
+        }
+
+        @JsonSetter(value = "tampering", nulls = Nulls.SKIP)
+        public Builder tampering(Optional<Boolean> tampering) {
+            this.tampering = tampering;
+            return this;
+        }
+
+        public Builder tampering(Boolean tampering) {
+            this.tampering = Optional.ofNullable(tampering);
+            return this;
+        }
+
+        @JsonSetter(value = "botDetection", nulls = Nulls.SKIP)
+        public Builder botDetection(Optional<BotDetectionResult> botDetection) {
+            this.botDetection = botDetection;
+            return this;
+        }
+
+        public Builder botDetection(BotDetectionResult botDetection) {
+            this.botDetection = Optional.ofNullable(botDetection);
+            return this;
+        }
+
+        @JsonSetter(value = "privacySettings", nulls = Nulls.SKIP)
+        public Builder privacySettings(Optional<Boolean> privacySettings) {
+            this.privacySettings = privacySettings;
+            return this;
+        }
+
+        public Builder privacySettings(Boolean privacySettings) {
+            this.privacySettings = Optional.ofNullable(privacySettings);
+            return this;
+        }
+
+        @JsonSetter(value = "suspectScore", nulls = Nulls.SKIP)
+        public Builder suspectScore(Optional<Integer> suspectScore) {
+            this.suspectScore = suspectScore;
+            return this;
+        }
+
+        public Builder suspectScore(Integer suspectScore) {
+            this.suspectScore = Optional.ofNullable(suspectScore);
+            return this;
+        }
+
+        @JsonSetter(value = "velocity5mEvents", nulls = Nulls.SKIP)
+        public Builder velocity5MEvents(Optional<Integer> velocity5MEvents) {
+            this.velocity5MEvents = velocity5MEvents;
+            return this;
+        }
+
+        public Builder velocity5MEvents(Integer velocity5MEvents) {
+            this.velocity5MEvents = Optional.ofNullable(velocity5MEvents);
+            return this;
+        }
+
+        @JsonSetter(value = "velocity5mIps", nulls = Nulls.SKIP)
+        public Builder velocity5MIps(Optional<Integer> velocity5MIps) {
+            this.velocity5MIps = velocity5MIps;
+            return this;
+        }
+
+        public Builder velocity5MIps(Integer velocity5MIps) {
+            this.velocity5MIps = Optional.ofNullable(velocity5MIps);
+            return this;
+        }
+
+        @JsonSetter(value = "velocity5mCountries", nulls = Nulls.SKIP)
+        public Builder velocity5MCountries(Optional<Integer> velocity5MCountries) {
+            this.velocity5MCountries = velocity5MCountries;
+            return this;
+        }
+
+        public Builder velocity5MCountries(Integer velocity5MCountries) {
+            this.velocity5MCountries = Optional.ofNullable(velocity5MCountries);
+            return this;
+        }
+
+        @JsonSetter(value = "velocity1hEvents", nulls = Nulls.SKIP)
+        public Builder velocity1HEvents(Optional<Integer> velocity1HEvents) {
+            this.velocity1HEvents = velocity1HEvents;
+            return this;
+        }
+
+        public Builder velocity1HEvents(Integer velocity1HEvents) {
+            this.velocity1HEvents = Optional.ofNullable(velocity1HEvents);
+            return this;
+        }
+
+        @JsonSetter(value = "velocity1hIps", nulls = Nulls.SKIP)
+        public Builder velocity1HIps(Optional<Integer> velocity1HIps) {
+            this.velocity1HIps = velocity1HIps;
+            return this;
+        }
+
+        public Builder velocity1HIps(Integer velocity1HIps) {
+            this.velocity1HIps = Optional.ofNullable(velocity1HIps);
+            return this;
+        }
+
+        @JsonSetter(value = "velocity1hCountries", nulls = Nulls.SKIP)
+        public Builder velocity1HCountries(Optional<Integer> velocity1HCountries) {
+            this.velocity1HCountries = velocity1HCountries;
+            return this;
+        }
+
+        public Builder velocity1HCountries(Integer velocity1HCountries) {
+            this.velocity1HCountries = Optional.ofNullable(velocity1HCountries);
+            return this;
+        }
+
+        @JsonSetter(value = "velocity24hEvents", nulls = Nulls.SKIP)
+        public Builder velocity24HEvents(Optional<Integer> velocity24HEvents) {
+            this.velocity24HEvents = velocity24HEvents;
+            return this;
+        }
+
+        public Builder velocity24HEvents(Integer velocity24HEvents) {
+            this.velocity24HEvents = Optional.ofNullable(velocity24HEvents);
+            return this;
+        }
+
+        @JsonSetter(value = "velocity24hIps", nulls = Nulls.SKIP)
+        public Builder velocity24HIps(Optional<Integer> velocity24HIps) {
+            this.velocity24HIps = velocity24HIps;
+            return this;
+        }
+
+        public Builder velocity24HIps(Integer velocity24HIps) {
+            this.velocity24HIps = Optional.ofNullable(velocity24HIps);
+            return this;
+        }
+
+        @JsonSetter(value = "velocity24hCountries", nulls = Nulls.SKIP)
+        public Builder velocity24HCountries(Optional<Integer> velocity24HCountries) {
+            this.velocity24HCountries = velocity24HCountries;
+            return this;
+        }
+
+        public Builder velocity24HCountries(Integer velocity24HCountries) {
+            this.velocity24HCountries = Optional.ofNullable(velocity24HCountries);
+            return this;
+        }
+
+        @JsonSetter(value = "requestId", nulls = Nulls.SKIP)
+        public Builder requestId(Optional<String> requestId) {
+            this.requestId = requestId;
+            return this;
+        }
+
+        public Builder requestId(String requestId) {
+            this.requestId = Optional.ofNullable(requestId);
+            return this;
+        }
+
+        @JsonSetter(value = "osVersion", nulls = Nulls.SKIP)
+        public Builder osVersion(Optional<String> osVersion) {
+            this.osVersion = osVersion;
+            return this;
+        }
+
+        public Builder osVersion(String osVersion) {
+            this.osVersion = Optional.ofNullable(osVersion);
+            return this;
+        }
+
+        @JsonSetter(value = "browser", nulls = Nulls.SKIP)
+        public Builder browser(Optional<String> browser) {
+            this.browser = browser;
+            return this;
+        }
+
+        public Builder browser(String browser) {
+            this.browser = Optional.ofNullable(browser);
+            return this;
+        }
+
+        @JsonSetter(value = "browserVersion", nulls = Nulls.SKIP)
+        public Builder browserVersion(Optional<String> browserVersion) {
+            this.browserVersion = browserVersion;
+            return this;
+        }
+
+        public Builder browserVersion(String browserVersion) {
+            this.browserVersion = Optional.ofNullable(browserVersion);
+            return this;
+        }
+
+        @JsonSetter(value = "rooted", nulls = Nulls.SKIP)
+        public Builder rooted(Optional<Boolean> rooted) {
+            this.rooted = rooted;
+            return this;
+        }
+
+        public Builder rooted(Boolean rooted) {
+            this.rooted = Optional.ofNullable(rooted);
+            return this;
+        }
+
+        @JsonSetter(value = "jailbroken", nulls = Nulls.SKIP)
+        public Builder jailbroken(Optional<Boolean> jailbroken) {
+            this.jailbroken = jailbroken;
+            return this;
+        }
+
+        public Builder jailbroken(Boolean jailbroken) {
+            this.jailbroken = Optional.ofNullable(jailbroken);
+            return this;
+        }
+
+        @JsonSetter(value = "frida", nulls = Nulls.SKIP)
+        public Builder frida(Optional<Boolean> frida) {
+            this.frida = frida;
+            return this;
+        }
+
+        public Builder frida(Boolean frida) {
+            this.frida = Optional.ofNullable(frida);
+            return this;
+        }
+
+        @JsonSetter(value = "clonedApp", nulls = Nulls.SKIP)
+        public Builder clonedApp(Optional<Boolean> clonedApp) {
+            this.clonedApp = clonedApp;
+            return this;
+        }
+
+        public Builder clonedApp(Boolean clonedApp) {
+            this.clonedApp = Optional.ofNullable(clonedApp);
+            return this;
+        }
+
+        @JsonSetter(value = "emulator", nulls = Nulls.SKIP)
+        public Builder emulator(Optional<Boolean> emulator) {
+            this.emulator = emulator;
+            return this;
+        }
+
+        public Builder emulator(Boolean emulator) {
+            this.emulator = Optional.ofNullable(emulator);
+            return this;
+        }
+
+        @JsonSetter(value = "simulator", nulls = Nulls.SKIP)
+        public Builder simulator(Optional<Boolean> simulator) {
+            this.simulator = simulator;
+            return this;
+        }
+
+        public Builder simulator(Boolean simulator) {
+            this.simulator = Optional.ofNullable(simulator);
+            return this;
+        }
+
+        @JsonSetter(value = "developerTools", nulls = Nulls.SKIP)
+        public Builder developerTools(Optional<Boolean> developerTools) {
+            this.developerTools = developerTools;
+            return this;
+        }
+
+        public Builder developerTools(Boolean developerTools) {
+            this.developerTools = Optional.ofNullable(developerTools);
+            return this;
+        }
+
+        @JsonSetter(value = "mitmAttack", nulls = Nulls.SKIP)
+        public Builder mitmAttack(Optional<Boolean> mitmAttack) {
+            this.mitmAttack = mitmAttack;
+            return this;
+        }
+
+        public Builder mitmAttack(Boolean mitmAttack) {
+            this.mitmAttack = Optional.ofNullable(mitmAttack);
+            return this;
+        }
+
+        @JsonSetter(value = "ipAttackSource", nulls = Nulls.SKIP)
+        public Builder ipAttackSource(Optional<Boolean> ipAttackSource) {
+            this.ipAttackSource = ipAttackSource;
+            return this;
+        }
+
+        public Builder ipAttackSource(Boolean ipAttackSource) {
+            this.ipAttackSource = Optional.ofNullable(ipAttackSource);
+            return this;
+        }
+
+        @JsonSetter(value = "ipEmailSpam", nulls = Nulls.SKIP)
+        public Builder ipEmailSpam(Optional<Boolean> ipEmailSpam) {
+            this.ipEmailSpam = ipEmailSpam;
+            return this;
+        }
+
+        public Builder ipEmailSpam(Boolean ipEmailSpam) {
+            this.ipEmailSpam = Optional.ofNullable(ipEmailSpam);
+            return this;
+        }
+
+        @JsonSetter(value = "replayed", nulls = Nulls.SKIP)
+        public Builder replayed(Optional<Boolean> replayed) {
+            this.replayed = replayed;
+            return this;
+        }
+
+        public Builder replayed(Boolean replayed) {
+            this.replayed = Optional.ofNullable(replayed);
+            return this;
+        }
+
+        @JsonSetter(value = "virtualMachine", nulls = Nulls.SKIP)
+        public Builder virtualMachine(Optional<Boolean> virtualMachine) {
+            this.virtualMachine = virtualMachine;
+            return this;
+        }
+
+        public Builder virtualMachine(Boolean virtualMachine) {
+            this.virtualMachine = Optional.ofNullable(virtualMachine);
+            return this;
+        }
+
+        @JsonSetter(value = "virtualMachineConfidenceScore", nulls = Nulls.SKIP)
+        public Builder virtualMachineConfidenceScore(Optional<Double> virtualMachineConfidenceScore) {
+            this.virtualMachineConfidenceScore = virtualMachineConfidenceScore;
+            return this;
+        }
+
+        public Builder virtualMachineConfidenceScore(Double virtualMachineConfidenceScore) {
+            this.virtualMachineConfidenceScore = Optional.ofNullable(virtualMachineConfidenceScore);
+            return this;
+        }
+
+        @JsonSetter(value = "locationSpoofing", nulls = Nulls.SKIP)
+        public Builder locationSpoofing(Optional<Boolean> locationSpoofing) {
+            this.locationSpoofing = locationSpoofing;
+            return this;
+        }
+
+        public Builder locationSpoofing(Boolean locationSpoofing) {
+            this.locationSpoofing = Optional.ofNullable(locationSpoofing);
+            return this;
+        }
+
+        @JsonSetter(value = "factoryResetTimestamp", nulls = Nulls.SKIP)
+        public Builder factoryResetTimestamp(Optional<Integer> factoryResetTimestamp) {
+            this.factoryResetTimestamp = factoryResetTimestamp;
+            return this;
+        }
+
+        public Builder factoryResetTimestamp(Integer factoryResetTimestamp) {
+            this.factoryResetTimestamp = Optional.ofNullable(factoryResetTimestamp);
+            return this;
+        }
+
+        @JsonSetter(value = "highActivityDevice", nulls = Nulls.SKIP)
+        public Builder highActivityDevice(Optional<Boolean> highActivityDevice) {
+            this.highActivityDevice = highActivityDevice;
+            return this;
+        }
+
+        public Builder highActivityDevice(Boolean highActivityDevice) {
+            this.highActivityDevice = Optional.ofNullable(highActivityDevice);
+            return this;
+        }
+
+        @JsonSetter(value = "rareDevice", nulls = Nulls.SKIP)
+        public Builder rareDevice(Optional<Boolean> rareDevice) {
+            this.rareDevice = rareDevice;
+            return this;
+        }
+
+        public Builder rareDevice(Boolean rareDevice) {
+            this.rareDevice = Optional.ofNullable(rareDevice);
+            return this;
+        }
+
+        @JsonSetter(value = "rareDevicePercentileBucket", nulls = Nulls.SKIP)
+        public Builder rareDevicePercentileBucket(Optional<String> rareDevicePercentileBucket) {
+            this.rareDevicePercentileBucket = rareDevicePercentileBucket;
+            return this;
+        }
+
+        public Builder rareDevicePercentileBucket(String rareDevicePercentileBucket) {
+            this.rareDevicePercentileBucket = Optional.ofNullable(rareDevicePercentileBucket);
+            return this;
+        }
+
+        @JsonSetter(value = "vpnConfidence", nulls = Nulls.SKIP)
+        public Builder vpnConfidence(Optional<String> vpnConfidence) {
+            this.vpnConfidence = vpnConfidence;
+            return this;
+        }
+
+        public Builder vpnConfidence(String vpnConfidence) {
+            this.vpnConfidence = Optional.ofNullable(vpnConfidence);
+            return this;
+        }
+
+        @JsonSetter(value = "vpnOriginCountry", nulls = Nulls.SKIP)
+        public Builder vpnOriginCountry(Optional<String> vpnOriginCountry) {
+            this.vpnOriginCountry = vpnOriginCountry;
+            return this;
+        }
+
+        public Builder vpnOriginCountry(String vpnOriginCountry) {
+            this.vpnOriginCountry = Optional.ofNullable(vpnOriginCountry);
+            return this;
+        }
+
+        @JsonSetter(value = "vpnOriginTimezone", nulls = Nulls.SKIP)
+        public Builder vpnOriginTimezone(Optional<String> vpnOriginTimezone) {
+            this.vpnOriginTimezone = vpnOriginTimezone;
+            return this;
+        }
+
+        public Builder vpnOriginTimezone(String vpnOriginTimezone) {
+            this.vpnOriginTimezone = Optional.ofNullable(vpnOriginTimezone);
+            return this;
+        }
+
+        @JsonSetter(value = "botType", nulls = Nulls.SKIP)
+        public Builder botType(Optional<String> botType) {
+            this.botType = botType;
+            return this;
+        }
+
+        public Builder botType(String botType) {
+            this.botType = Optional.ofNullable(botType);
+            return this;
+        }
+
+        @JsonSetter(value = "proxyConfidence", nulls = Nulls.SKIP)
+        public Builder proxyConfidence(Optional<String> proxyConfidence) {
+            this.proxyConfidence = proxyConfidence;
+            return this;
+        }
+
+        public Builder proxyConfidence(String proxyConfidence) {
+            this.proxyConfidence = Optional.ofNullable(proxyConfidence);
+            return this;
+        }
+
+        @JsonSetter(value = "proxyConfidenceScore", nulls = Nulls.SKIP)
+        public Builder proxyConfidenceScore(Optional<Double> proxyConfidenceScore) {
+            this.proxyConfidenceScore = proxyConfidenceScore;
+            return this;
+        }
+
+        public Builder proxyConfidenceScore(Double proxyConfidenceScore) {
+            this.proxyConfidenceScore = Optional.ofNullable(proxyConfidenceScore);
+            return this;
+        }
+
+        @JsonSetter(value = "tamperingConfidence", nulls = Nulls.SKIP)
+        public Builder tamperingConfidence(Optional<String> tamperingConfidence) {
+            this.tamperingConfidence = tamperingConfidence;
+            return this;
+        }
+
+        public Builder tamperingConfidence(String tamperingConfidence) {
+            this.tamperingConfidence = Optional.ofNullable(tamperingConfidence);
+            return this;
+        }
+
+        @JsonSetter(value = "tamperingConfidenceScore", nulls = Nulls.SKIP)
+        public Builder tamperingConfidenceScore(Optional<Double> tamperingConfidenceScore) {
+            this.tamperingConfidenceScore = tamperingConfidenceScore;
+            return this;
+        }
+
+        public Builder tamperingConfidenceScore(Double tamperingConfidenceScore) {
+            this.tamperingConfidenceScore = Optional.ofNullable(tamperingConfidenceScore);
+            return this;
+        }
+
         public DeviceData build() {
             return new DeviceData(
                     batteryLevel,
@@ -413,6 +1754,54 @@ public final class DeviceData {
                     deviceModel,
                     deviceYear,
                     appVersion,
+                    deviceIntelligenceSealedResult,
+                    tor,
+                    confidence,
+                    incognito,
+                    proxy,
+                    tampering,
+                    botDetection,
+                    privacySettings,
+                    suspectScore,
+                    velocity5MEvents,
+                    velocity5MIps,
+                    velocity5MCountries,
+                    velocity1HEvents,
+                    velocity1HIps,
+                    velocity1HCountries,
+                    velocity24HEvents,
+                    velocity24HIps,
+                    velocity24HCountries,
+                    requestId,
+                    osVersion,
+                    browser,
+                    browserVersion,
+                    rooted,
+                    jailbroken,
+                    frida,
+                    clonedApp,
+                    emulator,
+                    simulator,
+                    developerTools,
+                    mitmAttack,
+                    ipAttackSource,
+                    ipEmailSpam,
+                    replayed,
+                    virtualMachine,
+                    virtualMachineConfidenceScore,
+                    locationSpoofing,
+                    factoryResetTimestamp,
+                    highActivityDevice,
+                    rareDevice,
+                    rareDevicePercentileBucket,
+                    vpnConfidence,
+                    vpnOriginCountry,
+                    vpnOriginTimezone,
+                    botType,
+                    proxyConfidence,
+                    proxyConfidenceScore,
+                    tamperingConfidence,
+                    tamperingConfidenceScore,
                     additionalProperties);
         }
     }

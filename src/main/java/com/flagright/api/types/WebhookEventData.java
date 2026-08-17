@@ -50,6 +50,12 @@ public final class WebhookEventData {
             return visitor.visit((CraRiskLevelUpdatedDetails) this.value);
         } else if (this.type == 9) {
             return visitor.visit((BatchCompletedDetails) this.value);
+        } else if (this.type == 10) {
+            return visitor.visit((WebhookPepStatusDetails) this.value);
+        } else if (this.type == 11) {
+            return visitor.visit((WebhookSanctionsStatusDetails) this.value);
+        } else if (this.type == 12) {
+            return visitor.visit((WebhookAdverseMediaStatusDetails) this.value);
         }
         throw new IllegalStateException("Failed to visit value. This should never happen.");
     }
@@ -114,6 +120,18 @@ public final class WebhookEventData {
         return new WebhookEventData(value, 9);
     }
 
+    public static WebhookEventData of(WebhookPepStatusDetails value) {
+        return new WebhookEventData(value, 10);
+    }
+
+    public static WebhookEventData of(WebhookSanctionsStatusDetails value) {
+        return new WebhookEventData(value, 11);
+    }
+
+    public static WebhookEventData of(WebhookAdverseMediaStatusDetails value) {
+        return new WebhookEventData(value, 12);
+    }
+
     public interface Visitor<T> {
         T visit(UserStateDetails value);
 
@@ -134,6 +152,12 @@ public final class WebhookEventData {
         T visit(CraRiskLevelUpdatedDetails value);
 
         T visit(BatchCompletedDetails value);
+
+        T visit(WebhookPepStatusDetails value);
+
+        T visit(WebhookSanctionsStatusDetails value);
+
+        T visit(WebhookAdverseMediaStatusDetails value);
     }
 
     static final class Deserializer extends StdDeserializer<WebhookEventData> {
@@ -182,6 +206,18 @@ public final class WebhookEventData {
             }
             try {
                 return of(ObjectMappers.JSON_MAPPER.convertValue(value, BatchCompletedDetails.class));
+            } catch (IllegalArgumentException e) {
+            }
+            try {
+                return of(ObjectMappers.JSON_MAPPER.convertValue(value, WebhookPepStatusDetails.class));
+            } catch (IllegalArgumentException e) {
+            }
+            try {
+                return of(ObjectMappers.JSON_MAPPER.convertValue(value, WebhookSanctionsStatusDetails.class));
+            } catch (IllegalArgumentException e) {
+            }
+            try {
+                return of(ObjectMappers.JSON_MAPPER.convertValue(value, WebhookAdverseMediaStatusDetails.class));
             } catch (IllegalArgumentException e) {
             }
             throw new JsonParseException(p, "Failed to deserialize");

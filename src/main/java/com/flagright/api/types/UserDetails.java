@@ -31,6 +31,8 @@ public final class UserDetails {
 
     private final Optional<CountryCode> countryOfTaxResidence;
 
+    private final Optional<List<CountryCode>> secondaryCountryOfTaxResidence;
+
     private final Optional<CountryCode> countryOfNationality;
 
     private final Optional<List<CountryCode>> secondaryCountryOfNationality;
@@ -51,6 +53,7 @@ public final class UserDetails {
             Optional<String> userCategory,
             Optional<CountryCode> countryOfResidence,
             Optional<CountryCode> countryOfTaxResidence,
+            Optional<List<CountryCode>> secondaryCountryOfTaxResidence,
             Optional<CountryCode> countryOfNationality,
             Optional<List<CountryCode>> secondaryCountryOfNationality,
             Optional<Gender> gender,
@@ -63,6 +66,7 @@ public final class UserDetails {
         this.userCategory = userCategory;
         this.countryOfResidence = countryOfResidence;
         this.countryOfTaxResidence = countryOfTaxResidence;
+        this.secondaryCountryOfTaxResidence = secondaryCountryOfTaxResidence;
         this.countryOfNationality = countryOfNationality;
         this.secondaryCountryOfNationality = secondaryCountryOfNationality;
         this.gender = gender;
@@ -101,6 +105,14 @@ public final class UserDetails {
     @JsonProperty("countryOfTaxResidence")
     public Optional<CountryCode> getCountryOfTaxResidence() {
         return countryOfTaxResidence;
+    }
+
+    /**
+     * @return Additional tax residence countries of the user
+     */
+    @JsonProperty("secondaryCountryOfTaxResidence")
+    public Optional<List<CountryCode>> getSecondaryCountryOfTaxResidence() {
+        return secondaryCountryOfTaxResidence;
     }
 
     @JsonProperty("countryOfNationality")
@@ -156,6 +168,7 @@ public final class UserDetails {
                 && userCategory.equals(other.userCategory)
                 && countryOfResidence.equals(other.countryOfResidence)
                 && countryOfTaxResidence.equals(other.countryOfTaxResidence)
+                && secondaryCountryOfTaxResidence.equals(other.secondaryCountryOfTaxResidence)
                 && countryOfNationality.equals(other.countryOfNationality)
                 && secondaryCountryOfNationality.equals(other.secondaryCountryOfNationality)
                 && gender.equals(other.gender)
@@ -172,6 +185,7 @@ public final class UserDetails {
                 this.userCategory,
                 this.countryOfResidence,
                 this.countryOfTaxResidence,
+                this.secondaryCountryOfTaxResidence,
                 this.countryOfNationality,
                 this.secondaryCountryOfNationality,
                 this.gender,
@@ -201,6 +215,8 @@ public final class UserDetails {
 
         private Optional<CountryCode> countryOfTaxResidence = Optional.empty();
 
+        private Optional<List<CountryCode>> secondaryCountryOfTaxResidence = Optional.empty();
+
         private Optional<CountryCode> countryOfNationality = Optional.empty();
 
         private Optional<List<CountryCode>> secondaryCountryOfNationality = Optional.empty();
@@ -224,6 +240,7 @@ public final class UserDetails {
             userCategory(other.getUserCategory());
             countryOfResidence(other.getCountryOfResidence());
             countryOfTaxResidence(other.getCountryOfTaxResidence());
+            secondaryCountryOfTaxResidence(other.getSecondaryCountryOfTaxResidence());
             countryOfNationality(other.getCountryOfNationality());
             secondaryCountryOfNationality(other.getSecondaryCountryOfNationality());
             gender(other.getGender());
@@ -285,6 +302,17 @@ public final class UserDetails {
 
         public Builder countryOfTaxResidence(CountryCode countryOfTaxResidence) {
             this.countryOfTaxResidence = Optional.ofNullable(countryOfTaxResidence);
+            return this;
+        }
+
+        @JsonSetter(value = "secondaryCountryOfTaxResidence", nulls = Nulls.SKIP)
+        public Builder secondaryCountryOfTaxResidence(Optional<List<CountryCode>> secondaryCountryOfTaxResidence) {
+            this.secondaryCountryOfTaxResidence = secondaryCountryOfTaxResidence;
+            return this;
+        }
+
+        public Builder secondaryCountryOfTaxResidence(List<CountryCode> secondaryCountryOfTaxResidence) {
+            this.secondaryCountryOfTaxResidence = Optional.ofNullable(secondaryCountryOfTaxResidence);
             return this;
         }
 
@@ -361,6 +389,7 @@ public final class UserDetails {
                     userCategory,
                     countryOfResidence,
                     countryOfTaxResidence,
+                    secondaryCountryOfTaxResidence,
                     countryOfNationality,
                     secondaryCountryOfNationality,
                     gender,
