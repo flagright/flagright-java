@@ -25,6 +25,8 @@ public final class ConsumerName {
 
     private final Optional<String> middleName;
 
+    private final Optional<String> fatherName;
+
     private final Optional<String> lastName;
 
     private final Map<String, Object> additionalProperties;
@@ -32,10 +34,12 @@ public final class ConsumerName {
     private ConsumerName(
             String firstName,
             Optional<String> middleName,
+            Optional<String> fatherName,
             Optional<String> lastName,
             Map<String, Object> additionalProperties) {
         this.firstName = firstName;
         this.middleName = middleName;
+        this.fatherName = fatherName;
         this.lastName = lastName;
         this.additionalProperties = additionalProperties;
     }
@@ -54,6 +58,14 @@ public final class ConsumerName {
     @JsonProperty("middleName")
     public Optional<String> getMiddleName() {
         return middleName;
+    }
+
+    /**
+     * @return Name of the father of the user
+     */
+    @JsonProperty("fatherName")
+    public Optional<String> getFatherName() {
+        return fatherName;
     }
 
     /**
@@ -78,12 +90,13 @@ public final class ConsumerName {
     private boolean equalTo(ConsumerName other) {
         return firstName.equals(other.firstName)
                 && middleName.equals(other.middleName)
+                && fatherName.equals(other.fatherName)
                 && lastName.equals(other.lastName);
     }
 
     @java.lang.Override
     public int hashCode() {
-        return Objects.hash(this.firstName, this.middleName, this.lastName);
+        return Objects.hash(this.firstName, this.middleName, this.fatherName, this.lastName);
     }
 
     @java.lang.Override
@@ -108,6 +121,10 @@ public final class ConsumerName {
 
         _FinalStage middleName(String middleName);
 
+        _FinalStage fatherName(Optional<String> fatherName);
+
+        _FinalStage fatherName(String fatherName);
+
         _FinalStage lastName(Optional<String> lastName);
 
         _FinalStage lastName(String lastName);
@@ -118,6 +135,8 @@ public final class ConsumerName {
         private String firstName;
 
         private Optional<String> lastName = Optional.empty();
+
+        private Optional<String> fatherName = Optional.empty();
 
         private Optional<String> middleName = Optional.empty();
 
@@ -130,6 +149,7 @@ public final class ConsumerName {
         public Builder from(ConsumerName other) {
             firstName(other.getFirstName());
             middleName(other.getMiddleName());
+            fatherName(other.getFatherName());
             lastName(other.getLastName());
             return this;
         }
@@ -163,6 +183,23 @@ public final class ConsumerName {
         }
 
         /**
+         * <p>Name of the father of the user</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
+        @java.lang.Override
+        public _FinalStage fatherName(String fatherName) {
+            this.fatherName = Optional.ofNullable(fatherName);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "fatherName", nulls = Nulls.SKIP)
+        public _FinalStage fatherName(Optional<String> fatherName) {
+            this.fatherName = fatherName;
+            return this;
+        }
+
+        /**
          * <p>Middle name of the user</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
@@ -181,7 +218,7 @@ public final class ConsumerName {
 
         @java.lang.Override
         public ConsumerName build() {
-            return new ConsumerName(firstName, middleName, lastName, additionalProperties);
+            return new ConsumerName(firstName, middleName, fatherName, lastName, additionalProperties);
         }
     }
 }

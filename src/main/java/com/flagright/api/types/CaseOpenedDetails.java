@@ -23,6 +23,8 @@ import java.util.Optional;
 public final class CaseOpenedDetails {
     private final Optional<String> caseId;
 
+    private final Optional<Map<String, Object>> caseObject;
+
     private final Optional<String> status;
 
     private final Optional<String> userId;
@@ -33,11 +35,13 @@ public final class CaseOpenedDetails {
 
     private CaseOpenedDetails(
             Optional<String> caseId,
+            Optional<Map<String, Object>> caseObject,
             Optional<String> status,
             Optional<String> userId,
             Optional<List<String>> transactionIds,
             Map<String, Object> additionalProperties) {
         this.caseId = caseId;
+        this.caseObject = caseObject;
         this.status = status;
         this.userId = userId;
         this.transactionIds = transactionIds;
@@ -47,6 +51,11 @@ public final class CaseOpenedDetails {
     @JsonProperty("caseId")
     public Optional<String> getCaseId() {
         return caseId;
+    }
+
+    @JsonProperty("caseObject")
+    public Optional<Map<String, Object>> getCaseObject() {
+        return caseObject;
     }
 
     @JsonProperty("status")
@@ -77,6 +86,7 @@ public final class CaseOpenedDetails {
 
     private boolean equalTo(CaseOpenedDetails other) {
         return caseId.equals(other.caseId)
+                && caseObject.equals(other.caseObject)
                 && status.equals(other.status)
                 && userId.equals(other.userId)
                 && transactionIds.equals(other.transactionIds);
@@ -84,7 +94,7 @@ public final class CaseOpenedDetails {
 
     @java.lang.Override
     public int hashCode() {
-        return Objects.hash(this.caseId, this.status, this.userId, this.transactionIds);
+        return Objects.hash(this.caseId, this.caseObject, this.status, this.userId, this.transactionIds);
     }
 
     @java.lang.Override
@@ -100,6 +110,8 @@ public final class CaseOpenedDetails {
     public static final class Builder {
         private Optional<String> caseId = Optional.empty();
 
+        private Optional<Map<String, Object>> caseObject = Optional.empty();
+
         private Optional<String> status = Optional.empty();
 
         private Optional<String> userId = Optional.empty();
@@ -113,6 +125,7 @@ public final class CaseOpenedDetails {
 
         public Builder from(CaseOpenedDetails other) {
             caseId(other.getCaseId());
+            caseObject(other.getCaseObject());
             status(other.getStatus());
             userId(other.getUserId());
             transactionIds(other.getTransactionIds());
@@ -127,6 +140,17 @@ public final class CaseOpenedDetails {
 
         public Builder caseId(String caseId) {
             this.caseId = Optional.ofNullable(caseId);
+            return this;
+        }
+
+        @JsonSetter(value = "caseObject", nulls = Nulls.SKIP)
+        public Builder caseObject(Optional<Map<String, Object>> caseObject) {
+            this.caseObject = caseObject;
+            return this;
+        }
+
+        public Builder caseObject(Map<String, Object> caseObject) {
+            this.caseObject = Optional.ofNullable(caseObject);
             return this;
         }
 
@@ -164,7 +188,7 @@ public final class CaseOpenedDetails {
         }
 
         public CaseOpenedDetails build() {
-            return new CaseOpenedDetails(caseId, status, userId, transactionIds, additionalProperties);
+            return new CaseOpenedDetails(caseId, caseObject, status, userId, transactionIds, additionalProperties);
         }
     }
 }
