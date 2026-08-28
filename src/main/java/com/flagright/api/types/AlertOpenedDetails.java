@@ -27,6 +27,12 @@ public final class AlertOpenedDetails {
 
     private final Optional<List<String>> transactionIds;
 
+    private final Optional<List<String>> reasons;
+
+    private final Optional<String> reasonDescriptionForOther;
+
+    private final Optional<String> comment;
+
     private final Optional<String> ruleName;
 
     private final Optional<String> ruleDescription;
@@ -47,6 +53,9 @@ public final class AlertOpenedDetails {
             Optional<String> alertId,
             Optional<String> status,
             Optional<List<String>> transactionIds,
+            Optional<List<String>> reasons,
+            Optional<String> reasonDescriptionForOther,
+            Optional<String> comment,
             Optional<String> ruleName,
             Optional<String> ruleDescription,
             Optional<String> ruleId,
@@ -58,6 +67,9 @@ public final class AlertOpenedDetails {
         this.alertId = alertId;
         this.status = status;
         this.transactionIds = transactionIds;
+        this.reasons = reasons;
+        this.reasonDescriptionForOther = reasonDescriptionForOther;
+        this.comment = comment;
         this.ruleName = ruleName;
         this.ruleDescription = ruleDescription;
         this.ruleId = ruleId;
@@ -81,6 +93,21 @@ public final class AlertOpenedDetails {
     @JsonProperty("transactionIds")
     public Optional<List<String>> getTransactionIds() {
         return transactionIds;
+    }
+
+    @JsonProperty("reasons")
+    public Optional<List<String>> getReasons() {
+        return reasons;
+    }
+
+    @JsonProperty("reasonDescriptionForOther")
+    public Optional<String> getReasonDescriptionForOther() {
+        return reasonDescriptionForOther;
+    }
+
+    @JsonProperty("comment")
+    public Optional<String> getComment() {
+        return comment;
     }
 
     @JsonProperty("ruleName")
@@ -133,6 +160,9 @@ public final class AlertOpenedDetails {
         return alertId.equals(other.alertId)
                 && status.equals(other.status)
                 && transactionIds.equals(other.transactionIds)
+                && reasons.equals(other.reasons)
+                && reasonDescriptionForOther.equals(other.reasonDescriptionForOther)
+                && comment.equals(other.comment)
                 && ruleName.equals(other.ruleName)
                 && ruleDescription.equals(other.ruleDescription)
                 && ruleId.equals(other.ruleId)
@@ -148,6 +178,9 @@ public final class AlertOpenedDetails {
                 this.alertId,
                 this.status,
                 this.transactionIds,
+                this.reasons,
+                this.reasonDescriptionForOther,
+                this.comment,
                 this.ruleName,
                 this.ruleDescription,
                 this.ruleId,
@@ -174,6 +207,12 @@ public final class AlertOpenedDetails {
 
         private Optional<List<String>> transactionIds = Optional.empty();
 
+        private Optional<List<String>> reasons = Optional.empty();
+
+        private Optional<String> reasonDescriptionForOther = Optional.empty();
+
+        private Optional<String> comment = Optional.empty();
+
         private Optional<String> ruleName = Optional.empty();
 
         private Optional<String> ruleDescription = Optional.empty();
@@ -197,6 +236,9 @@ public final class AlertOpenedDetails {
             alertId(other.getAlertId());
             status(other.getStatus());
             transactionIds(other.getTransactionIds());
+            reasons(other.getReasons());
+            reasonDescriptionForOther(other.getReasonDescriptionForOther());
+            comment(other.getComment());
             ruleName(other.getRuleName());
             ruleDescription(other.getRuleDescription());
             ruleId(other.getRuleId());
@@ -237,6 +279,39 @@ public final class AlertOpenedDetails {
 
         public Builder transactionIds(List<String> transactionIds) {
             this.transactionIds = Optional.ofNullable(transactionIds);
+            return this;
+        }
+
+        @JsonSetter(value = "reasons", nulls = Nulls.SKIP)
+        public Builder reasons(Optional<List<String>> reasons) {
+            this.reasons = reasons;
+            return this;
+        }
+
+        public Builder reasons(List<String> reasons) {
+            this.reasons = Optional.ofNullable(reasons);
+            return this;
+        }
+
+        @JsonSetter(value = "reasonDescriptionForOther", nulls = Nulls.SKIP)
+        public Builder reasonDescriptionForOther(Optional<String> reasonDescriptionForOther) {
+            this.reasonDescriptionForOther = reasonDescriptionForOther;
+            return this;
+        }
+
+        public Builder reasonDescriptionForOther(String reasonDescriptionForOther) {
+            this.reasonDescriptionForOther = Optional.ofNullable(reasonDescriptionForOther);
+            return this;
+        }
+
+        @JsonSetter(value = "comment", nulls = Nulls.SKIP)
+        public Builder comment(Optional<String> comment) {
+            this.comment = comment;
+            return this;
+        }
+
+        public Builder comment(String comment) {
+            this.comment = Optional.ofNullable(comment);
             return this;
         }
 
@@ -322,6 +397,9 @@ public final class AlertOpenedDetails {
                     alertId,
                     status,
                     transactionIds,
+                    reasons,
+                    reasonDescriptionForOther,
+                    comment,
                     ruleName,
                     ruleDescription,
                     ruleId,

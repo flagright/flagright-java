@@ -31,6 +31,12 @@ public final class CaseOpenedDetails {
 
     private final Optional<List<String>> transactionIds;
 
+    private final Optional<List<String>> reasons;
+
+    private final Optional<String> reasonDescriptionForOther;
+
+    private final Optional<String> comment;
+
     private final Map<String, Object> additionalProperties;
 
     private CaseOpenedDetails(
@@ -39,12 +45,18 @@ public final class CaseOpenedDetails {
             Optional<String> status,
             Optional<String> userId,
             Optional<List<String>> transactionIds,
+            Optional<List<String>> reasons,
+            Optional<String> reasonDescriptionForOther,
+            Optional<String> comment,
             Map<String, Object> additionalProperties) {
         this.caseId = caseId;
         this.caseObject = caseObject;
         this.status = status;
         this.userId = userId;
         this.transactionIds = transactionIds;
+        this.reasons = reasons;
+        this.reasonDescriptionForOther = reasonDescriptionForOther;
+        this.comment = comment;
         this.additionalProperties = additionalProperties;
     }
 
@@ -73,6 +85,21 @@ public final class CaseOpenedDetails {
         return transactionIds;
     }
 
+    @JsonProperty("reasons")
+    public Optional<List<String>> getReasons() {
+        return reasons;
+    }
+
+    @JsonProperty("reasonDescriptionForOther")
+    public Optional<String> getReasonDescriptionForOther() {
+        return reasonDescriptionForOther;
+    }
+
+    @JsonProperty("comment")
+    public Optional<String> getComment() {
+        return comment;
+    }
+
     @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
@@ -89,12 +116,23 @@ public final class CaseOpenedDetails {
                 && caseObject.equals(other.caseObject)
                 && status.equals(other.status)
                 && userId.equals(other.userId)
-                && transactionIds.equals(other.transactionIds);
+                && transactionIds.equals(other.transactionIds)
+                && reasons.equals(other.reasons)
+                && reasonDescriptionForOther.equals(other.reasonDescriptionForOther)
+                && comment.equals(other.comment);
     }
 
     @java.lang.Override
     public int hashCode() {
-        return Objects.hash(this.caseId, this.caseObject, this.status, this.userId, this.transactionIds);
+        return Objects.hash(
+                this.caseId,
+                this.caseObject,
+                this.status,
+                this.userId,
+                this.transactionIds,
+                this.reasons,
+                this.reasonDescriptionForOther,
+                this.comment);
     }
 
     @java.lang.Override
@@ -118,6 +156,12 @@ public final class CaseOpenedDetails {
 
         private Optional<List<String>> transactionIds = Optional.empty();
 
+        private Optional<List<String>> reasons = Optional.empty();
+
+        private Optional<String> reasonDescriptionForOther = Optional.empty();
+
+        private Optional<String> comment = Optional.empty();
+
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
 
@@ -129,6 +173,9 @@ public final class CaseOpenedDetails {
             status(other.getStatus());
             userId(other.getUserId());
             transactionIds(other.getTransactionIds());
+            reasons(other.getReasons());
+            reasonDescriptionForOther(other.getReasonDescriptionForOther());
+            comment(other.getComment());
             return this;
         }
 
@@ -187,8 +234,50 @@ public final class CaseOpenedDetails {
             return this;
         }
 
+        @JsonSetter(value = "reasons", nulls = Nulls.SKIP)
+        public Builder reasons(Optional<List<String>> reasons) {
+            this.reasons = reasons;
+            return this;
+        }
+
+        public Builder reasons(List<String> reasons) {
+            this.reasons = Optional.ofNullable(reasons);
+            return this;
+        }
+
+        @JsonSetter(value = "reasonDescriptionForOther", nulls = Nulls.SKIP)
+        public Builder reasonDescriptionForOther(Optional<String> reasonDescriptionForOther) {
+            this.reasonDescriptionForOther = reasonDescriptionForOther;
+            return this;
+        }
+
+        public Builder reasonDescriptionForOther(String reasonDescriptionForOther) {
+            this.reasonDescriptionForOther = Optional.ofNullable(reasonDescriptionForOther);
+            return this;
+        }
+
+        @JsonSetter(value = "comment", nulls = Nulls.SKIP)
+        public Builder comment(Optional<String> comment) {
+            this.comment = comment;
+            return this;
+        }
+
+        public Builder comment(String comment) {
+            this.comment = Optional.ofNullable(comment);
+            return this;
+        }
+
         public CaseOpenedDetails build() {
-            return new CaseOpenedDetails(caseId, caseObject, status, userId, transactionIds, additionalProperties);
+            return new CaseOpenedDetails(
+                    caseId,
+                    caseObject,
+                    status,
+                    userId,
+                    transactionIds,
+                    reasons,
+                    reasonDescriptionForOther,
+                    comment,
+                    additionalProperties);
         }
     }
 }

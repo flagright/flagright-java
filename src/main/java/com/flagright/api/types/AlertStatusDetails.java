@@ -33,6 +33,8 @@ public final class AlertStatusDetails {
 
     private final Optional<String> userId;
 
+    private final Optional<String> caseId;
+
     private final Optional<List<String>> transactionIds;
 
     private final Optional<String> ruleName;
@@ -54,6 +56,7 @@ public final class AlertStatusDetails {
             Optional<String> reasonDescriptionForOther,
             Optional<String> comment,
             Optional<String> userId,
+            Optional<String> caseId,
             Optional<List<String>> transactionIds,
             Optional<String> ruleName,
             Optional<String> ruleDescription,
@@ -67,6 +70,7 @@ public final class AlertStatusDetails {
         this.reasonDescriptionForOther = reasonDescriptionForOther;
         this.comment = comment;
         this.userId = userId;
+        this.caseId = caseId;
         this.transactionIds = transactionIds;
         this.ruleName = ruleName;
         this.ruleDescription = ruleDescription;
@@ -104,6 +108,11 @@ public final class AlertStatusDetails {
     @JsonProperty("userId")
     public Optional<String> getUserId() {
         return userId;
+    }
+
+    @JsonProperty("caseId")
+    public Optional<String> getCaseId() {
+        return caseId;
     }
 
     @JsonProperty("transactionIds")
@@ -154,6 +163,7 @@ public final class AlertStatusDetails {
                 && reasonDescriptionForOther.equals(other.reasonDescriptionForOther)
                 && comment.equals(other.comment)
                 && userId.equals(other.userId)
+                && caseId.equals(other.caseId)
                 && transactionIds.equals(other.transactionIds)
                 && ruleName.equals(other.ruleName)
                 && ruleDescription.equals(other.ruleDescription)
@@ -171,6 +181,7 @@ public final class AlertStatusDetails {
                 this.reasonDescriptionForOther,
                 this.comment,
                 this.userId,
+                this.caseId,
                 this.transactionIds,
                 this.ruleName,
                 this.ruleDescription,
@@ -202,6 +213,8 @@ public final class AlertStatusDetails {
 
         private Optional<String> userId = Optional.empty();
 
+        private Optional<String> caseId = Optional.empty();
+
         private Optional<List<String>> transactionIds = Optional.empty();
 
         private Optional<String> ruleName = Optional.empty();
@@ -226,6 +239,7 @@ public final class AlertStatusDetails {
             reasonDescriptionForOther(other.getReasonDescriptionForOther());
             comment(other.getComment());
             userId(other.getUserId());
+            caseId(other.getCaseId());
             transactionIds(other.getTransactionIds());
             ruleName(other.getRuleName());
             ruleDescription(other.getRuleDescription());
@@ -298,6 +312,17 @@ public final class AlertStatusDetails {
 
         public Builder userId(String userId) {
             this.userId = Optional.ofNullable(userId);
+            return this;
+        }
+
+        @JsonSetter(value = "caseId", nulls = Nulls.SKIP)
+        public Builder caseId(Optional<String> caseId) {
+            this.caseId = caseId;
+            return this;
+        }
+
+        public Builder caseId(String caseId) {
+            this.caseId = Optional.ofNullable(caseId);
             return this;
         }
 
@@ -375,6 +400,7 @@ public final class AlertStatusDetails {
                     reasonDescriptionForOther,
                     comment,
                     userId,
+                    caseId,
                     transactionIds,
                     ruleName,
                     ruleDescription,
