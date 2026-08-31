@@ -23,11 +23,16 @@ import java.util.Optional;
 public final class TransactionMetadata {
     private final Optional<List<BlockchainRisk>> blockchainRisk;
 
+    private final Optional<List<Tag>> tags;
+
     private final Map<String, Object> additionalProperties;
 
     private TransactionMetadata(
-            Optional<List<BlockchainRisk>> blockchainRisk, Map<String, Object> additionalProperties) {
+            Optional<List<BlockchainRisk>> blockchainRisk,
+            Optional<List<Tag>> tags,
+            Map<String, Object> additionalProperties) {
         this.blockchainRisk = blockchainRisk;
+        this.tags = tags;
         this.additionalProperties = additionalProperties;
     }
 
@@ -37,6 +42,14 @@ public final class TransactionMetadata {
     @JsonProperty("blockchainRisk")
     public Optional<List<BlockchainRisk>> getBlockchainRisk() {
         return blockchainRisk;
+    }
+
+    /**
+     * @return Additional information that can be added via tags
+     */
+    @JsonProperty("tags")
+    public Optional<List<Tag>> getTags() {
+        return tags;
     }
 
     @java.lang.Override
@@ -51,12 +64,12 @@ public final class TransactionMetadata {
     }
 
     private boolean equalTo(TransactionMetadata other) {
-        return blockchainRisk.equals(other.blockchainRisk);
+        return blockchainRisk.equals(other.blockchainRisk) && tags.equals(other.tags);
     }
 
     @java.lang.Override
     public int hashCode() {
-        return Objects.hash(this.blockchainRisk);
+        return Objects.hash(this.blockchainRisk, this.tags);
     }
 
     @java.lang.Override
@@ -72,6 +85,8 @@ public final class TransactionMetadata {
     public static final class Builder {
         private Optional<List<BlockchainRisk>> blockchainRisk = Optional.empty();
 
+        private Optional<List<Tag>> tags = Optional.empty();
+
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
 
@@ -79,6 +94,7 @@ public final class TransactionMetadata {
 
         public Builder from(TransactionMetadata other) {
             blockchainRisk(other.getBlockchainRisk());
+            tags(other.getTags());
             return this;
         }
 
@@ -93,8 +109,19 @@ public final class TransactionMetadata {
             return this;
         }
 
+        @JsonSetter(value = "tags", nulls = Nulls.SKIP)
+        public Builder tags(Optional<List<Tag>> tags) {
+            this.tags = tags;
+            return this;
+        }
+
+        public Builder tags(List<Tag> tags) {
+            this.tags = Optional.ofNullable(tags);
+            return this;
+        }
+
         public TransactionMetadata build() {
-            return new TransactionMetadata(blockchainRisk, additionalProperties);
+            return new TransactionMetadata(blockchainRisk, tags, additionalProperties);
         }
     }
 }

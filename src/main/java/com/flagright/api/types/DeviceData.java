@@ -13,6 +13,7 @@ import com.fasterxml.jackson.annotation.Nulls;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.flagright.api.core.ObjectMappers;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
@@ -140,6 +141,8 @@ public final class DeviceData {
 
     private final Optional<Double> tamperingConfidenceScore;
 
+    private final Optional<List<Tag>> tags;
+
     private final Map<String, Object> additionalProperties;
 
     private DeviceData(
@@ -203,6 +206,7 @@ public final class DeviceData {
             Optional<Double> proxyConfidenceScore,
             Optional<String> tamperingConfidence,
             Optional<Double> tamperingConfidenceScore,
+            Optional<List<Tag>> tags,
             Map<String, Object> additionalProperties) {
         this.batteryLevel = batteryLevel;
         this.deviceLatitude = deviceLatitude;
@@ -264,6 +268,7 @@ public final class DeviceData {
         this.proxyConfidenceScore = proxyConfidenceScore;
         this.tamperingConfidence = tamperingConfidence;
         this.tamperingConfidenceScore = tamperingConfidenceScore;
+        this.tags = tags;
         this.additionalProperties = additionalProperties;
     }
 
@@ -741,6 +746,14 @@ public final class DeviceData {
         return tamperingConfidenceScore;
     }
 
+    /**
+     * @return Additional information that can be added via tags
+     */
+    @JsonProperty("tags")
+    public Optional<List<Tag>> getTags() {
+        return tags;
+    }
+
     @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
@@ -812,7 +825,8 @@ public final class DeviceData {
                 && proxyConfidence.equals(other.proxyConfidence)
                 && proxyConfidenceScore.equals(other.proxyConfidenceScore)
                 && tamperingConfidence.equals(other.tamperingConfidence)
-                && tamperingConfidenceScore.equals(other.tamperingConfidenceScore);
+                && tamperingConfidenceScore.equals(other.tamperingConfidenceScore)
+                && tags.equals(other.tags);
     }
 
     @java.lang.Override
@@ -877,7 +891,8 @@ public final class DeviceData {
                 this.proxyConfidence,
                 this.proxyConfidenceScore,
                 this.tamperingConfidence,
-                this.tamperingConfidenceScore);
+                this.tamperingConfidenceScore,
+                this.tags);
     }
 
     @java.lang.Override
@@ -1011,6 +1026,8 @@ public final class DeviceData {
 
         private Optional<Double> tamperingConfidenceScore = Optional.empty();
 
+        private Optional<List<Tag>> tags = Optional.empty();
+
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
 
@@ -1077,6 +1094,7 @@ public final class DeviceData {
             proxyConfidenceScore(other.getProxyConfidenceScore());
             tamperingConfidence(other.getTamperingConfidence());
             tamperingConfidenceScore(other.getTamperingConfidenceScore());
+            tags(other.getTags());
             return this;
         }
 
@@ -1740,6 +1758,17 @@ public final class DeviceData {
             return this;
         }
 
+        @JsonSetter(value = "tags", nulls = Nulls.SKIP)
+        public Builder tags(Optional<List<Tag>> tags) {
+            this.tags = tags;
+            return this;
+        }
+
+        public Builder tags(List<Tag> tags) {
+            this.tags = Optional.ofNullable(tags);
+            return this;
+        }
+
         public DeviceData build() {
             return new DeviceData(
                     batteryLevel,
@@ -1802,6 +1831,7 @@ public final class DeviceData {
                     proxyConfidenceScore,
                     tamperingConfidence,
                     tamperingConfidenceScore,
+                    tags,
                     additionalProperties);
         }
     }
