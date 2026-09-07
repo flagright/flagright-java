@@ -23,6 +23,8 @@ import java.util.Optional;
 public final class CaseStatusDetails {
     private final Optional<String> caseId;
 
+    private final Optional<CaseType> caseType;
+
     private final Optional<String> status;
 
     private final Optional<List<String>> reasons;
@@ -35,30 +37,45 @@ public final class CaseStatusDetails {
 
     private final Optional<List<String>> transactionIds;
 
+    private final Optional<String> caseGroupId;
+
+    private final Optional<String> caseGroupName;
+
     private final Map<String, Object> additionalProperties;
 
     private CaseStatusDetails(
             Optional<String> caseId,
+            Optional<CaseType> caseType,
             Optional<String> status,
             Optional<List<String>> reasons,
             Optional<String> reasonDescriptionForOther,
             Optional<String> comment,
             Optional<String> userId,
             Optional<List<String>> transactionIds,
+            Optional<String> caseGroupId,
+            Optional<String> caseGroupName,
             Map<String, Object> additionalProperties) {
         this.caseId = caseId;
+        this.caseType = caseType;
         this.status = status;
         this.reasons = reasons;
         this.reasonDescriptionForOther = reasonDescriptionForOther;
         this.comment = comment;
         this.userId = userId;
         this.transactionIds = transactionIds;
+        this.caseGroupId = caseGroupId;
+        this.caseGroupName = caseGroupName;
         this.additionalProperties = additionalProperties;
     }
 
     @JsonProperty("caseId")
     public Optional<String> getCaseId() {
         return caseId;
+    }
+
+    @JsonProperty("caseType")
+    public Optional<CaseType> getCaseType() {
+        return caseType;
     }
 
     @JsonProperty("status")
@@ -91,6 +108,22 @@ public final class CaseStatusDetails {
         return transactionIds;
     }
 
+    /**
+     * @return Id of the case group this case belongs to. Absent when the case is not mapped to a case group.
+     */
+    @JsonProperty("caseGroupId")
+    public Optional<String> getCaseGroupId() {
+        return caseGroupId;
+    }
+
+    /**
+     * @return Display name of the case group.
+     */
+    @JsonProperty("caseGroupName")
+    public Optional<String> getCaseGroupName() {
+        return caseGroupName;
+    }
+
     @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
@@ -104,24 +137,30 @@ public final class CaseStatusDetails {
 
     private boolean equalTo(CaseStatusDetails other) {
         return caseId.equals(other.caseId)
+                && caseType.equals(other.caseType)
                 && status.equals(other.status)
                 && reasons.equals(other.reasons)
                 && reasonDescriptionForOther.equals(other.reasonDescriptionForOther)
                 && comment.equals(other.comment)
                 && userId.equals(other.userId)
-                && transactionIds.equals(other.transactionIds);
+                && transactionIds.equals(other.transactionIds)
+                && caseGroupId.equals(other.caseGroupId)
+                && caseGroupName.equals(other.caseGroupName);
     }
 
     @java.lang.Override
     public int hashCode() {
         return Objects.hash(
                 this.caseId,
+                this.caseType,
                 this.status,
                 this.reasons,
                 this.reasonDescriptionForOther,
                 this.comment,
                 this.userId,
-                this.transactionIds);
+                this.transactionIds,
+                this.caseGroupId,
+                this.caseGroupName);
     }
 
     @java.lang.Override
@@ -137,6 +176,8 @@ public final class CaseStatusDetails {
     public static final class Builder {
         private Optional<String> caseId = Optional.empty();
 
+        private Optional<CaseType> caseType = Optional.empty();
+
         private Optional<String> status = Optional.empty();
 
         private Optional<List<String>> reasons = Optional.empty();
@@ -149,6 +190,10 @@ public final class CaseStatusDetails {
 
         private Optional<List<String>> transactionIds = Optional.empty();
 
+        private Optional<String> caseGroupId = Optional.empty();
+
+        private Optional<String> caseGroupName = Optional.empty();
+
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
 
@@ -156,12 +201,15 @@ public final class CaseStatusDetails {
 
         public Builder from(CaseStatusDetails other) {
             caseId(other.getCaseId());
+            caseType(other.getCaseType());
             status(other.getStatus());
             reasons(other.getReasons());
             reasonDescriptionForOther(other.getReasonDescriptionForOther());
             comment(other.getComment());
             userId(other.getUserId());
             transactionIds(other.getTransactionIds());
+            caseGroupId(other.getCaseGroupId());
+            caseGroupName(other.getCaseGroupName());
             return this;
         }
 
@@ -173,6 +221,17 @@ public final class CaseStatusDetails {
 
         public Builder caseId(String caseId) {
             this.caseId = Optional.ofNullable(caseId);
+            return this;
+        }
+
+        @JsonSetter(value = "caseType", nulls = Nulls.SKIP)
+        public Builder caseType(Optional<CaseType> caseType) {
+            this.caseType = caseType;
+            return this;
+        }
+
+        public Builder caseType(CaseType caseType) {
+            this.caseType = Optional.ofNullable(caseType);
             return this;
         }
 
@@ -242,15 +301,40 @@ public final class CaseStatusDetails {
             return this;
         }
 
+        @JsonSetter(value = "caseGroupId", nulls = Nulls.SKIP)
+        public Builder caseGroupId(Optional<String> caseGroupId) {
+            this.caseGroupId = caseGroupId;
+            return this;
+        }
+
+        public Builder caseGroupId(String caseGroupId) {
+            this.caseGroupId = Optional.ofNullable(caseGroupId);
+            return this;
+        }
+
+        @JsonSetter(value = "caseGroupName", nulls = Nulls.SKIP)
+        public Builder caseGroupName(Optional<String> caseGroupName) {
+            this.caseGroupName = caseGroupName;
+            return this;
+        }
+
+        public Builder caseGroupName(String caseGroupName) {
+            this.caseGroupName = Optional.ofNullable(caseGroupName);
+            return this;
+        }
+
         public CaseStatusDetails build() {
             return new CaseStatusDetails(
                     caseId,
+                    caseType,
                     status,
                     reasons,
                     reasonDescriptionForOther,
                     comment,
                     userId,
                     transactionIds,
+                    caseGroupId,
+                    caseGroupName,
                     additionalProperties);
         }
     }
