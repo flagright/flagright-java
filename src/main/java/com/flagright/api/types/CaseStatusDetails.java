@@ -41,6 +41,8 @@ public final class CaseStatusDetails {
 
     private final Optional<String> caseGroupName;
 
+    private final Optional<List<Tag>> caseTags;
+
     private final Map<String, Object> additionalProperties;
 
     private CaseStatusDetails(
@@ -54,6 +56,7 @@ public final class CaseStatusDetails {
             Optional<List<String>> transactionIds,
             Optional<String> caseGroupId,
             Optional<String> caseGroupName,
+            Optional<List<Tag>> caseTags,
             Map<String, Object> additionalProperties) {
         this.caseId = caseId;
         this.caseType = caseType;
@@ -65,6 +68,7 @@ public final class CaseStatusDetails {
         this.transactionIds = transactionIds;
         this.caseGroupId = caseGroupId;
         this.caseGroupName = caseGroupName;
+        this.caseTags = caseTags;
         this.additionalProperties = additionalProperties;
     }
 
@@ -124,6 +128,14 @@ public final class CaseStatusDetails {
         return caseGroupName;
     }
 
+    /**
+     * @return Tags attached to the case.
+     */
+    @JsonProperty("caseTags")
+    public Optional<List<Tag>> getCaseTags() {
+        return caseTags;
+    }
+
     @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
@@ -145,7 +157,8 @@ public final class CaseStatusDetails {
                 && userId.equals(other.userId)
                 && transactionIds.equals(other.transactionIds)
                 && caseGroupId.equals(other.caseGroupId)
-                && caseGroupName.equals(other.caseGroupName);
+                && caseGroupName.equals(other.caseGroupName)
+                && caseTags.equals(other.caseTags);
     }
 
     @java.lang.Override
@@ -160,7 +173,8 @@ public final class CaseStatusDetails {
                 this.userId,
                 this.transactionIds,
                 this.caseGroupId,
-                this.caseGroupName);
+                this.caseGroupName,
+                this.caseTags);
     }
 
     @java.lang.Override
@@ -194,6 +208,8 @@ public final class CaseStatusDetails {
 
         private Optional<String> caseGroupName = Optional.empty();
 
+        private Optional<List<Tag>> caseTags = Optional.empty();
+
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
 
@@ -210,6 +226,7 @@ public final class CaseStatusDetails {
             transactionIds(other.getTransactionIds());
             caseGroupId(other.getCaseGroupId());
             caseGroupName(other.getCaseGroupName());
+            caseTags(other.getCaseTags());
             return this;
         }
 
@@ -323,6 +340,17 @@ public final class CaseStatusDetails {
             return this;
         }
 
+        @JsonSetter(value = "caseTags", nulls = Nulls.SKIP)
+        public Builder caseTags(Optional<List<Tag>> caseTags) {
+            this.caseTags = caseTags;
+            return this;
+        }
+
+        public Builder caseTags(List<Tag> caseTags) {
+            this.caseTags = Optional.ofNullable(caseTags);
+            return this;
+        }
+
         public CaseStatusDetails build() {
             return new CaseStatusDetails(
                     caseId,
@@ -335,6 +363,7 @@ public final class CaseStatusDetails {
                     transactionIds,
                     caseGroupId,
                     caseGroupName,
+                    caseTags,
                     additionalProperties);
         }
     }

@@ -43,6 +43,8 @@ public final class CaseOpenedDetails {
 
     private final Optional<String> caseGroupName;
 
+    private final Optional<List<Tag>> caseTags;
+
     private final Map<String, Object> additionalProperties;
 
     private CaseOpenedDetails(
@@ -57,6 +59,7 @@ public final class CaseOpenedDetails {
             Optional<String> comment,
             Optional<String> caseGroupId,
             Optional<String> caseGroupName,
+            Optional<List<Tag>> caseTags,
             Map<String, Object> additionalProperties) {
         this.caseId = caseId;
         this.caseType = caseType;
@@ -69,6 +72,7 @@ public final class CaseOpenedDetails {
         this.comment = comment;
         this.caseGroupId = caseGroupId;
         this.caseGroupName = caseGroupName;
+        this.caseTags = caseTags;
         this.additionalProperties = additionalProperties;
     }
 
@@ -133,6 +137,14 @@ public final class CaseOpenedDetails {
         return caseGroupName;
     }
 
+    /**
+     * @return Tags attached to the case.
+     */
+    @JsonProperty("caseTags")
+    public Optional<List<Tag>> getCaseTags() {
+        return caseTags;
+    }
+
     @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
@@ -155,7 +167,8 @@ public final class CaseOpenedDetails {
                 && reasonDescriptionForOther.equals(other.reasonDescriptionForOther)
                 && comment.equals(other.comment)
                 && caseGroupId.equals(other.caseGroupId)
-                && caseGroupName.equals(other.caseGroupName);
+                && caseGroupName.equals(other.caseGroupName)
+                && caseTags.equals(other.caseTags);
     }
 
     @java.lang.Override
@@ -171,7 +184,8 @@ public final class CaseOpenedDetails {
                 this.reasonDescriptionForOther,
                 this.comment,
                 this.caseGroupId,
-                this.caseGroupName);
+                this.caseGroupName,
+                this.caseTags);
     }
 
     @java.lang.Override
@@ -207,6 +221,8 @@ public final class CaseOpenedDetails {
 
         private Optional<String> caseGroupName = Optional.empty();
 
+        private Optional<List<Tag>> caseTags = Optional.empty();
+
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
 
@@ -224,6 +240,7 @@ public final class CaseOpenedDetails {
             comment(other.getComment());
             caseGroupId(other.getCaseGroupId());
             caseGroupName(other.getCaseGroupName());
+            caseTags(other.getCaseTags());
             return this;
         }
 
@@ -348,6 +365,17 @@ public final class CaseOpenedDetails {
             return this;
         }
 
+        @JsonSetter(value = "caseTags", nulls = Nulls.SKIP)
+        public Builder caseTags(Optional<List<Tag>> caseTags) {
+            this.caseTags = caseTags;
+            return this;
+        }
+
+        public Builder caseTags(List<Tag> caseTags) {
+            this.caseTags = Optional.ofNullable(caseTags);
+            return this;
+        }
+
         public CaseOpenedDetails build() {
             return new CaseOpenedDetails(
                     caseId,
@@ -361,6 +389,7 @@ public final class CaseOpenedDetails {
                     comment,
                     caseGroupId,
                     caseGroupName,
+                    caseTags,
                     additionalProperties);
         }
     }

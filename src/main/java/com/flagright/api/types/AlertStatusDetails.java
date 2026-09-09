@@ -47,6 +47,8 @@ public final class AlertStatusDetails {
 
     private final Optional<RuleNature> nature;
 
+    private final Optional<List<Tag>> alertTags;
+
     private final Map<String, Object> additionalProperties;
 
     private AlertStatusDetails(
@@ -63,6 +65,7 @@ public final class AlertStatusDetails {
             Optional<String> ruleId,
             Optional<String> ruleInstanceId,
             Optional<RuleNature> nature,
+            Optional<List<Tag>> alertTags,
             Map<String, Object> additionalProperties) {
         this.alertId = alertId;
         this.status = status;
@@ -77,6 +80,7 @@ public final class AlertStatusDetails {
         this.ruleId = ruleId;
         this.ruleInstanceId = ruleInstanceId;
         this.nature = nature;
+        this.alertTags = alertTags;
         this.additionalProperties = additionalProperties;
     }
 
@@ -145,6 +149,14 @@ public final class AlertStatusDetails {
         return nature;
     }
 
+    /**
+     * @return Tags attached to the alert.
+     */
+    @JsonProperty("alertTags")
+    public Optional<List<Tag>> getAlertTags() {
+        return alertTags;
+    }
+
     @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
@@ -169,7 +181,8 @@ public final class AlertStatusDetails {
                 && ruleDescription.equals(other.ruleDescription)
                 && ruleId.equals(other.ruleId)
                 && ruleInstanceId.equals(other.ruleInstanceId)
-                && nature.equals(other.nature);
+                && nature.equals(other.nature)
+                && alertTags.equals(other.alertTags);
     }
 
     @java.lang.Override
@@ -187,7 +200,8 @@ public final class AlertStatusDetails {
                 this.ruleDescription,
                 this.ruleId,
                 this.ruleInstanceId,
-                this.nature);
+                this.nature,
+                this.alertTags);
     }
 
     @java.lang.Override
@@ -227,6 +241,8 @@ public final class AlertStatusDetails {
 
         private Optional<RuleNature> nature = Optional.empty();
 
+        private Optional<List<Tag>> alertTags = Optional.empty();
+
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
 
@@ -246,6 +262,7 @@ public final class AlertStatusDetails {
             ruleId(other.getRuleId());
             ruleInstanceId(other.getRuleInstanceId());
             nature(other.getNature());
+            alertTags(other.getAlertTags());
             return this;
         }
 
@@ -392,6 +409,17 @@ public final class AlertStatusDetails {
             return this;
         }
 
+        @JsonSetter(value = "alertTags", nulls = Nulls.SKIP)
+        public Builder alertTags(Optional<List<Tag>> alertTags) {
+            this.alertTags = alertTags;
+            return this;
+        }
+
+        public Builder alertTags(List<Tag> alertTags) {
+            this.alertTags = Optional.ofNullable(alertTags);
+            return this;
+        }
+
         public AlertStatusDetails build() {
             return new AlertStatusDetails(
                     alertId,
@@ -407,6 +435,7 @@ public final class AlertStatusDetails {
                     ruleId,
                     ruleInstanceId,
                     nature,
+                    alertTags,
                     additionalProperties);
         }
     }
