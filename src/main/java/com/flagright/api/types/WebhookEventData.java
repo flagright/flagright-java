@@ -47,14 +47,18 @@ public final class WebhookEventData {
         } else if (this.type == 7) {
             return visitor.visit((UserTagsUpdate) this.value);
         } else if (this.type == 8) {
-            return visitor.visit((CraRiskLevelUpdatedDetails) this.value);
+            return visitor.visit((CaseTagsUpdate) this.value);
         } else if (this.type == 9) {
-            return visitor.visit((BatchCompletedDetails) this.value);
+            return visitor.visit((AlertTagsUpdate) this.value);
         } else if (this.type == 10) {
-            return visitor.visit((WebhookPepStatusDetails) this.value);
+            return visitor.visit((CraRiskLevelUpdatedDetails) this.value);
         } else if (this.type == 11) {
-            return visitor.visit((WebhookSanctionsStatusDetails) this.value);
+            return visitor.visit((BatchCompletedDetails) this.value);
         } else if (this.type == 12) {
+            return visitor.visit((WebhookPepStatusDetails) this.value);
+        } else if (this.type == 13) {
+            return visitor.visit((WebhookSanctionsStatusDetails) this.value);
+        } else if (this.type == 14) {
             return visitor.visit((WebhookAdverseMediaStatusDetails) this.value);
         }
         throw new IllegalStateException("Failed to visit value. This should never happen.");
@@ -112,24 +116,32 @@ public final class WebhookEventData {
         return new WebhookEventData(value, 7);
     }
 
-    public static WebhookEventData of(CraRiskLevelUpdatedDetails value) {
+    public static WebhookEventData of(CaseTagsUpdate value) {
         return new WebhookEventData(value, 8);
     }
 
-    public static WebhookEventData of(BatchCompletedDetails value) {
+    public static WebhookEventData of(AlertTagsUpdate value) {
         return new WebhookEventData(value, 9);
     }
 
-    public static WebhookEventData of(WebhookPepStatusDetails value) {
+    public static WebhookEventData of(CraRiskLevelUpdatedDetails value) {
         return new WebhookEventData(value, 10);
     }
 
-    public static WebhookEventData of(WebhookSanctionsStatusDetails value) {
+    public static WebhookEventData of(BatchCompletedDetails value) {
         return new WebhookEventData(value, 11);
     }
 
-    public static WebhookEventData of(WebhookAdverseMediaStatusDetails value) {
+    public static WebhookEventData of(WebhookPepStatusDetails value) {
         return new WebhookEventData(value, 12);
+    }
+
+    public static WebhookEventData of(WebhookSanctionsStatusDetails value) {
+        return new WebhookEventData(value, 13);
+    }
+
+    public static WebhookEventData of(WebhookAdverseMediaStatusDetails value) {
+        return new WebhookEventData(value, 14);
     }
 
     public interface Visitor<T> {
@@ -148,6 +160,10 @@ public final class WebhookEventData {
         T visit(KycStatusDetails value);
 
         T visit(UserTagsUpdate value);
+
+        T visit(CaseTagsUpdate value);
+
+        T visit(AlertTagsUpdate value);
 
         T visit(CraRiskLevelUpdatedDetails value);
 
@@ -198,6 +214,14 @@ public final class WebhookEventData {
             }
             try {
                 return of(ObjectMappers.JSON_MAPPER.convertValue(value, UserTagsUpdate.class));
+            } catch (IllegalArgumentException e) {
+            }
+            try {
+                return of(ObjectMappers.JSON_MAPPER.convertValue(value, CaseTagsUpdate.class));
+            } catch (IllegalArgumentException e) {
+            }
+            try {
+                return of(ObjectMappers.JSON_MAPPER.convertValue(value, AlertTagsUpdate.class));
             } catch (IllegalArgumentException e) {
             }
             try {

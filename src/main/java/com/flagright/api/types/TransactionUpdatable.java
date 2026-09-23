@@ -53,6 +53,8 @@ public final class TransactionUpdatable {
 
     private final Optional<List<String>> externalLinks;
 
+    private final Optional<Map<String, Object>> customObject;
+
     private final Map<String, Object> additionalProperties;
 
     private TransactionUpdatable(
@@ -72,6 +74,7 @@ public final class TransactionUpdatable {
             Optional<List<Tag>> tags,
             Optional<String> jurisdiction,
             Optional<List<String>> externalLinks,
+            Optional<Map<String, Object>> customObject,
             Map<String, Object> additionalProperties) {
         this.originAmountDetails = originAmountDetails;
         this.destinationAmountDetails = destinationAmountDetails;
@@ -89,6 +92,7 @@ public final class TransactionUpdatable {
         this.tags = tags;
         this.jurisdiction = jurisdiction;
         this.externalLinks = externalLinks;
+        this.customObject = customObject;
         this.additionalProperties = additionalProperties;
     }
 
@@ -196,6 +200,14 @@ public final class TransactionUpdatable {
         return externalLinks;
     }
 
+    /**
+     * @return Typed Object defined on the console for additional data
+     */
+    @JsonProperty("customObject")
+    public Optional<Map<String, Object>> getCustomObject() {
+        return customObject;
+    }
+
     @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
@@ -223,7 +235,8 @@ public final class TransactionUpdatable {
                 && metadata.equals(other.metadata)
                 && tags.equals(other.tags)
                 && jurisdiction.equals(other.jurisdiction)
-                && externalLinks.equals(other.externalLinks);
+                && externalLinks.equals(other.externalLinks)
+                && customObject.equals(other.customObject);
     }
 
     @java.lang.Override
@@ -244,7 +257,8 @@ public final class TransactionUpdatable {
                 this.metadata,
                 this.tags,
                 this.jurisdiction,
-                this.externalLinks);
+                this.externalLinks,
+                this.customObject);
     }
 
     @java.lang.Override
@@ -290,6 +304,8 @@ public final class TransactionUpdatable {
 
         private Optional<List<String>> externalLinks = Optional.empty();
 
+        private Optional<Map<String, Object>> customObject = Optional.empty();
+
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
 
@@ -312,6 +328,7 @@ public final class TransactionUpdatable {
             tags(other.getTags());
             jurisdiction(other.getJurisdiction());
             externalLinks(other.getExternalLinks());
+            customObject(other.getCustomObject());
             return this;
         }
 
@@ -493,6 +510,17 @@ public final class TransactionUpdatable {
             return this;
         }
 
+        @JsonSetter(value = "customObject", nulls = Nulls.SKIP)
+        public Builder customObject(Optional<Map<String, Object>> customObject) {
+            this.customObject = customObject;
+            return this;
+        }
+
+        public Builder customObject(Map<String, Object> customObject) {
+            this.customObject = Optional.ofNullable(customObject);
+            return this;
+        }
+
         public TransactionUpdatable build() {
             return new TransactionUpdatable(
                     originAmountDetails,
@@ -511,6 +539,7 @@ public final class TransactionUpdatable {
                     tags,
                     jurisdiction,
                     externalLinks,
+                    customObject,
                     additionalProperties);
         }
     }

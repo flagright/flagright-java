@@ -4,6 +4,7 @@
 package com.flagright.api.types;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 public interface IUserWithRulesResult {
@@ -74,6 +75,8 @@ public interface IUserWithRulesResult {
     Optional<List<ProductsEnabled>> getProductsEnabled();
 
     Optional<List<String>> getExternalLinks();
+
+    Optional<Map<String, Object>> getCustomObject();
 
     Optional<List<ExecutedRulesResult>> getExecutedRules();
 

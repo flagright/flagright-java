@@ -67,6 +67,8 @@ public final class TransactionWithRulesResult {
 
     private final Optional<List<String>> externalLinks;
 
+    private final Optional<Map<String, Object>> customObject;
+
     private final List<ExecutedRulesResult> executedRules;
 
     private final List<HitRulesDetails> hitRules;
@@ -100,6 +102,7 @@ public final class TransactionWithRulesResult {
             Optional<List<Tag>> tags,
             Optional<String> jurisdiction,
             Optional<List<String>> externalLinks,
+            Optional<Map<String, Object>> customObject,
             List<ExecutedRulesResult> executedRules,
             List<HitRulesDetails> hitRules,
             RuleAction status,
@@ -127,6 +130,7 @@ public final class TransactionWithRulesResult {
         this.tags = tags;
         this.jurisdiction = jurisdiction;
         this.externalLinks = externalLinks;
+        this.customObject = customObject;
         this.executedRules = executedRules;
         this.hitRules = hitRules;
         this.status = status;
@@ -283,6 +287,14 @@ public final class TransactionWithRulesResult {
         return externalLinks;
     }
 
+    /**
+     * @return Typed Object defined on the console for additional data
+     */
+    @JsonProperty("customObject")
+    public Optional<Map<String, Object>> getCustomObject() {
+        return customObject;
+    }
+
     @JsonProperty("executedRules")
     public List<ExecutedRulesResult> getExecutedRules() {
         return executedRules;
@@ -337,6 +349,7 @@ public final class TransactionWithRulesResult {
                 && tags.equals(other.tags)
                 && jurisdiction.equals(other.jurisdiction)
                 && externalLinks.equals(other.externalLinks)
+                && customObject.equals(other.customObject)
                 && executedRules.equals(other.executedRules)
                 && hitRules.equals(other.hitRules)
                 && status.equals(other.status)
@@ -368,6 +381,7 @@ public final class TransactionWithRulesResult {
                 this.tags,
                 this.jurisdiction,
                 this.externalLinks,
+                this.customObject,
                 this.executedRules,
                 this.hitRules,
                 this.status,
@@ -482,6 +496,10 @@ public final class TransactionWithRulesResult {
 
         _FinalStage externalLinks(List<String> externalLinks);
 
+        _FinalStage customObject(Optional<Map<String, Object>> customObject);
+
+        _FinalStage customObject(Map<String, Object> customObject);
+
         _FinalStage executedRules(List<ExecutedRulesResult> executedRules);
 
         _FinalStage addExecutedRules(ExecutedRulesResult executedRules);
@@ -515,6 +533,8 @@ public final class TransactionWithRulesResult {
         private List<HitRulesDetails> hitRules = new ArrayList<>();
 
         private List<ExecutedRulesResult> executedRules = new ArrayList<>();
+
+        private Optional<Map<String, Object>> customObject = Optional.empty();
 
         private Optional<List<String>> externalLinks = Optional.empty();
 
@@ -584,6 +604,7 @@ public final class TransactionWithRulesResult {
             tags(other.getTags());
             jurisdiction(other.getJurisdiction());
             externalLinks(other.getExternalLinks());
+            customObject(other.getCustomObject());
             executedRules(other.getExecutedRules());
             hitRules(other.getHitRules());
             status(other.getStatus());
@@ -681,6 +702,23 @@ public final class TransactionWithRulesResult {
         public _FinalStage executedRules(List<ExecutedRulesResult> executedRules) {
             this.executedRules.clear();
             this.executedRules.addAll(executedRules);
+            return this;
+        }
+
+        /**
+         * <p>Typed Object defined on the console for additional data</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
+        @java.lang.Override
+        public _FinalStage customObject(Map<String, Object> customObject) {
+            this.customObject = Optional.ofNullable(customObject);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "customObject", nulls = Nulls.SKIP)
+        public _FinalStage customObject(Optional<Map<String, Object>> customObject) {
+            this.customObject = customObject;
             return this;
         }
 
@@ -999,6 +1037,7 @@ public final class TransactionWithRulesResult {
                     tags,
                     jurisdiction,
                     externalLinks,
+                    customObject,
                     executedRules,
                     hitRules,
                     status,

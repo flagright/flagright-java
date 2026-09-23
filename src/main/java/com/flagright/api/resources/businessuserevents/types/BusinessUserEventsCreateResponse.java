@@ -109,6 +109,8 @@ public final class BusinessUserEventsCreateResponse implements IBusinessWithRule
 
     private final Optional<List<String>> externalLinks;
 
+    private final Optional<Map<String, Object>> customObject;
+
     private final Optional<List<ExecutedRulesResult>> executedRules;
 
     private final Optional<List<HitRulesDetails>> hitRules;
@@ -151,6 +153,7 @@ public final class BusinessUserEventsCreateResponse implements IBusinessWithRule
             Optional<Boolean> sanctionsStatus,
             Optional<Boolean> adverseMediaStatus,
             Optional<List<String>> externalLinks,
+            Optional<Map<String, Object>> customObject,
             Optional<List<ExecutedRulesResult>> executedRules,
             Optional<List<HitRulesDetails>> hitRules,
             Optional<UserRiskScoreDetails> riskScoreDetails,
@@ -187,6 +190,7 @@ public final class BusinessUserEventsCreateResponse implements IBusinessWithRule
         this.sanctionsStatus = sanctionsStatus;
         this.adverseMediaStatus = adverseMediaStatus;
         this.externalLinks = externalLinks;
+        this.customObject = customObject;
         this.executedRules = executedRules;
         this.hitRules = hitRules;
         this.riskScoreDetails = riskScoreDetails;
@@ -419,6 +423,15 @@ public final class BusinessUserEventsCreateResponse implements IBusinessWithRule
         return externalLinks;
     }
 
+    /**
+     * @return Typed Object defined on the console for additional data
+     */
+    @JsonProperty("customObject")
+    @java.lang.Override
+    public Optional<Map<String, Object>> getCustomObject() {
+        return customObject;
+    }
+
     @JsonProperty("executedRules")
     @java.lang.Override
     public Optional<List<ExecutedRulesResult>> getExecutedRules() {
@@ -485,6 +498,7 @@ public final class BusinessUserEventsCreateResponse implements IBusinessWithRule
                 && sanctionsStatus.equals(other.sanctionsStatus)
                 && adverseMediaStatus.equals(other.adverseMediaStatus)
                 && externalLinks.equals(other.externalLinks)
+                && customObject.equals(other.customObject)
                 && executedRules.equals(other.executedRules)
                 && hitRules.equals(other.hitRules)
                 && riskScoreDetails.equals(other.riskScoreDetails)
@@ -525,6 +539,7 @@ public final class BusinessUserEventsCreateResponse implements IBusinessWithRule
                 this.sanctionsStatus,
                 this.adverseMediaStatus,
                 this.externalLinks,
+                this.customObject,
                 this.executedRules,
                 this.hitRules,
                 this.riskScoreDetails,
@@ -671,6 +686,10 @@ public final class BusinessUserEventsCreateResponse implements IBusinessWithRule
 
         _FinalStage externalLinks(List<String> externalLinks);
 
+        _FinalStage customObject(Optional<Map<String, Object>> customObject);
+
+        _FinalStage customObject(Map<String, Object> customObject);
+
         _FinalStage executedRules(Optional<List<ExecutedRulesResult>> executedRules);
 
         _FinalStage executedRules(List<ExecutedRulesResult> executedRules);
@@ -703,6 +722,8 @@ public final class BusinessUserEventsCreateResponse implements IBusinessWithRule
         private Optional<List<HitRulesDetails>> hitRules = Optional.empty();
 
         private Optional<List<ExecutedRulesResult>> executedRules = Optional.empty();
+
+        private Optional<Map<String, Object>> customObject = Optional.empty();
 
         private Optional<List<String>> externalLinks = Optional.empty();
 
@@ -798,6 +819,7 @@ public final class BusinessUserEventsCreateResponse implements IBusinessWithRule
             sanctionsStatus(other.getSanctionsStatus());
             adverseMediaStatus(other.getAdverseMediaStatus());
             externalLinks(other.getExternalLinks());
+            customObject(other.getCustomObject());
             executedRules(other.getExecutedRules());
             hitRules(other.getHitRules());
             riskScoreDetails(other.getRiskScoreDetails());
@@ -883,6 +905,23 @@ public final class BusinessUserEventsCreateResponse implements IBusinessWithRule
         @JsonSetter(value = "executedRules", nulls = Nulls.SKIP)
         public _FinalStage executedRules(Optional<List<ExecutedRulesResult>> executedRules) {
             this.executedRules = executedRules;
+            return this;
+        }
+
+        /**
+         * <p>Typed Object defined on the console for additional data</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
+        @java.lang.Override
+        public _FinalStage customObject(Map<String, Object> customObject) {
+            this.customObject = Optional.ofNullable(customObject);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "customObject", nulls = Nulls.SKIP)
+        public _FinalStage customObject(Optional<Map<String, Object>> customObject) {
+            this.customObject = customObject;
             return this;
         }
 
@@ -1337,6 +1376,7 @@ public final class BusinessUserEventsCreateResponse implements IBusinessWithRule
                     sanctionsStatus,
                     adverseMediaStatus,
                     externalLinks,
+                    customObject,
                     executedRules,
                     hitRules,
                     riskScoreDetails,

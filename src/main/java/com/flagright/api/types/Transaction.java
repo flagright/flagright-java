@@ -66,6 +66,8 @@ public final class Transaction {
 
     private final Optional<List<String>> externalLinks;
 
+    private final Optional<Map<String, Object>> customObject;
+
     private final Map<String, Object> additionalProperties;
 
     private Transaction(
@@ -91,6 +93,7 @@ public final class Transaction {
             Optional<List<Tag>> tags,
             Optional<String> jurisdiction,
             Optional<List<String>> externalLinks,
+            Optional<Map<String, Object>> customObject,
             Map<String, Object> additionalProperties) {
         this.type = type;
         this.transactionId = transactionId;
@@ -114,6 +117,7 @@ public final class Transaction {
         this.tags = tags;
         this.jurisdiction = jurisdiction;
         this.externalLinks = externalLinks;
+        this.customObject = customObject;
         this.additionalProperties = additionalProperties;
     }
 
@@ -266,6 +270,14 @@ public final class Transaction {
         return externalLinks;
     }
 
+    /**
+     * @return Typed Object defined on the console for additional data
+     */
+    @JsonProperty("customObject")
+    public Optional<Map<String, Object>> getCustomObject() {
+        return customObject;
+    }
+
     @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
@@ -299,7 +311,8 @@ public final class Transaction {
                 && metadata.equals(other.metadata)
                 && tags.equals(other.tags)
                 && jurisdiction.equals(other.jurisdiction)
-                && externalLinks.equals(other.externalLinks);
+                && externalLinks.equals(other.externalLinks)
+                && customObject.equals(other.customObject);
     }
 
     @java.lang.Override
@@ -326,7 +339,8 @@ public final class Transaction {
                 this.metadata,
                 this.tags,
                 this.jurisdiction,
-                this.externalLinks);
+                this.externalLinks,
+                this.customObject);
     }
 
     @java.lang.Override
@@ -430,6 +444,10 @@ public final class Transaction {
         _FinalStage externalLinks(Optional<List<String>> externalLinks);
 
         _FinalStage externalLinks(List<String> externalLinks);
+
+        _FinalStage customObject(Optional<Map<String, Object>> customObject);
+
+        _FinalStage customObject(Map<String, Object> customObject);
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
@@ -439,6 +457,8 @@ public final class Transaction {
         private String transactionId;
 
         private double timestamp;
+
+        private Optional<Map<String, Object>> customObject = Optional.empty();
 
         private Optional<List<String>> externalLinks = Optional.empty();
 
@@ -507,6 +527,7 @@ public final class Transaction {
             tags(other.getTags());
             jurisdiction(other.getJurisdiction());
             externalLinks(other.getExternalLinks());
+            customObject(other.getCustomObject());
             return this;
         }
 
@@ -540,6 +561,23 @@ public final class Transaction {
         @JsonSetter("timestamp")
         public _FinalStage timestamp(double timestamp) {
             this.timestamp = timestamp;
+            return this;
+        }
+
+        /**
+         * <p>Typed Object defined on the console for additional data</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
+        @java.lang.Override
+        public _FinalStage customObject(Map<String, Object> customObject) {
+            this.customObject = Optional.ofNullable(customObject);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "customObject", nulls = Nulls.SKIP)
+        public _FinalStage customObject(Optional<Map<String, Object>> customObject) {
+            this.customObject = customObject;
             return this;
         }
 
@@ -856,6 +894,7 @@ public final class Transaction {
                     tags,
                     jurisdiction,
                     externalLinks,
+                    customObject,
                     additionalProperties);
         }
     }

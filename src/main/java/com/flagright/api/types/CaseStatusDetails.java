@@ -35,6 +35,8 @@ public final class CaseStatusDetails {
 
     private final Optional<String> userId;
 
+    private final Optional<UserType> userType;
+
     private final Optional<List<String>> transactionIds;
 
     private final Optional<String> caseGroupId;
@@ -53,6 +55,7 @@ public final class CaseStatusDetails {
             Optional<String> reasonDescriptionForOther,
             Optional<String> comment,
             Optional<String> userId,
+            Optional<UserType> userType,
             Optional<List<String>> transactionIds,
             Optional<String> caseGroupId,
             Optional<String> caseGroupName,
@@ -65,6 +68,7 @@ public final class CaseStatusDetails {
         this.reasonDescriptionForOther = reasonDescriptionForOther;
         this.comment = comment;
         this.userId = userId;
+        this.userType = userType;
         this.transactionIds = transactionIds;
         this.caseGroupId = caseGroupId;
         this.caseGroupName = caseGroupName;
@@ -105,6 +109,11 @@ public final class CaseStatusDetails {
     @JsonProperty("userId")
     public Optional<String> getUserId() {
         return userId;
+    }
+
+    @JsonProperty("userType")
+    public Optional<UserType> getUserType() {
+        return userType;
     }
 
     @JsonProperty("transactionIds")
@@ -155,6 +164,7 @@ public final class CaseStatusDetails {
                 && reasonDescriptionForOther.equals(other.reasonDescriptionForOther)
                 && comment.equals(other.comment)
                 && userId.equals(other.userId)
+                && userType.equals(other.userType)
                 && transactionIds.equals(other.transactionIds)
                 && caseGroupId.equals(other.caseGroupId)
                 && caseGroupName.equals(other.caseGroupName)
@@ -171,6 +181,7 @@ public final class CaseStatusDetails {
                 this.reasonDescriptionForOther,
                 this.comment,
                 this.userId,
+                this.userType,
                 this.transactionIds,
                 this.caseGroupId,
                 this.caseGroupName,
@@ -202,6 +213,8 @@ public final class CaseStatusDetails {
 
         private Optional<String> userId = Optional.empty();
 
+        private Optional<UserType> userType = Optional.empty();
+
         private Optional<List<String>> transactionIds = Optional.empty();
 
         private Optional<String> caseGroupId = Optional.empty();
@@ -223,6 +236,7 @@ public final class CaseStatusDetails {
             reasonDescriptionForOther(other.getReasonDescriptionForOther());
             comment(other.getComment());
             userId(other.getUserId());
+            userType(other.getUserType());
             transactionIds(other.getTransactionIds());
             caseGroupId(other.getCaseGroupId());
             caseGroupName(other.getCaseGroupName());
@@ -307,6 +321,17 @@ public final class CaseStatusDetails {
             return this;
         }
 
+        @JsonSetter(value = "userType", nulls = Nulls.SKIP)
+        public Builder userType(Optional<UserType> userType) {
+            this.userType = userType;
+            return this;
+        }
+
+        public Builder userType(UserType userType) {
+            this.userType = Optional.ofNullable(userType);
+            return this;
+        }
+
         @JsonSetter(value = "transactionIds", nulls = Nulls.SKIP)
         public Builder transactionIds(Optional<List<String>> transactionIds) {
             this.transactionIds = transactionIds;
@@ -360,6 +385,7 @@ public final class CaseStatusDetails {
                     reasonDescriptionForOther,
                     comment,
                     userId,
+                    userType,
                     transactionIds,
                     caseGroupId,
                     caseGroupName,

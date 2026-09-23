@@ -84,6 +84,8 @@ public final class Business {
 
     private final Optional<List<String>> externalLinks;
 
+    private final Optional<Map<String, Object>> customObject;
+
     private final Map<String, Object> additionalProperties;
 
     private Business(
@@ -118,6 +120,7 @@ public final class Business {
             Optional<Boolean> sanctionsStatus,
             Optional<Boolean> adverseMediaStatus,
             Optional<List<String>> externalLinks,
+            Optional<Map<String, Object>> customObject,
             Map<String, Object> additionalProperties) {
         this.userId = userId;
         this.createdTimestamp = createdTimestamp;
@@ -150,6 +153,7 @@ public final class Business {
         this.sanctionsStatus = sanctionsStatus;
         this.adverseMediaStatus = adverseMediaStatus;
         this.externalLinks = externalLinks;
+        this.customObject = customObject;
         this.additionalProperties = additionalProperties;
     }
 
@@ -350,6 +354,14 @@ public final class Business {
         return externalLinks;
     }
 
+    /**
+     * @return Typed Object defined on the console for additional data
+     */
+    @JsonProperty("customObject")
+    public Optional<Map<String, Object>> getCustomObject() {
+        return customObject;
+    }
+
     @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
@@ -392,7 +404,8 @@ public final class Business {
                 && pepStatus.equals(other.pepStatus)
                 && sanctionsStatus.equals(other.sanctionsStatus)
                 && adverseMediaStatus.equals(other.adverseMediaStatus)
-                && externalLinks.equals(other.externalLinks);
+                && externalLinks.equals(other.externalLinks)
+                && customObject.equals(other.customObject);
     }
 
     @java.lang.Override
@@ -428,7 +441,8 @@ public final class Business {
                 this.pepStatus,
                 this.sanctionsStatus,
                 this.adverseMediaStatus,
-                this.externalLinks);
+                this.externalLinks,
+                this.customObject);
     }
 
     @java.lang.Override
@@ -569,6 +583,10 @@ public final class Business {
         _FinalStage externalLinks(Optional<List<String>> externalLinks);
 
         _FinalStage externalLinks(List<String> externalLinks);
+
+        _FinalStage customObject(Optional<Map<String, Object>> customObject);
+
+        _FinalStage customObject(Map<String, Object> customObject);
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
@@ -578,6 +596,8 @@ public final class Business {
         private double createdTimestamp;
 
         private LegalEntity legalEntity;
+
+        private Optional<Map<String, Object>> customObject = Optional.empty();
 
         private Optional<List<String>> externalLinks = Optional.empty();
 
@@ -673,6 +693,7 @@ public final class Business {
             sanctionsStatus(other.getSanctionsStatus());
             adverseMediaStatus(other.getAdverseMediaStatus());
             externalLinks(other.getExternalLinks());
+            customObject(other.getCustomObject());
             return this;
         }
 
@@ -702,6 +723,23 @@ public final class Business {
         @JsonSetter("legalEntity")
         public _FinalStage legalEntity(@NotNull LegalEntity legalEntity) {
             this.legalEntity = Objects.requireNonNull(legalEntity, "legalEntity must not be null");
+            return this;
+        }
+
+        /**
+         * <p>Typed Object defined on the console for additional data</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
+        @java.lang.Override
+        public _FinalStage customObject(Map<String, Object> customObject) {
+            this.customObject = Optional.ofNullable(customObject);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "customObject", nulls = Nulls.SKIP)
+        public _FinalStage customObject(Optional<Map<String, Object>> customObject) {
+            this.customObject = customObject;
             return this;
         }
 
@@ -1153,6 +1191,7 @@ public final class Business {
                     sanctionsStatus,
                     adverseMediaStatus,
                     externalLinks,
+                    customObject,
                     additionalProperties);
         }
     }
