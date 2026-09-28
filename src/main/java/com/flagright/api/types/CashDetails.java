@@ -13,6 +13,7 @@ import com.fasterxml.jackson.annotation.Nulls;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.flagright.api.core.ObjectMappers;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
@@ -30,6 +31,10 @@ public final class CashDetails {
 
     private final Optional<String> emailId;
 
+    private final Optional<Amount> accountBalance;
+
+    private final Optional<List<Tag>> tags;
+
     private final Map<String, Object> additionalProperties;
 
     private CashDetails(
@@ -38,12 +43,16 @@ public final class CashDetails {
             Optional<Address> address,
             Optional<String> name,
             Optional<String> emailId,
+            Optional<Amount> accountBalance,
+            Optional<List<Tag>> tags,
             Map<String, Object> additionalProperties) {
         this.counterpartyType = counterpartyType;
         this.identifier = identifier;
         this.address = address;
         this.name = name;
         this.emailId = emailId;
+        this.accountBalance = accountBalance;
+        this.tags = tags;
         this.additionalProperties = additionalProperties;
     }
 
@@ -75,6 +84,19 @@ public final class CashDetails {
         return emailId;
     }
 
+    @JsonProperty("accountBalance")
+    public Optional<Amount> getAccountBalance() {
+        return accountBalance;
+    }
+
+    /**
+     * @return Additional information that can be added via tags
+     */
+    @JsonProperty("tags")
+    public Optional<List<Tag>> getTags() {
+        return tags;
+    }
+
     @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
@@ -91,12 +113,21 @@ public final class CashDetails {
                 && identifier.equals(other.identifier)
                 && address.equals(other.address)
                 && name.equals(other.name)
-                && emailId.equals(other.emailId);
+                && emailId.equals(other.emailId)
+                && accountBalance.equals(other.accountBalance)
+                && tags.equals(other.tags);
     }
 
     @java.lang.Override
     public int hashCode() {
-        return Objects.hash(this.counterpartyType, this.identifier, this.address, this.name, this.emailId);
+        return Objects.hash(
+                this.counterpartyType,
+                this.identifier,
+                this.address,
+                this.name,
+                this.emailId,
+                this.accountBalance,
+                this.tags);
     }
 
     @java.lang.Override
@@ -120,6 +151,10 @@ public final class CashDetails {
 
         private Optional<String> emailId = Optional.empty();
 
+        private Optional<Amount> accountBalance = Optional.empty();
+
+        private Optional<List<Tag>> tags = Optional.empty();
+
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
 
@@ -131,6 +166,8 @@ public final class CashDetails {
             address(other.getAddress());
             name(other.getName());
             emailId(other.getEmailId());
+            accountBalance(other.getAccountBalance());
+            tags(other.getTags());
             return this;
         }
 
@@ -189,8 +226,31 @@ public final class CashDetails {
             return this;
         }
 
+        @JsonSetter(value = "accountBalance", nulls = Nulls.SKIP)
+        public Builder accountBalance(Optional<Amount> accountBalance) {
+            this.accountBalance = accountBalance;
+            return this;
+        }
+
+        public Builder accountBalance(Amount accountBalance) {
+            this.accountBalance = Optional.ofNullable(accountBalance);
+            return this;
+        }
+
+        @JsonSetter(value = "tags", nulls = Nulls.SKIP)
+        public Builder tags(Optional<List<Tag>> tags) {
+            this.tags = tags;
+            return this;
+        }
+
+        public Builder tags(List<Tag> tags) {
+            this.tags = Optional.ofNullable(tags);
+            return this;
+        }
+
         public CashDetails build() {
-            return new CashDetails(counterpartyType, identifier, address, name, emailId, additionalProperties);
+            return new CashDetails(
+                    counterpartyType, identifier, address, name, emailId, accountBalance, tags, additionalProperties);
         }
     }
 }
