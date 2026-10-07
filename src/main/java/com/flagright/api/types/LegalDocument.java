@@ -36,6 +36,8 @@ public final class LegalDocument {
 
     private final Optional<ConsumerName> nameOnDocument;
 
+    private final Optional<String> documentIssuedState;
+
     private final Map<String, Object> additionalProperties;
 
     private LegalDocument(
@@ -46,6 +48,7 @@ public final class LegalDocument {
             Optional<CountryCode> documentIssuedCountry,
             Optional<List<Tag>> tags,
             Optional<ConsumerName> nameOnDocument,
+            Optional<String> documentIssuedState,
             Map<String, Object> additionalProperties) {
         this.documentType = documentType;
         this.documentNumber = documentNumber;
@@ -54,6 +57,7 @@ public final class LegalDocument {
         this.documentIssuedCountry = documentIssuedCountry;
         this.tags = tags;
         this.nameOnDocument = nameOnDocument;
+        this.documentIssuedState = documentIssuedState;
         this.additionalProperties = additionalProperties;
     }
 
@@ -107,6 +111,14 @@ public final class LegalDocument {
         return nameOnDocument;
     }
 
+    /**
+     * @return State or province that issued the user's identity document
+     */
+    @JsonProperty("documentIssuedState")
+    public Optional<String> getDocumentIssuedState() {
+        return documentIssuedState;
+    }
+
     @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
@@ -125,7 +137,8 @@ public final class LegalDocument {
                 && documentExpirationDate.equals(other.documentExpirationDate)
                 && documentIssuedCountry.equals(other.documentIssuedCountry)
                 && tags.equals(other.tags)
-                && nameOnDocument.equals(other.nameOnDocument);
+                && nameOnDocument.equals(other.nameOnDocument)
+                && documentIssuedState.equals(other.documentIssuedState);
     }
 
     @java.lang.Override
@@ -137,7 +150,8 @@ public final class LegalDocument {
                 this.documentExpirationDate,
                 this.documentIssuedCountry,
                 this.tags,
-                this.nameOnDocument);
+                this.nameOnDocument,
+                this.documentIssuedState);
     }
 
     @java.lang.Override
@@ -181,6 +195,10 @@ public final class LegalDocument {
         _FinalStage nameOnDocument(Optional<ConsumerName> nameOnDocument);
 
         _FinalStage nameOnDocument(ConsumerName nameOnDocument);
+
+        _FinalStage documentIssuedState(Optional<String> documentIssuedState);
+
+        _FinalStage documentIssuedState(String documentIssuedState);
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
@@ -188,6 +206,8 @@ public final class LegalDocument {
         private String documentType;
 
         private String documentNumber;
+
+        private Optional<String> documentIssuedState = Optional.empty();
 
         private Optional<ConsumerName> nameOnDocument = Optional.empty();
 
@@ -213,6 +233,7 @@ public final class LegalDocument {
             documentIssuedCountry(other.getDocumentIssuedCountry());
             tags(other.getTags());
             nameOnDocument(other.getNameOnDocument());
+            documentIssuedState(other.getDocumentIssuedState());
             return this;
         }
 
@@ -235,6 +256,23 @@ public final class LegalDocument {
         @JsonSetter("documentNumber")
         public _FinalStage documentNumber(@NotNull String documentNumber) {
             this.documentNumber = Objects.requireNonNull(documentNumber, "documentNumber must not be null");
+            return this;
+        }
+
+        /**
+         * <p>State or province that issued the user's identity document</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
+        @java.lang.Override
+        public _FinalStage documentIssuedState(String documentIssuedState) {
+            this.documentIssuedState = Optional.ofNullable(documentIssuedState);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "documentIssuedState", nulls = Nulls.SKIP)
+        public _FinalStage documentIssuedState(Optional<String> documentIssuedState) {
+            this.documentIssuedState = documentIssuedState;
             return this;
         }
 
@@ -325,6 +363,7 @@ public final class LegalDocument {
                     documentIssuedCountry,
                     tags,
                     nameOnDocument,
+                    documentIssuedState,
                     additionalProperties);
         }
     }
