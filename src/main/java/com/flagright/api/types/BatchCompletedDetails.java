@@ -9,11 +9,13 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import com.fasterxml.jackson.annotation.Nulls;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.flagright.api.core.ObjectMappers;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Optional;
 import org.jetbrains.annotations.NotNull;
 
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
@@ -22,6 +24,8 @@ public final class BatchCompletedDetails {
     private final String batchId;
 
     private final BatchCompletedDetailsType type;
+
+    private final Optional<UserType> userType;
 
     private final int totalCount;
 
@@ -36,6 +40,7 @@ public final class BatchCompletedDetails {
     private BatchCompletedDetails(
             String batchId,
             BatchCompletedDetailsType type,
+            Optional<UserType> userType,
             int totalCount,
             int processedCount,
             int createdAt,
@@ -43,6 +48,7 @@ public final class BatchCompletedDetails {
             Map<String, Object> additionalProperties) {
         this.batchId = batchId;
         this.type = type;
+        this.userType = userType;
         this.totalCount = totalCount;
         this.processedCount = processedCount;
         this.createdAt = createdAt;
@@ -64,6 +70,11 @@ public final class BatchCompletedDetails {
     @JsonProperty("type")
     public BatchCompletedDetailsType getType() {
         return type;
+    }
+
+    @JsonProperty("userType")
+    public Optional<UserType> getUserType() {
+        return userType;
     }
 
     /**
@@ -117,6 +128,7 @@ public final class BatchCompletedDetails {
     private boolean equalTo(BatchCompletedDetails other) {
         return batchId.equals(other.batchId)
                 && type.equals(other.type)
+                && userType.equals(other.userType)
                 && totalCount == other.totalCount
                 && processedCount == other.processedCount
                 && createdAt == other.createdAt
@@ -126,7 +138,13 @@ public final class BatchCompletedDetails {
     @java.lang.Override
     public int hashCode() {
         return Objects.hash(
-                this.batchId, this.type, this.totalCount, this.processedCount, this.createdAt, this.completedAt);
+                this.batchId,
+                this.type,
+                this.userType,
+                this.totalCount,
+                this.processedCount,
+                this.createdAt,
+                this.completedAt);
     }
 
     @java.lang.Override
@@ -166,6 +184,10 @@ public final class BatchCompletedDetails {
 
     public interface _FinalStage {
         BatchCompletedDetails build();
+
+        _FinalStage userType(Optional<UserType> userType);
+
+        _FinalStage userType(UserType userType);
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
@@ -189,6 +211,8 @@ public final class BatchCompletedDetails {
 
         private int completedAt;
 
+        private Optional<UserType> userType = Optional.empty();
+
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
 
@@ -198,6 +222,7 @@ public final class BatchCompletedDetails {
         public Builder from(BatchCompletedDetails other) {
             batchId(other.getBatchId());
             type(other.getType());
+            userType(other.getUserType());
             totalCount(other.getTotalCount());
             processedCount(other.getProcessedCount());
             createdAt(other.getCreatedAt());
@@ -272,9 +297,22 @@ public final class BatchCompletedDetails {
         }
 
         @java.lang.Override
+        public _FinalStage userType(UserType userType) {
+            this.userType = Optional.ofNullable(userType);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "userType", nulls = Nulls.SKIP)
+        public _FinalStage userType(Optional<UserType> userType) {
+            this.userType = userType;
+            return this;
+        }
+
+        @java.lang.Override
         public BatchCompletedDetails build() {
             return new BatchCompletedDetails(
-                    batchId, type, totalCount, processedCount, createdAt, completedAt, additionalProperties);
+                    batchId, type, userType, totalCount, processedCount, createdAt, completedAt, additionalProperties);
         }
     }
 }

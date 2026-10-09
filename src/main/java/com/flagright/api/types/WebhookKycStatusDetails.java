@@ -27,16 +27,20 @@ public final class WebhookKycStatusDetails {
 
     private final String userId;
 
+    private final Optional<UserType> userType;
+
     private final Map<String, Object> additionalProperties;
 
     private WebhookKycStatusDetails(
             Optional<String> reason,
             Optional<KycStatus> status,
             String userId,
+            Optional<UserType> userType,
             Map<String, Object> additionalProperties) {
         this.reason = reason;
         this.status = status;
         this.userId = userId;
+        this.userType = userType;
         this.additionalProperties = additionalProperties;
     }
 
@@ -55,6 +59,11 @@ public final class WebhookKycStatusDetails {
         return userId;
     }
 
+    @JsonProperty("userType")
+    public Optional<UserType> getUserType() {
+        return userType;
+    }
+
     @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
@@ -67,12 +76,15 @@ public final class WebhookKycStatusDetails {
     }
 
     private boolean equalTo(WebhookKycStatusDetails other) {
-        return reason.equals(other.reason) && status.equals(other.status) && userId.equals(other.userId);
+        return reason.equals(other.reason)
+                && status.equals(other.status)
+                && userId.equals(other.userId)
+                && userType.equals(other.userType);
     }
 
     @java.lang.Override
     public int hashCode() {
-        return Objects.hash(this.reason, this.status, this.userId);
+        return Objects.hash(this.reason, this.status, this.userId, this.userType);
     }
 
     @java.lang.Override
@@ -100,11 +112,17 @@ public final class WebhookKycStatusDetails {
         _FinalStage status(Optional<KycStatus> status);
 
         _FinalStage status(KycStatus status);
+
+        _FinalStage userType(Optional<UserType> userType);
+
+        _FinalStage userType(UserType userType);
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static final class Builder implements UserIdStage, _FinalStage {
         private String userId;
+
+        private Optional<UserType> userType = Optional.empty();
 
         private Optional<KycStatus> status = Optional.empty();
 
@@ -120,6 +138,7 @@ public final class WebhookKycStatusDetails {
             reason(other.getReason());
             status(other.getStatus());
             userId(other.getUserId());
+            userType(other.getUserType());
             return this;
         }
 
@@ -127,6 +146,19 @@ public final class WebhookKycStatusDetails {
         @JsonSetter("userId")
         public _FinalStage userId(@NotNull String userId) {
             this.userId = Objects.requireNonNull(userId, "userId must not be null");
+            return this;
+        }
+
+        @java.lang.Override
+        public _FinalStage userType(UserType userType) {
+            this.userType = Optional.ofNullable(userType);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "userType", nulls = Nulls.SKIP)
+        public _FinalStage userType(Optional<UserType> userType) {
+            this.userType = userType;
             return this;
         }
 
@@ -158,7 +190,7 @@ public final class WebhookKycStatusDetails {
 
         @java.lang.Override
         public WebhookKycStatusDetails build() {
-            return new WebhookKycStatusDetails(reason, status, userId, additionalProperties);
+            return new WebhookKycStatusDetails(reason, status, userId, userType, additionalProperties);
         }
     }
 }

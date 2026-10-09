@@ -23,13 +23,19 @@ import java.util.Optional;
 public final class UserTagsUpdate {
     private final Optional<String> userId;
 
+    private final Optional<UserType> userType;
+
     private final Optional<List<UserTag>> tags;
 
     private final Map<String, Object> additionalProperties;
 
     private UserTagsUpdate(
-            Optional<String> userId, Optional<List<UserTag>> tags, Map<String, Object> additionalProperties) {
+            Optional<String> userId,
+            Optional<UserType> userType,
+            Optional<List<UserTag>> tags,
+            Map<String, Object> additionalProperties) {
         this.userId = userId;
+        this.userType = userType;
         this.tags = tags;
         this.additionalProperties = additionalProperties;
     }
@@ -37,6 +43,11 @@ public final class UserTagsUpdate {
     @JsonProperty("userId")
     public Optional<String> getUserId() {
         return userId;
+    }
+
+    @JsonProperty("userType")
+    public Optional<UserType> getUserType() {
+        return userType;
     }
 
     @JsonProperty("tags")
@@ -56,12 +67,12 @@ public final class UserTagsUpdate {
     }
 
     private boolean equalTo(UserTagsUpdate other) {
-        return userId.equals(other.userId) && tags.equals(other.tags);
+        return userId.equals(other.userId) && userType.equals(other.userType) && tags.equals(other.tags);
     }
 
     @java.lang.Override
     public int hashCode() {
-        return Objects.hash(this.userId, this.tags);
+        return Objects.hash(this.userId, this.userType, this.tags);
     }
 
     @java.lang.Override
@@ -77,6 +88,8 @@ public final class UserTagsUpdate {
     public static final class Builder {
         private Optional<String> userId = Optional.empty();
 
+        private Optional<UserType> userType = Optional.empty();
+
         private Optional<List<UserTag>> tags = Optional.empty();
 
         @JsonAnySetter
@@ -86,6 +99,7 @@ public final class UserTagsUpdate {
 
         public Builder from(UserTagsUpdate other) {
             userId(other.getUserId());
+            userType(other.getUserType());
             tags(other.getTags());
             return this;
         }
@@ -101,6 +115,17 @@ public final class UserTagsUpdate {
             return this;
         }
 
+        @JsonSetter(value = "userType", nulls = Nulls.SKIP)
+        public Builder userType(Optional<UserType> userType) {
+            this.userType = userType;
+            return this;
+        }
+
+        public Builder userType(UserType userType) {
+            this.userType = Optional.ofNullable(userType);
+            return this;
+        }
+
         @JsonSetter(value = "tags", nulls = Nulls.SKIP)
         public Builder tags(Optional<List<UserTag>> tags) {
             this.tags = tags;
@@ -113,7 +138,7 @@ public final class UserTagsUpdate {
         }
 
         public UserTagsUpdate build() {
-            return new UserTagsUpdate(userId, tags, additionalProperties);
+            return new UserTagsUpdate(userId, userType, tags, additionalProperties);
         }
     }
 }

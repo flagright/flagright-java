@@ -25,6 +25,8 @@ public final class CraRiskLevelUpdatedDetails {
 
     private final Optional<String> userId;
 
+    private final Optional<UserType> userType;
+
     private final Optional<Double> riskScore;
 
     private final Optional<Double> kycRiskScore;
@@ -38,6 +40,7 @@ public final class CraRiskLevelUpdatedDetails {
     private CraRiskLevelUpdatedDetails(
             Optional<String> riskLevel,
             Optional<String> userId,
+            Optional<UserType> userType,
             Optional<Double> riskScore,
             Optional<Double> kycRiskScore,
             Optional<String> kycRiskLevel,
@@ -45,6 +48,7 @@ public final class CraRiskLevelUpdatedDetails {
             Map<String, Object> additionalProperties) {
         this.riskLevel = riskLevel;
         this.userId = userId;
+        this.userType = userType;
         this.riskScore = riskScore;
         this.kycRiskScore = kycRiskScore;
         this.kycRiskLevel = kycRiskLevel;
@@ -60,6 +64,11 @@ public final class CraRiskLevelUpdatedDetails {
     @JsonProperty("userId")
     public Optional<String> getUserId() {
         return userId;
+    }
+
+    @JsonProperty("userType")
+    public Optional<UserType> getUserType() {
+        return userType;
     }
 
     /**
@@ -108,6 +117,7 @@ public final class CraRiskLevelUpdatedDetails {
     private boolean equalTo(CraRiskLevelUpdatedDetails other) {
         return riskLevel.equals(other.riskLevel)
                 && userId.equals(other.userId)
+                && userType.equals(other.userType)
                 && riskScore.equals(other.riskScore)
                 && kycRiskScore.equals(other.kycRiskScore)
                 && kycRiskLevel.equals(other.kycRiskLevel)
@@ -117,7 +127,13 @@ public final class CraRiskLevelUpdatedDetails {
     @java.lang.Override
     public int hashCode() {
         return Objects.hash(
-                this.riskLevel, this.userId, this.riskScore, this.kycRiskScore, this.kycRiskLevel, this.riskFactors);
+                this.riskLevel,
+                this.userId,
+                this.userType,
+                this.riskScore,
+                this.kycRiskScore,
+                this.kycRiskLevel,
+                this.riskFactors);
     }
 
     @java.lang.Override
@@ -135,6 +151,8 @@ public final class CraRiskLevelUpdatedDetails {
 
         private Optional<String> userId = Optional.empty();
 
+        private Optional<UserType> userType = Optional.empty();
+
         private Optional<Double> riskScore = Optional.empty();
 
         private Optional<Double> kycRiskScore = Optional.empty();
@@ -151,6 +169,7 @@ public final class CraRiskLevelUpdatedDetails {
         public Builder from(CraRiskLevelUpdatedDetails other) {
             riskLevel(other.getRiskLevel());
             userId(other.getUserId());
+            userType(other.getUserType());
             riskScore(other.getRiskScore());
             kycRiskScore(other.getKycRiskScore());
             kycRiskLevel(other.getKycRiskLevel());
@@ -177,6 +196,17 @@ public final class CraRiskLevelUpdatedDetails {
 
         public Builder userId(String userId) {
             this.userId = Optional.ofNullable(userId);
+            return this;
+        }
+
+        @JsonSetter(value = "userType", nulls = Nulls.SKIP)
+        public Builder userType(Optional<UserType> userType) {
+            this.userType = userType;
+            return this;
+        }
+
+        public Builder userType(UserType userType) {
+            this.userType = Optional.ofNullable(userType);
             return this;
         }
 
@@ -226,7 +256,14 @@ public final class CraRiskLevelUpdatedDetails {
 
         public CraRiskLevelUpdatedDetails build() {
             return new CraRiskLevelUpdatedDetails(
-                    riskLevel, userId, riskScore, kycRiskScore, kycRiskLevel, riskFactors, additionalProperties);
+                    riskLevel,
+                    userId,
+                    userType,
+                    riskScore,
+                    kycRiskScore,
+                    kycRiskLevel,
+                    riskFactors,
+                    additionalProperties);
         }
     }
 }

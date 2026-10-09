@@ -31,7 +31,7 @@ public final class WebhookEventData {
 
     public <T> T visit(Visitor<T> visitor) {
         if (this.type == 0) {
-            return visitor.visit((UserStateDetails) this.value);
+            return visitor.visit((WebhookUserStateDetails) this.value);
         } else if (this.type == 1) {
             return visitor.visit((CaseStatusDetails) this.value);
         } else if (this.type == 2) {
@@ -43,7 +43,7 @@ public final class WebhookEventData {
         } else if (this.type == 5) {
             return visitor.visit((TransactionStatusDetails) this.value);
         } else if (this.type == 6) {
-            return visitor.visit((KycStatusDetails) this.value);
+            return visitor.visit((WebhookKycStatusDetails) this.value);
         } else if (this.type == 7) {
             return visitor.visit((UserTagsUpdate) this.value);
         } else if (this.type == 8) {
@@ -84,7 +84,7 @@ public final class WebhookEventData {
         return this.value.toString();
     }
 
-    public static WebhookEventData of(UserStateDetails value) {
+    public static WebhookEventData of(WebhookUserStateDetails value) {
         return new WebhookEventData(value, 0);
     }
 
@@ -108,7 +108,7 @@ public final class WebhookEventData {
         return new WebhookEventData(value, 5);
     }
 
-    public static WebhookEventData of(KycStatusDetails value) {
+    public static WebhookEventData of(WebhookKycStatusDetails value) {
         return new WebhookEventData(value, 6);
     }
 
@@ -145,7 +145,7 @@ public final class WebhookEventData {
     }
 
     public interface Visitor<T> {
-        T visit(UserStateDetails value);
+        T visit(WebhookUserStateDetails value);
 
         T visit(CaseStatusDetails value);
 
@@ -157,7 +157,7 @@ public final class WebhookEventData {
 
         T visit(TransactionStatusDetails value);
 
-        T visit(KycStatusDetails value);
+        T visit(WebhookKycStatusDetails value);
 
         T visit(UserTagsUpdate value);
 
@@ -185,7 +185,7 @@ public final class WebhookEventData {
         public WebhookEventData deserialize(JsonParser p, DeserializationContext context) throws IOException {
             Object value = p.readValueAs(Object.class);
             try {
-                return of(ObjectMappers.JSON_MAPPER.convertValue(value, UserStateDetails.class));
+                return of(ObjectMappers.JSON_MAPPER.convertValue(value, WebhookUserStateDetails.class));
             } catch (IllegalArgumentException e) {
             }
             try {
@@ -209,7 +209,7 @@ public final class WebhookEventData {
             } catch (IllegalArgumentException e) {
             }
             try {
-                return of(ObjectMappers.JSON_MAPPER.convertValue(value, KycStatusDetails.class));
+                return of(ObjectMappers.JSON_MAPPER.convertValue(value, WebhookKycStatusDetails.class));
             } catch (IllegalArgumentException e) {
             }
             try {

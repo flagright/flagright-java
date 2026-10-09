@@ -27,13 +27,20 @@ public final class WebhookUserStateDetails {
 
     private final String userId;
 
+    private final Optional<UserType> userType;
+
     private final Map<String, Object> additionalProperties;
 
     private WebhookUserStateDetails(
-            Optional<String> reason, UserState state, String userId, Map<String, Object> additionalProperties) {
+            Optional<String> reason,
+            UserState state,
+            String userId,
+            Optional<UserType> userType,
+            Map<String, Object> additionalProperties) {
         this.reason = reason;
         this.state = state;
         this.userId = userId;
+        this.userType = userType;
         this.additionalProperties = additionalProperties;
     }
 
@@ -52,6 +59,11 @@ public final class WebhookUserStateDetails {
         return userId;
     }
 
+    @JsonProperty("userType")
+    public Optional<UserType> getUserType() {
+        return userType;
+    }
+
     @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
@@ -64,12 +76,15 @@ public final class WebhookUserStateDetails {
     }
 
     private boolean equalTo(WebhookUserStateDetails other) {
-        return reason.equals(other.reason) && state.equals(other.state) && userId.equals(other.userId);
+        return reason.equals(other.reason)
+                && state.equals(other.state)
+                && userId.equals(other.userId)
+                && userType.equals(other.userType);
     }
 
     @java.lang.Override
     public int hashCode() {
-        return Objects.hash(this.reason, this.state, this.userId);
+        return Objects.hash(this.reason, this.state, this.userId, this.userType);
     }
 
     @java.lang.Override
@@ -97,6 +112,10 @@ public final class WebhookUserStateDetails {
         _FinalStage reason(Optional<String> reason);
 
         _FinalStage reason(String reason);
+
+        _FinalStage userType(Optional<UserType> userType);
+
+        _FinalStage userType(UserType userType);
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
@@ -104,6 +123,8 @@ public final class WebhookUserStateDetails {
         private UserState state;
 
         private String userId;
+
+        private Optional<UserType> userType = Optional.empty();
 
         private Optional<String> reason = Optional.empty();
 
@@ -117,6 +138,7 @@ public final class WebhookUserStateDetails {
             reason(other.getReason());
             state(other.getState());
             userId(other.getUserId());
+            userType(other.getUserType());
             return this;
         }
 
@@ -135,6 +157,19 @@ public final class WebhookUserStateDetails {
         }
 
         @java.lang.Override
+        public _FinalStage userType(UserType userType) {
+            this.userType = Optional.ofNullable(userType);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "userType", nulls = Nulls.SKIP)
+        public _FinalStage userType(Optional<UserType> userType) {
+            this.userType = userType;
+            return this;
+        }
+
+        @java.lang.Override
         public _FinalStage reason(String reason) {
             this.reason = Optional.ofNullable(reason);
             return this;
@@ -149,7 +184,7 @@ public final class WebhookUserStateDetails {
 
         @java.lang.Override
         public WebhookUserStateDetails build() {
-            return new WebhookUserStateDetails(reason, state, userId, additionalProperties);
+            return new WebhookUserStateDetails(reason, state, userId, userType, additionalProperties);
         }
     }
 }
