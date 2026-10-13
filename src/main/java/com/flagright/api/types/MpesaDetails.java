@@ -38,6 +38,8 @@ public final class MpesaDetails {
 
     private final Optional<List<Tag>> tags;
 
+    private final Optional<List<String>> jointEntity;
+
     private final Map<String, Object> additionalProperties;
 
     private MpesaDetails(
@@ -49,6 +51,7 @@ public final class MpesaDetails {
             Optional<String> name,
             Optional<Address> address,
             Optional<List<Tag>> tags,
+            Optional<List<String>> jointEntity,
             Map<String, Object> additionalProperties) {
         this.counterpartyType = counterpartyType;
         this.businessShortCode = businessShortCode;
@@ -58,6 +61,7 @@ public final class MpesaDetails {
         this.name = name;
         this.address = address;
         this.tags = tags;
+        this.jointEntity = jointEntity;
         this.additionalProperties = additionalProperties;
     }
 
@@ -113,6 +117,11 @@ public final class MpesaDetails {
         return tags;
     }
 
+    @JsonProperty("jointEntity")
+    public Optional<List<String>> getJointEntity() {
+        return jointEntity;
+    }
+
     @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
@@ -132,7 +141,8 @@ public final class MpesaDetails {
                 && emailId.equals(other.emailId)
                 && name.equals(other.name)
                 && address.equals(other.address)
-                && tags.equals(other.tags);
+                && tags.equals(other.tags)
+                && jointEntity.equals(other.jointEntity);
     }
 
     @java.lang.Override
@@ -145,7 +155,8 @@ public final class MpesaDetails {
                 this.emailId,
                 this.name,
                 this.address,
-                this.tags);
+                this.tags,
+                this.jointEntity);
     }
 
     @java.lang.Override
@@ -193,6 +204,10 @@ public final class MpesaDetails {
         _FinalStage tags(Optional<List<Tag>> tags);
 
         _FinalStage tags(List<Tag> tags);
+
+        _FinalStage jointEntity(Optional<List<String>> jointEntity);
+
+        _FinalStage jointEntity(List<String> jointEntity);
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
@@ -203,6 +218,8 @@ public final class MpesaDetails {
         private MpesaTransactionType transactionType;
 
         private String phoneNumber;
+
+        private Optional<List<String>> jointEntity = Optional.empty();
 
         private Optional<List<Tag>> tags = Optional.empty();
 
@@ -229,6 +246,7 @@ public final class MpesaDetails {
             name(other.getName());
             address(other.getAddress());
             tags(other.getTags());
+            jointEntity(other.getJointEntity());
             return this;
         }
 
@@ -258,6 +276,19 @@ public final class MpesaDetails {
         @JsonSetter("phoneNumber")
         public _FinalStage phoneNumber(@NotNull String phoneNumber) {
             this.phoneNumber = Objects.requireNonNull(phoneNumber, "phoneNumber must not be null");
+            return this;
+        }
+
+        @java.lang.Override
+        public _FinalStage jointEntity(List<String> jointEntity) {
+            this.jointEntity = Optional.ofNullable(jointEntity);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "jointEntity", nulls = Nulls.SKIP)
+        public _FinalStage jointEntity(Optional<List<String>> jointEntity) {
+            this.jointEntity = jointEntity;
             return this;
         }
 
@@ -345,6 +376,7 @@ public final class MpesaDetails {
                     name,
                     address,
                     tags,
+                    jointEntity,
                     additionalProperties);
         }
     }

@@ -63,6 +63,8 @@ public final class NppDetails {
 
     private final Optional<Address> address;
 
+    private final Optional<List<String>> jointEntity;
+
     private final Map<String, Object> additionalProperties;
 
     private NppDetails(
@@ -87,6 +89,7 @@ public final class NppDetails {
             Optional<String> messageFormat,
             Optional<String> bankName,
             Optional<Address> address,
+            Optional<List<String>> jointEntity,
             Map<String, Object> additionalProperties) {
         this.counterpartyType = counterpartyType;
         this.accountNumber = accountNumber;
@@ -109,6 +112,7 @@ public final class NppDetails {
         this.messageFormat = messageFormat;
         this.bankName = bankName;
         this.address = address;
+        this.jointEntity = jointEntity;
         this.additionalProperties = additionalProperties;
     }
 
@@ -268,6 +272,11 @@ public final class NppDetails {
         return address;
     }
 
+    @JsonProperty("jointEntity")
+    public Optional<List<String>> getJointEntity() {
+        return jointEntity;
+    }
+
     @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
@@ -300,7 +309,8 @@ public final class NppDetails {
                 && traceNumber.equals(other.traceNumber)
                 && messageFormat.equals(other.messageFormat)
                 && bankName.equals(other.bankName)
-                && address.equals(other.address);
+                && address.equals(other.address)
+                && jointEntity.equals(other.jointEntity);
     }
 
     @java.lang.Override
@@ -326,7 +336,8 @@ public final class NppDetails {
                 this.traceNumber,
                 this.messageFormat,
                 this.bankName,
-                this.address);
+                this.address,
+                this.jointEntity);
     }
 
     @java.lang.Override
@@ -382,6 +393,8 @@ public final class NppDetails {
 
         private Optional<Address> address = Optional.empty();
 
+        private Optional<List<String>> jointEntity = Optional.empty();
+
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
 
@@ -409,6 +422,7 @@ public final class NppDetails {
             messageFormat(other.getMessageFormat());
             bankName(other.getBankName());
             address(other.getAddress());
+            jointEntity(other.getJointEntity());
             return this;
         }
 
@@ -643,6 +657,17 @@ public final class NppDetails {
             return this;
         }
 
+        @JsonSetter(value = "jointEntity", nulls = Nulls.SKIP)
+        public Builder jointEntity(Optional<List<String>> jointEntity) {
+            this.jointEntity = jointEntity;
+            return this;
+        }
+
+        public Builder jointEntity(List<String> jointEntity) {
+            this.jointEntity = Optional.ofNullable(jointEntity);
+            return this;
+        }
+
         public NppDetails build() {
             return new NppDetails(
                     counterpartyType,
@@ -666,6 +691,7 @@ public final class NppDetails {
                     messageFormat,
                     bankName,
                     address,
+                    jointEntity,
                     additionalProperties);
         }
     }

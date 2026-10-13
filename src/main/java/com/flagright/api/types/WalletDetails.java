@@ -57,6 +57,8 @@ public final class WalletDetails {
 
     private final Optional<String> transactionHash;
 
+    private final Optional<List<String>> jointEntity;
+
     private final Map<String, Object> additionalProperties;
 
     private WalletDetails(
@@ -78,6 +80,7 @@ public final class WalletDetails {
             Optional<List<UserDetails>> authorizedRepresentative,
             Optional<String> dateOfBirth,
             Optional<String> transactionHash,
+            Optional<List<String>> jointEntity,
             Map<String, Object> additionalProperties) {
         this.counterpartyType = counterpartyType;
         this.walletType = walletType;
@@ -97,6 +100,7 @@ public final class WalletDetails {
         this.authorizedRepresentative = authorizedRepresentative;
         this.dateOfBirth = dateOfBirth;
         this.transactionHash = transactionHash;
+        this.jointEntity = jointEntity;
         this.additionalProperties = additionalProperties;
     }
 
@@ -217,6 +221,11 @@ public final class WalletDetails {
         return transactionHash;
     }
 
+    @JsonProperty("jointEntity")
+    public Optional<List<String>> getJointEntity() {
+        return jointEntity;
+    }
+
     @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
@@ -246,7 +255,8 @@ public final class WalletDetails {
                 && bankAddress.equals(other.bankAddress)
                 && authorizedRepresentative.equals(other.authorizedRepresentative)
                 && dateOfBirth.equals(other.dateOfBirth)
-                && transactionHash.equals(other.transactionHash);
+                && transactionHash.equals(other.transactionHash)
+                && jointEntity.equals(other.jointEntity);
     }
 
     @java.lang.Override
@@ -269,7 +279,8 @@ public final class WalletDetails {
                 this.bankAddress,
                 this.authorizedRepresentative,
                 this.dateOfBirth,
-                this.transactionHash);
+                this.transactionHash,
+                this.jointEntity);
     }
 
     @java.lang.Override
@@ -319,6 +330,8 @@ public final class WalletDetails {
 
         private Optional<String> transactionHash = Optional.empty();
 
+        private Optional<List<String>> jointEntity = Optional.empty();
+
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
 
@@ -343,6 +356,7 @@ public final class WalletDetails {
             authorizedRepresentative(other.getAuthorizedRepresentative());
             dateOfBirth(other.getDateOfBirth());
             transactionHash(other.getTransactionHash());
+            jointEntity(other.getJointEntity());
             return this;
         }
 
@@ -544,6 +558,17 @@ public final class WalletDetails {
             return this;
         }
 
+        @JsonSetter(value = "jointEntity", nulls = Nulls.SKIP)
+        public Builder jointEntity(Optional<List<String>> jointEntity) {
+            this.jointEntity = jointEntity;
+            return this;
+        }
+
+        public Builder jointEntity(List<String> jointEntity) {
+            this.jointEntity = Optional.ofNullable(jointEntity);
+            return this;
+        }
+
         public WalletDetails build() {
             return new WalletDetails(
                     counterpartyType,
@@ -564,6 +589,7 @@ public final class WalletDetails {
                     authorizedRepresentative,
                     dateOfBirth,
                     transactionHash,
+                    jointEntity,
                     additionalProperties);
         }
     }

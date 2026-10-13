@@ -55,6 +55,8 @@ public final class SwiftDetails {
 
     private final Optional<List<Tag>> tags;
 
+    private final Optional<List<String>> jointEntity;
+
     private final Map<String, Object> additionalProperties;
 
     private SwiftDetails(
@@ -75,6 +77,7 @@ public final class SwiftDetails {
             Optional<Address> address,
             Optional<List<CorrespondentBankDetails>> correspondentBankDetails,
             Optional<List<Tag>> tags,
+            Optional<List<String>> jointEntity,
             Map<String, Object> additionalProperties) {
         this.counterpartyType = counterpartyType;
         this.swiftCode = swiftCode;
@@ -93,6 +96,7 @@ public final class SwiftDetails {
         this.address = address;
         this.correspondentBankDetails = correspondentBankDetails;
         this.tags = tags;
+        this.jointEntity = jointEntity;
         this.additionalProperties = additionalProperties;
     }
 
@@ -208,6 +212,11 @@ public final class SwiftDetails {
         return tags;
     }
 
+    @JsonProperty("jointEntity")
+    public Optional<List<String>> getJointEntity() {
+        return jointEntity;
+    }
+
     @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
@@ -236,7 +245,8 @@ public final class SwiftDetails {
                 && specialInstructions.equals(other.specialInstructions)
                 && address.equals(other.address)
                 && correspondentBankDetails.equals(other.correspondentBankDetails)
-                && tags.equals(other.tags);
+                && tags.equals(other.tags)
+                && jointEntity.equals(other.jointEntity);
     }
 
     @java.lang.Override
@@ -258,7 +268,8 @@ public final class SwiftDetails {
                 this.specialInstructions,
                 this.address,
                 this.correspondentBankDetails,
-                this.tags);
+                this.tags,
+                this.jointEntity);
     }
 
     @java.lang.Override
@@ -306,6 +317,8 @@ public final class SwiftDetails {
 
         private Optional<List<Tag>> tags = Optional.empty();
 
+        private Optional<List<String>> jointEntity = Optional.empty();
+
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
 
@@ -329,6 +342,7 @@ public final class SwiftDetails {
             address(other.getAddress());
             correspondentBankDetails(other.getCorrespondentBankDetails());
             tags(other.getTags());
+            jointEntity(other.getJointEntity());
             return this;
         }
 
@@ -519,6 +533,17 @@ public final class SwiftDetails {
             return this;
         }
 
+        @JsonSetter(value = "jointEntity", nulls = Nulls.SKIP)
+        public Builder jointEntity(Optional<List<String>> jointEntity) {
+            this.jointEntity = jointEntity;
+            return this;
+        }
+
+        public Builder jointEntity(List<String> jointEntity) {
+            this.jointEntity = Optional.ofNullable(jointEntity);
+            return this;
+        }
+
         public SwiftDetails build() {
             return new SwiftDetails(
                     counterpartyType,
@@ -538,6 +563,7 @@ public final class SwiftDetails {
                     address,
                     correspondentBankDetails,
                     tags,
+                    jointEntity,
                     additionalProperties);
         }
     }

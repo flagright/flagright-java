@@ -53,6 +53,8 @@ public final class IbanDetails {
 
     private final Optional<List<Tag>> tags;
 
+    private final Optional<List<String>> jointEntity;
+
     private final Map<String, Object> additionalProperties;
 
     private IbanDetails(
@@ -72,6 +74,7 @@ public final class IbanDetails {
             Optional<CountryCode> countryOfNationality,
             Optional<CountryCode> countryOfResidence,
             Optional<List<Tag>> tags,
+            Optional<List<String>> jointEntity,
             Map<String, Object> additionalProperties) {
         this.counterpartyType = counterpartyType;
         this.bic = bic;
@@ -89,6 +92,7 @@ public final class IbanDetails {
         this.countryOfNationality = countryOfNationality;
         this.countryOfResidence = countryOfResidence;
         this.tags = tags;
+        this.jointEntity = jointEntity;
         this.additionalProperties = additionalProperties;
     }
 
@@ -196,6 +200,11 @@ public final class IbanDetails {
         return tags;
     }
 
+    @JsonProperty("jointEntity")
+    public Optional<List<String>> getJointEntity() {
+        return jointEntity;
+    }
+
     @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
@@ -223,7 +232,8 @@ public final class IbanDetails {
                 && paymentChannel.equals(other.paymentChannel)
                 && countryOfNationality.equals(other.countryOfNationality)
                 && countryOfResidence.equals(other.countryOfResidence)
-                && tags.equals(other.tags);
+                && tags.equals(other.tags)
+                && jointEntity.equals(other.jointEntity);
     }
 
     @java.lang.Override
@@ -244,7 +254,8 @@ public final class IbanDetails {
                 this.paymentChannel,
                 this.countryOfNationality,
                 this.countryOfResidence,
-                this.tags);
+                this.tags,
+                this.jointEntity);
     }
 
     @java.lang.Override
@@ -290,6 +301,8 @@ public final class IbanDetails {
 
         private Optional<List<Tag>> tags = Optional.empty();
 
+        private Optional<List<String>> jointEntity = Optional.empty();
+
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
 
@@ -312,6 +325,7 @@ public final class IbanDetails {
             countryOfNationality(other.getCountryOfNationality());
             countryOfResidence(other.getCountryOfResidence());
             tags(other.getTags());
+            jointEntity(other.getJointEntity());
             return this;
         }
 
@@ -491,6 +505,17 @@ public final class IbanDetails {
             return this;
         }
 
+        @JsonSetter(value = "jointEntity", nulls = Nulls.SKIP)
+        public Builder jointEntity(Optional<List<String>> jointEntity) {
+            this.jointEntity = jointEntity;
+            return this;
+        }
+
+        public Builder jointEntity(List<String> jointEntity) {
+            this.jointEntity = Optional.ofNullable(jointEntity);
+            return this;
+        }
+
         public IbanDetails build() {
             return new IbanDetails(
                     counterpartyType,
@@ -509,6 +534,7 @@ public final class IbanDetails {
                     countryOfNationality,
                     countryOfResidence,
                     tags,
+                    jointEntity,
                     additionalProperties);
         }
     }

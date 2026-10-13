@@ -63,6 +63,8 @@ public final class GenericBankAccountDetails {
 
     private final Optional<List<CorrespondentGenericBankDetails>> correspondentBankDetails;
 
+    private final Optional<List<String>> jointEntity;
+
     private final Map<String, Object> additionalProperties;
 
     private GenericBankAccountDetails(
@@ -87,6 +89,7 @@ public final class GenericBankAccountDetails {
             Optional<Address> address,
             Optional<String> routingNumber,
             Optional<List<CorrespondentGenericBankDetails>> correspondentBankDetails,
+            Optional<List<String>> jointEntity,
             Map<String, Object> additionalProperties) {
         this.counterpartyType = counterpartyType;
         this.accountNumber = accountNumber;
@@ -109,6 +112,7 @@ public final class GenericBankAccountDetails {
         this.address = address;
         this.routingNumber = routingNumber;
         this.correspondentBankDetails = correspondentBankDetails;
+        this.jointEntity = jointEntity;
         this.additionalProperties = additionalProperties;
     }
 
@@ -256,6 +260,11 @@ public final class GenericBankAccountDetails {
         return correspondentBankDetails;
     }
 
+    @JsonProperty("jointEntity")
+    public Optional<List<String>> getJointEntity() {
+        return jointEntity;
+    }
+
     @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
@@ -288,7 +297,8 @@ public final class GenericBankAccountDetails {
                 && transitNumber.equals(other.transitNumber)
                 && address.equals(other.address)
                 && routingNumber.equals(other.routingNumber)
-                && correspondentBankDetails.equals(other.correspondentBankDetails);
+                && correspondentBankDetails.equals(other.correspondentBankDetails)
+                && jointEntity.equals(other.jointEntity);
     }
 
     @java.lang.Override
@@ -314,7 +324,8 @@ public final class GenericBankAccountDetails {
                 this.transitNumber,
                 this.address,
                 this.routingNumber,
-                this.correspondentBankDetails);
+                this.correspondentBankDetails,
+                this.jointEntity);
     }
 
     @java.lang.Override
@@ -370,6 +381,8 @@ public final class GenericBankAccountDetails {
 
         private Optional<List<CorrespondentGenericBankDetails>> correspondentBankDetails = Optional.empty();
 
+        private Optional<List<String>> jointEntity = Optional.empty();
+
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
 
@@ -397,6 +410,7 @@ public final class GenericBankAccountDetails {
             address(other.getAddress());
             routingNumber(other.getRoutingNumber());
             correspondentBankDetails(other.getCorrespondentBankDetails());
+            jointEntity(other.getJointEntity());
             return this;
         }
 
@@ -632,6 +646,17 @@ public final class GenericBankAccountDetails {
             return this;
         }
 
+        @JsonSetter(value = "jointEntity", nulls = Nulls.SKIP)
+        public Builder jointEntity(Optional<List<String>> jointEntity) {
+            this.jointEntity = jointEntity;
+            return this;
+        }
+
+        public Builder jointEntity(List<String> jointEntity) {
+            this.jointEntity = Optional.ofNullable(jointEntity);
+            return this;
+        }
+
         public GenericBankAccountDetails build() {
             return new GenericBankAccountDetails(
                     counterpartyType,
@@ -655,6 +680,7 @@ public final class GenericBankAccountDetails {
                     address,
                     routingNumber,
                     correspondentBankDetails,
+                    jointEntity,
                     additionalProperties);
         }
     }

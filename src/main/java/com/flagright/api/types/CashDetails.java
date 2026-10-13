@@ -35,6 +35,8 @@ public final class CashDetails {
 
     private final Optional<List<Tag>> tags;
 
+    private final Optional<List<String>> jointEntity;
+
     private final Map<String, Object> additionalProperties;
 
     private CashDetails(
@@ -45,6 +47,7 @@ public final class CashDetails {
             Optional<String> emailId,
             Optional<Amount> accountBalance,
             Optional<List<Tag>> tags,
+            Optional<List<String>> jointEntity,
             Map<String, Object> additionalProperties) {
         this.counterpartyType = counterpartyType;
         this.identifier = identifier;
@@ -53,6 +56,7 @@ public final class CashDetails {
         this.emailId = emailId;
         this.accountBalance = accountBalance;
         this.tags = tags;
+        this.jointEntity = jointEntity;
         this.additionalProperties = additionalProperties;
     }
 
@@ -97,6 +101,11 @@ public final class CashDetails {
         return tags;
     }
 
+    @JsonProperty("jointEntity")
+    public Optional<List<String>> getJointEntity() {
+        return jointEntity;
+    }
+
     @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
@@ -115,7 +124,8 @@ public final class CashDetails {
                 && name.equals(other.name)
                 && emailId.equals(other.emailId)
                 && accountBalance.equals(other.accountBalance)
-                && tags.equals(other.tags);
+                && tags.equals(other.tags)
+                && jointEntity.equals(other.jointEntity);
     }
 
     @java.lang.Override
@@ -127,7 +137,8 @@ public final class CashDetails {
                 this.name,
                 this.emailId,
                 this.accountBalance,
-                this.tags);
+                this.tags,
+                this.jointEntity);
     }
 
     @java.lang.Override
@@ -155,6 +166,8 @@ public final class CashDetails {
 
         private Optional<List<Tag>> tags = Optional.empty();
 
+        private Optional<List<String>> jointEntity = Optional.empty();
+
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
 
@@ -168,6 +181,7 @@ public final class CashDetails {
             emailId(other.getEmailId());
             accountBalance(other.getAccountBalance());
             tags(other.getTags());
+            jointEntity(other.getJointEntity());
             return this;
         }
 
@@ -248,9 +262,28 @@ public final class CashDetails {
             return this;
         }
 
+        @JsonSetter(value = "jointEntity", nulls = Nulls.SKIP)
+        public Builder jointEntity(Optional<List<String>> jointEntity) {
+            this.jointEntity = jointEntity;
+            return this;
+        }
+
+        public Builder jointEntity(List<String> jointEntity) {
+            this.jointEntity = Optional.ofNullable(jointEntity);
+            return this;
+        }
+
         public CashDetails build() {
             return new CashDetails(
-                    counterpartyType, identifier, address, name, emailId, accountBalance, tags, additionalProperties);
+                    counterpartyType,
+                    identifier,
+                    address,
+                    name,
+                    emailId,
+                    accountBalance,
+                    tags,
+                    jointEntity,
+                    additionalProperties);
         }
     }
 }

@@ -47,6 +47,8 @@ public final class AchDetails {
 
     private final Optional<List<Tag>> tags;
 
+    private final Optional<List<String>> jointEntity;
+
     private final Map<String, Object> additionalProperties;
 
     private AchDetails(
@@ -63,6 +65,7 @@ public final class AchDetails {
             Optional<String> beneficiaryName,
             Optional<String> emailId,
             Optional<List<Tag>> tags,
+            Optional<List<String>> jointEntity,
             Map<String, Object> additionalProperties) {
         this.counterpartyType = counterpartyType;
         this.routingNumber = routingNumber;
@@ -77,6 +80,7 @@ public final class AchDetails {
         this.beneficiaryName = beneficiaryName;
         this.emailId = emailId;
         this.tags = tags;
+        this.jointEntity = jointEntity;
         this.additionalProperties = additionalProperties;
     }
 
@@ -166,6 +170,11 @@ public final class AchDetails {
         return tags;
     }
 
+    @JsonProperty("jointEntity")
+    public Optional<List<String>> getJointEntity() {
+        return jointEntity;
+    }
+
     @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
@@ -190,7 +199,8 @@ public final class AchDetails {
                 && countryOfResidence.equals(other.countryOfResidence)
                 && beneficiaryName.equals(other.beneficiaryName)
                 && emailId.equals(other.emailId)
-                && tags.equals(other.tags);
+                && tags.equals(other.tags)
+                && jointEntity.equals(other.jointEntity);
     }
 
     @java.lang.Override
@@ -208,7 +218,8 @@ public final class AchDetails {
                 this.countryOfResidence,
                 this.beneficiaryName,
                 this.emailId,
-                this.tags);
+                this.tags,
+                this.jointEntity);
     }
 
     @java.lang.Override
@@ -248,6 +259,8 @@ public final class AchDetails {
 
         private Optional<List<Tag>> tags = Optional.empty();
 
+        private Optional<List<String>> jointEntity = Optional.empty();
+
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
 
@@ -267,6 +280,7 @@ public final class AchDetails {
             beneficiaryName(other.getBeneficiaryName());
             emailId(other.getEmailId());
             tags(other.getTags());
+            jointEntity(other.getJointEntity());
             return this;
         }
 
@@ -413,6 +427,17 @@ public final class AchDetails {
             return this;
         }
 
+        @JsonSetter(value = "jointEntity", nulls = Nulls.SKIP)
+        public Builder jointEntity(Optional<List<String>> jointEntity) {
+            this.jointEntity = jointEntity;
+            return this;
+        }
+
+        public Builder jointEntity(List<String> jointEntity) {
+            this.jointEntity = Optional.ofNullable(jointEntity);
+            return this;
+        }
+
         public AchDetails build() {
             return new AchDetails(
                     counterpartyType,
@@ -428,6 +453,7 @@ public final class AchDetails {
                     beneficiaryName,
                     emailId,
                     tags,
+                    jointEntity,
                     additionalProperties);
         }
     }

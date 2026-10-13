@@ -22,16 +22,27 @@ import java.util.Optional;
 public final class ProductsEnabled {
     private final Optional<String> productName;
 
+    private final Optional<ProductsEnabledDetails> details;
+
     private final Map<String, Object> additionalProperties;
 
-    private ProductsEnabled(Optional<String> productName, Map<String, Object> additionalProperties) {
+    private ProductsEnabled(
+            Optional<String> productName,
+            Optional<ProductsEnabledDetails> details,
+            Map<String, Object> additionalProperties) {
         this.productName = productName;
+        this.details = details;
         this.additionalProperties = additionalProperties;
     }
 
     @JsonProperty("productName")
     public Optional<String> getProductName() {
         return productName;
+    }
+
+    @JsonProperty("details")
+    public Optional<ProductsEnabledDetails> getDetails() {
+        return details;
     }
 
     @java.lang.Override
@@ -46,12 +57,12 @@ public final class ProductsEnabled {
     }
 
     private boolean equalTo(ProductsEnabled other) {
-        return productName.equals(other.productName);
+        return productName.equals(other.productName) && details.equals(other.details);
     }
 
     @java.lang.Override
     public int hashCode() {
-        return Objects.hash(this.productName);
+        return Objects.hash(this.productName, this.details);
     }
 
     @java.lang.Override
@@ -67,6 +78,8 @@ public final class ProductsEnabled {
     public static final class Builder {
         private Optional<String> productName = Optional.empty();
 
+        private Optional<ProductsEnabledDetails> details = Optional.empty();
+
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
 
@@ -74,6 +87,7 @@ public final class ProductsEnabled {
 
         public Builder from(ProductsEnabled other) {
             productName(other.getProductName());
+            details(other.getDetails());
             return this;
         }
 
@@ -88,8 +102,19 @@ public final class ProductsEnabled {
             return this;
         }
 
+        @JsonSetter(value = "details", nulls = Nulls.SKIP)
+        public Builder details(Optional<ProductsEnabledDetails> details) {
+            this.details = details;
+            return this;
+        }
+
+        public Builder details(ProductsEnabledDetails details) {
+            this.details = Optional.ofNullable(details);
+            return this;
+        }
+
         public ProductsEnabled build() {
-            return new ProductsEnabled(productName, additionalProperties);
+            return new ProductsEnabled(productName, details, additionalProperties);
         }
     }
 }

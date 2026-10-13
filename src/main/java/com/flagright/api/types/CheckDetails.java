@@ -51,6 +51,8 @@ public final class CheckDetails {
 
     private final Optional<List<Tag>> tags;
 
+    private final Optional<List<String>> jointEntity;
+
     private final Map<String, Object> additionalProperties;
 
     private CheckDetails(
@@ -69,6 +71,7 @@ public final class CheckDetails {
             Optional<CountryCode> countryOfResidence,
             Optional<Address> bankAddress,
             Optional<List<Tag>> tags,
+            Optional<List<String>> jointEntity,
             Map<String, Object> additionalProperties) {
         this.counterpartyType = counterpartyType;
         this.checkNumber = checkNumber;
@@ -85,6 +88,7 @@ public final class CheckDetails {
         this.countryOfResidence = countryOfResidence;
         this.bankAddress = bankAddress;
         this.tags = tags;
+        this.jointEntity = jointEntity;
         this.additionalProperties = additionalProperties;
     }
 
@@ -175,6 +179,11 @@ public final class CheckDetails {
         return tags;
     }
 
+    @JsonProperty("jointEntity")
+    public Optional<List<String>> getJointEntity() {
+        return jointEntity;
+    }
+
     @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
@@ -201,7 +210,8 @@ public final class CheckDetails {
                 && countryOfNationality.equals(other.countryOfNationality)
                 && countryOfResidence.equals(other.countryOfResidence)
                 && bankAddress.equals(other.bankAddress)
-                && tags.equals(other.tags);
+                && tags.equals(other.tags)
+                && jointEntity.equals(other.jointEntity);
     }
 
     @java.lang.Override
@@ -221,7 +231,8 @@ public final class CheckDetails {
                 this.countryOfNationality,
                 this.countryOfResidence,
                 this.bankAddress,
-                this.tags);
+                this.tags,
+                this.jointEntity);
     }
 
     @java.lang.Override
@@ -265,6 +276,8 @@ public final class CheckDetails {
 
         private Optional<List<Tag>> tags = Optional.empty();
 
+        private Optional<List<String>> jointEntity = Optional.empty();
+
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
 
@@ -286,6 +299,7 @@ public final class CheckDetails {
             countryOfResidence(other.getCountryOfResidence());
             bankAddress(other.getBankAddress());
             tags(other.getTags());
+            jointEntity(other.getJointEntity());
             return this;
         }
 
@@ -454,6 +468,17 @@ public final class CheckDetails {
             return this;
         }
 
+        @JsonSetter(value = "jointEntity", nulls = Nulls.SKIP)
+        public Builder jointEntity(Optional<List<String>> jointEntity) {
+            this.jointEntity = jointEntity;
+            return this;
+        }
+
+        public Builder jointEntity(List<String> jointEntity) {
+            this.jointEntity = Optional.ofNullable(jointEntity);
+            return this;
+        }
+
         public CheckDetails build() {
             return new CheckDetails(
                     counterpartyType,
@@ -471,6 +496,7 @@ public final class CheckDetails {
                     countryOfResidence,
                     bankAddress,
                     tags,
+                    jointEntity,
                     additionalProperties);
         }
     }
