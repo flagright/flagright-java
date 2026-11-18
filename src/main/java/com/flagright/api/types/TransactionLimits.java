@@ -34,6 +34,18 @@ public final class TransactionLimits {
 
     private final Optional<TransactionLimitsPaymentMethodLimits> paymentMethodLimits;
 
+    private final Optional<Amount> minimumDailyTransactionLimit;
+
+    private final Optional<Amount> minimumWeeklyTransactionLimit;
+
+    private final Optional<Amount> minimumMonthlyTransactionLimit;
+
+    private final Optional<Amount> minimumQuarterlyTransactionLimit;
+
+    private final Optional<Amount> minimumYearlyTransactionLimit;
+
+    private final Optional<Amount> minimumTransactionLimit;
+
     private final Map<String, Object> additionalProperties;
 
     private TransactionLimits(
@@ -44,6 +56,12 @@ public final class TransactionLimits {
             Optional<Amount> maximumTransactionLimit,
             Optional<Amount> maximumYearlyTransactionLimit,
             Optional<TransactionLimitsPaymentMethodLimits> paymentMethodLimits,
+            Optional<Amount> minimumDailyTransactionLimit,
+            Optional<Amount> minimumWeeklyTransactionLimit,
+            Optional<Amount> minimumMonthlyTransactionLimit,
+            Optional<Amount> minimumQuarterlyTransactionLimit,
+            Optional<Amount> minimumYearlyTransactionLimit,
+            Optional<Amount> minimumTransactionLimit,
             Map<String, Object> additionalProperties) {
         this.maximumDailyTransactionLimit = maximumDailyTransactionLimit;
         this.maximumWeeklyTransactionLimit = maximumWeeklyTransactionLimit;
@@ -52,6 +70,12 @@ public final class TransactionLimits {
         this.maximumTransactionLimit = maximumTransactionLimit;
         this.maximumYearlyTransactionLimit = maximumYearlyTransactionLimit;
         this.paymentMethodLimits = paymentMethodLimits;
+        this.minimumDailyTransactionLimit = minimumDailyTransactionLimit;
+        this.minimumWeeklyTransactionLimit = minimumWeeklyTransactionLimit;
+        this.minimumMonthlyTransactionLimit = minimumMonthlyTransactionLimit;
+        this.minimumQuarterlyTransactionLimit = minimumQuarterlyTransactionLimit;
+        this.minimumYearlyTransactionLimit = minimumYearlyTransactionLimit;
+        this.minimumTransactionLimit = minimumTransactionLimit;
         this.additionalProperties = additionalProperties;
     }
 
@@ -90,6 +114,54 @@ public final class TransactionLimits {
         return paymentMethodLimits;
     }
 
+    /**
+     * @return Minimum daily transaction limit. Must not be greater than <code>maximumDailyTransactionLimit</code> when both use the same currency
+     */
+    @JsonProperty("minimumDailyTransactionLimit")
+    public Optional<Amount> getMinimumDailyTransactionLimit() {
+        return minimumDailyTransactionLimit;
+    }
+
+    /**
+     * @return Minimum weekly transaction limit. Must not be greater than <code>maximumWeeklyTransactionLimit</code> when both use the same currency
+     */
+    @JsonProperty("minimumWeeklyTransactionLimit")
+    public Optional<Amount> getMinimumWeeklyTransactionLimit() {
+        return minimumWeeklyTransactionLimit;
+    }
+
+    /**
+     * @return Minimum monthly transaction limit. Must not be greater than <code>maximumMonthlyTransactionLimit</code> when both use the same currency
+     */
+    @JsonProperty("minimumMonthlyTransactionLimit")
+    public Optional<Amount> getMinimumMonthlyTransactionLimit() {
+        return minimumMonthlyTransactionLimit;
+    }
+
+    /**
+     * @return Minimum quarterly transaction limit. Must not be greater than <code>maximumQuarterlyTransactionLimit</code> when both use the same currency
+     */
+    @JsonProperty("minimumQuarterlyTransactionLimit")
+    public Optional<Amount> getMinimumQuarterlyTransactionLimit() {
+        return minimumQuarterlyTransactionLimit;
+    }
+
+    /**
+     * @return Minimum yearly transaction limit. Must not be greater than <code>maximumYearlyTransactionLimit</code> when both use the same currency
+     */
+    @JsonProperty("minimumYearlyTransactionLimit")
+    public Optional<Amount> getMinimumYearlyTransactionLimit() {
+        return minimumYearlyTransactionLimit;
+    }
+
+    /**
+     * @return Minimum amount of a single transaction. Must not be greater than <code>maximumTransactionLimit</code> when both use the same currency
+     */
+    @JsonProperty("minimumTransactionLimit")
+    public Optional<Amount> getMinimumTransactionLimit() {
+        return minimumTransactionLimit;
+    }
+
     @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
@@ -108,7 +180,13 @@ public final class TransactionLimits {
                 && maximumQuarterlyTransactionLimit.equals(other.maximumQuarterlyTransactionLimit)
                 && maximumTransactionLimit.equals(other.maximumTransactionLimit)
                 && maximumYearlyTransactionLimit.equals(other.maximumYearlyTransactionLimit)
-                && paymentMethodLimits.equals(other.paymentMethodLimits);
+                && paymentMethodLimits.equals(other.paymentMethodLimits)
+                && minimumDailyTransactionLimit.equals(other.minimumDailyTransactionLimit)
+                && minimumWeeklyTransactionLimit.equals(other.minimumWeeklyTransactionLimit)
+                && minimumMonthlyTransactionLimit.equals(other.minimumMonthlyTransactionLimit)
+                && minimumQuarterlyTransactionLimit.equals(other.minimumQuarterlyTransactionLimit)
+                && minimumYearlyTransactionLimit.equals(other.minimumYearlyTransactionLimit)
+                && minimumTransactionLimit.equals(other.minimumTransactionLimit);
     }
 
     @java.lang.Override
@@ -120,7 +198,13 @@ public final class TransactionLimits {
                 this.maximumQuarterlyTransactionLimit,
                 this.maximumTransactionLimit,
                 this.maximumYearlyTransactionLimit,
-                this.paymentMethodLimits);
+                this.paymentMethodLimits,
+                this.minimumDailyTransactionLimit,
+                this.minimumWeeklyTransactionLimit,
+                this.minimumMonthlyTransactionLimit,
+                this.minimumQuarterlyTransactionLimit,
+                this.minimumYearlyTransactionLimit,
+                this.minimumTransactionLimit);
     }
 
     @java.lang.Override
@@ -148,6 +232,18 @@ public final class TransactionLimits {
 
         private Optional<TransactionLimitsPaymentMethodLimits> paymentMethodLimits = Optional.empty();
 
+        private Optional<Amount> minimumDailyTransactionLimit = Optional.empty();
+
+        private Optional<Amount> minimumWeeklyTransactionLimit = Optional.empty();
+
+        private Optional<Amount> minimumMonthlyTransactionLimit = Optional.empty();
+
+        private Optional<Amount> minimumQuarterlyTransactionLimit = Optional.empty();
+
+        private Optional<Amount> minimumYearlyTransactionLimit = Optional.empty();
+
+        private Optional<Amount> minimumTransactionLimit = Optional.empty();
+
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
 
@@ -161,6 +257,12 @@ public final class TransactionLimits {
             maximumTransactionLimit(other.getMaximumTransactionLimit());
             maximumYearlyTransactionLimit(other.getMaximumYearlyTransactionLimit());
             paymentMethodLimits(other.getPaymentMethodLimits());
+            minimumDailyTransactionLimit(other.getMinimumDailyTransactionLimit());
+            minimumWeeklyTransactionLimit(other.getMinimumWeeklyTransactionLimit());
+            minimumMonthlyTransactionLimit(other.getMinimumMonthlyTransactionLimit());
+            minimumQuarterlyTransactionLimit(other.getMinimumQuarterlyTransactionLimit());
+            minimumYearlyTransactionLimit(other.getMinimumYearlyTransactionLimit());
+            minimumTransactionLimit(other.getMinimumTransactionLimit());
             return this;
         }
 
@@ -241,6 +343,72 @@ public final class TransactionLimits {
             return this;
         }
 
+        @JsonSetter(value = "minimumDailyTransactionLimit", nulls = Nulls.SKIP)
+        public Builder minimumDailyTransactionLimit(Optional<Amount> minimumDailyTransactionLimit) {
+            this.minimumDailyTransactionLimit = minimumDailyTransactionLimit;
+            return this;
+        }
+
+        public Builder minimumDailyTransactionLimit(Amount minimumDailyTransactionLimit) {
+            this.minimumDailyTransactionLimit = Optional.ofNullable(minimumDailyTransactionLimit);
+            return this;
+        }
+
+        @JsonSetter(value = "minimumWeeklyTransactionLimit", nulls = Nulls.SKIP)
+        public Builder minimumWeeklyTransactionLimit(Optional<Amount> minimumWeeklyTransactionLimit) {
+            this.minimumWeeklyTransactionLimit = minimumWeeklyTransactionLimit;
+            return this;
+        }
+
+        public Builder minimumWeeklyTransactionLimit(Amount minimumWeeklyTransactionLimit) {
+            this.minimumWeeklyTransactionLimit = Optional.ofNullable(minimumWeeklyTransactionLimit);
+            return this;
+        }
+
+        @JsonSetter(value = "minimumMonthlyTransactionLimit", nulls = Nulls.SKIP)
+        public Builder minimumMonthlyTransactionLimit(Optional<Amount> minimumMonthlyTransactionLimit) {
+            this.minimumMonthlyTransactionLimit = minimumMonthlyTransactionLimit;
+            return this;
+        }
+
+        public Builder minimumMonthlyTransactionLimit(Amount minimumMonthlyTransactionLimit) {
+            this.minimumMonthlyTransactionLimit = Optional.ofNullable(minimumMonthlyTransactionLimit);
+            return this;
+        }
+
+        @JsonSetter(value = "minimumQuarterlyTransactionLimit", nulls = Nulls.SKIP)
+        public Builder minimumQuarterlyTransactionLimit(Optional<Amount> minimumQuarterlyTransactionLimit) {
+            this.minimumQuarterlyTransactionLimit = minimumQuarterlyTransactionLimit;
+            return this;
+        }
+
+        public Builder minimumQuarterlyTransactionLimit(Amount minimumQuarterlyTransactionLimit) {
+            this.minimumQuarterlyTransactionLimit = Optional.ofNullable(minimumQuarterlyTransactionLimit);
+            return this;
+        }
+
+        @JsonSetter(value = "minimumYearlyTransactionLimit", nulls = Nulls.SKIP)
+        public Builder minimumYearlyTransactionLimit(Optional<Amount> minimumYearlyTransactionLimit) {
+            this.minimumYearlyTransactionLimit = minimumYearlyTransactionLimit;
+            return this;
+        }
+
+        public Builder minimumYearlyTransactionLimit(Amount minimumYearlyTransactionLimit) {
+            this.minimumYearlyTransactionLimit = Optional.ofNullable(minimumYearlyTransactionLimit);
+            return this;
+        }
+
+        @JsonSetter(value = "minimumTransactionLimit", nulls = Nulls.SKIP)
+        public Builder minimumTransactionLimit(Optional<Amount> minimumTransactionLimit) {
+            this.minimumTransactionLimit = minimumTransactionLimit;
+            return this;
+        }
+
+        public Builder minimumTransactionLimit(Amount minimumTransactionLimit) {
+            this.minimumTransactionLimit = Optional.ofNullable(minimumTransactionLimit);
+            return this;
+        }
+
         public TransactionLimits build() {
             return new TransactionLimits(
                     maximumDailyTransactionLimit,
@@ -250,6 +418,12 @@ public final class TransactionLimits {
                     maximumTransactionLimit,
                     maximumYearlyTransactionLimit,
                     paymentMethodLimits,
+                    minimumDailyTransactionLimit,
+                    minimumWeeklyTransactionLimit,
+                    minimumMonthlyTransactionLimit,
+                    minimumQuarterlyTransactionLimit,
+                    minimumYearlyTransactionLimit,
+                    minimumTransactionLimit,
                     additionalProperties);
         }
     }
