@@ -81,6 +81,8 @@ public final class BusinessOptional {
 
     private final Optional<Map<String, Object>> customObject;
 
+    private final Optional<Boolean> reRunRiskScoring;
+
     private final Map<String, Object> additionalProperties;
 
     private BusinessOptional(
@@ -114,6 +116,7 @@ public final class BusinessOptional {
             Optional<Boolean> adverseMediaStatus,
             Optional<List<String>> externalLinks,
             Optional<Map<String, Object>> customObject,
+            Optional<Boolean> reRunRiskScoring,
             Map<String, Object> additionalProperties) {
         this.activatedTimestamp = activatedTimestamp;
         this.userStateDetails = userStateDetails;
@@ -145,6 +148,7 @@ public final class BusinessOptional {
         this.adverseMediaStatus = adverseMediaStatus;
         this.externalLinks = externalLinks;
         this.customObject = customObject;
+        this.reRunRiskScoring = reRunRiskScoring;
         this.additionalProperties = additionalProperties;
     }
 
@@ -337,6 +341,14 @@ public final class BusinessOptional {
         return customObject;
     }
 
+    /**
+     * @return Controls if user risk score should be calculated on risk scoring re-runs. If left unset risk scoring is calcuated need to be explicity set to false to stop calculations.
+     */
+    @JsonProperty("reRunRiskScoring")
+    public Optional<Boolean> getReRunRiskScoring() {
+        return reRunRiskScoring;
+    }
+
     @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
@@ -378,7 +390,8 @@ public final class BusinessOptional {
                 && sanctionsStatus.equals(other.sanctionsStatus)
                 && adverseMediaStatus.equals(other.adverseMediaStatus)
                 && externalLinks.equals(other.externalLinks)
-                && customObject.equals(other.customObject);
+                && customObject.equals(other.customObject)
+                && reRunRiskScoring.equals(other.reRunRiskScoring);
     }
 
     @java.lang.Override
@@ -413,7 +426,8 @@ public final class BusinessOptional {
                 this.sanctionsStatus,
                 this.adverseMediaStatus,
                 this.externalLinks,
-                this.customObject);
+                this.customObject,
+                this.reRunRiskScoring);
     }
 
     @java.lang.Override
@@ -487,6 +501,8 @@ public final class BusinessOptional {
 
         private Optional<Map<String, Object>> customObject = Optional.empty();
 
+        private Optional<Boolean> reRunRiskScoring = Optional.empty();
+
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
 
@@ -523,6 +539,7 @@ public final class BusinessOptional {
             adverseMediaStatus(other.getAdverseMediaStatus());
             externalLinks(other.getExternalLinks());
             customObject(other.getCustomObject());
+            reRunRiskScoring(other.getReRunRiskScoring());
             return this;
         }
 
@@ -859,6 +876,17 @@ public final class BusinessOptional {
             return this;
         }
 
+        @JsonSetter(value = "reRunRiskScoring", nulls = Nulls.SKIP)
+        public Builder reRunRiskScoring(Optional<Boolean> reRunRiskScoring) {
+            this.reRunRiskScoring = reRunRiskScoring;
+            return this;
+        }
+
+        public Builder reRunRiskScoring(Boolean reRunRiskScoring) {
+            this.reRunRiskScoring = Optional.ofNullable(reRunRiskScoring);
+            return this;
+        }
+
         public BusinessOptional build() {
             return new BusinessOptional(
                     activatedTimestamp,
@@ -891,6 +919,7 @@ public final class BusinessOptional {
                     adverseMediaStatus,
                     externalLinks,
                     customObject,
+                    reRunRiskScoring,
                     additionalProperties);
         }
     }

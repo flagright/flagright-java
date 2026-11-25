@@ -86,6 +86,8 @@ public final class Business {
 
     private final Optional<Map<String, Object>> customObject;
 
+    private final Optional<Boolean> reRunRiskScoring;
+
     private final Map<String, Object> additionalProperties;
 
     private Business(
@@ -121,6 +123,7 @@ public final class Business {
             Optional<Boolean> adverseMediaStatus,
             Optional<List<String>> externalLinks,
             Optional<Map<String, Object>> customObject,
+            Optional<Boolean> reRunRiskScoring,
             Map<String, Object> additionalProperties) {
         this.userId = userId;
         this.createdTimestamp = createdTimestamp;
@@ -154,6 +157,7 @@ public final class Business {
         this.adverseMediaStatus = adverseMediaStatus;
         this.externalLinks = externalLinks;
         this.customObject = customObject;
+        this.reRunRiskScoring = reRunRiskScoring;
         this.additionalProperties = additionalProperties;
     }
 
@@ -362,6 +366,14 @@ public final class Business {
         return customObject;
     }
 
+    /**
+     * @return Controls if user risk score should be calculated on risk scoring re-runs. If left unset risk scoring is calcuated need to be explicity set to false to stop calculations.
+     */
+    @JsonProperty("reRunRiskScoring")
+    public Optional<Boolean> getReRunRiskScoring() {
+        return reRunRiskScoring;
+    }
+
     @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
@@ -405,7 +417,8 @@ public final class Business {
                 && sanctionsStatus.equals(other.sanctionsStatus)
                 && adverseMediaStatus.equals(other.adverseMediaStatus)
                 && externalLinks.equals(other.externalLinks)
-                && customObject.equals(other.customObject);
+                && customObject.equals(other.customObject)
+                && reRunRiskScoring.equals(other.reRunRiskScoring);
     }
 
     @java.lang.Override
@@ -442,7 +455,8 @@ public final class Business {
                 this.sanctionsStatus,
                 this.adverseMediaStatus,
                 this.externalLinks,
-                this.customObject);
+                this.customObject,
+                this.reRunRiskScoring);
     }
 
     @java.lang.Override
@@ -587,6 +601,10 @@ public final class Business {
         _FinalStage customObject(Optional<Map<String, Object>> customObject);
 
         _FinalStage customObject(Map<String, Object> customObject);
+
+        _FinalStage reRunRiskScoring(Optional<Boolean> reRunRiskScoring);
+
+        _FinalStage reRunRiskScoring(Boolean reRunRiskScoring);
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
@@ -596,6 +614,8 @@ public final class Business {
         private double createdTimestamp;
 
         private LegalEntity legalEntity;
+
+        private Optional<Boolean> reRunRiskScoring = Optional.empty();
 
         private Optional<Map<String, Object>> customObject = Optional.empty();
 
@@ -694,6 +714,7 @@ public final class Business {
             adverseMediaStatus(other.getAdverseMediaStatus());
             externalLinks(other.getExternalLinks());
             customObject(other.getCustomObject());
+            reRunRiskScoring(other.getReRunRiskScoring());
             return this;
         }
 
@@ -723,6 +744,23 @@ public final class Business {
         @JsonSetter("legalEntity")
         public _FinalStage legalEntity(@NotNull LegalEntity legalEntity) {
             this.legalEntity = Objects.requireNonNull(legalEntity, "legalEntity must not be null");
+            return this;
+        }
+
+        /**
+         * <p>Controls if user risk score should be calculated on risk scoring re-runs. If left unset risk scoring is calcuated need to be explicity set to false to stop calculations.</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
+        @java.lang.Override
+        public _FinalStage reRunRiskScoring(Boolean reRunRiskScoring) {
+            this.reRunRiskScoring = Optional.ofNullable(reRunRiskScoring);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "reRunRiskScoring", nulls = Nulls.SKIP)
+        public _FinalStage reRunRiskScoring(Optional<Boolean> reRunRiskScoring) {
+            this.reRunRiskScoring = reRunRiskScoring;
             return this;
         }
 
@@ -1192,6 +1230,7 @@ public final class Business {
                     adverseMediaStatus,
                     externalLinks,
                     customObject,
+                    reRunRiskScoring,
                     additionalProperties);
         }
     }

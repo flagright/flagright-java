@@ -78,6 +78,8 @@ public interface IUserWithRulesResult {
 
     Optional<Map<String, Object>> getCustomObject();
 
+    Optional<Boolean> getReRunRiskScoring();
+
     Optional<List<ExecutedRulesResult>> getExecutedRules();
 
     Optional<List<HitRulesDetails>> getHitRules();

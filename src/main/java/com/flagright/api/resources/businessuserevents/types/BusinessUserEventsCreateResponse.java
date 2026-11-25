@@ -111,6 +111,8 @@ public final class BusinessUserEventsCreateResponse implements IBusinessWithRule
 
     private final Optional<Map<String, Object>> customObject;
 
+    private final Optional<Boolean> reRunRiskScoring;
+
     private final Optional<List<ExecutedRulesResult>> executedRules;
 
     private final Optional<List<HitRulesDetails>> hitRules;
@@ -154,6 +156,7 @@ public final class BusinessUserEventsCreateResponse implements IBusinessWithRule
             Optional<Boolean> adverseMediaStatus,
             Optional<List<String>> externalLinks,
             Optional<Map<String, Object>> customObject,
+            Optional<Boolean> reRunRiskScoring,
             Optional<List<ExecutedRulesResult>> executedRules,
             Optional<List<HitRulesDetails>> hitRules,
             Optional<UserRiskScoreDetails> riskScoreDetails,
@@ -191,6 +194,7 @@ public final class BusinessUserEventsCreateResponse implements IBusinessWithRule
         this.adverseMediaStatus = adverseMediaStatus;
         this.externalLinks = externalLinks;
         this.customObject = customObject;
+        this.reRunRiskScoring = reRunRiskScoring;
         this.executedRules = executedRules;
         this.hitRules = hitRules;
         this.riskScoreDetails = riskScoreDetails;
@@ -432,6 +436,15 @@ public final class BusinessUserEventsCreateResponse implements IBusinessWithRule
         return customObject;
     }
 
+    /**
+     * @return Controls if user risk score should be calculated on risk scoring re-runs. If left unset risk scoring is calcuated need to be explicity set to false to stop calculations.
+     */
+    @JsonProperty("reRunRiskScoring")
+    @java.lang.Override
+    public Optional<Boolean> getReRunRiskScoring() {
+        return reRunRiskScoring;
+    }
+
     @JsonProperty("executedRules")
     @java.lang.Override
     public Optional<List<ExecutedRulesResult>> getExecutedRules() {
@@ -499,6 +512,7 @@ public final class BusinessUserEventsCreateResponse implements IBusinessWithRule
                 && adverseMediaStatus.equals(other.adverseMediaStatus)
                 && externalLinks.equals(other.externalLinks)
                 && customObject.equals(other.customObject)
+                && reRunRiskScoring.equals(other.reRunRiskScoring)
                 && executedRules.equals(other.executedRules)
                 && hitRules.equals(other.hitRules)
                 && riskScoreDetails.equals(other.riskScoreDetails)
@@ -540,6 +554,7 @@ public final class BusinessUserEventsCreateResponse implements IBusinessWithRule
                 this.adverseMediaStatus,
                 this.externalLinks,
                 this.customObject,
+                this.reRunRiskScoring,
                 this.executedRules,
                 this.hitRules,
                 this.riskScoreDetails,
@@ -690,6 +705,10 @@ public final class BusinessUserEventsCreateResponse implements IBusinessWithRule
 
         _FinalStage customObject(Map<String, Object> customObject);
 
+        _FinalStage reRunRiskScoring(Optional<Boolean> reRunRiskScoring);
+
+        _FinalStage reRunRiskScoring(Boolean reRunRiskScoring);
+
         _FinalStage executedRules(Optional<List<ExecutedRulesResult>> executedRules);
 
         _FinalStage executedRules(List<ExecutedRulesResult> executedRules);
@@ -722,6 +741,8 @@ public final class BusinessUserEventsCreateResponse implements IBusinessWithRule
         private Optional<List<HitRulesDetails>> hitRules = Optional.empty();
 
         private Optional<List<ExecutedRulesResult>> executedRules = Optional.empty();
+
+        private Optional<Boolean> reRunRiskScoring = Optional.empty();
 
         private Optional<Map<String, Object>> customObject = Optional.empty();
 
@@ -820,6 +841,7 @@ public final class BusinessUserEventsCreateResponse implements IBusinessWithRule
             adverseMediaStatus(other.getAdverseMediaStatus());
             externalLinks(other.getExternalLinks());
             customObject(other.getCustomObject());
+            reRunRiskScoring(other.getReRunRiskScoring());
             executedRules(other.getExecutedRules());
             hitRules(other.getHitRules());
             riskScoreDetails(other.getRiskScoreDetails());
@@ -905,6 +927,23 @@ public final class BusinessUserEventsCreateResponse implements IBusinessWithRule
         @JsonSetter(value = "executedRules", nulls = Nulls.SKIP)
         public _FinalStage executedRules(Optional<List<ExecutedRulesResult>> executedRules) {
             this.executedRules = executedRules;
+            return this;
+        }
+
+        /**
+         * <p>Controls if user risk score should be calculated on risk scoring re-runs. If left unset risk scoring is calcuated need to be explicity set to false to stop calculations.</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
+        @java.lang.Override
+        public _FinalStage reRunRiskScoring(Boolean reRunRiskScoring) {
+            this.reRunRiskScoring = Optional.ofNullable(reRunRiskScoring);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "reRunRiskScoring", nulls = Nulls.SKIP)
+        public _FinalStage reRunRiskScoring(Optional<Boolean> reRunRiskScoring) {
+            this.reRunRiskScoring = reRunRiskScoring;
             return this;
         }
 
@@ -1377,6 +1416,7 @@ public final class BusinessUserEventsCreateResponse implements IBusinessWithRule
                     adverseMediaStatus,
                     externalLinks,
                     customObject,
+                    reRunRiskScoring,
                     executedRules,
                     hitRules,
                     riskScoreDetails,
